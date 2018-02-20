@@ -1,0 +1,51 @@
+{
+    "latex-workshop.latex.toolchain": [
+        {
+            "command": "xelatex",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "-shell-escape",
+                "%DOC%"
+            ]
+        },
+        {
+            "command": "bibtex",
+            "args": [
+                "%DOCFILE%"
+            ]
+        },
+        {
+            "command": "makeglossaries",
+            "args": [
+                "%DOCFILE%"
+            ]
+        },
+        {
+            "command": "xelatex",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "-shell-escape",
+                "%DOC%"
+            ]
+        }
+    ],
+    "files.exclude": {
+        "**/.git": true,
+        "**/_minted*": true,
+        "**/*.aux" : true,
+        "**/*.log" : true,
+        "**/*.fls" : true,
+        "**/*.bbl" : true,
+        "**/*.blg" : true,
+        "**/*.lof" : true,
+        "**/*.lol" : true,
+        "**/*.lot" : true,
+        "**/*.toc" : true,
+        "**/*.xdv" : true,
+        "**/*.out" : true
+      }
+}

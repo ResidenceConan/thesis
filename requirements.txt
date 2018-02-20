@@ -1,0 +1,2 @@
+requests
+Pygments>=2.2.0

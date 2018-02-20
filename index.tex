@@ -1,0 +1,56 @@
+\input{config/configuration}
+\input{config/commands}
+\input{config/standardtexts}
+
+\loadglsentries{appendix/glossary}
+\makeglossaries
+
+\begin{document}
+\setromanfont[BoldFont={Gentium Basic Bold},ItalicFont={Gentium Basic Italic}]{Gentium Basic}
+
+\include{start/titlepage}
+
+\include{start/abstract}
+\include{start/managementsummary}
+
+\addcontentsline{toc}{chapter}{Inhaltsverzeichnis}
+\tableofcontents
+
+% not included in released version
+% \addcontentsline{toc}{chapter}{Aufgabenstellung}
+% \includepdf[pages=-, frame, scale=.9]{additionals/assignment.pdf}
+
+\include{technicalreport/index}
+
+\include{projectdoc/index}
+
+% not included in released version
+% \include{additionals/index}
+
+\glsaddall
+\printglossary[type=main,title=Glossar]
+
+\include{appendix/abbreviations}
+
+\nocite{*}
+\cleardoublepage % https://tex.stackexchange.com/a/98995
+\phantomsection
+\addcontentsline{toc}{chapter}{Literaturverzeichnis}
+\bibliographystyle{IEEEtran}
+\bibliography{thesis}
+
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{Abbildungsverzeichnis}
+\listoffigures
+
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{Tabellenverzeichnis}
+\listoftables
+
+\renewcommand\listoflistingscaption{Code Listings}
+\listoflistings
+\addcontentsline{toc}{chapter}{Code Listings}
+
+\end{document}

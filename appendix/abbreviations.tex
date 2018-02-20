@@ -1,0 +1,13 @@
+% \ac prints the longform the first time, after that the short
+% using \acs always prints the shortform
+   
+\chapter*{Abkürzungsverzeichnis}\addcontentsline{toc}{chapter}{Abkürzungsverzeichnis}
+\begin{acronym}[REST] % [] should contain the longest acronym
+    \acro{OSM}{OpenStreetMap}
+    \acro{RUP}{Rational Unified Process}
+    \acro{API}{Application Programming Interface}
+    \acro{UML}{Unified Modeling Language}
+    \acro{REST}{Representational state transfer}
+    \acro{CI}{Continuous Integration}
+    \acro{TDD}{Test-Driven Development}
+\end{acronym}

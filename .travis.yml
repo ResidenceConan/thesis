@@ -7,6 +7,12 @@ install:
     - tlmgr install IEEEtran placeins framed threeparttable acronym minted ifplatform bigfoot xstring fvextra chngcntr enumitem mfirstuc xfor datatool substr etoolbox tracklang glossaries pgfplots
 script: build/build_travis.sh
 deploy:
+  - provider: script
+    script: build/deploy_jira-issue.sh
+    on:
+        all_branches: true
+        condition: "$TRAVIS_BRANCH != master"
+    skip_cleanup: true
   - provider: releases
     api_key:
       secure: vCcgOdjKZY1Fx/O24kCdn41cC8bMsYnDUnpHKQsj525ogA/Yey+31mi9/cNQZlhGy0Lf7//6rhLjxAj/ojl9xtvDTdMpEIXVWFXED7NIHnEE/LpazD/E4+sDAfu9EtAplvBH54HEuxvfWqoO17ItswsjdhSarkaSOLRZJJph9db4hwvNk1Cghn9l6h4opl1EeG/sYIVGYQlIrME8zGlMYDoYvUah9/+DabQbYhYVHxIv3nzGkTLmd+7rGQtZoZyq5eldfFuwPqWlNL1Sl/8rZkslLwsfFpbPf+MZrKnCmUb/a5EMErqtyX+kJIcRivEltaV7C0SUriYWKkLzwVvkUke6DF4km/mGM1e7R/g8pVcFOZvQybUAoqJ1nv49ziEafcRHPX6O7saPn4sGvASjpPc5I2DovO3zaer3Bz0cRRR9SSnlwBLo1b/jLKLzbLM+tEVLh17xNpLomZ7Xq5oGdnzvkY4sKr8cc/F5BuWGb6HhBVchU8C0FM7nw1OW+m1F0soizE9rRSmKIcIeag+Rz4Od/ii6ttEzOSKmJNyYrMRe+OmQWUHLGuD1clxQw4FuMRPI57tKrlFRf79b1IBlP8UM1YhFJYM2JjD5zi0C+7pSgoXZ8a3BPvaFDz38FNDUJ3yBcfW48GjVTcRc6XMDiqFuCCrg6RnJ1zY6I/H2Qvc=

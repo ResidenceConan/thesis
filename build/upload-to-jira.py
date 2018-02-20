@@ -10,7 +10,7 @@ api_url = "/rest/api/2/issue/{}/attachments"
 headers = {"X-Atlassian-Token": "nocheck"}
 jira_user = os.environ.get("JIRA_USER")
 jira_pw = os.environ.get("JIRA_PW")
-jira_prefix = "PZ"
+jira_prefix = "BA"
 branch = os.environ.get("TRAVIS_BRANCH")
 
 

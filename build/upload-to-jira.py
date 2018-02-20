@@ -36,6 +36,7 @@ request_url = base_url + str.format(api_url, issue_key)
 filename = sys.argv[1]
 files = {'file': get_file(filename)}
 
+print(str.format('JIRA-User: {}', jira_user))
 req = requests.post(request_url, auth=(jira_user, jira_pw), files=files, headers=headers)
 
 if (req.status_code == 200):

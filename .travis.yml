@@ -22,6 +22,5 @@ deploy:
        tags: true
 cache:
   directories:
-    - /tmp/texlive
-    - $HOME/.texlive
+    - $HOME/texlive
 sudo: required

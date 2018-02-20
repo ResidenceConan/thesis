@@ -20,7 +20,4 @@ deploy:
     skip_cleanup: true
     on:
        tags: true
-cache:
-  directories:
-    - $HOME/texlive
 sudo: required

@@ -5,6 +5,17 @@
     numbers=noenddot] % no trailing period after headings
 	{scrreprt} % Report (KOMA-Script)
 
+% redefine old commands used by the glossary plugin
+\makeatletter
+\DeclareOldFontCommand{\rm}{\normalfont\rmfamily}{\mathrm}
+\DeclareOldFontCommand{\sf}{\normalfont\sffamily}{\mathsf}
+\DeclareOldFontCommand{\tt}{\normalfont\ttfamily}{\mathtt}
+\DeclareOldFontCommand{\bf}{\normalfont\bfseries}{\mathbf}
+\DeclareOldFontCommand{\it}{\normalfont\itshape}{\mathit}
+\DeclareOldFontCommand{\sl}{\normalfont\slshape}{\@nomath\sl}
+\DeclareOldFontCommand{\sc}{\normalfont\scshape}{\@nomath\sc}
+\makeatother
+
 \usepackage{fontspec}
 
 \usepackage[babel]{microtype} % Automatische Grauwertverbesserung

@@ -234,5 +234,8 @@ index.pdf
 index.mintedmd5
 index.mintedcmd
 
+# Asta
+*.asta.lock
+
 # Additional files
 additionals/*.pdf

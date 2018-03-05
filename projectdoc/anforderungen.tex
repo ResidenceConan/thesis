@@ -10,7 +10,7 @@ Zur Übersicht ist das Use Case Diagramm in Abbildung \ref{fig:UseCase_OeV-Guete
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.7\linewidth]{projectdoc/img/UseCase_OeV-Gueteklassen_2018}
+\includegraphics[width=1.0\linewidth]{projectdoc/img/UseCase_OeV-Gueteklassen_2018}
 \caption[Use Case Diagramm]{Use Case Diagramm}
 \label{fig:UseCase_OeV-Gueteklassen_2018}
 \end{figure}
@@ -19,18 +19,24 @@ Zur Übersicht ist das Use Case Diagramm in Abbildung \ref{fig:UseCase_OeV-Guete
 \label{Use Cases:Aktoren}
 
 Um die Anforderungen akkurat evaluieren zu können, ist es essentiell dass die Aktoren des Systems identifiziert werden. 
-In der Tabelle der Tabelle \ref{table:aktoren} sind die Aktoren mit ihren Interessen aufgelistet. 
+In der Tabelle \ref{table:Aktoren} sind die Aktoren mit ihren Interessen aufgelistet. 
 
-\begin{table}[h]
-    \centering
+\begin{longtable}{l p{14cm}}
+        \toprule
+        \textbf{Aktor}
+                                & \textbf{Beschreibung und Interesse} \\
+        \midrule
+        \textbf{Admin}
+                                & Ein \emph{Admin} ist für die Bereitstellung von akkuraten \acs{ÖV}-Güteklassen-Daten verantwortlich, welche er den Aktoren \emph{Analyst} und \emph{User} für weitere Auswertung zur Verfügung stellt. So möchte er die erforderlichen Daten sammeln und verarbeiten. \\
+        \textbf{Analyst}
+                                & Unter dem Aktor \emph{Analyst} sind Raum-/Verkehrsplaner, Transportgesellschaften und weitere Personen, welche die \acs{ÖV}-Güteklassen-Daten für analytische Zwecke und als Planungsinstrument verwenden möchten, zusammengefasst. \\                                
+        \textbf{User}
+                                & Ein \emph{User} ist grundsätzlich am aktuellen Stand der \acs{ÖV}-Güteklassen in einer bestimmten Region interessiert, welche er als Basis für weitere Entscheidungen bezieht.\\     
+                                                     
+        \bottomrule
     \caption{Aktoren}
-    \label{table:aktoren}
-    \begin{tabular}{ll}
-        \textbf{Aktor} & \textbf{Beschreibung und Interessen}                                                                                                                                                                                     \\
-        \textbf{User}  & \begin{tabular}[c]{@{}l@{}}Ein User ist ...\end{tabular}                                          \\
-        \textbf{Admin} & \begin{tabular}[c]{@{}l@{}}Ein Admin ist ...\end{tabular}
-    \end{tabular}
-\end{table}
+    \label{table:Aktoren}
+\end{longtable}
 
 \subsubsection{UC01: TODO}
 \label{Use Cases:UC01}

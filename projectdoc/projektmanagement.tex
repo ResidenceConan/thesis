@@ -272,7 +272,7 @@ Die weniger relevanten Stakeholder im Bezug auf den Einfluss werden für das Pro
                                 & Nimmt die ÖV-Güteklassen 2018 Spezifikation ab und gestaltet die Spezifikation aktiv mit. \\     
         \textbf{Raumplaner/Verkehrsplaner}
                                 & Gemäss Verordnung werden nur noch Gebiete mit einer guten ÖV-Erschliessung verdichtet. Mit den Güteklassen lässt sich prüfen, an welchen Standorten eine Verdichtung stattfinden kann.
-                                & Hat keinen direkten Einfluss. Die Interessen fliessen in die Anforderungen. \\     
+                                & Hat keinen direkten Einfluss. Die Interessen fliessen ein die Anforderungen. \\     
         \textbf{Transportgesellschaften}
                                 & Transportgesellschaften überprüfen mit den Güteklassen die aktuelle Erschliessung der Schweiz und können dadurch Erweiterungspotential eruieren.
                                 & Hat keinen direkten Einfluss. Die Interessen fliessen in die Anforderungen. \\       
@@ -288,15 +288,63 @@ Die weniger relevanten Stakeholder im Bezug auf den Einfluss werden für das Pro
 \subsection{Risiken}
 \label{Projektmanagement:Risiken}
 
-%TODO
+\begin{longtable}{p{0.5cm} p{7cm} p{2cm} p{2cm} p{2cm}}
+    \toprule
+      \textbf{ID}
+    & \textbf{Risiko}
+    & \textbf{max. Schaden [h]}   
+    & \textbf{WSK}
+    & \textbf{gewichteter Schaden} \\
+    \midrule
+    \textbf{1}
+                    & Definition der ''\acs{ÖV}-Güteklassen 2018''-Spezifikation findet kein Ende.
+                    & 20
+                    & 30%
+                    & 6 \\
+    \textbf{2}
+                    & PostGIS und pgRouting eignet sich nicht für die \acs{ÖV}-Güteklasse-Berechnung.
+                    & 40
+                    & 20%
+                    & 8 \\    
+    \textbf{3}
+                    & PostGIS und pgRouting sind technologisches Neuland.
+                    & 24
+                    & 30%
+                    & 7.2 \\
+    \textbf{4}
+                    & Es existieren viele Abhängigkeiten auf Fremdsysteme.
+                    & 8
+                    & 20%
+                    & 1.6 \\
+    \textbf{5}
+                    & Fremdsysteme bieten nicht die geforderte Datenqualität.
+                    & 24
+                    & 20%
+                    & 4.8 \\
+    \textbf{6}
+                    & Frontend-Framework eignet sich nicht für Karten-Integration.
+                    & 16
+                    & 30%
+                    & 4.8 \\
+    \bottomrule
+    \caption{Risiken}
+    \label{table:Risiken}
+\end{longtable}
 
+In der Tabelle \ref{table:Risiken} sind die identifizierten Projektrisiken aufgelistet.
+Grundsätzlich lässt sich sagen, dass sich alle Risiken in einem vertretbaren Rahmen befinden.
+Das Hauptrisiko der Bachelorarbeit ist das technische Neuland und die fehlende Erfahrung mit PostGIS und pgRouting.
+Der Umgang und die Konsequenzen, welche sich aus der Risikoanalyse ableiten, sind in den folgenden Unterkapitel beschrieben.
+Die Risiken werden in einem zwei-wöchentlichen Rhythmus diskutiert und bei Unstimmigkeiten revidiert und neue Massnahmen getroffen.
 
 \subsubsection{Umgang mit Risiken}
 \label{Risiken:Umang mit Risiken}
 
-%TODO
+Die Risikoanalyse hat einen erwarteten Mehraufwand von \emph{32.4} Stunden ergeben.
+Den in Tabelle \ref{table:Risiken} identifizierten technischen Risiken (\emph{ID 2, 3 und 6}) wird mit einer geplanten Einarbeitung und Prototypen entgegen gewirkt.
+Damit die Spezifikation der \acs{ÖV}-Güteklassen 2018 ein definitives Ende findet und mit der Umsetzung begonnen werden kann, wird ein fixer Milestone ''Spezifikation umsetzungsbereit'' definiert, welcher zwei Überarbeitungsrunden beinhaltet.
 
 \subsubsection{Konsequenz}
 \label{Risiken:Konsequenz}
 
-%TODO
+Falls die geplanten Massnahmen nicht den erwarteten Nutzen zeigen oder unerwartete Stolpersteine auftreten, wird der Use Case \nameref{Use Cases:UC05} aus dem Scope gestrichen.

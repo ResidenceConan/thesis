@@ -5,7 +5,7 @@
 \subsection{Use Cases}
 \label{Anforderungsspezifikation:Use Cases}
 
-Im folgenden sind die funktionalen Anforderungen an das System mit all seinen Komponenten, welche im Kapitel \ref{Architektur} aufgeführt sind, als Use Cases im Brief-Format beschrieben. 
+Im folgenden sind die funktionalen Anforderungen an das System mit all seinen Komponenten, welche im Kapitel \ref{Architektur} aufgeführt sind, als Use Cases im Brief-Format beschrieben.
 Zur Übersicht ist das Use Case Diagramm in Abbildung \ref{fig:UseCase_OeV-Gueteklassen_2018} zu betrachten.
 
 \begin{figure}[ht]
@@ -18,8 +18,8 @@ Zur Übersicht ist das Use Case Diagramm in Abbildung \ref{fig:UseCase_OeV-Guete
 \subsubsection{Aktoren}
 \label{Use Cases:Aktoren}
 
-Um die Anforderungen akkurat evaluieren zu können, ist es essentiell dass die Aktoren des Systems identifiziert werden. 
-In der Tabelle \ref{table:Aktoren} sind die Aktoren mit ihren Interessen aufgelistet. 
+Um die Anforderungen akkurat evaluieren zu können, ist es essentiell, die Aktoren des Systems zu identifizieren.
+In der Tabelle \ref{table:Aktoren} sind die Aktoren mit ihren Interessen aufgelistet.
 
 \begin{longtable}{l p{14cm}}
         \toprule
@@ -27,13 +27,12 @@ In der Tabelle \ref{table:Aktoren} sind die Aktoren mit ihren Interessen aufgeli
                                 & \textbf{Beschreibung und Interesse} \\
         \midrule
         \textbf{Admin}
-                                & Ein \emph{Admin} ist für die Bereitstellung von akkuraten \acs{ÖV}-Güteklassen-Daten verantwortlich, welche er den Aktoren \emph{Analyst} und \emph{User} für weitere Auswertung zur Verfügung stellt. 
+                                & Ein \emph{Admin} ist für die Bereitstellung von akkuraten \acs{ÖV}-Güteklassen-Daten verantwortlich, welche er den Aktoren \emph{Analyst} und \emph{User} für die weitere Auswertung zur Verfügung stellt.
                                 So möchte er die erforderlichen Daten sammeln und verarbeiten. \\
         \textbf{Analyst}
-                                & Unter dem Aktor \emph{Analyst} sind Raum-/Verkehrsplaner, Transportgesellschaften und weitere Personen, welche die \acs{ÖV}-Güteklassen-Daten für analytische Zwecke und als Planungsinstrument verwenden möchten, zusammengefasst. \\                                
+                                & Unter dem Aktor \emph{Analyst} sind Raum-/Verkehrsplaner, Transportgesellschaften und weitere Personen zusammengefasst, welche die \acs{ÖV}-Güteklassen-Daten für analytische Zwecke und als Planungsinstrument verwenden möchten. \\
         \textbf{User}
-                                & Ein \emph{User} ist grundsätzlich am aktuellen Stand der \acs{ÖV}-Güteklassen in einer bestimmten Region interessiert, welche er als Basis für weitere Entscheidungen bezieht.\\     
-                                                     
+                                & Ein \emph{User} ist grundsätzlich am aktuellen Stand der \acs{ÖV}-Güteklassen in einer bestimmten Region interessiert, welche er als Basis für weitere Entscheidungen bezieht. \\
         \bottomrule
     \caption{Aktoren}
     \label{table:Aktoren}
@@ -63,7 +62,7 @@ Da die diese Daten nicht einem stetigen Wandel unterstehen, steht es dem \emph{A
 
 Aktoren: \emph{Admin}
 
-Der \emph{Admin} nutzt das System ''\acs{ÖV}-Güteklassen 2018'' für das periodische Beziehen der Fahrplandaten über eine externe Schnittstelle. 
+Der \emph{Admin} nutzt das System ''\acs{ÖV}-Güteklassen 2018'' für das periodische Beziehen der Fahrplandaten über eine externe Schnittstelle.
 Das System bereit die Daten so vor, dass sie in \nameref{Use Cases:UC01} für die ''\acs{ÖV}-Güteklassen 2018''-Berechnung einbezogen werden können.
 
 \subsubsection{UC04: OSM-Daten periodisch vorverarbeiten}
@@ -71,7 +70,7 @@ Das System bereit die Daten so vor, dass sie in \nameref{Use Cases:UC01} für di
 
 Aktoren: \emph{Admin}
 
-Der \emph{Admin} nutzt das System ''\acs{ÖV}-Güteklassen 2018'' für das periodische Beziehen der \acs{OSM}-Daten über eine externe Schnittstelle. 
+Der \emph{Admin} nutzt das System ''\acs{ÖV}-Güteklassen 2018'' für das periodische Beziehen der \acs{OSM}-Daten über eine externe Schnittstelle.
 Das System bereit die Daten so vor, dass sie in \nameref{Use Cases:UC01} für die ''\acs{ÖV}-Güteklassen 2018''-Berechnung einbezogen werden können.
 
 
@@ -88,7 +87,7 @@ Der \emph{Admin} nutzt das System ''\acs{ÖV}-Güteklassen 2018'' für die Integ
 
 Aktoren: \emph{Analyst}
 
-Der \emph{Analyst} nutzt das System ''\acs{ÖV}-Güteklassen 2018'' für den Vergleich der \acs{ÖV}-Güteklassen 1993 und 2018. 
+Der \emph{Analyst} nutzt das System ''\acs{ÖV}-Güteklassen 2018'' für den Vergleich der \acs{ÖV}-Güteklassen 1993 und 2018.
 Das System präsentiert eine grafische Überlagerung der beiden \acs{ÖV}-Güteklassen.
 
 \subsubsection{UC07: ÖV-Güteklassen 2018 abfragen}

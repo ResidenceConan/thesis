@@ -27,7 +27,8 @@ In der Tabelle \ref{table:Aktoren} sind die Aktoren mit ihren Interessen aufgeli
                                 & \textbf{Beschreibung und Interesse} \\
         \midrule
         \textbf{Admin}
-                                & Ein \emph{Admin} ist für die Bereitstellung von akkuraten \acs{ÖV}-Güteklassen-Daten verantwortlich, welche er den Aktoren \emph{Analyst} und \emph{User} für weitere Auswertung zur Verfügung stellt. So möchte er die erforderlichen Daten sammeln und verarbeiten. \\
+                                & Ein \emph{Admin} ist für die Bereitstellung von akkuraten \acs{ÖV}-Güteklassen-Daten verantwortlich, welche er den Aktoren \emph{Analyst} und \emph{User} für weitere Auswertung zur Verfügung stellt. 
+                                So möchte er die erforderlichen Daten sammeln und verarbeiten. \\
         \textbf{Analyst}
                                 & Unter dem Aktor \emph{Analyst} sind Raum-/Verkehrsplaner, Transportgesellschaften und weitere Personen, welche die \acs{ÖV}-Güteklassen-Daten für analytische Zwecke und als Planungsinstrument verwenden möchten, zusammengefasst. \\                                
         \textbf{User}
@@ -38,22 +39,75 @@ In der Tabelle \ref{table:Aktoren} sind die Aktoren mit ihren Interessen aufgeli
     \label{table:Aktoren}
 \end{longtable}
 
-\subsubsection{UC01: TODO}
+\subsubsection{UC01: ÖV-Güteklassen 2018 berechnen}
 \label{Use Cases:UC01}
 
-Aktoren: \emph{User}
+Aktoren: \emph{Admin}
 
-Include: \nameref{Use Cases:UC02}
+Include: \nameref{Use Cases:UC02}, \nameref{Use Cases:UC03}, \nameref{Use Cases:UC04}
 
-%TODO
+Der \emph{Admin} startet die Berechnung der \acs{ÖV}-Güteklassen 2018 basierend auf einer Konfiguration (Stichtage und Zeitspannen) periodisch.
 
-\subsubsection{UC02: TODO}
+
+\subsubsection{UC02: Höhendaten vorverarbeiten}
 \label{Use Cases:UC02}
 
-Aktoren: \emph{User}
+Aktoren: \emph{Admin}
 
-%TODO
+Der \emph{Admin} füḧrt das manuelle Beziehen der Höhendaten durch und übergibt diese dem System ''\acs{ÖV}-Güteklassen 2018''.
+Das System bereit die Daten so vor, dass sie in \nameref{Use Cases:UC01} für die ''\acs{ÖV}-Güteklassen 2018''-Berechnung einbezogen werden können
+Da die diese Daten nicht einem stetigen Wandel unterstehen, steht es dem \emph{Admin} frei, diesen Schritt auszulassen und bereits im System vorhandene, verarbeitete Höhendaten zu verwenden.
 
+\subsubsection{UC03: Fahrplandaten periodisch vorverarbeiten}
+\label{Use Cases:UC03}
+
+Aktoren: \emph{Admin}
+
+Der \emph{Admin} nutzt das System ''\acs{ÖV}-Güteklassen 2018'' für das periodische Beziehen der Fahrplandaten über eine externe Schnittstelle. 
+Das System bereit die Daten so vor, dass sie in \nameref{Use Cases:UC01} für die ''\acs{ÖV}-Güteklassen 2018''-Berechnung einbezogen werden können.
+
+\subsubsection{UC04: OSM-Daten periodisch vorverarbeiten}
+\label{Use Cases:UC04}
+
+Aktoren: \emph{Admin}
+
+Der \emph{Admin} nutzt das System ''\acs{ÖV}-Güteklassen 2018'' für das periodische Beziehen der \acs{OSM}-Daten über eine externe Schnittstelle. 
+Das System bereit die Daten so vor, dass sie in \nameref{Use Cases:UC01} für die ''\acs{ÖV}-Güteklassen 2018''-Berechnung einbezogen werden können.
+
+
+\subsubsection{UC05: ÖV-Güteklassen 1993 integrieren}
+\label{Use Cases:UC05}
+
+Aktoren: \emph{Admin}
+
+Der \emph{Admin} nutzt das System ''\acs{ÖV}-Güteklassen 2018'' für die Integration der ÖV-Güteklassen 1993.
+% TODO hier ist mir noch nicht ganz klar, wie wir das machen. Analog zu 2018 einfach mit einer der bestehenden Berechnugsmethodik?
+
+\subsubsection{UC06: ÖV-Güteklassen 2018 und 1993 vergleichen}
+\label{Use Cases:UC06}
+
+Aktoren: \emph{Analyst}
+
+Der \emph{Analyst} nutzt das System ''\acs{ÖV}-Güteklassen 2018'' für den Vergleich der \acs{ÖV}-Güteklassen 1993 und 2018. 
+Das System präsentiert eine grafische Überlagerung der beiden \acs{ÖV}-Güteklassen.
+
+\subsubsection{UC07: ÖV-Güteklassen 2018 abfragen}
+\label{Use Cases:UC07}
+
+Aktoren: \emph{Analyst, User}
+
+Include: \nameref{Use Cases:UC08}
+
+Die Aktoren \emph{Analyst} und \emph{User} nutzt das System ''\acs{ÖV}-Güteklassen 2018'', um die berechneten \acs{ÖV}-Güteklassen 2018 anzuzeigen.
+
+
+\subsubsection{UC08: ÖV-Güteklassen 2018 parametrisieren}
+\label{Use Cases:UC08}
+
+Aktoren: \emph{Analyst, User}
+
+Die Aktoren \emph{Analyst} und \emph{User} übergibt dem System ''\acs{ÖV}-Güteklassen 2018'' eine Konfiguration der anzuzeigenden \acs{ÖV}-Güteklassen 2018.
+Das System ''\acs{ÖV}-Güteklassen 2018'' liefert auf Basis dieser die zugehörigen, vorgerechneten Daten.
 
 \subsection{Nicht-funktionale Anforderungen}
 \label{Anforderungsspezifikation:Nicht-funktionale Anforderungen}

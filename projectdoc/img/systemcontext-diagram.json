@@ -1,0 +1,112 @@
+{
+  "type": "System Context",
+  "scope": "ÖV-Güteklassen 2018",
+  "description": "System Kontextdiagramm für ÖV-Güteklassen 2018",
+  "size": "A5_Landscape",
+
+
+  "elements": [
+    {
+      "type": "Software System",
+      "name": "GTFS (geOps)",
+      "description": "Fahrplan-Daten",
+      "tags": "",
+      "position": "110,1210",
+      "containers": []
+    },
+    {
+      "type": "Software System",
+      "name": "ÖV-Güteklassen 2018",
+      "description": "Backend",
+      "tags": "Internal",
+      "position": "1010,1025",
+      "containers": []
+    },
+    {
+      "type": "Software System",
+      "name": "planet.osm.ch",
+      "description": "OSM Daten",
+      "tags": "",
+      "position": "1810,1025",
+      "containers": []
+    },
+    {
+      "type": "Software System",
+      "name": "swissALTI3D",
+      "description": "Höhendaten (manuell)",
+      "tags": "",
+      "position": "110,685",
+      "containers": []
+    },
+    {
+      "type": "Person",
+      "name": "User",
+      "description": "",
+      "tags": "",
+      "position": "1035,40"
+    },
+    {
+      "type": "Software System",
+      "name": "Web-App",
+      "description": "Frontend",
+      "tags": "",
+      "position": "1010,555",
+      "containers": []
+    }
+  ],
+
+
+  "relationships": [
+    {
+      "source": "ÖV-Güteklassen 2018",
+      "description": "",
+      "technology": "",
+      "destination": "GTFS (geOps)",
+      "tags": ""
+    },
+    {
+      "source": "ÖV-Güteklassen 2018",
+      "description": "",
+      "technology": "",
+      "destination": "swissALTI3D",
+      "tags": ""
+    },
+    {
+      "source": "ÖV-Güteklassen 2018",
+      "description": "",
+      "technology": "",
+      "destination": "planet.osm.ch",
+      "tags": ""
+    },
+    {
+      "source": "User",
+      "description": "via Web-Browser",
+      "technology": "HTTP",
+      "destination": "Web-App",
+      "tags": ""
+    },
+    {
+      "source": "Web-App",
+      "description": "Ruft visualisierte Daten ab",
+      "technology": "HTTP",
+      "destination": "ÖV-Güteklassen 2018",
+      "tags": ""
+    }
+  ],
+
+
+  "styles": [
+    {
+      "type": "element",
+      "tag": "Person",
+      "width": "",
+      "height": "",
+      "background": "",
+      "color": "",
+      "fontSize": "",
+      "border": "",
+      "opacity": "",
+      "shape": "Person"
+    }
+  ]
+}

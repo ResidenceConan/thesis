@@ -7,7 +7,36 @@ In diesem Kapitel wird die Architektur unserer Applikation und die Schnittstelle
 \subsection{Systemkontext}
 \label{Architektur:Systemkontext}
 
-%TODO
+In Abbildung \ref{fig:system-context-diagram} ist gestrichelt eingerahmt das System "ÖV-Güteklassen" zusammen mit den dazugehörigen Umsystemen dargestellt. Die Pfeile bedeuten, dass ein System in Richtung der Pfeilspitze Anfragen an ein anderes System sendet. Die Daten fliessen dementsprechend in die entgegengesetzte Richtung.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=1\linewidth]{projectdoc/img/systemcontext-diagram.png}
+    \caption[Systemkontextdiagramm]{Systemkontextdiagramm ÖV-Güteklassen 2018}
+    \label{fig:system-context-diagram}
+\end{figure}
+
+Im Folgenden werden die Umsysteme sowie die Beziehungen zu unserem System ''Öv-Güteklassen 2018'' genauer beschrieben.
+
+\subsubsection{Web-App}
+\label{subsystem:Web-App}
+
+Die Web-App dient zur Darstellung der ÖV-Güteklassen in einer interaktiven Karte für den Benutzer. Dazu erhält es die vorberechneten Daten vom System ''ÖV-Güteklassen 2018'' und visualisiert sie für die Anzeige im Webbrowser.
+
+\subsubsection{swissALTI3D}
+\label{subsystem:swissALTI3D}
+
+
+
+\subsubsection{GTFS}
+\label{subsystem:GTFS}
+
+% TODO
+\subsubsection{planet.osm.ch}
+\label{subsystem:planet.osm.ch}
+
+% TODO
+
 
 \subsection{Container}
 \label{Architektur:Container}

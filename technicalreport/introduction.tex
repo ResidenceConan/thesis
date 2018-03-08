@@ -15,7 +15,6 @@ Folgend werden Grundlagen und Begriffe eingeführt, welche für das grundlegende
 \acs{ÖV}-Güteklassen geben Auskunft darüber, wie gut ein Standort mit dem öffentlichen Verkehr erschlossen ist.
 Dies ist wichtig, wenn es darum geht, den öffentlichen Verkehr zu optimieren, Siedlungsverdichtung nach Innen an geeigneten Lagen voranzutreiben oder Standortentscheide für publikumsintensive Anlagen so zu treffen, dass sie möglichst wenig zusätzlichen Autoverkehr verursachen.~\cite{oev-guteklasse-gr-defintion}
 
-
 \subsection{Problemstellung}
 \label{Einführung:Problemstellung}
 
@@ -55,7 +54,7 @@ Bei der Bewertung der Kategorie wird aber nicht darauf geachtet, in welchem Takt
 So kann es sein, dass an einer Haltestelle alle 15 Minuten genau ein Bus ankommt, bei einer anderen alle 30 Minuten gleich zwei Busse in gleicher Richtung hintereinander.
 Die Berechnung zählt aber nur die Anzahl Verbindungen insgesamt, womit beide Haltestellen danach gleichwertig wären, obwohl die Haltestelle mit dem 15 Minuten Takt offensichtlich besser angeschlossen ist.
 
-In der Kategorisierung der Norm werden ausserdem Haltestellen, die halbstündlich oder stündlich bedient werden, in die gleiche Kategorie eingeteilt.
+In der Kategorisierung der Norm werden ausserdem Bushaltestellen, die halbstündlich oder stündlich bedient werden, in die gleiche Kategorie eingeteilt.
 Für ein Benützer der Haltestelle ist dies allerdings ein markanter Unterschied.
 
 \subsubsection{Berechnung an einem Stichtag}
@@ -75,7 +74,52 @@ Für touristische Regionen ist die Situation während der Hochsaison vielleicht 
 \subsection{Ziele und Unterziele}
 \label{Einführung:Ziele und Unterziele}
 
-%TODO
+Für die neue Spezifikation ''ÖV-Güteklassen 2018'' werden die in Kapitel \ref{Einführung:Problemstellung} eingeführten Probleme der bisherigen Berechnungsmethodik aufgegriffen.
+Nachfolgend werden die Lösungsansätze zu den einzelnen Problemen dargestellt.
+
+
+\subsubsection{Luftlinie bei Einzugsgebieten}
+\label{solution:Luftlinie bei Einzugsgebieten}
+
+Statt um jede Haltestelle Umkreise mit fixem Radius zu ziehen, bietet es sich an, das effektive Einzugsgebiet zu analysieren, das ein Fussgänger durch Benutzung von Strassen und Gehwege von der Haltestelle aus erreichen kann.
+
+Ein Ansatz dazu ist die Berechnung von Isodistanzen.
+Dies sind Linien, die jeweils alle Punkte verbinden, die von einem Startpunkt aus mit gleicher Distanz erreichbar sind.~\cite{isodistance_gislounge}
+Dadurch ist eine viel genauere Abbildung des Einzugsgebiet einer Haltestelle möglich.
+
+% TODO Bild generieren, um Isodistanzen zu demonstrieren
+
+\subsubsection{Topografie}
+\label{solution:Topografie}
+
+Um die Topografie bei der Berechnung vom Einzugsgebiet einer Haltestelle mit einzubeziehen, müssen die Höhenunterschiede beachtet werden.
+Dazu wird der Ansatz von Isodistanzen, wie in \ref{solution:Luftlinie bei Einzugsgebieten} beschrieben, erweitert. Zusätzlich zur Laufdistanz für einen Fussgänger werden die Höhenunterschiede in die Berechnung einbezogen und entsprechend gewichtet.
+Eine Haltestelle in einem steilen Gebiet hat so ein geringeres Einzugsgebiet als eine gleich gut angeschlossene Haltestelle in einem flachen Gebiet.
+
+Aktuelle Höhendaten für die Schweiz werden von swisstopo als swissALTI3D angeboten.~\cite{swissalti3d_swisstopo}
+
+\subsubsection{Taktberechnung}
+\label{solution:Taktberechnung}
+
+In der aktuellen Norm werden nur die Anzahl Verbindungen in einer gewissen Zeitspanne gezählt.
+Wie in \ref{problem:Taktberechnung} beschrieben, ergibt dies kein genaues Bild der Taktfrequenz der Verbindungen einer Haltestelle.
+
+% TODO: Genauere Aussagen über unsere Berechnungsmethoden
+Für eine optimierte Berechnung gibt es verschiedene Möglichkeiten.
+So könnte die maximale oder mittlere Zeit ermittelt werden, die zwischen zwei Verbindungen an einer Haltestelle auftreten.
+Im Bericht von ÖV-Güteklassen von Graubünden~\cite{oev-guteklasse-gr} wurde ausserdem eine maximale Anzahl von Taktlücken festgelegt, die zwischen 6.00 Uhr und 20.00 Uhr maximal auftreten dürfen, um die Haltestelle in die entsprechende Kategorie (Stundentakt, Halbstundentakt, etc.) einzuteilen.
+
+Als zusätzliche Änderungen werden Bushaltestellen, die einen Halbstundentakt haben, in eine höhere Kategorie eingeteilt, als solche, die nur einen Stundentakt haben.
+
+% TODO: "Hinketakt" mit einbeziehen?
+
+\subsubsection{Berechnung an einem Stichtag}
+\label{solution:Berechnung an einem Stichtag}
+
+Da die Fahrplandaten für das ganze Jahr zur Verfügung stehen und die Berechnung automatisiert erfolgen kann, spricht nichts dagegen, die ÖV-Güteklassen für mehrere Stichtage und Zeitspannen zu ermitteln.
+
+Es werden dazu vorgängig die Parameter definiert, mit welchen Fahrplandaten die Berechnung durchgeführt wird.
+Die verschiedenen Versionen können dann vom Benutzer einzeln in der Web-Applikation visualisiert werden.
 
 \subsubsection{Prototyp und Deliverables}
 \label{Ziele und Unterziele:Prototyp und Deliverables}

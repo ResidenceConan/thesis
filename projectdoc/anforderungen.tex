@@ -114,9 +114,7 @@ Das System ''\acs{ÖV}-Güteklassen 2018'' liefert auf Basis dieser die zugehör
 Im folgenden sind die nicht-funktionale Anforderungen an das System ''\acs{ÖV}-Güteklassen 2018'' aufgelistet.
 Bei der Erarbeitung wird darauf geachtet, dass die Kriterien \emph{Specific} und \emph{Measurable} aus den \emph{SMART}-Kriterien\cite{SMART} eingehalten werden.
 Als Spezifikation-Template wird das bewährte Quality Attribute Scenario (QAS) des Software Engineering Institute (SEI)\cite{BassSoftwareArchitecture2012} eingesetzt.
-
 In der Kategorie \emph{Stimulus Source} werden die Aktoren aus der Tabelle \ref{table:Aktoren} wiederverwendet.
-
 Die erwähnten Komponenten sind im Kapitel \ref{Architektur:Component} genauer beschrieben.
 
 \subsubsection{NFA01: Auslieferung der Komponenten als Docker-Image}
@@ -136,13 +134,13 @@ Die erwähnten Komponenten sind im Kapitel \ref{Architektur:Component} genauer b
         \textbf{Stimulus}
                                 & Die Generierung des Docker-Image wird gestartet\\
         \textbf{Environment}
-                                & Während dem Betrieb (unabhängig vom laufenden Web-App und Backend)\\
+                                & Normaler Betrieb (unabhängig vom laufenden Web-App und Backend)\\
         \textbf{Artifact}
                                 & Das ganze System ''ÖV-Güteklassen 2018'' mit all seinen Komponenten\\
         \textbf{Response}
-                                & Die Applikation ist als Docker-Image verfügbar, welche auf Docker Hub hochgeladen werden könnte\\  
+                                & Die Komponenten sind als Docker-Images verfügbar, welche auf Docker Hub hochgeladen werden könnten\\  
         \textbf{Response Measure}
-                                & Komponenten lassen sich als Docker-Image starten\\
+                                & Einzelne Komponente lassen sich als Docker-Image starten\\
                                   
         \bottomrule
     \caption{QAS NFA01}
@@ -158,7 +156,7 @@ Die erwähnten Komponenten sind im Kapitel \ref{Architektur:Component} genauer b
                                 & Berechnung der ÖV-Güteklassen 2018\\
         \midrule
         \textbf{Business Goals}
-                                & Aktualisierte ÖV-Güteklassen 2018 für weitere Auswertung\\
+                                & Aktualisierte ÖV-Güteklassen 2018 für weitere Auswertungen\\
         \textbf{Relevant Quality Attributes}
                                 & Performance (response time), Usability, Manageability\\
         \textbf{Stimulus Source}
@@ -166,7 +164,7 @@ Die erwähnten Komponenten sind im Kapitel \ref{Architektur:Component} genauer b
         \textbf{Stimulus}
                                 & Ausführung \nameref{Use Cases:UC01}\\
         \textbf{Environment}
-                                & Während dem Betrieb (unabhängig vom laufenden Web-App und Backend)\\
+                                & Normaler Betrieb (unabhängig vom laufenden Web-App und Backend)\\
         \textbf{Artifact}
                                 & ÖV-Güteklassen 2018 Processor und seine abhängige Fremdsysteme\\
         \textbf{Response}
@@ -187,7 +185,7 @@ Die erwähnten Komponenten sind im Kapitel \ref{Architektur:Component} genauer b
                                 & Periodische Aktualisierung der ÖV-Güteklassen 2018\\
         \midrule
         \textbf{Business Goals}
-                                & Automatisch aktualisierte ÖV-Güteklassen 2018 für weitere Auswertung\\
+                                & Automatisch aktualisierte ÖV-Güteklassen 2018 für weitere Auswertungen\\
         \textbf{Relevant Quality Attributes}
                                 & Administrability\\
         \textbf{Stimulus Source}
@@ -195,7 +193,7 @@ Die erwähnten Komponenten sind im Kapitel \ref{Architektur:Component} genauer b
         \textbf{Stimulus}
                                 & Periodische Ausführung \nameref{Use Cases:UC01} \\
         \textbf{Environment}
-                                & Während dem Betrieb (unabhängig vom laufenden Web-App und Backend)\\
+                                & Normaler Betrieb (unabhängig vom laufenden Web-App und Backend)\\
         \textbf{Artifact}
                                 & ÖV-Güteklassen 2018 Processor und seine abhängige Fremdsysteme\\
         \textbf{Response}
@@ -228,7 +226,7 @@ Die erwähnten Komponenten sind im Kapitel \ref{Architektur:Component} genauer b
         \textbf{Artifact}
                                 & Web-App und Backend\\
         \textbf{Response}
-                                & Web-App ist nicht verfügbar und Backend wird mit aktualisierten ''ÖV-Güteklassen 2018''-Daten gestartet\\  
+                                & Web-App ist wieder verfügbar und Backend ist mit aktualisierten ''ÖV-Güteklassen 2018''-Daten gestartet\\  
         \textbf{Response Measure}
                                 & Web-App ist nicht länger als eine Stunde vom Zeitpunkt des Herunterfahrens nicht verfügbar\\                                
         \bottomrule
@@ -259,7 +257,7 @@ Die erwähnten Komponenten sind im Kapitel \ref{Architektur:Component} genauer b
         \textbf{Response}
                                 & ÖV-Güteklassen 2018 werden für den gewünschten Bereich angezeigt\\  
         \textbf{Response Measure}
-                                & ÖV-Güteklassen 2018 werden nach Verändern des Zooms innerhalb von 5 Sekunden angezeigt\\                                
+                                & ÖV-Güteklassen 2018 werden nach verändern des Zooms innerhalb von 5 Sekunden angezeigt\\                                
         \bottomrule
     \caption{QAS NFA05}
     \label{table:nfa05}

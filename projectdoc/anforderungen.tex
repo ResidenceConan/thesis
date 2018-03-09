@@ -111,8 +111,156 @@ Das System ''\acs{ÖV}-Güteklassen 2018'' liefert auf Basis dieser die zugehör
 \subsection{Nicht-funktionale Anforderungen}
 \label{Anforderungsspezifikation:Nicht-funktionale Anforderungen}
 
-\subsubsection{NFA01: TODO}
+Im folgenden sind die nicht-funktionale Anforderungen an das System ''\acs{ÖV}-Güteklassen 2018'' aufgelistet.
+Bei der Erarbeitung wird darauf geachtet, dass die Kriterien \emph{Specific} und \emph{Measurable} aus den \emph{SMART}-Kriterien\cite{SMART} eingehalten werden.
+Als Spezifikation-Template wird das bewährte Quality Attribute Scenario (QAS) des Software Engineering Institute (SEI)\cite{BassSoftwareArchitecture2012} eingesetzt.
+
+In der Kategorie \emph{Stimulus Source} werden die Aktoren aus der Tabelle \ref{table:Aktoren} wiederverwendet.
+
+Die erwähnten Komponenten sind im Kapitel \ref{Architektur:Component} genauer beschrieben.
+
+\subsubsection{NFA01: Auslieferung der Komponenten als Docker-Image}
 \label{NFA:NFA01}
 
-%TODO
+\begin{longtable}{l p{10.6cm}}
+        \toprule
+        \textbf{Scenario}
+                                & Auslieferung der Komponenten als Docker-Image\\
+        \midrule
+        \textbf{Business Goals}
+                                & Deployment und Portierbarkeit gewährleisten \\
+        \textbf{Relevant Quality Attributes}
+                                & Maintainability, Manageability, Portability, Deployability\\
+        \textbf{Stimulus Source}
+                                & Admin\\
+        \textbf{Stimulus}
+                                & Die Generierung des Docker-Image wird gestartet\\
+        \textbf{Environment}
+                                & Während dem Betrieb (unabhängig vom laufenden Web-App und Backend)\\
+        \textbf{Artifact}
+                                & Das ganze System ''ÖV-Güteklassen 2018'' mit all seinen Komponenten\\
+        \textbf{Response}
+                                & Die Applikation ist als Docker-Image verfügbar, welche auf Docker Hub hochgeladen werden könnte\\  
+        \textbf{Response Measure}
+                                & Komponenten lassen sich als Docker-Image starten\\
+                                  
+        \bottomrule
+    \caption{QAS NFA01}
+    \label{table:nfa01}
+\end{longtable}
 
+\subsubsection{NFA02: Berechnung der ÖV-Güteklassen 2018}
+\label{NFA:NFA02}
+
+\begin{longtable}{l p{10.6cm}}
+        \toprule
+        \textbf{Scenario}
+                                & Berechnung der ÖV-Güteklassen 2018\\
+        \midrule
+        \textbf{Business Goals}
+                                & Aktualisierte ÖV-Güteklassen 2018 für weitere Auswertung\\
+        \textbf{Relevant Quality Attributes}
+                                & Performance (response time), Usability, Manageability\\
+        \textbf{Stimulus Source}
+                                & Admin\\
+        \textbf{Stimulus}
+                                & Ausführung \nameref{Use Cases:UC01}\\
+        \textbf{Environment}
+                                & Während dem Betrieb (unabhängig vom laufenden Web-App und Backend)\\
+        \textbf{Artifact}
+                                & ÖV-Güteklassen 2018 Processor und seine abhängige Fremdsysteme\\
+        \textbf{Response}
+                                & Berechnete ÖV-Güteklassen 2018 als GeoJSON\\  
+        \textbf{Response Measure}
+                                & Die ÖV-Güteklassen 2018 lassen sich innerhalb von 2 Stunden nach Absetzen des Befehls über ein CLI berechnen\\                                
+        \bottomrule
+    \caption{QAS NFA02}
+    \label{table:nfa02}
+\end{longtable}
+
+\subsubsection{NFA03: Periodische Aktualisierung der ÖV-Güteklassen 2018}
+\label{NFA:NFA03}
+
+\begin{longtable}{l p{10.6cm}}
+        \toprule
+        \textbf{Scenario}
+                                & Periodische Aktualisierung der ÖV-Güteklassen 2018\\
+        \midrule
+        \textbf{Business Goals}
+                                & Automatisch aktualisierte ÖV-Güteklassen 2018 für weitere Auswertung\\
+        \textbf{Relevant Quality Attributes}
+                                & Administrability\\
+        \textbf{Stimulus Source}
+                                & Cron-Job\\
+        \textbf{Stimulus}
+                                & Periodische Ausführung \nameref{Use Cases:UC01} \\
+        \textbf{Environment}
+                                & Während dem Betrieb (unabhängig vom laufenden Web-App und Backend)\\
+        \textbf{Artifact}
+                                & ÖV-Güteklassen 2018 Processor und seine abhängige Fremdsysteme\\
+        \textbf{Response}
+                                & Berechnete ÖV-Güteklassen 2018 als GeoJSON\\  
+        \textbf{Response Measure}
+                                & Alle zwei Wochen liegt eine aktualisiertes GeoJSON bereit, welches von anderen Komponenten verwendet werden kann\\                                
+        \bottomrule
+    \caption{QAS NFA03}
+    \label{table:nfa03}
+\end{longtable}
+
+\subsubsection{NFA04: Dauer des Unterbruchs bei Integration aktualisierter Daten}
+\label{NFA:NFA04}
+
+\begin{longtable}{l p{10.6cm}}
+        \toprule
+        \textbf{Scenario}
+                                & Dauer des Unterbruchs bei Integration aktualisierter Daten\\
+        \midrule
+        \textbf{Business Goals}
+                                & Kurzer Unterbruch während des Einspielens aktualisierter Daten\\
+        \textbf{Relevant Quality Attributes}
+                                & Availability \\
+        \textbf{Stimulus Source}
+                                & Admin\\
+        \textbf{Stimulus}
+                                & Nach Ausführung von \nameref{Use Cases:UC01} und \nameref{Use Cases:UC05} durch manuelle Interaktion des Admin\\
+        \textbf{Environment}
+                                & Web-App und Backend ist heruntergefahren\\
+        \textbf{Artifact}
+                                & Web-App und Backend\\
+        \textbf{Response}
+                                & Web-App ist nicht verfügbar und Backend wird mit aktualisierten ''ÖV-Güteklassen 2018''-Daten gestartet\\  
+        \textbf{Response Measure}
+                                & Web-App ist nicht länger als eine Stunde vom Zeitpunkt des Herunterfahrens nicht verfügbar\\                                
+        \bottomrule
+    \caption{QAS NFA04}
+    \label{table:nfa04}
+\end{longtable}
+
+\subsubsection{NFA05: Antwortzeit ÖV-Güteklassen 2018 anzeigen}
+\label{NFA:NFA05}
+
+\begin{longtable}{l p{10.6cm}}
+        \toprule
+        \textbf{Scenario}
+                                & Antwortzeit ÖV-Güteklassen 2018 anzeigen\\
+        \midrule
+        \textbf{Business Goals}
+                                & \\
+        \textbf{Relevant Quality Attributes}
+                                & Performance (response time), Scalability\\
+        \textbf{Stimulus Source}
+                                & User, Analyst\\
+        \textbf{Stimulus}
+                                & Ausführung \nameref{Use Cases:UC06} oder \nameref{Use Cases:UC07}\\
+        \textbf{Environment}
+                                & Normaler Betrieb\\
+        \textbf{Artifact}
+                                & Web-App und Backend\\
+        \textbf{Response}
+                                & ÖV-Güteklassen 2018 werden für den gewünschten Bereich angezeigt\\  
+        \textbf{Response Measure}
+                                & ÖV-Güteklassen 2018 werden nach Verändern des Zooms innerhalb von 5 Sekunden angezeigt\\                                
+        \bottomrule
+    \caption{QAS NFA05}
+    \label{table:nfa05}
+\end{longtable}

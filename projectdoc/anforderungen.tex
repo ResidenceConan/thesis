@@ -5,7 +5,7 @@
 \subsection{Use Cases}
 \label{Anforderungsspezifikation:Use Cases}
 
-Im folgenden sind die funktionalen Anforderungen an das System mit all seinen Komponenten, welche im Kapitel \ref{Architektur} aufgeführt sind, als Use Cases im Brief-Format beschrieben.
+Im Folgenden sind die funktionalen Anforderungen an das System mit all seinen Komponenten, welche im Kapitel \ref{Architektur} aufgeführt sind, als Use Cases im Brief-Format beschrieben.
 Zur Übersicht ist das Use Case Diagramm in Abbildung \ref{fig:UseCase_OeV-Gueteklassen_2018} zu betrachten.
 
 \begin{figure}[ht]
@@ -79,7 +79,7 @@ Das System bereit die Daten so vor, dass sie in \nameref{Use Cases:UC01} für di
 
 Aktoren: \emph{Admin}
 
-Der \emph{Admin} nutzt das System ''\acs{ÖV}-Güteklassen 2018'' für die Integration der bereits berechneten ÖV-Güteklassen 1993 \cite{berechnung_are}.
+Der \emph{Admin} nutzt das System ''\acs{ÖV}-Güteklassen 2018'' für die Integration der bereits berechneten ÖV-Güteklassen 1993~\cite{berechnung_are}.
 
 
 \subsubsection{UC06: ÖV-Güteklassen 2018 und 1993 vergleichen}
@@ -111,9 +111,9 @@ Das System ''\acs{ÖV}-Güteklassen 2018'' liefert auf Basis dieser die zugehör
 \subsection{Nicht-funktionale Anforderungen}
 \label{Anforderungsspezifikation:Nicht-funktionale Anforderungen}
 
-Im folgenden sind die nicht-funktionale Anforderungen an das System ''\acs{ÖV}-Güteklassen 2018'' aufgelistet.
-Bei der Erarbeitung wird darauf geachtet, dass die Kriterien \emph{Specific} und \emph{Measurable} aus den \emph{SMART}-Kriterien\cite{SMART} eingehalten werden.
-Als Spezifikation-Template wird das bewährte Quality Attribute Scenario (QAS) des Software Engineering Institute (SEI)\cite{BassSoftwareArchitecture2012} eingesetzt.
+Im Folgenden sind die nicht-funktionale Anforderungen an das System ''\acs{ÖV}-Güteklassen 2018'' aufgelistet.
+Bei der Erarbeitung wird darauf geachtet, dass die Kriterien \emph{Specific} und \emph{Measurable} aus den \emph{SMART}-Kriterien~\cite{SMART} eingehalten werden.
+Als Spezifikation-Template wird das bewährte Quality Attribute Scenario (QAS) des Software Engineering Institute (SEI)~\cite{BassSoftwareArchitecture2012} eingesetzt.
 In der Kategorie \emph{Stimulus Source} werden die Aktoren aus der Tabelle \ref{table:Aktoren} wiederverwendet.
 Die erwähnten Komponenten sind im Kapitel \ref{Architektur:Component} genauer beschrieben.
 
@@ -140,7 +140,7 @@ Die erwähnten Komponenten sind im Kapitel \ref{Architektur:Component} genauer b
         \textbf{Response}
                                 & Die Komponenten sind als Docker-Images verfügbar, welche auf Docker Hub hochgeladen werden könnten\\  
         \textbf{Response Measure}
-                                & Einzelne Komponente lassen sich als Docker-Image starten\\
+                                & Einzelne Komponenten lassen sich als Docker-Image starten\\
                                   
         \bottomrule
     \caption{QAS NFA01}
@@ -199,7 +199,7 @@ Die erwähnten Komponenten sind im Kapitel \ref{Architektur:Component} genauer b
         \textbf{Response}
                                 & Berechnete ÖV-Güteklassen 2018 als GeoJSON\\  
         \textbf{Response Measure}
-                                & Alle zwei Wochen liegt eine aktualisiertes GeoJSON bereit, welches von anderen Komponenten verwendet werden kann\\                                
+                                & Alle zwei Wochen liegt ein aktualisiertes GeoJSON bereit, welches von anderen Komponenten verwendet werden kann\\
         \bottomrule
     \caption{QAS NFA03}
     \label{table:nfa03}
@@ -257,7 +257,7 @@ Die erwähnten Komponenten sind im Kapitel \ref{Architektur:Component} genauer b
         \textbf{Response}
                                 & ÖV-Güteklassen 2018 werden für den gewünschten Bereich angezeigt\\  
         \textbf{Response Measure}
-                                & ÖV-Güteklassen 2018 werden nach verändern des Zooms innerhalb von 5 Sekunden angezeigt\\                                
+                                & ÖV-Güteklassen 2018 werden nach Verändern des Zooms innerhalb von 5 Sekunden angezeigt\\
         \bottomrule
     \caption{QAS NFA05}
     \label{table:nfa05}

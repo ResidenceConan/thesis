@@ -1,0 +1,152 @@
+{
+  "type": "Container",
+  "scope": "ÖV-Güteklassen 2018",
+  "description": "System Containerdiagramm für ÖV-Güteklassen 2018",
+  "size": "A4_Landscape",
+
+
+  "elements": [
+    {
+      "type": "Person",
+      "name": "Admin",
+      "description": "",
+      "tags": "",
+      "position": "815,1890"
+    },
+    {
+      "type": "Software System",
+      "name": "GTFS (geOps)",
+      "description": "Fahrplan-Daten",
+      "tags": "",
+      "position": "105,1125",
+      "containers": []
+    },
+    {
+      "type": "Software System",
+      "name": "ÖV-Güteklassen 2018",
+      "description": "",
+      "tags": "Internal",
+      "containers": [
+        {
+          "type": "Container",
+          "name": "Backend",
+          "description": "",
+          "technology": "",
+          "tags": "",
+          "position": "1735,1345",
+          "components": []
+        },
+        {
+          "type": "Container",
+          "name": "ÖV-Güteklassen 2018 Processor",
+          "description": "",
+          "technology": "",
+          "tags": "",
+          "position": "790,1345",
+          "components": []
+        },
+        {
+          "type": "Container",
+          "name": "Web-App",
+          "description": "",
+          "technology": "",
+          "tags": "",
+          "position": "1735,785",
+          "components": []
+        }
+      ]
+    },
+    {
+      "type": "Software System",
+      "name": "planet.osm.ch",
+      "description": "OSM Daten",
+      "tags": "",
+      "position": "115,1610",
+      "containers": []
+    },
+    {
+      "type": "Software System",
+      "name": "swissALTI3D",
+      "description": "Höhendaten (manuell)",
+      "tags": "",
+      "position": "105,630",
+      "containers": []
+    },
+    {
+      "type": "Person",
+      "name": "User",
+      "description": "",
+      "tags": "",
+      "position": "1750,125"
+    }
+  ],
+
+
+  "relationships": [
+    {
+      "source": "Admin",
+      "description": "via CLI",
+      "technology": "",
+      "destination": "ÖV-Güteklassen 2018 Processor",
+      "tags": ""
+    },
+    {
+      "source": "Backend",
+      "description": "Erhält GeoJSON von",
+      "technology": "",
+      "destination": "ÖV-Güteklassen 2018 Processor",
+      "tags": ""
+    },
+    {
+      "source": "ÖV-Güteklassen 2018 Processor",
+      "description": "",
+      "technology": "",
+      "destination": "swissALTI3D",
+      "tags": ""
+    },
+    {
+      "source": "ÖV-Güteklassen 2018 Processor",
+      "description": "",
+      "technology": "",
+      "destination": "GTFS (geOps)",
+      "tags": ""
+    },
+    {
+      "source": "ÖV-Güteklassen 2018 Processor",
+      "description": "",
+      "technology": "",
+      "destination": "planet.osm.ch",
+      "tags": ""
+    },
+    {
+      "source": "User",
+      "description": "via Web-Browser",
+      "technology": "HTTPS",
+      "destination": "Web-App",
+      "tags": ""
+    },
+    {
+      "source": "Web-App",
+      "description": "Lädt visualisierte Daten von",
+      "technology": "",
+      "destination": "Backend",
+      "tags": ""
+    }
+  ],
+
+
+  "styles": [
+    {
+      "type": "element",
+      "tag": "Person",
+      "width": "",
+      "height": "",
+      "background": "",
+      "color": "",
+      "fontSize": "",
+      "border": "",
+      "opacity": "",
+      "shape": "Person"
+    }
+  ]
+}

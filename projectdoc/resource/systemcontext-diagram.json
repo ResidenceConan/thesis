@@ -7,6 +7,13 @@
 
   "elements": [
     {
+      "type": "Person",
+      "name": "Admin",
+      "description": "",
+      "tags": "",
+      "position": "1580,220"
+    },
+    {
       "type": "Software System",
       "name": "GTFS (geOps)",
       "description": "Fahrplan-Daten",
@@ -17,7 +24,7 @@
     {
       "type": "Software System",
       "name": "ÖV-Güteklassen 2018",
-      "description": "Backend",
+      "description": "",
       "tags": "Internal",
       "position": "1010,1025",
       "containers": []
@@ -43,20 +50,19 @@
       "name": "User",
       "description": "",
       "tags": "",
-      "position": "1035,40"
-    },
-    {
-      "type": "Software System",
-      "name": "Web-App",
-      "description": "Frontend",
-      "tags": "",
-      "position": "1010,555",
-      "containers": []
+      "position": "1035,220"
     }
   ],
 
 
   "relationships": [
+    {
+      "source": "Admin",
+      "description": "via CLI",
+      "technology": "",
+      "destination": "ÖV-Güteklassen 2018",
+      "tags": ""
+    },
     {
       "source": "ÖV-Güteklassen 2018",
       "description": "",
@@ -82,15 +88,11 @@
       "source": "User",
       "description": "via Web-Browser",
       "technology": "HTTP",
-      "destination": "Web-App",
-      "tags": ""
-    },
-    {
-      "source": "Web-App",
-      "description": "Ruft visualisierte Daten ab",
-      "technology": "HTTP",
       "destination": "ÖV-Güteklassen 2018",
-      "tags": ""
+      "tags": "",
+      "vertices": [
+        "1235,730"
+      ]
     }
   ],
 

@@ -4,13 +4,57 @@
 
 %TODO
 
-\subsection{Evaluation ...}
-\label{Analyse:Evaluation ...}
+\subsection{Evaluation Frontend-Framework}
+\label{Analyse:Evaluation Frontend-Framework}
 
-%TODO
+Wie in den Rahmenbedingungen (Kap. \ref{Einführung:Rahmenbedingungen, Umfeld, Definitionen, Abgrenzungen}) festgehalten stehen für die Technologie der Web-Applikation (Frontend) die Optionen React~\cite{react} oder Vue.js~\cite{vuejs} zur Auswahl.
+Die Wahl viel auf diese zwei Frameworks, da sich beide momentan schnell verbreiten und zum Design von \ac{SPA} ausgelegt sind, was für unsere Zwecke zum Darstellen einer Karte gut geeignet ist.
+
+Vue.js und React werden im Folgenden anhand mehrerer Kriterien verglichen.
+Zum Schluss wird ein Fazit gezogen und entschieden, welches Framework für das Frontend eingesetzt wird.
+
+\subsubsection{Funktionsumfang}
+\label{Analyse Framework:Funktionsumfang}
+
+Sowohl React als auch Vue.js bauen auf sehr ähnlichen Prinzipien auf.
+Applikationen werden in einzelne Komponenten zerteilt und aufeinander aufgebaut.
+In einer Komponente is jeweils die Darstellung (Template) und die UI-Logik miteinander gekoppelt.
+Komponenten halten intern Daten, die von einer anderen Komponente bedingt verändert werden können.
+
+Ein Unterschied liegt in der Defintion von HTML-Templates.
+Vue.js verwendet reines HTML mit einer erweiterten Template-Syntax, ähnlich wie bei herkömmlichen Template-Engines.
+React dagegen benutzt JSX~\cite{jsx}, eine spezielle Syntax, bei der Javascript und HTML gemischt werden können.
+In einem Zwischenschritt wird dies zu Javascript kompiliert, das schlussendlich HTML-Elemente erstellt.
+Dies macht React etwas mächtiger, da die Templates nicht wie bei Vue.js auf vordefinierte Funktionen beschränkt sind, sondern direkt beliebiges Javascript verwendet werden kann.
+
+Durch die grössere Verbreitung von React gibt es dafür mehr Erweiterungen und eine grössere Community.
+Beide Frameworks sind aber schlank gehalten und bieten nur die Kernfunktionalitäten.
+Erweiterte Komponenten wie Routing oder State-Management sind in andere Frameworks ausgelagert.
+
+Insgesamt haben React und Vue.js einen sehr ähnlichen Funktionsumfang und verwenden fast identische Prinzipien.
+
+\subsubsection{Integration Web-Karte}
+\label{Analyse Framework:Integration Web-Karte}
+
+Für das Einfügen einer Web-Karte in die Web-Applikation hat sich die Library \emph{Leaflet}~\cite{leaflet} bewährt.
+Es wird bewertet, wie einfach sich Leaflet in React und Vue.js einbinden lässt.
+
+Für React bietet \emph{react-leaflet}~\cite{react-leaflet} die Funktionalität von Leaflet an, das Equivalent für Vue.js bildet \emph{Vue2Leaflet}~\cite{vue2leaflet}.
+
+Beide Komponenten bieten eine rudimentäre Dokumentation an, die Bedienung wird aber erst mit den zahlreichen Beispielen klar.
+Von der Funktionalität her ist kein grosser Unterschied festzustellen.
+\emph{Vue2Leaflet} bildet zwar nicht die komplette Leaflet-Library ab, die für diese Arbeit benötigten Funktionen sind aber alle vorhanden.
+
+
+\subsubsection{Bedienung}
+\label{Analyse Framework:Bedienung}
+
+\subsubsection{Tooling}
+\label{Analyse Framework:Bedienung}
+
 
 \subsubsection{Resultat}
-\label{Analyse:Resulat}
+\label{Analyse Framework:Resulat}
 
 %TODO
 

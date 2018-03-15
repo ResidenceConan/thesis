@@ -16,16 +16,14 @@ Es wurde seither keine allgemeingültige Definition verabschiedet.
 Im Folgenden ist aufgeschlüsselt, was genau die \acs{SN} 640 290~\cite{sn640290} in Bezug auf \acs{ÖV}-Güteklassen definiert und wo Schwachstellen liegen.
 
 \paragraph{Definition ÖV-Güteklassen}~\\
-
 Grundsätzlich definieren \acs{ÖV}-Güteklassen die Qualität der Erschliessung durch den öffentlichen Verkehr.
 Diese Qualität wird durch die \nameref{Definition ÖV-Güteklassen:Bedienungsqualität der Haltestelle} und die \nameref{Definition ÖV-Güteklassen:Erreichbarkeit der Haltestelle} festgesetzt.
 Beide Kriterien sind folgend definiert.
-Anmerken muss man, dass zu besserer Verständlichkeit und Übersichtlichkeit unteranderem zusätzliche Terminologie wie Transportmittelkategorie eingeführt wird.
+Anmerken muss man, dass zu besserer Verständlichkeit und Übersichtlichkeit unter anderem zusätzliche Terminologie wie Transportmittelkategorie eingeführt wird.
 
 \subparagraph{Bedienungsqualität der Haltestelle}~\\
 \label{Definition ÖV-Güteklassen:Bedienungsqualität der Haltestelle}
-
-Die öffentlichen Verkehrsmittel werden zuerst in Tabelle \ref{table:Transportmittelkategorien} ersichtlichen Transportmittelkategorien eingeteilt.
+Die öffentlichen Verkehrsmittel werden zuerst in die in Tabelle \ref{table:Transportmittelkategorien} ersichtlichen Transportmittelkategorien eingeteilt.
 
 \begin{longtable}{l p{10.6cm}}
         \midrule
@@ -95,9 +93,8 @@ Die Norm macht hier Ausnahmen bei Verdichtungen in Hauptverkehrszeiten, Linienü
 
 \subparagraph{Erreichbarkeit der Haltestelle}~\\
 \label{Definition ÖV-Güteklassen:Erreichbarkeit der Haltestelle}
-
 Basierend auf den vorhin definierten Haltestellenkategorien (I bis V) kann die Erreichbarkeit pro Haltestellenkategorien definiert werden.
-Die Distanzen sind Luftlinien wobei ein mittlere Umwegfaktor von 20 bis 30\% berücksichtigt wird.
+Die Distanzen sind Luftlinien, wobei ein mittlerer Umwegfaktor von 20 bis 30\% berücksichtigt wird.
 
 \begin{longtable}[c]{l p{3.3cm} p{3.3cm} p{3.3cm} p{3.3cm}}
         \midrule
@@ -140,12 +137,10 @@ Der Topographie wird Rechnung getragen, indem man bei schwierigen Gegebenheiten 
 
 \subparagraph{Problematik}~\\
 \label{Definition ÖV-Güteklassen:Problematik}
-
 %TODO Abgrenzung zu Kapitel Problemstellung & Vision
-
 Folgend werden identifizierte Schwachstellen der bestehenden Norm aufgelistet und mögliche Optimierungen präsentiert.
 Dabei behält man das Ziel der automatischen Berechnung hinter dem geistigen Auge.
-Ob die definierten Kriterien mit der vorhandenen Datenbasis umsetzbar ist und ob diese für eine schweizweite Umsetzung tauglich ist, ist Bestandteil dieser Analyse.
+Ob die definierten Kriterien mit der vorhandenen Datenbasis umsetzbar sind und ob diese für eine schweizweite Umsetzung tauglich ist, ist Bestandteil dieser Analyse.
 Bei den Optimierungen lehnen wir uns ebenfalls stark an die Erkenntnisse von~\cite{oev-guteklasse-gr}, welche die Norm an die spezifische Bedürfnisse des Kantons Graubünden anpasst hat und ~\cite{berechnung_are}, welche die Berechnungsmethodik basieren auf dieser Norm umgesetzt hat (siehe Kapitel...).
 %TODO Referenz auf Beschreibung der Berechnungsmethodik ARE
 
@@ -195,15 +190,15 @@ Eine aufwändigere Berechnung wäre von Nöten, welche aber auch nur eine Annäh
 Fähren und Schiffen werden in der Norm ausgeklammert.
 Eine Seeüberquerung per Fähre beispielsweise kann aber durchwegs ein Qualitätsmerkmal sein.
 
-Die Norm gliedert Bahnen mit "Tramcharakter" der Transportkategorie 3 zu, was einen gewissen Raum zur Interpretation offen lässt.
+Die Norm gliedert Bahnen mit ''Tramcharakter'' der Transportkategorie 3 zu, was einen gewissen Raum zur Interpretation offen lässt.
 Es lässt sich darüber streiten, ob eine Gondel mit einem Tram gleichgesetzt werden kann.
-Stand 13.03.2017 kommt die GTFS Route Type Kategorie 5 gemäss den Fahrplandaten~\cite{geops_fahrplandaten} in der Schweiz nicht vor und kann vernachlässigt werden.
+Stand 13.03.2018 kommt die GTFS Route Type Kategorie 5 gemäss den Fahrplandaten~\cite{geops_fahrplandaten} in der Schweiz nicht vor und kann vernachlässigt werden.
 
 Die Fahrplandaten bieten eine feingranularere Unterscheidung, welche für die Kategorisierung genutzt werden kann.
 
 \textbf{Ermittlung der Haltestellenkategorie}\\
 Wie in Tabelle \ref{table:Ermittlung der Haltestellenkategorie} ersichtlich ist, werden Verkehrsmittel in der Transportmittelkategorie 3 bei einem halb-stündlichen und stündlichen Takt in die gleiche Haltestellenkategorie eingeteilt.
-Für jeden Nutzer des öffentlichen Verkehrs ist es von Bedeutung ob er im schlimmsten Fall doppelt solange auf eine nächste Verbindung warten muss.
+Für jeden Nutzer des öffentlichen Verkehrs ist es von Bedeutung, ob er im schlimmsten Fall doppelt solange auf eine nächste Verbindung warten muss.
 Haltestellen in weniger urbanen Gebieten, welche nur zu Pendlerzeiten bedient werden, finden in der aktuellen Definition keinen Platz.
 
 \textbf{Ermittlung der Erreichbarkeit der Haltestelle}\\
@@ -220,11 +215,11 @@ Ebenfalls fehlt eine allgemeingültige Definition, was unter einem Arbeitsplatzg
 Die Norm lässt für einige Situationen Handlungsspielraum offen.
 Dies kann positiv wie auch negativ ausgelegt werden.
 Betrachtet man es unter dem Gesichtspunkt, dass die \acs{ÖV}-Güteklassen-Definition für einen automatisierte Berechnung ohne manuelle Fremdeinwirkung und grossen Konfigurationsbedarf verwendet werden soll, ist dieser Punkt negativ zu gewichten.
-Es ist unter anderem definiert, dass ein bei den Distanzen ein Umwegfaktor vom 20 bis 30\% zu berücksichtigen ist und je nach Topografie eine tiefere Klasse oder höhere Distanz gewählt werden.
-Diese Definition verlangt dass von Hand situativ entschieden wird oder ein Modell entwickelt wird, welche diese Entscheidung übernimmt und gibt aber keine Anhaltspunkte in welchen Situationen wie stark angepasst werden muss.
+Es ist unter anderem definiert, dass ein bei den Distanzen ein Umwegfaktor vom 20 bis 30\% zu berücksichtigen ist und je nach Topografie eine tiefere Klasse oder höhere Distanz gewählt wird.
+Diese Definition verlangt, dass von Hand situativ entschieden wird oder ein Modell entwickelt wird, welche diese Entscheidung übernimmt und gibt aber keine Anhaltspunkte, in welchen Situationen wie stark angepasst werden muss.
 
 \textbf{Unterschiedliche Berechnungsmethodiken}\\
-Es existieren unterschiedliche Berechnungsmethodike, welche auf der Norm \cite{sn640290} aufsetzen und modifizieren.
+Es existieren unterschiedliche Berechnungsmethodiken, welche auf der Norm~\cite{sn640290} aufsetzen und diese modifizieren.
 Eine nicht abschliessende Liste beinhaltet~\cite{berechnung_are},~\cite{oev-guteklasse-gr} und~\cite{oev-guteklassen-zh}.
 Dies führt zum Schluss, dass mit der aktuellen Definition der \acs{ÖV}-Güteklassen keine allgemeingültige und akzeptierte Definition geschaffen wurde, welche schweizweit einsetzbar ist und regionale Einflüsse berücksichtigt.
 Dies unterstützt die Schlussfolgerung, dass hier Handlungsbedarf existiert.
@@ -234,7 +229,7 @@ Dies unterstützt die Schlussfolgerung, dass hier Handlungsbedarf existiert.
 
 %TODO
 
-\paragraph{Bewertung}~\\
+\subsubsection{Bewertung}~\\
 
 %TODO
 

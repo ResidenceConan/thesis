@@ -11,6 +11,10 @@ Wie in den Rahmenbedingungen (Kap. \ref{Einführung:Rahmenbedingungen, Umfeld, D
 Die Wahl viel auf diese zwei Frameworks, da sich beide momentan schnell verbreiten und zum Design von \ac{SPA} ausgelegt sind, was für unsere Zwecke zum Darstellen einer Karte gut geeignet ist.
 
 Vue.js und React werden im Folgenden anhand mehrerer Kriterien verglichen.
+Als Demonstration wird mit beiden Varianten eine identische kleine Web-Applikation entwickelt.
+Diese besteht aus einer Web-Karte und einem kleinen Kontrollelement, um einen zusätzlichen Layer einzublenden.
+Der Code ist unter~\cite{github:playground} zu finden.
+
 Zum Schluss wird ein Fazit gezogen und entschieden, welches Framework für das Frontend eingesetzt wird.
 
 \subsubsection{Funktionsumfang}
@@ -33,10 +37,10 @@ Erweiterte Komponenten wie Routing oder State-Management sind in andere Framewor
 
 Insgesamt haben React und Vue.js einen sehr ähnlichen Funktionsumfang und verwenden fast identische Prinzipien.
 
-\subsubsection{Integration Web-Karte}
-\label{Analyse Framework:Integration Web-Karte}
+\subsubsection{Integration Leaflet}
+\label{Analyse Framework:Integration Leaflet}
 
-Für das Einfügen einer Web-Karte in die Web-Applikation hat sich die Library \emph{Leaflet}~\cite{leaflet} bewährt.
+Für das Einfügen einer Web-Karte mit Raster-Kacheln in eine Web-Applikation hat sich die Library \emph{Leaflet}~\cite{leaflet} bewährt.
 Es wird bewertet, wie einfach sich Leaflet in React und Vue.js einbinden lässt.
 
 Für React bietet \emph{react-leaflet}~\cite{react-leaflet} die Funktionalität von Leaflet an, das Equivalent für Vue.js bildet \emph{Vue2Leaflet}~\cite{vue2leaflet}.
@@ -46,17 +50,72 @@ Von der Funktionalität her ist kein grosser Unterschied festzustellen.
 \emph{Vue2Leaflet} bildet zwar nicht die komplette Leaflet-Library ab, die für diese Arbeit benötigten Funktionen sind aber alle vorhanden.
 
 
+\subsubsection{Integration Vector Tiles}
+\label{Analyse Framework:Integration Vector Tiles}
+
+Vector Tiles sind Kacheln, die Ausschnitte aus Karten als Vektoren darstellen, anstatt wie bei Raster-Kacheln mit simplen Bildern~\cite{geometalab_vectortiles}.
+Dies hat unter anderem den Vorteil, dass nicht bei jeder Zoomstufe ein neues Bild geladen werden muss, sondern die Vektoren beliebig vergrössert werden können.
+
+Für die Integration solcher Vector Tiles in Webkarten hat die Firma Mapbox ein Format spezifiziert und mit \emph{Mapbox GL JS} eine Javascript-Library veröffentlicht, um diese einzubinden.~\cite{mapbox_gl_js}
+Diese Library bietet deutlich mehr Möglichkeiten, die Darstellung von Kacheln individuell anzupassen.
+Die Vektor-Daten selbst sind bei Mapbox bis zu einem gewissen Abrufvolumen kostenlos erhältlich.
+Es können aber auch andere Datenquellen, wie z.B. von OpenMapTiles~\cite{openmaptiles}, verwendet werden.
+
+Für die Integration mit React und Vue.js gibt es mehrere vorgefertigte Komponenten von Dritten.
+Wir haben jeweils die beliebtesten (Anzahl Github-Stars) davon angeschaut.
+Für React ist dies \emph{react-mapbox-gl}~\cite{react_mapbox_gl}, für Vue.js \emph{vue-mapbox-gl}~\cite{vue_mapbox_gl}.
+
+Die React-Komponente ist gut dokumentiert und relativ einfach zu benutzen.
+Dagegen ist die Vue.js-Komponente nur ein einfacher Wrapper um die API von \emph{Mapbox GL}.
+So kann z.B. ein zusätzlicher Layer nicht direkt im Template eingebunden werden, sondern muss über Event-Handling nach dem Lader der Karte hinzugefügt werden.
+Dies macht das dynamische Hinzufügen und Entfernen von Karten-Elementen, was wir in unserer Applikation viel benötigen, sehr mühsam.
+
 \subsubsection{Bedienung}
 \label{Analyse Framework:Bedienung}
 
+
+
 \subsubsection{Tooling}
-\label{Analyse Framework:Bedienung}
+\label{Analyse Framework:Tooling}
+
+Da sowohl React wie auch Vue.js auf NodeJS aufsetzen und den Packetmanager NPM benutzen, ist das Tooling sehr ähnlich.
+
+Um eine neue Applikation zu erstellen, bietet React das Tool \emph{create-react-app}~\cite{create_react_app} an.
+Beim Ausführen kann man angeben, welche zusätzlichen Libraries (z.B. für Unit-Testing) man verwenden möchte.
+Während der Entwicklung kann ausserdem ein lokaler Server gestartet werden, der jeweils automatisch das Browser-Fenster neu ladet, wenn sich der Source-Code geändert hat.
+
+Vue.js bietet mit \emph{vue-cli}~\cite{vue_cli} ein ähnliches Tool an.
+Um eine neue Applikation aufzusetzen, kann zwischen verschiedenen Templates gewählt werden.
+Es gibt verschiedene Templates für z.B. unterschiedliche Grössen der geplanten Applikation.
+Während der Entwicklung bietet \emph{vue-cli} die praktisch identischen Möglichkeiten wie das Tool für React.
+
+Insgesamt kann zwischen den beiden Varianten in Sachen Tooling praktisch keinen Unterschied festgestellt werden.
 
 
-\subsubsection{Resultat}
-\label{Analyse Framework:Resulat}
+\subsubsection{Auswertung}
+\label{Analyse Framework:Auswertung}
 
-%TODO
+Für die Bewertung wird jedem Kriterium einen Wert von 1 bis 6 zugewiesen, wobei 6 die Bestnote ist.
+Jedes Kriterium wird anhand der Relevanz und Wichtigkeit in unserem Projekt gewichtet.
+
+\begin{longtable}{r l p{3cm} l l}
+    \toprule
+    \textbf{ID} &
+        \textbf{Kriterium} 
+                                                    & \textbf{Relatives Gewicht (0-1)} &
+                                                                                  \textbf{Vue.js} &
+                                                                                                  \textbf{React} \\
+    1     & \nameref{Analyse Framework:Funktionsumfang}           & 0.1           & x.xx / x.xx   & x.xx / x.xx  \\
+    2     & \nameref{Analyse Framework:Integration Leaflet}       & 0.3           & x.xx / x.xx   & x.xx / x.xx  \\
+    3     & \nameref{Analyse Framework:Integration Vector Tiles}  & 0.1           & x.xx / x.xx   & x.xx / x.xx  \\
+    3     & \nameref{Analyse Framework:Bedienung}                 & 0.2           & x.xx / x.xx   & x.xx / x.xx  \\
+    3     & \nameref{Analyse Framework:Tooling}                   & 0.3           & x.xx / x.xx   & x.xx / x.xx  \\
+    \bottomrule
+    \multicolumn{3}{l}{\textbf{Total}}                                            & \textbf{x.xx / x.xx}
+                                                                                            & \textbf{x.xx / x.xx} \\
+    \caption{Resultat der Frontend-Framework-Evaluation}
+    \label{table:Resultat der Frontend-Framework-Evaluation}
+\end{longtable}
 
 
 \subsubsection{Einschränkungen}

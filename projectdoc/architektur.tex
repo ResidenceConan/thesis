@@ -33,7 +33,7 @@ Dazu erhält es die vorberechneten Daten vom System ''ÖV-Güteklassen 2018'' un
 \label{subsystem:swissALTI3D}
 
 Für die Höhendaten wird swissALTI3D, ein Produkt von swisstopo~\cite{swissalti3d_swisstopo}, verwendet.
-Diese werden manuell bezogen, da der Datensatz mit ca. 120GB für ein Download über das Web-API zu gross ist.
+Diese werden manuell bezogen, da der Datensatz mit ca. 120GB für ein Download über das Web-\ac{API} zu gross ist.
 
 Das Höhenmodell wird anschliessend in die Routing-Engine integriert, wo die Höhenunterschiede für die Kostenberechnung einer Route verwendet werden können.
 
@@ -58,20 +58,61 @@ Die Daten sind im \ac{PBF} und werden mit entsprechenden Tools in eine relationa
 \subsection{Container}
 \label{Architektur:Container}
 
+In der Abbildung \ref{fig:container-diagram} ist das System ''ÖV-Güteklassen 2018'', wie es in im \nameref{Architektur:Systemkontext} vorkam, in einzelne Container aufgespalten.
+Im Folgenden werden die einzelnen Container genauer beschrieben.
+
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=1\linewidth]{projectdoc/img/container-diagram}
+    \includegraphics[width=0.8\linewidth]{projectdoc/img/container-diagram}
     \caption[ht]{}
     \caption[Containerdiagramm]{Containerdiagramm ÖV-Güteklassen 2018}
     \label{fig:container-diagram}
 \end{figure}
 
+\subsubsection{ÖV-Güteklassen 2018 Processor}
+\label{container:processor}
+
+Der ''\acs{ÖV}-Güteklassen 2018 Processor'' stellt das Kernstück der Berechnung der \acs{ÖV}-Güteklassen dar.
+Sobald der Administrator den Use Case 01 (siehe \ref{Use Cases:UC01}) startet, werden als ersten Schritt die Höhendaten vom externen System \nameref{subsystem:swissALTI3D} sowie die aktuellen Kartendaten von \nameref{subsystem:planet.osm.ch} in die \nameref{container:Routing-Engine} geladen.
+Danach wird die eigentliche Berechnung der \acs{ÖV}-Güteklassen 2018 durchgeführt.
+Die Fahrplandaten dafür werden aus dem \nameref{subsystem:GTFS}-System bezogen.
+Am Schluss der Berechnung wird das Ergebnis in geografischen Formen abgebildet und als GeoJSON an den \nameref{container:Backend}-Container ausgeliefert.
+
+Diese Aufgaben werden im Container von verschiedenen Komponenten (Components) erledigt.
+In der Abbildung X wird daher dieser Container weiter zerlegt. Nachfolgend sind die einzelnen Komponenten beschrieben.
+
+% TODO: Komponenten-Diagramm und Beschreibung der einzelnen Komponenten
+
+\subsubsection{Backend}
+\label{container:Backend}
+
+Das Backend nimmt die Ergebnisse der Berechnungen vom Container \nameref{container:processor} entgegen.
+Mit diesen Daten wird eine Web-\ac{API} angeboten, die dann von der \nameref{container:Web-App} verwendet wird, um die Visualisierung auf der Web-Karte zu realisieren.
+
+% Hat das Backend noch andere Verantwortlichkeiten?
+
+\subsubsection{Web-App}
+\label{container:Web-App}
+
+Die Web-App dient als Frontend des Systems ''\ac{ÖV}-Güteklassen 2018''.
+Die Applikation wird als \ac{SPA} direkt an den Browser des Users ausgeliefert.
+Von dort werden dann per JavaScript die Daten im GeoJSON-Format vom \ac{API} des \nameref{container:Backend}-Containers abgerufen und visualisiert.
+
+Dafür wird, wie in den Rahmenbedingungen festgehalten, entweder \emph{Vue.js}~\cite{vuejs} oder \emph{React}~\cite{react} verwendet.
+Die beiden Varianten werden im Kapitel \ref{Analyse:Evaluation Frontend-Framework} evaluiert und eine Entscheidung getroffen.
+
+\subsubsection{Routing-Engine}
+\label{container:Routing-Engine}
+
+Die Routing-Engine ist für die Berechnung von Isolinien verantwortlich.
+Dazu werden zuerst periodisch die Kartendaten von \nameref{subsystem:planet.osm.ch} eingelesen und zusammen mit dem Höhenmodell von \nameref{subsystem:swissALTI3D} eine Routing-Topologie erstellt.
+Sobald die Berechnung der ÖV-Güteklassen beginnt, wird die Routing-Engine vom \nameref{container:processor} nach Isolinien abgefragt, die mit Haltestellen als Startpunkt und einer gewissen Distanz (gewichtet nach Höhenunterschied) berechnet werden.
 
 
 \subsection{Component}
 \label{Architektur:Component}
 
-%TODO
+%
 
 \subsection{Code}
 \label{Architektur:Code}

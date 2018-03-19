@@ -47,11 +47,20 @@
         },
         {
           "type": "Container",
+          "name": "Routing-Engine",
+          "description": "pgRouting",
+          "technology": "",
+          "tags": "",
+          "position": "790,805",
+          "components": []
+        },
+        {
+          "type": "Container",
           "name": "Web-App",
           "description": "",
           "technology": "",
           "tags": "",
-          "position": "1735,785",
+          "position": "1735,805",
           "components": []
         }
       ]
@@ -116,6 +125,13 @@
       "description": "",
       "technology": "",
       "destination": "planet.osm.ch",
+      "tags": ""
+    },
+    {
+      "source": "ÖV-Güteklassen 2018 Processor",
+      "description": "",
+      "technology": "",
+      "destination": "Routing-Engine",
       "tags": ""
     },
     {

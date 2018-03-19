@@ -6,21 +6,19 @@
 \subsection{Vorgehen}
 \label{Projektmanagement:Vorgehen}
 
-Für die Bachelorarbeit wurde das agile Vorgehen SCRUM in Kombination mit \ac{RUP} gewählt.
-Gründe für diese Entscheidung sind, dass das agile Vorgehen der noch zu Beginn offenen Spezifikation der Güteklassen entgegenkommt, welche dann iterativ finalisiert werden kann und dass der theoretische Fokus der Arbeit so besser gehandhabt und schneller reagiert werden kann.
+Für die Bachelorarbeit wurde das agile Vorgehen SCRUM in Kombination mit Elementen von \ac{RUP} gewählt.
+Gründe für diese Entscheidung sind, dass das agile Vorgehen der noch zu Beginn offenen Spezifikation der \acs{ÖV}-Güteklassen und der theoretischen Aufarbeitung entgegenkommt, welche dann iterativ finalisiert werden kann und dass der theoretische Fokus der Arbeit so besser gehandhabt und schneller reagiert werden kann.
 Die wöchentlichen Besprechungen und Reviews mit dem Betreuer ist ein weiterer Grund für diese Entscheidung.
-Die Kombination mit \ac{RUP} ermöglicht es, dass Projekt in einzelne Phasen aufzuteilen, um so das Ziel und die Zeit nicht aus den Augen zu verlieren.
-
-%TODO
+Die Kombination mit Elementen von \ac{RUP} ermöglicht es, dass Projekt in einzelne Phasen aufzuteilen, um so das Ziel und die Zeit nicht aus den Augen zu verlieren und den theoretischen Teil und die Spezifikation zu einem Abschluss bringen zu können.
 
 \subsubsection{Entwicklung}
 \label{Vorgehen:Entwicklung}
 
-Der Source-Code der Implementation wie auch diese Arbeit wird mit Git verwaltet und ist auf Github abgelegt.
+Der Source-Code der Implementation wie auch diese Arbeit wird mit Git verwaltet und ist auf Github~\cite{github} abgelegt.
 Die Entwicklung und das Dokumentieren erfolgt nach dem Github-Flow.
 Der Master-Branch ist auf allen Repositories während der ganzen Zeit gesperrt, so dass er nur über Pull-Requests bearbeitet werden kann.
-Für jede User-Story wird ein Branch erstellt.
-Ist die User-Story implementiert, wird ein Pull-Request erstellt und dem anderen Projekt-Mitglied zum Review übergeben.
+Für jedes Arbeitspaket wird ein Branch erstellt.
+Ist das Arbeitspaket implementiert, wird ein Pull-Request erstellt und dem anderen Projekt-Mitglied zum Review übergeben.
 Wird der Pull-Request akzeptiert, wird der Feature-Branch in den Master gemerged.
 Dieses Vorgehen hat den Vorteil, dass alle Änderungen, welche in den Master gelangen, ein Review durchlaufen müssen und so die Qualität hochgehalten werden kann.
 
@@ -29,19 +27,20 @@ Dieses Vorgehen hat den Vorteil, dass alle Änderungen, welche in den Master gel
 \label{Projektmanagement:Zeitplanung}
 
 Die Arbeitspakte und Zeit wird mithilfe von Jira verwaltet.
-Für alle Tätigkeiten werden User-Stories im Backlog erfasst, priorisiert und geschätzt.
-Die Schätzung der User-Stories erfolgte mit Story Points.
+Für alle Tätigkeiten werden Arbeitspakete im Backlog erfasst, priorisiert und geschätzt.
+Die Schätzung der Arbeitspakete erfolgte mit Story Points.
 Die Arbeitszeitverbuchung wurde auf Arbeitspaket-Stufe mit Stunden gemacht.
 
 \subsubsection{Phasen / Iterationen und Meilensteine}
 \label{Zeitplanung:Phasen / Iterationen und Meilensteine}
 
-Die Studienarbeit wird in die \ac{RUP}-Phasen (Inception, Elaboration, Construction, Transition) aufgeteilt.
+Die Bachelorarbeit wird in die \ac{RUP}-Phasen (Inception, Elaboration, Construction, Transition) aufgeteilt.
 Dabei wird jedoch eine von der gängigen Norm abweichende Aufteilung gewählt.
-Durch den theoretischen Fokus der Arbeit wird der Elaboration das grösste Zeitbudget zugeordnet.
+Durch den theoretischen Fokus der Arbeit und der zu erarbeitenden Spezifikation wird der Elaboration das grösste Zeitbudget zugeordnet.
 Dies ist auch der Grund, warum mit einwöchigen Sprints gearbeitet wird.
-Es wird zusätzlich vom Standard-\ac{RUP}-Prozess abgewichen.
 In den letzten zwei Wochen des Projekts wird der Aufwand pro Sprint verdoppelt (40h pro Person), da in dieser Zeit Vollzeit am Projekt gearbeitet werden kann.
+Die in Tabelle \ref{table:Phasen / Iterationen und Meilensteine} definierten Meilensteine werden in Jira als Epics definiert und die Arbeitspakete diesen zugewiesen.
+Dies aus dem einfachen Grund, da Jira das Konzept Milestones nicht einfach unterstützt.
 
 \begin{landscape}
 \begin{longtable}{l p{6.5cm} p{6.5cm} p{6.5cm}}
@@ -355,3 +354,10 @@ Damit die Spezifikation der \acs{ÖV}-Güteklassen 2018 ein definitives Ende fin
 \label{Risiken:Konsequenz}
 
 Falls die geplanten Massnahmen nicht den erwarteten Nutzen zeigen oder unerwartete Stolpersteine auftreten, wird der Use Case \nameref{Use Cases:UC05} aus dem Scope gestrichen.
+
+\subsubsection{Risiko-Refinement}
+\label{Risiken:Risiko-Refinement}
+
+Alle zwei Wochen findet ein Risiko-Refinement statt.
+Zweck dieses Meeting ist es, dass die Risiken mit der aktuellen Situation abgeglichen werden.
+Bei Bedarf kann so rasch auf eintretende Risiken reagiert und mit den betroffenen Stakeholder einen Konsens über das weitere Vorgehen gefunden werden.

@@ -10,7 +10,7 @@ In unserem Projekt wird \ac{CI} einerseits für das automatische Erstellen diese
 \subsubsection{Erstellen der LaTeX-Dokumentation}
 \label{CI:Erstellen der LaTeX-Dokumentation}
 
-Bei jedem Git Commit in das Repository der Dokumentation \cite{github:doc} wird mit Continuous Integration ein PDF erstellt. So wird sichergestellt, dass die Dokumentation keine syntaktischen Fehler enthält. Das PDF wird in unser internes JIRA hochgeladen und direkt dem Task angehängt, der zum Commit gehört.
+Bei jedem Git Commit in das Repository der Dokumentation \cite{github:thesis} wird mit Continuous Integration ein PDF erstellt. So wird sichergestellt, dass die Dokumentation keine syntaktischen Fehler enthält. Das PDF wird in unser internes JIRA hochgeladen und direkt dem Task angehängt, der zum Commit gehört.
 
 Für diese Continuous Integration haben wir uns für Travis CI \cite{travis-ci} entschieden, da die Integration mit Github gut funktioniert und das Produkt für Open-Source-Projekte kostenlos ist. Allerdings bietet Travis CI keine direkte Unterstützung für eine LaTeX-Umgebung, die LaTeX-Pakete aus den Repositories sind ausserdem veraltet. So muss bei jedem Build die LaTeX-Umgebung kompiliert werden, damit immer die neueste Version aller Pakete verwendet werden kann.
 

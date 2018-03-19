@@ -9,6 +9,7 @@
 
 Wie in den Rahmenbedingungen (Kap. \ref{Einführung:Rahmenbedingungen, Umfeld, Definitionen, Abgrenzungen}) festgehalten stehen für die Technologie der Web-Applikation (Frontend) die Optionen React~\cite{react} oder Vue.js~\cite{vuejs} zur Auswahl.
 Die Wahl viel auf diese zwei Frameworks, da sich beide momentan schnell verbreiten und zum Design von \ac{SPA} ausgelegt sind, was für unsere Zwecke zum Darstellen einer Karte gut geeignet ist.
+Ein grösseres Framework wie Angular wäre dafür zu gross, weshalb die Evaluation auf diese zwei leichtgewichtigeren Varianten eingeschränkt wird.
 
 Vue.js und React werden im Folgenden anhand mehrerer Kriterien verglichen.
 Als Demonstration wird mit beiden Varianten eine identische kleine Web-Applikation entwickelt.
@@ -27,9 +28,9 @@ Komponenten halten intern Daten, die von einer anderen Komponente bedingt verän
 
 Ein Unterschied liegt in der Defintion von HTML-Templates.
 Vue.js verwendet reines HTML mit einer erweiterten Template-Syntax, ähnlich wie bei herkömmlichen Template-Engines.
-React dagegen benutzt JSX~\cite{jsx}, eine spezielle Syntax, bei der Javascript und HTML gemischt werden können.
-In einem Zwischenschritt wird dies zu Javascript kompiliert, das schlussendlich HTML-Elemente erstellt.
-Dies macht React etwas mächtiger, da die Templates nicht wie bei Vue.js auf vordefinierte Funktionen beschränkt sind, sondern direkt beliebiges Javascript verwendet werden kann.
+React dagegen benutzt JSX~\cite{jsx}, eine spezielle Syntax, bei der JavaScript und HTML gemischt werden können.
+In einem Zwischenschritt wird dies zu JavaScript kompiliert, das schlussendlich HTML-Elemente erstellt.
+Dies macht React etwas mächtiger, da die Templates nicht wie bei Vue.js auf vordefinierte Funktionen beschränkt sind, sondern direkt beliebiges JavaScript verwendet werden kann.
 
 Durch die grössere Verbreitung von React gibt es dafür mehr Erweiterungen und eine grössere Community.
 Beide Frameworks sind aber schlank gehalten und bieten nur die Kernfunktionalitäten.
@@ -56,8 +57,8 @@ Von der Funktionalität her ist kein grosser Unterschied festzustellen.
 Vector Tiles sind Kacheln, die Ausschnitte aus Karten als Vektoren darstellen, anstatt wie bei Raster-Kacheln mit simplen Bildern~\cite{geometalab_vectortiles}.
 Dies hat unter anderem den Vorteil, dass nicht bei jeder Zoomstufe ein neues Bild geladen werden muss, sondern die Vektoren beliebig vergrössert werden können.
 
-Für die Integration solcher Vector Tiles in Webkarten hat die Firma Mapbox ein Format spezifiziert und mit \emph{Mapbox GL JS} eine Javascript-Library veröffentlicht, um diese einzubinden.~\cite{mapbox_gl_js}
-Diese Library bietet deutlich mehr Möglichkeiten, die Darstellung von Kacheln individuell anzupassen.
+Für die Integration solcher Vector Tiles in Webkarten hat die Firma Mapbox ein Format spezifiziert und mit \emph{Mapbox GL JS} eine JavaScript-Library veröffentlicht, um diese einzubinden.~\cite{mapbox_gl_js}
+Diese Library bietet deutlich mehr Möglichkeiten als Leaflet, die Darstellung von Kacheln individuell anzupassen.
 Die Vektor-Daten selbst sind bei Mapbox bis zu einem gewissen Abrufvolumen kostenlos erhältlich.
 Es können aber auch andere Datenquellen, wie z.B. von OpenMapTiles~\cite{openmaptiles}, verwendet werden.
 
@@ -66,19 +67,34 @@ Wir haben jeweils die beliebtesten (Anzahl Github-Stars) davon angeschaut.
 Für React ist dies \emph{react-mapbox-gl}~\cite{react_mapbox_gl}, für Vue.js \emph{vue-mapbox-gl}~\cite{vue_mapbox_gl}.
 
 Die React-Komponente ist gut dokumentiert und relativ einfach zu benutzen.
+Die einzelnen Komponenten sind sauber in React-Komponenten abgebildet, was das Handling mit mehreren Layern angenehm macht.
+
 Dagegen ist die Vue.js-Komponente nur ein einfacher Wrapper um die API von \emph{Mapbox GL}.
-So kann z.B. ein zusätzlicher Layer nicht direkt im Template eingebunden werden, sondern muss über Event-Handling nach dem Lader der Karte hinzugefügt werden.
+So kann z.B. ein zusätzlicher Layer nicht direkt im Template eingebunden werden, sondern muss über Event-Handling nach dem Laden der Karte hinzugefügt werden.
 Dies macht das dynamische Hinzufügen und Entfernen von Karten-Elementen, was wir in unserer Applikation viel benötigen, sehr mühsam.
 
-\subsubsection{Bedienung}
-\label{Analyse Framework:Bedienung}
+\subsubsection{Lernkurve}
+\label{Analyse Framework:Lernkurve}
 
+Die Lernkurve beschreibt under anderem, wie viel Zeit benötigt wird, sich in die neue Technologie einzuarbeiten.
+Dies ist durchaus ein subjektives Kriterium und hängt von unserem bestehenden Erfahrung mit anderen Web-Frameworks ab.
 
+Die beiden sehr ähnlichen Philosophien von React und Vue.js weichen in gewissen Punkten stark von uns vertrauten Praktiken ab, so etwa die inhärente Kopplung von Darstellung und Logik, die in anderen Modellen wie MVC (Model-View-Controller) aufgespalten wird.
+Insofern benötigen beide Varianten eine gewisse Einarbeitungszeit, um sich mit diesen Konzepten vertraut zu machen.
+
+Bei React kommt zusätzlich die neue Syntax JSX~\cite{jsx} dazu, die zwar etwas angenehmer zu lesen ist, aber in vielen kleinen Punkten von bereits Bekanntem abweicht.
+So mussten z.B. HTML-Attribute wie \code{for} umbenannt werden, um nicht eine Namenskollision mit JavaScript zu verursachen.
+
+Die Template-Syntax von Vue.js ist deutlich vertrauter, auch weil sie sehr dem Stil von anderen Template-Engines ähnelt.
+Vue.js erlaubt auch einiges an ''Syntactic Sugar'' in den Templates.
+So ist simples Data-Binding mit Event-Handling direkt im Template möglich, während bei React dies separat behandelt werden muss.
+
+Aus dieser Einschätzung kann man sagen, dass die Lernkurve bei Vue.js etwas flacher als bei React ist.
 
 \subsubsection{Tooling}
 \label{Analyse Framework:Tooling}
 
-Da sowohl React wie auch Vue.js auf NodeJS aufsetzen und den Packetmanager NPM benutzen, ist das Tooling sehr ähnlich.
+Da sowohl React wie auch Vue.js auf NodeJS aufsetzen und den Paketmanager NPM benutzen, ist das Tooling sehr ähnlich.
 
 Um eine neue Applikation zu erstellen, bietet React das Tool \emph{create-react-app}~\cite{create_react_app} an.
 Beim Ausführen kann man angeben, welche zusätzlichen Libraries (z.B. für Unit-Testing) man verwenden möchte.
@@ -105,17 +121,20 @@ Jedes Kriterium wird anhand der Relevanz und Wichtigkeit in unserem Projekt gewi
                                                     & \textbf{Relatives Gewicht (0-1)} &
                                                                                   \textbf{Vue.js} &
                                                                                                   \textbf{React} \\
-    1     & \nameref{Analyse Framework:Funktionsumfang}           & 0.1           & x.xx / x.xx   & x.xx / x.xx  \\
-    2     & \nameref{Analyse Framework:Integration Leaflet}       & 0.3           & x.xx / x.xx   & x.xx / x.xx  \\
-    3     & \nameref{Analyse Framework:Integration Vector Tiles}  & 0.1           & x.xx / x.xx   & x.xx / x.xx  \\
-    3     & \nameref{Analyse Framework:Bedienung}                 & 0.2           & x.xx / x.xx   & x.xx / x.xx  \\
-    3     & \nameref{Analyse Framework:Tooling}                   & 0.3           & x.xx / x.xx   & x.xx / x.xx  \\
+    \midrule
+    1     & \nameref{Analyse Framework:Funktionsumfang}           & 0.2           & 5 / 1.0   & 5 / 1.0  \\
+    2     & \nameref{Analyse Framework:Integration Leaflet}       & 0.1           & 5 / 0.5   & 4 / 0.4  \\
+    3     & \nameref{Analyse Framework:Integration Vector Tiles}  & 0.3           & 2 / 0.6   & 5 / 1.5  \\
+    4     & \nameref{Analyse Framework:Lernkurve}                 & 0.2           & 4 / 0.8   & 3 / 0.6  \\
+    5     & \nameref{Analyse Framework:Tooling}                   & 0.2           & 5 / 1.0   & 5 / 1.0  \\
     \bottomrule
-    \multicolumn{3}{l}{\textbf{Total}}                                            & \textbf{x.xx / x.xx}
-                                                                                            & \textbf{x.xx / x.xx} \\
+    \multicolumn{3}{l}{\textbf{Total}}                                            & \textbf{21 / 3.9}
+                                                                                            & \textbf{22 / 4.5} \\
     \caption{Resultat der Frontend-Framework-Evaluation}
     \label{table:Resultat der Frontend-Framework-Evaluation}
 \end{longtable}
+
+% TODO Resultat
 
 
 \subsubsection{Einschränkungen}

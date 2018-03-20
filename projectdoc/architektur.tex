@@ -27,7 +27,7 @@ Im Folgenden werden die Umsysteme sowie die Beziehungen zu unserem System ''ÖV-
 \label{subsystem:swissALTI3D}
 
 Für die Höhendaten wird swissALTI3D, ein Produkt von swisstopo~\cite{swissalti3d_swisstopo}, verwendet.
-Diese werden manuell bezogen, da der Datensatz mit ca. 120GB für ein Download über das Web-\ac{API} zu gross ist und da die Daten keinem stetigem Wandel unterstellt sind.
+Diese werden manuell vom Admin bezogen, da der Datensatz mit ca. 120GB für ein Download über das Web-\ac{API} zu gross ist und da die Daten keinem stetigem Wandel unterstellt sind.
 
 Das Höhenmodell wird anschliessend in die Routing-Engine integriert, wo die Höhenunterschiede für die Kostenberechnung einer Route verwendet werden können.
 
@@ -57,7 +57,7 @@ Im Folgenden werden die einzelnen Container genauer beschrieben.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.8\linewidth]{projectdoc/img/container-diagram}
+    \includegraphics[width=0.8\linewidth]{projectdoc/img/container-diagram.png}
     \caption[ht]{}
     \caption[Containerdiagramm]{Containerdiagramm ÖV-Güteklassen 2018}
     \label{fig:container-diagram}
@@ -100,7 +100,7 @@ Die beiden Varianten werden im Kapitel \ref{Analyse:Evaluation Frontend-Framewor
 \label{container:Routing-Engine}
 
 Die Routing-Engine ist für die Berechnung von Isolinien verantwortlich.
-Dazu werden zuerst periodisch die Kartendaten von \nameref{subsystem:planet.osm.ch} eingelesen und zusammen mit dem Höhenmodell von \nameref{subsystem:swissALTI3D} eine Routing-Topologie erstellt.
+Dazu werden zuerst periodisch die Kartendaten von \nameref{subsystem:planet.osm.ch} eingelesen und zusammen mit dem Höhenmodell von \nameref{subsystem:swissALTI3D}, das zuvor vom Admin manuell besorgt wurde, eine Routing-Topologie erstellt.
 
 Sobald der Admin die Berechnung der ÖV-Güteklassen auslöst, wird die Routing-Engine vom \nameref{container:processor} nach Isolinien abgefragt, die mit Haltestellen als Startpunkt und einer gewissen Distanz (gewichtet nach Höhenunterschied) berechnet werden.
 Diese Isodistanzen bilden Polygone, die anschliessend vom Processor weiter verarbeitet werden.

@@ -5,7 +5,7 @@
 In diesem Kapitel wird die Architektur unserer Applikation und die Schnittstellen zu den Umsystemen besprochen.
 Als Anhaltspunkt wird das C4 Modell \cite{c4model} von Simon Brown verwendet.
 In einem ersten Schritt wird unsere Applikation ''ÖV-Güteklassen 2018'' in den Kontext des grösseren Systems gesetzt.
-Anschliessend teilen wir das System \code{TODO} in einzelne Container und den zentralen Container \code{TODO} in einzelne Komponenten auf.
+Anschliessend teilen wir das System ''ÖV-Güteklassen 2018'' in einzelne Container und den zentralen Container ''ÖV-Güteklassen 2018 Processor'' in einzelne Komponenten auf.
 
 \subsection{Systemkontext}
 \label{Architektur:Systemkontext}
@@ -21,19 +21,13 @@ Die Daten fliessen dementsprechend in die entgegengesetzte Richtung.
     \label{fig:system-context-diagram}
 \end{figure}
 
-Im Folgenden werden die Umsysteme sowie die Beziehungen zu unserem System ''Öv-Güteklassen 2018'' genauer beschrieben.
-
-\subsubsection{Web-App}
-\label{subsystem:Web-App}
-
-Die Web-App dient zur Darstellung der ÖV-Güteklassen in einer interaktiven Karte für den Benutzer.
-Dazu erhält es die vorberechneten Daten vom System ''ÖV-Güteklassen 2018'' und visualisiert sie für die Anzeige im Webbrowser.
+Im Folgenden werden die Umsysteme sowie die Beziehungen zu unserem System ''ÖV-Güteklassen 2018'' genauer beschrieben.
 
 \subsubsection{swissALTI3D}
 \label{subsystem:swissALTI3D}
 
 Für die Höhendaten wird swissALTI3D, ein Produkt von swisstopo~\cite{swissalti3d_swisstopo}, verwendet.
-Diese werden manuell bezogen, da der Datensatz mit ca. 120GB für ein Download über das Web-API zu gross ist.
+Diese werden manuell vom Admin bezogen, da der Datensatz mit ca. 120GB für ein Download über das Web-\ac{API} zu gross ist und da die Daten keinem stetigem Wandel unterstellt sind.
 
 Das Höhenmodell wird anschliessend in die Routing-Engine integriert, wo die Höhenunterschiede für die Kostenberechnung einer Route verwendet werden können.
 
@@ -51,27 +45,66 @@ Die \ac{GTFS}-Daten im CSV-Format werden in einer relationalen Datenbank gespeic
 Für die Berechnung der ÖV-Güteklassen benötigt es aktuelle Kartendaten, um die Erreichbarkeiten von Haltestellen entlang dem Strassennetz zu analysieren.
 Dazu bieten sich Daten von \ac{OSM} ideal an, da sie frei verfügbar sind und kontinuierlich aktualisiert werden.
 
-Unter planet.osm.ch werden täglich aktualisierte \ac{OSM}-Daten der ganzen Schweiz bereit gestellt.~\cite{planet_osm_ch}
+Unter planet.osm.ch~\cite{planet_osm_ch} werden täglich aktualisierte \ac{OSM}-Daten der ganzen Schweiz bereit gestellt.
 Die Daten sind im \ac{PBF} und werden mit entsprechenden Tools in eine relationale Datenbank importiert, wo sie von einer Routing-Engine genutzt werden können.
 
 
 \subsection{Container}
 \label{Architektur:Container}
 
+In der Abbildung \ref{fig:container-diagram} ist das System ''ÖV-Güteklassen 2018'', wie es in im \nameref{Architektur:Systemkontext} vorkam, in einzelne Container aufgespalten.
+Im Folgenden werden die einzelnen Container genauer beschrieben.
+
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=1\linewidth]{projectdoc/img/container-diagram}
+    \includegraphics[width=0.8\linewidth]{projectdoc/img/container-diagram.png}
     \caption[ht]{}
     \caption[Containerdiagramm]{Containerdiagramm ÖV-Güteklassen 2018}
     \label{fig:container-diagram}
 \end{figure}
 
+\subsubsection{ÖV-Güteklassen 2018 Processor}
+\label{container:processor}
 
+Der ''\acs{ÖV}-Güteklassen 2018 Processor'' stellt das Kernstück der Berechnung der \acs{ÖV}-Güteklassen dar.
+Sobald der Administrator den Use Case 01 (siehe \ref{Use Cases:UC01}) startet, werden als ersten Schritt die Höhendaten vom externen System \nameref{subsystem:swissALTI3D} sowie die aktuellen Kartendaten von \nameref{subsystem:planet.osm.ch} in die \nameref{container:Routing-Engine} geladen.
+Danach wird die eigentliche Berechnung der \acs{ÖV}-Güteklassen 2018 durchgeführt.
+Die Fahrplandaten dafür werden aus dem \nameref{subsystem:GTFS}-System bezogen.
+Am Schluss der Berechnung wird das Ergebnis in geografischen Formen abgebildet und als \gls{GeoJSON} an den \nameref{container:Backend}-Container ausgeliefert.
 
-\subsection{Component}
-\label{Architektur:Component}
+Diese Aufgaben werden im Container von verschiedenen Komponenten (Components) erledigt.
+In der Abbildung X wird daher dieser Container weiter zerlegt. Nachfolgend sind die einzelnen Komponenten beschrieben.
 
-%TODO
+% TODO: Komponenten-Diagramm und Beschreibung der einzelnen Komponenten
+
+\subsubsection{Backend}
+\label{container:Backend}
+
+Das Backend nimmt die Ergebnisse der Berechnungen vom Container \nameref{container:processor} entgegen.
+Mit diesen Daten wird eine Web-\ac{API} angeboten, die dann von der \nameref{container:Web-App} verwendet wird, um die Visualisierung auf der Web-Karte zu realisieren.
+Die Daten werden der Web-App im \gls{GeoJSON}-Format ausgeliefert.
+
+% Hat das Backend noch andere Verantwortlichkeiten?
+
+\subsubsection{Web-App}
+\label{container:Web-App}
+
+Die Web-App dient als Frontend des Systems ''\acs{ÖV}-Güteklassen 2018''.
+Die Applikation wird als \ac{SPA} direkt an den Browser des Users ausgeliefert.
+Von dort werden dann per JavaScript die Daten im \gls{GeoJSON}-Format vom \ac{API} des \nameref{container:Backend}-Containers abgerufen und visualisiert.
+
+Dafür wird, wie in den Rahmenbedingungen (Kap. \ref{Einführung:Rahmenbedingungen, Umfeld, Definitionen, Abgrenzungen}) festgehalten, entweder \emph{Vue.js}~\cite{vuejs} oder \emph{React}~\cite{react} verwendet.
+Die beiden Varianten werden im Kapitel \ref{Analyse:Evaluation Frontend-Framework} evaluiert und eine Entscheidung getroffen.
+
+\subsubsection{Routing-Engine}
+\label{container:Routing-Engine}
+
+Die Routing-Engine ist für die Berechnung von Isolinien verantwortlich.
+Dazu werden zuerst periodisch die Kartendaten von \nameref{subsystem:planet.osm.ch} eingelesen und zusammen mit dem Höhenmodell von \nameref{subsystem:swissALTI3D}, das zuvor vom Admin manuell besorgt wurde, eine Routing-Topologie erstellt.
+
+Sobald der Admin die Berechnung der ÖV-Güteklassen auslöst, wird die Routing-Engine vom \nameref{container:processor} nach Isolinien abgefragt, die mit Haltestellen als Startpunkt und einer gewissen Distanz (gewichtet nach Höhenunterschied) berechnet werden.
+Diese Isodistanzen bilden Polygone, die anschliessend vom Processor weiter verarbeitet werden.
+
 
 \subsection{Code}
 \label{Architektur:Code}

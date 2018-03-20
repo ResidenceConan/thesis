@@ -11,14 +11,14 @@
       "name": "Admin",
       "description": "",
       "tags": "",
-      "position": "1580,220"
+      "position": "1022,1160"
     },
     {
       "type": "Software System",
       "name": "GTFS (geOps)",
       "description": "Fahrplan-Daten",
       "tags": "",
-      "position": "110,1210",
+      "position": "145,660",
       "containers": []
     },
     {
@@ -26,7 +26,7 @@
       "name": "ÖV-Güteklassen 2018",
       "description": "",
       "tags": "Internal",
-      "position": "1010,1025",
+      "position": "997,660",
       "containers": []
     },
     {
@@ -34,7 +34,7 @@
       "name": "planet.osm.ch",
       "description": "OSM Daten",
       "tags": "",
-      "position": "1810,1025",
+      "position": "1850,660",
       "containers": []
     },
     {
@@ -42,7 +42,7 @@
       "name": "swissALTI3D",
       "description": "Höhendaten (manuell)",
       "tags": "",
-      "position": "110,685",
+      "position": "145,1210",
       "containers": []
     },
     {
@@ -50,7 +50,7 @@
       "name": "User",
       "description": "",
       "tags": "",
-      "position": "1035,220"
+      "position": "1022,20"
     }
   ],
 
@@ -64,17 +64,17 @@
       "tags": ""
     },
     {
-      "source": "ÖV-Güteklassen 2018",
+      "source": "Admin",
       "description": "",
       "technology": "",
-      "destination": "GTFS (geOps)",
+      "destination": "swissALTI3D",
       "tags": ""
     },
     {
       "source": "ÖV-Güteklassen 2018",
       "description": "",
       "technology": "",
-      "destination": "swissALTI3D",
+      "destination": "GTFS (geOps)",
       "tags": ""
     },
     {
@@ -90,9 +90,7 @@
       "technology": "HTTP",
       "destination": "ÖV-Güteklassen 2018",
       "tags": "",
-      "vertices": [
-        "1235,730"
-      ]
+      "vertices": []
     }
   ],
 

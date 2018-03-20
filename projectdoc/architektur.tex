@@ -5,7 +5,7 @@
 In diesem Kapitel wird die Architektur unserer Applikation und die Schnittstellen zu den Umsystemen besprochen.
 Als Anhaltspunkt wird das C4 Modell \cite{c4model} von Simon Brown verwendet.
 In einem ersten Schritt wird unsere Applikation ''ÖV-Güteklassen 2018'' in den Kontext des grösseren Systems gesetzt.
-Anschliessend teilen wir das System \code{TODO} in einzelne Container und den zentralen Container \code{TODO} in einzelne Komponenten auf.
+Anschliessend teilen wir das System ''ÖV-Güteklassen 2018'' in einzelne Container und den zentralen Container ''ÖV-Güteklassen 2018 Processor'' in einzelne Komponenten auf.
 
 \subsection{Systemkontext}
 \label{Architektur:Systemkontext}
@@ -27,7 +27,7 @@ Im Folgenden werden die Umsysteme sowie die Beziehungen zu unserem System ''ÖV-
 \label{subsystem:swissALTI3D}
 
 Für die Höhendaten wird swissALTI3D, ein Produkt von swisstopo~\cite{swissalti3d_swisstopo}, verwendet.
-Diese werden manuell bezogen, da der Datensatz mit ca. 120GB für ein Download über das Web-\ac{API} zu gross ist.
+Diese werden manuell bezogen, da der Datensatz mit ca. 120GB für ein Download über das Web-\ac{API} zu gross ist und da die Daten keinem stetigem Wandel unterstellt sind.
 
 Das Höhenmodell wird anschliessend in die Routing-Engine integriert, wo die Höhenunterschiede für die Kostenberechnung einer Route verwendet werden können.
 
@@ -45,7 +45,7 @@ Die \ac{GTFS}-Daten im CSV-Format werden in einer relationalen Datenbank gespeic
 Für die Berechnung der ÖV-Güteklassen benötigt es aktuelle Kartendaten, um die Erreichbarkeiten von Haltestellen entlang dem Strassennetz zu analysieren.
 Dazu bieten sich Daten von \ac{OSM} ideal an, da sie frei verfügbar sind und kontinuierlich aktualisiert werden.
 
-Unter planet.osm.ch werden täglich aktualisierte \ac{OSM}-Daten der ganzen Schweiz bereit gestellt.~\cite{planet_osm_ch}
+Unter planet.osm.ch~\cite{planet_osm_ch} werden täglich aktualisierte \ac{OSM}-Daten der ganzen Schweiz bereit gestellt.
 Die Daten sind im \ac{PBF} und werden mit entsprechenden Tools in eine relationale Datenbank importiert, wo sie von einer Routing-Engine genutzt werden können.
 
 

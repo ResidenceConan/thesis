@@ -7,11 +7,11 @@
 \subsection{Grundlagen und Begriffe}
 \label{Einführung:Grundlagen und Begriffe}
 
-Folgend werden Grundlagen und Begriffe eingeführt, welche für das grundlegende Verständnis der Arbeit relevant sind.
+Folgend werden Grundlagen und Begriffe eingeführt, welche für das grundlegende Verständnis der Arbeit relevant sind. Für zusätzliche Definitionen kann das Glossar zur Hand gezogen werden.
 
 \subsubsection{ÖV-Güteklasse}
 \label{Grundlagen und Begriffe:ÖV-Güteklasse}
-
+% same description is used in the corresponding glossary entry
 \acs{ÖV}-Güteklassen geben Auskunft darüber, wie gut ein Standort mit dem öffentlichen Verkehr erschlossen ist.
 Dies ist wichtig, wenn es darum geht, den öffentlichen Verkehr zu optimieren, Siedlungsverdichtung nach Innen an geeigneten Lagen voranzutreiben oder Standortentscheide für publikumsintensive Anlagen so zu treffen, dass sie möglichst wenig zusätzlichen Autoverkehr verursachen.~\cite{oev-guteklasse-gr-defintion}
 
@@ -77,7 +77,7 @@ Für touristische Regionen ist die Situation während der Hochsaison vielleicht 
 \subsection{Vision}
 \label{Einführung:Vision}
 
-\acs{ÖV}-Güteklassen 2018 ermöglicht es unterschiedlichen Stakeholdern die Qualität der öffentlichen Erschliessung eines Standortes unter Berücksichtigung des Höhenmodells und der Streckenführung in Kombination mit Verbesserungen aus den Erfahrungen mit dem alten Modell zu analysieren, um so Entscheidungen, welche den öffentlichen Raum betreffen, fundiert treffen zu können.
+\acs{ÖV}-Güteklassen 2018 ermöglicht es unterschiedlichen Stakeholdern die Qualität der öffentlichen Erschliessung eines Standortes unter Berücksichtigung des \gls{Terrainmodell}s und der Streckenführung in Kombination mit Verbesserungen aus den Erfahrungen mit dem alten Modell zu analysieren, um so Entscheidungen, welche den öffentlichen Raum betreffen, fundiert treffen zu können.
 
 \subsection{Ziele und Unterziele}
 \label{Einführung:Ziele und Unterziele}
@@ -104,7 +104,7 @@ Um die Topografie bei der Berechnung vom Einzugsgebiet einer Haltestelle mit ein
 Dazu wird der Ansatz von Isodistanzen, wie in \ref{solution:Luftlinie bei Einzugsgebieten} beschrieben, erweitert. Zusätzlich zur Laufdistanz für einen Fussgänger werden die Höhenunterschiede in die Berechnung einbezogen und entsprechend gewichtet.
 Eine Haltestelle in einem steilen Gebiet hat so ein geringeres Einzugsgebiet als eine gleich gut angeschlossene Haltestelle in einem flachen Gebiet.
 
-Aktuelle Höhendaten für die Schweiz werden von swisstopo als swissALTI3D angeboten.~\cite{swissalti3d_swisstopo}
+Ein digitales \gls{Terrainmodell} für die Schweiz wird von swisstopo als swissALTI$^{3D}$ angeboten.~\cite{swissalti3d_swisstopo}
 
 \subsubsection{Taktberechnung}
 \label{solution:Taktberechnung}
@@ -157,7 +157,7 @@ Eine Analyse und quantitativer Vergleich mit der bisherigen Spezifikation \gls{O
 
 Für die Berechnung der ÖV-Güteklassen wird Python mit PostGIS und der Erweiterung pgRouting verwendet, sofern dies mit diesen Technologien möglich ist.
 Für die Web-Applikation stehen Vue.js oder React als Optionen zur Verfügung. Die Kartendaten werden von \ac{OSM} bezogen, die Fahrplandaten werden uns von geOps und der SBB via der Open Data Platform~\cite{sbb_open_transport_data} zur Verfügung gestellt.
-Für das Höhenmodell wird der Datensatz \emph{swissALTI3D} von swisstopo~\cite{swissalti3d_swisstopo} genutzt, welcher uns zu diesem Zweck von der HSR bereit gestellt wurde.
+Für das \gls{Terrainmodell} wird der Datensatz \emph{swissALTI$^{3D}$} von swisstopo~\cite{swissalti3d_swisstopo} genutzt, welcher uns zu diesem Zweck von der HSR bereit gestellt wird.
 
 \subsection{Vorgehen und Aufbau der Arbeit}
 \label{Einführung:Vorgehen und Aufbau der Arbeit}

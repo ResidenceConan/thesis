@@ -89,7 +89,7 @@ Dabei werden für die Intervallberechnung alle Verkehrsmittel der Transportmitte
     \label{table:Ermittlung der Haltestellenkategorie}
 \end{longtable}
 
-Der Kursintervall ist der durchschnittliche Abstand zwischen Ankunft beziehungsweise Abfahrt aller Verkehrsmittel in der gleichen Gruppe zwischen 06:00 - 20:00 Uhr jeweils von Montag bis Freitag.
+Der Kursintervall ist der durchschnittliche Abstand zwischen Ankunft beziehungsweise Abfahrt (pro Linie jeweils in der Hauptlastrichtung) aller Verkehrsmittel in der gleichen Gruppe zwischen 06:00 - 20:00 Uhr jeweils von Montag bis Freitag.
 Die Norm macht hier Ausnahmen bei Verdichtungen in Hauptverkehrszeiten, Linienüberlagerungen und reinen Arbeitsplatzgebieten mit stark verdichtetem Fahrplan während Pendlerzeiten.
 
 \subparagraph{Erreichbarkeit der Haltestelle}~\\
@@ -135,6 +135,54 @@ Die Distanzen sind Luftlinien, wobei ein mittlerer Umwegfaktor von 20 bis 30\% b
 \end{longtable}
 
 Der Topographie wird Rechnung getragen, indem man bei schwierigen Gegebenheiten die nächste Klasse wählt oder die Distanz vergrössert.
+
+\subsubsection{Berechnungsmethodiken}
+\label{Aktuelle Situation:Berechnungsmethodik}
+Basierend auf der bestehenden Norm wurde im Jahre 2011 die Berechnungsmethodik des \ac{ARE} veröffentlicht, welche in einer Weisung des \acs{UVEK} vom 16.02.2015 als die Berechnugsmethodik definiert wird, welche bei der Beurteilung der Qualität der Erschliessung mit dem öffentlichen Verkehr verwendet werden soll.
+
+In der Zwischenzeit wurden einige kantonale Anpassungen an dieser Methodik vorgenommen.
+Folgend werden grob die Änderungen der verabschiedeten Berechnungsmethodik ARE und zweier kantonaler Methodiken beschrieben, namentlich des Kanton Graubünden und Zürich.
+
+Im Anschluss werden die Methodiken zusammen betrachtet, Schwachstellen eruiert und Verbesserungen vorgeschlagen.
+Dieses Vorgehen hat das Ziel, dass Erfahrungen und etablierten Grundlagen in \gls{OeVGK18} fliessen soll, um so eine allgemeine Akzeptanz erreichen zu können
+
+\paragraph{Berechnungsmethodik ARE}~\\
+\label{Berechnungsmethodik:Berechnungsmethodik ARE}
+Das Bundesamt für Raumentwicklung (ARE) entwickelt in ihrem Grundlagenbericht für die Beurteilung der Agglomerationsprogramme Verkehr und Siedlung~\cite{berechnung_are} eine Berechnungsmethodik der \acs{ÖV}-Güteklassen basierend auf der bestehende Norm (siehe Kapitel \ref{Aktuelle Situation:Schweizer Norm 640 290}).
+Die entwickelte Berechnungsmethodik basiert auf den Fahrplandaten von HAFAS~\cite{sbb_hafas_spec}.
+Dies hatte die Konsequenz, dass die Berechnungsmethodik wie sie in der Norm festgelegt ist, angepasst werden musste.
+Im Folgenden sind die Anpassungen aufgeführt.
+
+\subparagraph{Bedienungsqualität der Haltestelle}~\\
+\label{Berechnungsmethodik ARE:Bedienungsqualität der Haltestelle}
+Die Verkehrsmittel lassen sich aus dem elektronischen Fahrplan~\cite{sbb_hafas_spec} nicht detailliert unterscheiden, wie es die Norm verlangt.
+Dies hat die Konsequenz, dass nur folgenden Verkehrsmittel-Einteilung verwendet wird:
+
+\begin{itemize}
+    \item Bahnknoten (mehrere Bahnlinien in verschiedenen Richtungen)
+    \item Bahnlinien
+    \item Tram, Busse, Postautos, Rufbusse oder Schiffe
+\end{itemize}
+
+Die Hauptlastrichtung kann aus den Fahrplandaten nicht extrahiert werden.
+Somit werden alle Abfahrten zwischen 6.00 und 20.00 Uhr gezählt und anschliessend halbiert. Bei Endhaltestellen und Linien, welche nur in eine Richtung verlaufen, erfolgen Korrekturen.
+Als Stichtag für die Auswertung wird ein Werktag ausserhalb der Ferienzeit und der touristischen Hochsaison definiert.
+Ebenfalls wir in reinen Arbeitsplatzgebieten mangels einheitlicher Definition keine Anpassung vorgenommen.
+Verdichtungen in den Hauptverkehrszeiten sind in den gezählten Abfahrten inbegriffen.
+
+\subparagraph{Erreichbarkeit der Haltestelle}~\\
+\label{Berechnungsmethodik ARE:Erreichbarkeit der Haltestelle}
+Der Topografie wird keine Rechnung getragen, um eine landesweite Vergleichbarkeit sicherzustellen.
+
+\paragraph{Berechnungsmethodik Kanton Graubünden}~\\
+\label{Berechnungsmethodik:Berechnungsmethodik Kanton Graubünden}
+
+TODO
+
+\paragraph{Berechnungsmethodik Kanton Zürich}~\\
+\label{Berechnungsmethodik:Berechnungsmethodik Kanton Zürich}
+
+TODO
 
 \paragraph{Problematik}~\\
 \label{Schweizer Norm 640 290:Problematik}

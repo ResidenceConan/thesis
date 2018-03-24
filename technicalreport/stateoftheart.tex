@@ -159,6 +159,7 @@ Die Verkehrsmittel lassen sich aus dem elektronischen Fahrplan~\cite{sbb_hafas_s
 Dies hat die Konsequenz, dass nur folgenden Verkehrsmittel-Einteilung verwendet wird:
 
 \begin{itemize}
+    \itemsep -1.5em
     \item Bahnknoten (mehrere Bahnlinien in verschiedenen Richtungen)
     \item Bahnlinien
     \item Tram, Busse, Postautos, Rufbusse oder Schiffe
@@ -296,13 +297,125 @@ Die Bestimmung der Hauptlastrichtung erfolgt analog zur Berechnungsmethodik ARE.
 
 \paragraph{Berechnungsmethodik Kanton Zürich}~\\
 \label{Berechnungsmethodik:Berechnungsmethodik Kanton Zürich}
-TODO
+Im Infoblatt ''ÖV-Güteklassen''~\cite{oev-guteklassen-zh} wird beschrieben, wie der Kanton Zürich die kantonalen ÖV-Güteklassen mit den Fahrplandaten des Zürcher Verkehrsverbundes (ZVV), angelehnt an die Berechnungsmethodik ARE berechnet.
 
 \subparagraph{Bedienungsqualität der Haltestelle}~\\
 \label{Berechnungsmethodik Kanton Zürich:Bedienungsqualität der Haltestelle}
+Es werden nur Haltestellen berücksichtigt, die von Bahn, Tram und/oder Bus bedient werden.
+Seilbahnen und Schiffen werden explizit ausgeklammert.
+Somit ergibt sich folgende Kategorisierung:
+\begin{itemize}
+    \itemsep -1.5em
+    \item Bahnknoten (Bahnstationen mit S-Bahnlinien in min. 6 Richtungen und/oder IR-Anschluss)
+    \item Bahnlinien
+    \item Tram
+    \item Bus
+\end{itemize}
+
+Der Kursintervall wird auf 05:30 bis 22:30 Uhr festgelegt (unter der Woche).
+Handelt es sich um Endhaltestellen oder Linien, welche nur in eine Richtung verkehren, werden alle Abfahrten gezählt.
+Zusätzlich werden wie im Kanton Graubünden  Haltestellen mit einem Kursintervall von über 60 Minuten berücksichtigt.
+
+\begin{longtable}[c]{l p{2.9cm} p{2.8cm} p{2.8cm} p{2.8cm}}
+        \midrule
+        \textbf{Kursintervall}
+                                & Bahnknoten
+                                & Bahnlinie
+                                & Tram
+                                & Bus\\
+        \textit{< 5 min}
+                                & I
+                                & I
+                                & II
+                                & II\\
+        \textit{5 - 9 min}
+                                & I
+                                & II
+                                & III
+                                & III\\
+        \textit{10 - 19 min}
+                                & II
+                                & III
+                                & IV
+                                & IV\\
+        \textit{20 - 39 min}
+                                & III
+                                & IV
+                                &
+                                & V\\
+        \textit{40 - 60 min}
+                                &
+                                & V
+                                &
+                                & VI\\
+        \cellcolor{red!25}\textit{> 60 min}
+                                &
+                                &
+                                &
+                                & \cellcolor{red!25}VII\\
+        \bottomrule
+    \caption{Ermittlung der Haltestellenkategorie Kanton Zürich}
+    \label{table:Ermittlung der Haltestellenkategorie Kanton Zürich}
+\end{longtable}
+
+
+
 
 \subparagraph{Erreichbarkeit der Haltestelle}~\\
 \label{Berechnungsmethodik Kanton Zürich:Erreichbarkeit der Haltestelle}
+Auch im Kanton Zürich werden durch den zusätzlich abgebildeten Kursintervall (> 60 Minuten) zwei neue Güteklassen E und F eingeführt.
+
+\begin{longtable}[c]{l p{3.3cm} p{3.3cm} p{3.3cm} p{3.3cm}}
+        \midrule
+        \textbf{}
+                                & \textbf{< 300 m}
+                                & \textbf{300 - 500 m}
+                                & \textbf{501 - 750 m}
+                                & \textbf{751 - 1000m}\\
+        \textbf{I}
+                                & Klasse A
+                                & Klasse A
+                                & Klasse B
+                                & Klasse C\\
+        \textbf{II}
+                                & Klasse A
+                                & Klasse B
+                                & Klasse C
+                                & Klasse D\\
+        \textbf{III}
+                                & Klasse B
+                                & Klasse C
+                                & Klasse D
+                                &\\
+        \textbf{IV}
+                                & Klasse C
+                                & Klasse D
+                                & \cellcolor{red!25}Klasse E
+                                &\\
+        \textbf{V}
+                                & Klasse D
+                                & \cellcolor{red!25}Klasse E
+                                & \cellcolor{red!25}Klasse E
+                                &\\
+        \cellcolor{red!25}\textbf{VI}
+                                & \cellcolor{red!25}Klasse E
+                                & \cellcolor{red!25}Klasse E
+                                &
+                                &\\
+        \cellcolor{red!25}\textbf{VII}
+                                & \cellcolor{red!25}Klasse F
+                                & \cellcolor{red!25}Klasse F
+                                &
+                                &\\                                
+        \bottomrule
+    \caption{Ermittlung der Erreichbarkeit der Haltestelle Kanton Zürich}
+    \label{table:Ermittlung Erreichbarkeit der Haltestelle Kanton Zürich}
+\end{longtable}
+
+Der Topografie wird keine Rechnung getragen und strikt auf die Luftlinie gesetzt.
+Sind Haltestellen nur durch Tram und/oder Bus erschlossen, werden analog zum Kanton Graubünden nur Distanzen bis zu 500 Meter berücksichtigt.
+Die Erschliessung durch Bahnknoten und Bahnlinien wird bis 750 Meter mit den Güteklassen B – E und bis 1000 Meter mit den Güteklassen C-D berücksichtigt.
+Diese Entscheidungen basieren auf ÖV-Angebotsverordnungen.
 
 \paragraph{Problematik}~\\
 \label{Schweizer Norm 640 290:Problematik}

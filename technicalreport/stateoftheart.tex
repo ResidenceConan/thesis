@@ -29,13 +29,13 @@ Die öffentlichen Verkehrsmittel werden zuerst in die in Tabelle \ref{table:Tran
 \begin{longtable}{l p{10.6cm}}
         \midrule
         \textbf{Transportmittelkategorie 1}
-                                    & Bahnknoten: mehrere Bahnlinien in unterschiedliche Richtungen\\
+                                & Bahnknoten: mehrere Bahnlinien in unterschiedliche Richtungen\\
         \textbf{Transportmittelkategorie 2}
-                                    & Bahnlinie\\
+                                & Bahnlinie\\
         \textbf{Transportmittelkategorie 3}
-                                    & Tramway, Trolleybuy, Autobus, Regionalbus, Ortsbus mit gutem Anschluss an Bahnlinie\\
+                                & Tramway, Trolleybuy, Autobus, Regionalbus, Ortsbus mit gutem Anschluss an Bahnlinie\\
         \textbf{Transportmittelkategorie 4}
-                                    & Ortsbus, lokaler Kleinbus\\
+                                & Ortsbus, lokaler Kleinbus\\
         \bottomrule
     \caption{Transportmittelkategorien}
     \label{table:Transportmittelkategorien}
@@ -83,13 +83,13 @@ Dabei werden für die Intervallberechnung alle Verkehrsmittel der Transportmitte
                                 & IV
                                 & V
                                 & V
-                                & -\\
+                                &\\
         \bottomrule
     \caption{Ermittlung der Haltestellenkategorie}
     \label{table:Ermittlung der Haltestellenkategorie}
 \end{longtable}
 
-Der Kursintervall ist der durchschnittliche Abstand zwischen Ankunft beziehungsweise Abfahrt aller Verkehrsmittel in der gleichen Gruppe zwischen 06:00 - 20:00 Uhr jeweils von Montag bis Freitag.
+Der Kursintervall ist der durchschnittliche Abstand zwischen Ankunft beziehungsweise Abfahrt (pro Linie jeweils in der Hauptlastrichtung) aller Verkehrsmittel in der gleichen Gruppe zwischen 06:00 - 20:00 Uhr jeweils von Montag bis Freitag.
 Die Norm macht hier Ausnahmen bei Verdichtungen in Hauptverkehrszeiten, Linienüberlagerungen und reinen Arbeitsplatzgebieten mit stark verdichtetem Fahrplan während Pendlerzeiten.
 
 \subparagraph{Erreichbarkeit der Haltestelle}~\\
@@ -118,23 +118,324 @@ Die Distanzen sind Luftlinien, wobei ein mittlerer Umwegfaktor von 20 bis 30\% b
                                 & Klasse B
                                 & Klasse C
                                 & Klasse D
-                                & -\\
+                                &\\
         \textbf{IV}
                                 & Klasse C
                                 & Klasse D
-                                & -
-                                & -\\
+                                &
+                                &\\
         \textbf{V}
                                 & Klasse D
-                                & -
-                                & -
-                                & -\\
+                                &
+                                &
+                                &\\
         \bottomrule
     \caption{Ermittlung der Erreichbarkeit der Haltestelle}
     \label{table:Ermittlung Erreichbarkeit der Haltestelle}
 \end{longtable}
 
 Der Topographie wird Rechnung getragen, indem man bei schwierigen Gegebenheiten die nächste Klasse wählt oder die Distanz vergrössert.
+
+\subsubsection{Berechnungsmethodiken ÖV-Güteklassen}
+\label{Aktuelle Situation:Berechnungsmethodik ÖV-Güteklassen}
+Basierend auf der bestehenden Norm wurde im Jahre 2011 die Berechnungsmethodik des \ac{ARE} veröffentlicht, welche in einer Weisung des \acs{UVEK} vom 16.02.2015 als die Berechnugsmethodik definiert wird, welche bei der Beurteilung der Qualität der Erschliessung mit dem öffentlichen Verkehr verwendet werden soll.
+
+In der Zwischenzeit wurden einige kantonale Anpassungen an dieser Methodik vorgenommen.
+Folgend werden grob die Abweichungen der Norm der verabschiedeten Berechnungsmethodik ARE und zweier kantonaler Methodiken beschrieben, namentlich des Kanton Graubünden und Zürich.
+
+Im Anschluss werden die Methodiken zusammen betrachtet, Schwachstellen eruiert und Verbesserungen vorgeschlagen.
+Dieses Vorgehen hat das Ziel, Erfahrungen und etablierte Grundlagen in \gls{OeVGK18} einfliessen zu lassen, um so eine allgemeine Akzeptanz erreichen zu können.
+
+\paragraph{Berechnungsmethodik ARE}~\\
+\label{Berechnungsmethodik:Berechnungsmethodik ARE}
+Das Bundesamt für Raumentwicklung (ARE) entwickelt in ihrem Grundlagenbericht für die Beurteilung der Agglomerationsprogramme Verkehr und Siedlung~\cite{berechnung_are} eine Berechnungsmethodik der \acs{ÖV}-Güteklassen basierend auf der bestehende Norm (siehe Kapitel \ref{Aktuelle Situation:Schweizer Norm 640 290}).
+Die entwickelte Berechnungsmethodik basiert auf den Fahrplandaten von HAFAS~\cite{sbb_hafas_spec}.
+Dies hatte die Konsequenz, dass die Berechnungsmethodik wie sie in der Norm festgelegt ist, angepasst werden musste.
+Im Folgenden sind die Anpassungen aufgeführt.
+
+\subparagraph{Bedienungsqualität der Haltestelle}~\\
+\label{Berechnungsmethodik ARE:Bedienungsqualität der Haltestelle}
+Die Verkehrsmittel lassen sich aus dem elektronischen Fahrplan~\cite{sbb_hafas_spec} nicht detailliert unterscheiden, wie es die Norm verlangt.
+Dies hat die Konsequenz, dass nur folgenden Verkehrsmittel-Einteilung verwendet wird:
+
+\begin{itemize}[noitemsep]
+    \item Verkehrsmittelgruppe A
+    \begin{itemize}
+        \item Bahnknoten (mehrere Bahnlinien in verschiedenen Richtungen)
+        \item Bahnlinien
+    \end{itemize}
+    \item Verkehrsmittelgruppe B
+    \begin{itemize}
+        \item Tram, Busse, Postautos, Rufbusse oder Schiffe
+    \end{itemize}
+    \item Verkehrsmittelgruppe C
+    \begin{itemize}
+        \item Seilbahnen
+    \end{itemize}
+\end{itemize}
+
+Die Hauptlastrichtung kann aus den Fahrplandaten nicht extrahiert werden.
+Somit werden alle Abfahrten zwischen 6.00 und 20.00 Uhr gezählt und anschliessend halbiert. Bei Endhaltestellen und Linien, welche nur in eine Richtung verlaufen, erfolgen Korrekturen.
+Die genaue Art der Korrektur ist nicht weiter aufgeführt.
+Als Stichtag für die Auswertung wird ein Werktag ausserhalb der Ferienzeit und der touristischen Hochsaison definiert.
+Ebenfalls wir in reinen Arbeitsplatzgebieten mangels einheitlicher Definition keine Anpassung vorgenommen.
+Verdichtungen in den Hauptverkehrszeiten sind in den gezählten Abfahrten inbegriffen.
+
+\subparagraph{Erreichbarkeit der Haltestelle}~\\
+\label{Berechnungsmethodik ARE:Erreichbarkeit der Haltestelle}
+Der Topografie wird keine Rechnung getragen, um eine landesweite Vergleichbarkeit sicherzustellen.
+
+Die \acs{ÖV}-Güteklassen sind folgend zu interpretieren:
+
+\begin{itemize}[noitemsep]
+    \item Güteklasse A: Sehr gute Erschliessung
+    \item Güteklasse B: Gute Erschliessung
+    \item Güteklasse B: Mittelmässige Erschliessung
+    \item Güteklasse D: Geringe Erschliessung
+    \item Keine Güteklasse: Marginale oder keine \acs{ÖV}-Erschliessung
+\end{itemize}
+
+\paragraph{Berechnungsmethodik Kanton Graubünden}~\\
+\label{Berechnungsmethodik:Berechnungsmethodik Kanton Graubünden}
+Im technischen Bericht ''Definition \acs{ÖV}-Struktur / Erhebung  \acs{ÖV}-Güteklassen Kanton Graubünden''~\cite{oev-guteklasse-gr} werden Anpassungen der in der Norm beschriebenen Berechnungsmethodik der \acs{ÖV}-Güteklassen an die speziellen Bedürfnisse des Kanton Graubündens aber auch von allgemeiner Natur vorgenommen.
+Anpassungen, welche spezielle Gegebenheiten des Kanton Graubündens betreffen, werden in der folgenden Zusammenstellung ausgeklammert, da sie sich für eine automatische Berechnung und für eine nationale Betrachtung nicht eignen.
+
+\subparagraph{Bedienungsqualität der Haltestelle}~\\
+\label{Berechnungsmethodik Kanton Graubünden:Bedienungsqualität der Haltestelle}
+Es werden zwei zusätzliche Haltestellenkategorieren (VI und VII) ergänzt und eine feinere Gliederung der Taktfrequenz eingeführt.
+
+Auf die Unterscheidung zwischen ''Tram, Trolleybus, Autobus, Regionalbus'' und ''Ortsbus, lokaler Kleinbus'' wird verzichtet und in der ersteren Kategorie zusammengefasst.
+Ebenfalls werden Seilbahnen mit Erschliessungsfunktion wie Bushaltestellen behandelt.
+
+\begin{longtable}[c]{l p{4.0cm} p{4.0cm} p{4.0cm}}
+        \midrule
+        \textbf{Kursintervall}
+                                & \textbf{Bahnknoten}
+                                & \textbf{Bahnlinie}
+                                & \textbf{Tram/Bus}\\
+        \textit{< 5 min}
+                                & I
+                                & I
+                                & II\\
+        \cellcolor{red!25}\textit{5 - 10 min}
+                                & I
+                                & II
+                                & III\\
+        \cellcolor{red!25}\textit{11 - 19 min}
+                                & II
+                                & III
+                                & IV\\
+        \textit{20 - 39 min}
+                                & III
+                                & IV
+                                & V\\
+        \textit{40 - 60 min}
+                                & IV
+                                & V
+                                & \cellcolor{red!25}VI\\
+        \cellcolor{red!25}\textit{> 60 min}
+                                &
+                                & \cellcolor{red!25}VII
+                                & \cellcolor{red!25}VII\\
+        \bottomrule
+    \caption{Ermittlung der Haltestellenkategorie Kanton Graubünden}
+    \label{table:Ermittlung der Haltestellenkategorie Kanton Graubünden}
+\end{longtable}
+
+Somit werden nun Bushaltestellen, die halbstündlich und stündlich bedient werden, nicht mehr gleich kategorisiert.
+Auch werden Haltestellen erfasst, welche seltener als stündlich einen Anschluss haben.
+Durch die feinere Gliederung der Taktfrequenz erhält man eine bessere Güteklasse bei einem 10-Minuten-Takt im Vergleich mit einem 15-Minuten-Takt.
+
+\subparagraph{Erreichbarkeit der Haltestelle}~\\
+\label{Berechnungsmethodik Kanton Graubünden:Erreichbarkeit der Haltestelle}
+Die zusätzlichen Haltestellenkategorien (VI und VII) hat zur Folge, dass auch zusätzliche Güteklassen (E und F) eingeführt werden.
+
+\begin{longtable}[c]{l p{3.3cm} p{3.3cm} p{3.3cm} p{3.3cm}}
+        \midrule
+        \textbf{}
+                                & \textbf{< 300 m}
+                                & \textbf{300 - 500 m}
+                                & \textbf{501 - 750 m}
+                                & \textbf{751 - 1000m}\\
+        \textbf{I}
+                                & Klasse A
+                                & Klasse A
+                                & Klasse B
+                                & Klasse C\\
+        \textbf{II}
+                                & Klasse A
+                                & Klasse B
+                                & Klasse C
+                                & Klasse D\\
+        \textbf{III}
+                                & Klasse B
+                                & Klasse C
+                                & Klasse D
+                                &\\
+        \textbf{IV}
+                                & Klasse C
+                                & Klasse D
+                                &
+                                &\\
+        \textbf{V}
+                                & Klasse D
+                                &
+                                &
+                                &\\
+        \cellcolor{red!25}\textbf{VI}
+                                & \cellcolor{red!25}Klasse E
+                                &
+                                &
+                                &\\
+        \cellcolor{red!25}\textbf{VII}
+                                & \cellcolor{red!25}Klasse F
+                                &
+                                &
+                                &\\                                
+        \bottomrule
+    \caption{Ermittlung der Erreichbarkeit der Haltestelle Kanton Graubünden}
+    \label{table:Ermittlung Erreichbarkeit der Haltestelle Kanton Graubünden}
+\end{longtable}
+
+Bushaltestellen haben eine maximale Erschliessungswirkung von 500 Meter, da grössere Distanzen von Passagieren als zu lange empfunden wird.
+Somit werden nur Bahnknoten und Bahnlinien in den Kategorien > 500 Meter klassifiziert.
+Die Topografie wird manuell berücksichtigt.
+
+Hauptverkehrszeiten werden nicht gesondert gehandhabt.
+Es zählt grundsätzlich das Angebot im gegebenen Zeitbereich.
+
+Linien, welche grundsätzlich stündlich fahren, jedoch Taktlücken aufweisen um zu einen gewissen Zeitpunkt ein Angebot erfüllen zu können, werden nur in der Stundentakt-Gruppe klassifiziert, wenn sie nicht mehr als 2 Taktlücken aufweisen.
+
+Es existieren Linienüberlagerungen mit einer ungleichen Verteilung.
+So können zwei Linien stündlich verkehren und eine Haltestelle kurz nacheinander bedienen, welche dann als Halbstundentakt klassifiziert werden.
+Der Passagier nimmt das Angebot aber als Stundentakt wahr.
+Jedoch ist nicht weiter ersichtlich, wie das Problem behoben wird.
+
+Die Bestimmung der Hauptlastrichtung erfolgt analog zur Berechnungsmethodik ARE.
+
+% Brauchen uns Hinketakte zu interessieren und müssen wir das auflisten?
+
+\paragraph{Berechnungsmethodik Kanton Zürich}~\\
+\label{Berechnungsmethodik:Berechnungsmethodik Kanton Zürich}
+Im Infoblatt ''ÖV-Güteklassen''~\cite{oev-guteklassen-zh} wird beschrieben, wie der Kanton Zürich die kantonalen ÖV-Güteklassen mit den Fahrplandaten des Zürcher Verkehrsverbundes (ZVV), angelehnt an die Berechnungsmethodik ARE, berechnet.
+
+\subparagraph{Bedienungsqualität der Haltestelle}~\\
+\label{Berechnungsmethodik Kanton Zürich:Bedienungsqualität der Haltestelle}
+Es werden nur Haltestellen berücksichtigt, die von Bahn, Tram und/oder Bus bedient werden.
+Seilbahnen und Schiffe werden explizit ausgeklammert.
+Somit ergibt sich folgende Kategorisierung:
+\begin{itemize}
+    \itemsep -1.5em
+    \item Bahnknoten (Bahnstationen mit S-Bahnlinien in min. 6 Richtungen und/oder IR-Anschluss)
+    \item Bahnlinien
+    \item Tram
+    \item Bus
+\end{itemize}
+
+Der Kursintervall wird auf 05:30 bis 22:30 Uhr festgelegt (unter der Woche).
+Handelt es sich um Endhaltestellen oder Linien, welche nur in eine Richtung verkehren, werden alle Abfahrten gezählt.
+Zusätzlich werden wie im Kanton Graubünden  Haltestellen mit einem Kursintervall von über 60 Minuten berücksichtigt.
+
+\begin{longtable}[c]{l p{2.9cm} p{2.8cm} p{2.8cm} p{2.8cm}}
+        \midrule
+        \textbf{Kursintervall}
+                                & Bahnknoten
+                                & Bahnlinie
+                                & Tram
+                                & Bus\\
+        \textit{< 5 min}
+                                & I
+                                & I
+                                & II
+                                & II\\
+        \textit{5 - 9 min}
+                                & I
+                                & II
+                                & III
+                                & III\\
+        \textit{10 - 19 min}
+                                & II
+                                & III
+                                & IV
+                                & IV\\
+        \textit{20 - 39 min}
+                                & III
+                                & IV
+                                &
+                                & V\\
+        \textit{40 - 60 min}
+                                &
+                                & V
+                                &
+                                & VI\\
+        \cellcolor{red!25}\textit{> 60 min}
+                                &
+                                &
+                                &
+                                & \cellcolor{red!25}VII\\
+        \bottomrule
+    \caption{Ermittlung der Haltestellenkategorie Kanton Zürich}
+    \label{table:Ermittlung der Haltestellenkategorie Kanton Zürich}
+\end{longtable}
+
+
+
+
+\subparagraph{Erreichbarkeit der Haltestelle}~\\
+\label{Berechnungsmethodik Kanton Zürich:Erreichbarkeit der Haltestelle}
+Auch im Kanton Zürich werden durch den zusätzlich abgebildeten Kursintervall (> 60 Minuten) zwei neue Güteklassen E und F eingeführt.
+
+\begin{longtable}[c]{l p{3.3cm} p{3.3cm} p{3.3cm} p{3.3cm}}
+        \midrule
+        \textbf{}
+                                & \textbf{< 300 m}
+                                & \textbf{300 - 500 m}
+                                & \textbf{501 - 750 m}
+                                & \textbf{751 - 1000m}\\
+        \textbf{I}
+                                & Klasse A
+                                & Klasse A
+                                & Klasse B
+                                & Klasse C\\
+        \textbf{II}
+                                & Klasse A
+                                & Klasse B
+                                & Klasse C
+                                & Klasse D\\
+        \textbf{III}
+                                & Klasse B
+                                & Klasse C
+                                & Klasse D
+                                &\\
+        \textbf{IV}
+                                & Klasse C
+                                & Klasse D
+                                & \cellcolor{red!25}Klasse E
+                                &\\
+        \textbf{V}
+                                & Klasse D
+                                & \cellcolor{red!25}Klasse E
+                                & \cellcolor{red!25}Klasse E
+                                &\\
+        \cellcolor{red!25}\textbf{VI}
+                                & \cellcolor{red!25}Klasse E
+                                & \cellcolor{red!25}Klasse E
+                                &
+                                &\\
+        \cellcolor{red!25}\textbf{VII}
+                                & \cellcolor{red!25}Klasse F
+                                & \cellcolor{red!25}Klasse F
+                                &
+                                &\\                                
+        \bottomrule
+    \caption{Ermittlung der Erreichbarkeit der Haltestelle Kanton Zürich}
+    \label{table:Ermittlung Erreichbarkeit der Haltestelle Kanton Zürich}
+\end{longtable}
+
+Der Topografie wird keine Rechnung getragen, es wird strikt auf die Luftlinie gesetzt.
+Sind Haltestellen nur durch Tram und/oder Bus erschlossen, werden analog zum Kanton Graubünden nur Distanzen bis zu 500 Meter berücksichtigt.
+Die Erschliessung durch Bahnknoten und Bahnlinien wird bis 750 Meter mit den Güteklassen B – E und bis 1000 Meter mit den Güteklassen C-D berücksichtigt.
+Diese Entscheidungen basieren auf ÖV-Angebotsverordnungen.
 
 \paragraph{Problematik}~\\
 \label{Schweizer Norm 640 290:Problematik}

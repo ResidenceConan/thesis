@@ -158,15 +158,25 @@ Im Folgenden sind die Anpassungen aufgeführt.
 Die Verkehrsmittel lassen sich aus dem elektronischen Fahrplan~\cite{sbb_hafas_spec} nicht detailliert unterscheiden, wie es die Norm verlangt.
 Dies hat die Konsequenz, dass nur folgenden Verkehrsmittel-Einteilung verwendet wird:
 
-\begin{itemize}
-    \itemsep -1.5em
-    \item Bahnknoten (mehrere Bahnlinien in verschiedenen Richtungen)
-    \item Bahnlinien
-    \item Tram, Busse, Postautos, Rufbusse oder Schiffe
+\begin{itemize}[noitemsep]
+    \item Verkehrsmittelgruppe A
+    \begin{itemize}
+        \item Bahnknoten (mehrere Bahnlinien in verschiedenen Richtungen)
+        \item Bahnlinien
+    \end{itemize}
+    \item Verkehrsmittelgruppe B
+    \begin{itemize}
+        \item Tram, Busse, Postautos, Rufbusse oder Schiffe
+    \end{itemize}
+    \item Verkehrsmittelgruppe C
+    \begin{itemize}
+        \item Seilbahnen
+    \end{itemize}
 \end{itemize}
 
 Die Hauptlastrichtung kann aus den Fahrplandaten nicht extrahiert werden.
 Somit werden alle Abfahrten zwischen 6.00 und 20.00 Uhr gezählt und anschliessend halbiert. Bei Endhaltestellen und Linien, welche nur in eine Richtung verlaufen, erfolgen Korrekturen.
+Die genaue Art der Korrektur ist nicht weiter aufgeführt.
 Als Stichtag für die Auswertung wird ein Werktag ausserhalb der Ferienzeit und der touristischen Hochsaison definiert.
 Ebenfalls wir in reinen Arbeitsplatzgebieten mangels einheitlicher Definition keine Anpassung vorgenommen.
 Verdichtungen in den Hauptverkehrszeiten sind in den gezählten Abfahrten inbegriffen.
@@ -174,6 +184,16 @@ Verdichtungen in den Hauptverkehrszeiten sind in den gezählten Abfahrten inbegr
 \subparagraph{Erreichbarkeit der Haltestelle}~\\
 \label{Berechnungsmethodik ARE:Erreichbarkeit der Haltestelle}
 Der Topografie wird keine Rechnung getragen, um eine landesweite Vergleichbarkeit sicherzustellen.
+
+Die \acs{ÖV}-Güteklassen sind folgend zu interpretieren:
+
+\begin{itemize}[noitemsep]
+    \item Güteklasse A: Sehr gute Erschliessung
+    \item Güteklasse B: Gute Erschliessung
+    \item Güteklasse B: Mittelmässige Erschliessung
+    \item Güteklasse D: Geringe Erschliessung
+    \item Keine Güteklasse: Marginale oder keine \acs{ÖV}-Erschliessung
+\end{itemize}
 
 \paragraph{Berechnungsmethodik Kanton Graubünden}~\\
 \label{Berechnungsmethodik:Berechnungsmethodik Kanton Graubünden}
@@ -289,7 +309,7 @@ Linien, welche grundsätzlich stündlich fahren, jedoch Taktlücken aufweisen um
 Es existieren Linienüberlagerungen mit einer ungleichen Verteilung.
 So können zwei Linien stündlich verkehren und eine Haltestelle kurz nacheinander bedienen, welche dann als Halbstundentakt klassifiziert werden.
 Der Passagier nimmt das Angebot aber als Stundentakt wahr.
-% Wie dieses Problem behoben wird, ist aber nicht ganz klar
+Jedoch ist nicht weiter ersichtlich, wie das Problem behoben wird.
 
 Die Bestimmung der Hauptlastrichtung erfolgt analog zur Berechnungsmethodik ARE.
 

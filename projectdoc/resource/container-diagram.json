@@ -38,7 +38,7 @@
         },
         {
           "type": "Container",
-          "name": "ÖV-Güteklassen 2018 Processor",
+          "name": "ÖV-Güteklassen 2018 Generator",
           "description": "",
           "technology": "",
           "tags": "",
@@ -96,7 +96,7 @@
       "source": "Admin",
       "description": "via CLI",
       "technology": "",
-      "destination": "ÖV-Güteklassen 2018 Processor",
+      "destination": "ÖV-Güteklassen 2018 Generator",
       "tags": ""
     },
     {
@@ -110,25 +110,25 @@
       "source": "Backend",
       "description": "Erhält GeoJSON von",
       "technology": "",
-      "destination": "ÖV-Güteklassen 2018 Processor",
+      "destination": "ÖV-Güteklassen 2018 Generator",
       "tags": ""
     },
     {
-      "source": "ÖV-Güteklassen 2018 Processor",
+      "source": "ÖV-Güteklassen 2018 Generator",
       "description": "",
       "technology": "",
       "destination": "GTFS (geOps)",
       "tags": ""
     },
     {
-      "source": "ÖV-Güteklassen 2018 Processor",
+      "source": "ÖV-Güteklassen 2018 Generator",
       "description": "",
       "technology": "",
       "destination": "planet.osm.ch",
       "tags": ""
     },
     {
-      "source": "ÖV-Güteklassen 2018 Processor",
+      "source": "ÖV-Güteklassen 2018 Generator",
       "description": "",
       "technology": "",
       "destination": "Routing-Engine",

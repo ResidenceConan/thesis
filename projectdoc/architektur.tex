@@ -62,25 +62,47 @@ Im Folgenden werden die einzelnen Container genauer beschrieben.
     \caption[Containerdiagramm]{Containerdiagramm ÖV-Güteklassen 2018}
     \label{fig:container-diagram}
 \end{figure}
+% TODO: Use Express export instead of a screenshot
 
-\subsubsection{ÖV-Güteklassen 2018 Processor}
-\label{container:processor}
+\subsubsection{ÖV-Güteklassen 2018 Generator}
+\label{container:generator}
 
-Der ''\acs{ÖV}-Güteklassen 2018 Processor'' stellt das Kernstück der Berechnung der \acs{ÖV}-Güteklassen dar.
+Der ''\acs{ÖV}-Güteklassen 2018 Generator'' stellt das Kernstück der Berechnung der \acs{ÖV}-Güteklassen dar.
 Sobald der Administrator den Use Case 01 (siehe \ref{Use Cases:UC01}) startet, werden als ersten Schritt die Höhendaten vom externen System \nameref{subsystem:swissALTI3D} sowie die aktuellen Kartendaten von \nameref{subsystem:planet.osm.ch} in die \nameref{container:Routing-Engine} geladen.
 Danach wird die eigentliche Berechnung der \acs{ÖV}-Güteklassen 2018 durchgeführt.
-Die Fahrplandaten dafür werden aus dem \nameref{subsystem:GTFS}-System bezogen.
+Die Fahrplandaten dafür werden aus dem \nameref{subsystem:GTFS}-System bezogen und die Positionen der Haltestellen werden aus den \ac{OSM}-Daten ermittelt.
 Am Schluss der Berechnung wird das Ergebnis in geografischen Formen abgebildet und als \gls{GeoJSON} an den \nameref{container:Backend}-Container ausgeliefert.
 
-Diese Aufgaben werden im Container von verschiedenen Komponenten (Components) erledigt.
-In der Abbildung X wird daher dieser Container weiter zerlegt. Nachfolgend sind die einzelnen Komponenten beschrieben.
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.9\linewidth]{projectdoc/img/guetklassen_generator_architektur.png}
+    \caption[Klassendiagramm ÖV-Güteklassen Generator]{Klassendiagramm ÖV-Güteklassen Generator}
+    \label{fig:class_diagram_generator}
+\end{figure}
 
-% TODO: Komponenten-Diagramm und Beschreibung der einzelnen Komponenten
+In der Abbildung \ref{fig:class_diagram_generator} wird dieser Container weiter zerlegt.
+Die Softwarearchitektur ist an die ''Clean Architecture''-Prinzipien von \cite{martin_clean_architecture} angelehnt.
+Im Folgenden werden die einzelnen Komponenten beschrieben.
+
+% TODO: Diagramm beschreiben, sobald es ausgereift ist
+
+\paragraph{UI}~\\
+TODO
+
+\paragraph{business}~\\
+TODO
+% \emph{TransportStopRating} ist dafür zuständig, die Haltestellenkategorie einer Haltestelle zu ermitteln.
+
+% Der \emph{TransportStopResolver} ermittelt mit Hilfe vom \emph{OSMService} die Koordinaten einer Haltestelle.
+% Diese werden vom \emph{IsochroneHandler} als Startpunkt für die Berechnungen der Einzugsgebiete verwendet.
+
+\paragraph{integration}~\\
+TODO
 
 \subsubsection{Backend}
 \label{container:Backend}
 
-Das Backend nimmt die Ergebnisse der Berechnungen vom Container \nameref{container:processor} entgegen.
+Das Backend nimmt die Ergebnisse der Berechnungen vom Container \nameref{container:generator} entgegen.
 Mit diesen Daten wird eine Web-\ac{API} angeboten, die dann von der \nameref{container:Web-App} verwendet wird, um die Visualisierung auf der Web-Karte zu realisieren.
 Die Daten werden der Web-App im \gls{GeoJSON}-Format ausgeliefert.
 

@@ -5,7 +5,7 @@
 In diesem Kapitel wird die Architektur unserer Applikation und die Schnittstellen zu den Umsystemen besprochen.
 Als Anhaltspunkt wird das C4 Modell \cite{c4model} von Simon Brown verwendet.
 In einem ersten Schritt wird unsere Applikation ''ÖV-Güteklassen 2018'' in den Kontext des grösseren Systems gesetzt.
-Anschliessend teilen wir das System ''ÖV-Güteklassen 2018'' in einzelne Container und den zentralen Container ''ÖV-Güteklassen 2018 Processor'' in einzelne Komponenten auf.
+Anschliessend teilen wir das System ''ÖV-Güteklassen 2018'' in einzelne Container und den zentralen Container ''ÖV-Güteklassen 2018 Generator'' in einzelne Komponenten auf.
 
 \subsection{Systemkontext}
 \label{Architektur:Systemkontext}
@@ -124,8 +124,8 @@ Die beiden Varianten werden im Kapitel \ref{Analyse:Evaluation Frontend-Framewor
 Die Routing-Engine ist für die Berechnung von Isolinien verantwortlich.
 Dazu werden zuerst periodisch die Kartendaten von \nameref{subsystem:planet.osm.ch} eingelesen und zusammen mit dem \gls{Terrainmodell} von \nameref{subsystem:swissALTI3D}, das zuvor vom Admin manuell besorgt wurde, eine Routing-Topologie erstellt.
 
-Sobald der Admin die Berechnung der ÖV-Güteklassen auslöst, wird die Routing-Engine vom \nameref{container:processor} nach Isolinien abgefragt, die mit Haltestellen als Startpunkt und einer gewissen Distanz (gewichtet nach Höhenunterschied) berechnet werden.
-Diese Isodistanzen bilden Polygone, die anschliessend vom Processor weiter verarbeitet werden.
+Sobald der Admin die Berechnung der ÖV-Güteklassen auslöst, wird die Routing-Engine vom \nameref{container:generator} nach Isolinien abgefragt, die mit Haltestellen als Startpunkt und einer gewissen Distanz (gewichtet nach Höhenunterschied) berechnet werden.
+Diese Isodistanzen bilden Polygone, die anschliessend vom Generator weiter verarbeitet werden.
 
 
 \subsection{Code}

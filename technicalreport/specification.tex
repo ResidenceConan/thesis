@@ -105,9 +105,29 @@ Die Haltestellenkategorie I bis VII wird mit folgender Tabelle eruiert:
 \label{Haltestellenkategorie}
 \end{longtable}
 
-\subparagraph{Distanz zur Haltestelle}~\\
+\subparagraph{Gehzeit zur Haltestelle}~\\
 \label{Berechnungsmethodik OeVGK18:Distanz zur Haltestelle}
-Bei der Berechnung der Distanz zu einer Haltestelle ist eine Laufgeschwindigkeit von $1.4 m/s$ anzunehmen.
+Bei der Berechnung der Gehzeit zu einer Haltestelle ist eine Laufgeschwindigkeit von $1.4 m/s$ anzunehmen und die Strecke entlang des Wege- und Strassennetzes zu berücksichtigen, welche im folgenden als Horizontaldistanz bezeichnet wird.
+
+Damit man der Topografie gerecht wird, ist als massgebende zu laufende Distanz Leistungsmeter zu verwenden:
+\[
+    x = 
+\begin{cases}
+    a + b/0.1 + c/0.15, & \text{if } c/d> 0.22\\
+    a + b/0.1,          & \text{otherwise}
+\end{cases}
+\]
+\begin{conditions}
+    x   &   Leistungsmeter [m]\\
+    a   &   Horizontaldistanz [m]\\
+    b   &   positive Steigung in Höhenmeter [m]\\
+    c   &   negative Steigung in Höhenmeter [m]\\
+    d   &   Horizontaldistanz mit negativer Steigung [m]
+\end{conditions}
+
+Die Gehzeit $t$ zur Haltestelle ergibt sich nun aus:
+\[ t = \frac{x}{1.4 m/s} \]
+
 
 \subparagraph{ÖV-Güteklassen}~\\
 \label{Berechnungsmethodik OeVGK18:ÖV-Güteklassen}

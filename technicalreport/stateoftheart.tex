@@ -503,50 +503,6 @@ Wird das obige Beispiel mit diesem Ansatz erneut betrachtet, ergibt sich daraus 
 \label{table:Vergleich der Taktberechnung mit bisheriger und neuer Methodik}
 \end{longtable}
 
-
-\subsubsection{Transportmittelkategorie}
-\label{Verbesserungsmöglichkeiten:Transportmittelkategorie}
-
-\paragraph{Problem}~\\
-Die öffentlichen Verkehrsmittel werden in drei Verkehrsmittelgruppen gruppiert (siehe Kapitel \ref{Berechnungsmethodik ARE:Bedienungsqualität der Haltestelle}).
-Wie in Kapitel \ref{subsystem:GTFS} beschrieben werden die Fahrplandaten im \acs{GTFS}-Format~\cite{gtfs_spec} gehalten. 
-Es werden dabei 8 Verkehrsmittel-Typen definiert.
-In Tabelle \ref{table:Mapping Verkehrsmittel-Typ Transportmittelkategorie} ist ein Mapping der definierten Verkehrsmittel-Typen und der Verkehrsmittelgruppen ersichtlich.
-
-\begin{longtable}[ht]{l l}
-        \midrule
-        \textbf{GTFS Route Type} 
-                                & \textbf{Verkehrsmittelgruppen}\\
-        0 (Tram, Streetcar, Light rail)
-                                & B\\
-        1 (Subway, Metro)
-                                & B\\
-        2 (Rail)
-                                & A\\
-        3 (Bus)
-                                & B\\
-        4 (Ferry)
-                                & B\\
-        5 (Cable car)
-                                & (C)\\
-        6 (Gondola, Suspended cable car)
-                                & C\\
-        7 (Funicular)
-                                & C\\            
-        \bottomrule
-    \caption{Mapping Verkehrsmittel-Typ Transportmittelkategorie}
-    \label{table:Mapping Verkehrsmittel-Typ Transportmittelkategorie}
-\end{longtable}
-
-Stand 13.03.2018 kommt die GTFS Route Type Kategorie 5 gemäss den Fahrplandaten~\cite{geops_fahrplandaten} in der Schweiz nicht vor und kann vernachlässigt werden.
-
-Schiffe und Seilbahnen haben nicht zwingend einen Erschliessungsfunktion und werden nur für touristische Zwecke benutzt, fliessen momentan aber ungefiltert in die Bewertung.
-
-% TODO Tabelle steht momentan ein bisschen unnötigt da
-
-\paragraph{Lösung}~\\
-Bei der Berücksichtigung von Schiffen und Seilbahnen soll geprüft werden, ob diese eine Erschliessungsfunktion hat.
-
 \subsubsection{Bestimmung der Bahnknoten}
 \label{Verbesserungsmöglichkeiten:Bestimmung der Bahnknoten}
 

@@ -4,13 +4,13 @@
 
 In diesem Kapitel wird die Architektur unserer Applikation und die Schnittstellen zu den Umsystemen besprochen.
 Als Anhaltspunkt wird das C4 Modell \cite{c4model} von Simon Brown verwendet.
-In einem ersten Schritt wird unsere Applikation ''ÖV-Güteklassen 2018'' in den Kontext des grösseren Systems gesetzt.
-Anschliessend teilen wir das System ''ÖV-Güteklassen 2018'' in einzelne Container und den zentralen Container ''ÖV-Güteklassen 2018 Generator'' in einzelne Komponenten auf.
+In einem ersten Schritt wird unsere Applikation "`ÖV-Güteklassen 2018"' in den Kontext des grösseren Systems gesetzt.
+Anschliessend teilen wir das System "`ÖV-Güteklassen 2018"' in einzelne Container und den zentralen Container "`ÖV-Güteklassen 2018 Generator"' in einzelne Komponenten auf.
 
 \subsection{Systemkontext}
 \label{Architektur:Systemkontext}
 
-In Abbildung \ref{fig:system-context-diagram} ist gestrichelt eingerahmt das System ''ÖV-Güteklassen 2018'' zusammen mit den dazugehörigen Umsystemen dargestellt.
+In Abbildung \ref{fig:system-context-diagram} ist gestrichelt eingerahmt das System "`ÖV-Güteklassen 2018"' zusammen mit den dazugehörigen Umsystemen dargestellt.
 Die Pfeile bedeuten, dass ein System in Richtung der Pfeilspitze Anfragen an ein anderes System sendet.
 Die Daten fliessen dementsprechend in die entgegengesetzte Richtung.
 
@@ -21,7 +21,7 @@ Die Daten fliessen dementsprechend in die entgegengesetzte Richtung.
     \label{fig:system-context-diagram}
 \end{figure}
 
-Im Folgenden werden die Umsysteme sowie die Beziehungen zu unserem System ''ÖV-Güteklassen 2018'' genauer beschrieben.
+Im Folgenden werden die Umsysteme sowie die Beziehungen zu unserem System "`ÖV-Güteklassen 2018"' genauer beschrieben.
 
 \subsubsection{swissALTI$^{3D}$}
 \label{subsystem:swissALTI3D}
@@ -53,7 +53,7 @@ Die Daten sind im \ac{PBF} und werden mit entsprechenden Tools in eine relationa
 \subsection{Container}
 \label{Architektur:Container}
 
-In der Abbildung \ref{fig:container-diagram} ist das System ''ÖV-Güteklassen 2018'', wie es in im \nameref{Architektur:Systemkontext} vorkam, in einzelne Container aufgespalten.
+In der Abbildung \ref{fig:container-diagram} ist das System "`ÖV-Güteklassen 2018"', wie es in im \nameref{Architektur:Systemkontext} vorkam, in einzelne Container aufgespalten.
 Im Folgenden werden die einzelnen Container genauer beschrieben.
 
 \begin{figure}[ht]
@@ -67,7 +67,7 @@ Im Folgenden werden die einzelnen Container genauer beschrieben.
 \subsubsection{ÖV-Güteklassen 2018 Generator}
 \label{container:generator}
 
-Der ''\acs{ÖV}-Güteklassen 2018 Generator'' stellt das Kernstück der Berechnung der \acs{ÖV}-Güteklassen dar.
+Der "`\acs{ÖV}-Güteklassen 2018 Generator"' stellt das Kernstück der Berechnung der \acs{ÖV}-Güteklassen dar.
 Sobald der Administrator den Use Case 01 (siehe \ref{Use Cases:UC01}) startet, werden als ersten Schritt die Höhendaten vom externen System \nameref{subsystem:swissALTI3D} sowie die aktuellen Kartendaten von \nameref{subsystem:planet.osm.ch} in die \nameref{container:Routing-Engine} geladen.
 Danach wird die eigentliche Berechnung der \acs{ÖV}-Güteklassen 2018 durchgeführt.
 Die Fahrplandaten dafür werden aus dem \nameref{subsystem:GTFS}-System bezogen und die Positionen der Haltestellen werden aus den \ac{OSM}-Daten ermittelt.
@@ -81,7 +81,7 @@ Am Schluss der Berechnung wird das Ergebnis in geografischen Formen abgebildet u
 \end{figure}
 
 In der Abbildung \ref{fig:class_diagram_generator} wird dieser Container weiter zerlegt.
-Die Softwarearchitektur ist an die ''Clean Architecture''-Prinzipien von \cite{martin_clean_architecture} angelehnt.
+Die Softwarearchitektur ist an die "`Clean Architecture"'-Prinzipien von \cite{martin_clean_architecture} angelehnt.
 Im Folgenden werden die einzelnen Komponenten beschrieben.
 
 % TODO: Diagramm beschreiben, sobald es ausgereift ist
@@ -111,7 +111,7 @@ Die Daten werden der Web-App im \gls{GeoJSON}-Format ausgeliefert.
 \subsubsection{Web-App}
 \label{container:Web-App}
 
-Die Web-App dient als Frontend des Systems ''\acs{ÖV}-Güteklassen 2018''.
+Die Web-App dient als Frontend des Systems "`\acs{ÖV}-Güteklassen 2018"'.
 Die Applikation wird als \ac{SPA} direkt an den Browser des Users ausgeliefert.
 Von dort werden dann per JavaScript die Daten im \gls{GeoJSON}-Format vom \ac{API} des \nameref{container:Backend}-Containers abgerufen und visualisiert.
 

@@ -61,7 +61,28 @@ Es sind 2 Stichtage mit jeweils zwei Zeitbereichen zu definieren, welche ausserh
 \label{table:Ermittlung Kursintervall: Stichtag und Zeitbereich}
 \end{longtable}
 
-TODO Kursberechnung
+Der Takt $\tau$ einer Haltestelle wird definiert als das "`Doppelte der erwarteten Wartezeit auf die nächste Abfahrt [\ldots] bei zufälligem Zugang im Zeitintervall $I = [a,b)$"'~\cite{visum_manual_formula}. Es werden alle Abfahrten betrachtet, die innerhalb des definiertem Zeitbereichs an der Haltestelle abfahren.
+
+Die Umsetzung dafür geschieht wie folgt:
+
+\begin{tabbing}
+Abfahrtszeitpunkte im Intervall $I$: {\hskip 8em} \=    $x_{1 \ldots n}$      \\
+Erste Abfahrt nach Zeitpunkt $b$ (nach Fahrplan): \>    $x'$                  \\
+Fiktive Abfahrt nach $b$ bei zyklischer Fortsetzung: \> $x'' = x_1 + (b - a)$
+\end{tabbing}
+
+Für die Wartezeit am Intervallende wird die Fahrt $x_{n+1} = min\{x', x''\}$ verwendet.
+
+Takt:
+\[
+    \tau^{a, b} = \frac{1}{b - a} \sum_{i=0}^n \Delta_i
+\]
+
+\begin{conditions}
+    \Delta_i & $(x_{i+1} - x_i)^2$ {\hskip 2em} für $i \in \{1, \ldots, n - 1\}$ \\
+    \Delta_0 & $(x_1 - a)^2$ \\
+    \Delta_n & $(x_{n+1} - x_n)^2 - (x_{n+1} - b)^2$
+\end{conditions}
 
 \subparagraph{Haltestellenkategorie}~\\
 \label{Berechnungsmethodik OeVGK18:Haltestellenkategorie}

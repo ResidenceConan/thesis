@@ -38,7 +38,17 @@
 \usepackage[table]{xcolor}
 \usepackage{longtable}
 
+\usepackage{amsmath}
+\usepackage{array}
+\newenvironment{conditions}[1][wobei:]
+  {#1 \begin{tabular}[t]{>{$}l<{$} @{${}={}$} l}}
+  {\end{tabular}\\[\belowdisplayskip]}
+
 \usepackage{enumitem}
+
+\newenvironment{itquote}
+  {\begin{quote}\itshape}
+  {\end{quote}\ignorespacesafterend}
 
 \usepackage{pgfplots} % charts
 \pgfplotsset{compat=1.13}

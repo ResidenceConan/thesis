@@ -512,14 +512,18 @@ Schiffe und Seilbahnen haben nicht zwingend einen Erschliessungsfunktion und wer
 
 % TODO Tabelle steht momentan ein bisschen unnötigt da
 
+\paragraph{Lösung}~\\
+Bei der Berücksichtigung von Schiffen und Seilbahnen soll geprüft werden, ob diese eine Erschliessungsfunktion hat.
+
+\subsubsection{Bestimmung der Bahnknoten}
+\label{Verbesserungsmöglichkeiten:Bestimmung der Bahnknoten}
+
+\paragraph{Problem}~\\
 Bei der Unterscheidung von Bahnknoten und Bahnlinien ist bei der Berechnungsmethodik von ARE lediglich spezifiziert, dass ein Bahnknoten Bahnlinien in mehrere Richtungen hat (siehe Kapitel \ref{Lösungsansätze:Berechnungsmethodik ARE}).
 In den ÖV-Güteklassen des Kanton Zürich werden Bahnknoten als "`Bahnstationen in mindestens 6 Richtungen und/oder IR-Anschluss"' (Kapitel \ref{Lösungsansätze:Berechnungsmethodik Kanton Zürich}) definiert.
 Bei beiden Methodiken ist nicht klar, was unter einer Richtung genau zu verstehen ist.
 
-
 \paragraph{Lösung}~\\
-Bei der Berücksichtigung von Schiffen und Seilbahnen soll geprüft werden, ob diese eine Erschliessungsfunktion hat.
-
 Für die Bestimmung von Bahnknoten werden von einer gegebenen Bahnstation aus diejenigen anderen Bahnstationen gezählt, die mit einem beliebigen Zug ohne Zwischenhalt erreicht werden können.
 Konkret wird also für jeden (im definierten Zeitraum) an der Bahnstation haltenden Zug ermittelt, zu welcher Station er als nächstes fahren wird.
 Die Anzahl Richtungen wird dann definiert als die Anzahl von verschiedenen Bahnstationen, die dadurch gezählt werden.

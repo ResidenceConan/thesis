@@ -38,6 +38,12 @@
 \usepackage[table]{xcolor}
 \usepackage{longtable}
 
+\usepackage{amsmath}
+\usepackage{array}
+\newenvironment{conditions}[1][wobei:]
+  {#1 \begin{tabular}[t]{>{$}l<{$} @{${}={}$} l}}
+  {\end{tabular}\\[\belowdisplayskip]}
+
 \usepackage{enumitem}
 
 \usepackage{pgfplots} % charts

@@ -451,10 +451,10 @@ Basierend auf diesen Verbesserungsmöglichkeiten, der \nameref{Lösungsansätze:
 In allen Lösung wird die Luftlinie als massgebende Bewertung der Erreichbarkeit einer Haltestelle genommen.
 Dies berücksichtigt weder die zusätzlicher Distanz durch verwinkelte Wege noch die Topographie.
 Der Kanton Graubünden behebt diese Problematik mit manuellen Anpassungen.
-Manuelle Eingriffe eigenen sich für eine automatisierte Lösung nicht.
+Manuelle Eingriffe eigenen sich jedoch für eine automatisierte Lösung nicht.
 
 \paragraph{Lösung}~\\
-Um der Topographie und der Wegführung gerecht zu werden, wird einerseits der konkrete Weg mit all seinen Eigenschaften für die Distanzberechnung berücksichtigt.
+Um der Topographie und der Wegführung gerecht zu werden, wird einerseits der konkrete Weg entlang des Wege- und Strassennetzes für die Distanzberechnung berücksichtigt.
 Auf der anderen Seiten wird die Topographie durch die Berechnung von \gls{Leistungskilometer}n berücksichtigt.
 
 \subsubsection{Kursintervallberechnung}
@@ -510,8 +510,20 @@ Stand 13.03.2018 kommt die GTFS Route Type Kategorie 5 gemäss den Fahrplandaten
 
 Schiffe und Seilbahnen haben nicht zwingend einen Erschliessungsfunktion und werden nur für touristische Zwecke benutzt, fliessen momentan aber ungefiltert in die Bewertung.
 
-% TODO Problematik Bahnknoten-Berechnung
 % TODO Tabelle steht momentan ein bisschen unnötigt da
 
 \paragraph{Lösung}~\\
 Bei der Berücksichtigung von Schiffen und Seilbahnen soll geprüft werden, ob diese eine Erschliessungsfunktion hat.
+
+\subsubsection{Bestimmung der Bahnknoten}
+\label{Verbesserungsmöglichkeiten:Bestimmung der Bahnknoten}
+
+\paragraph{Problem}~\\
+Bei der Unterscheidung von Bahnknoten und Bahnlinien ist bei der Berechnungsmethodik von ARE lediglich spezifiziert, dass ein Bahnknoten Bahnlinien in mehrere Richtungen hat (siehe Kapitel \ref{Lösungsansätze:Berechnungsmethodik ARE}).
+In den ÖV-Güteklassen des Kanton Zürich werden Bahnknoten als "`Bahnstationen in mindestens 6 Richtungen und/oder IR-Anschluss"' (Kapitel \ref{Lösungsansätze:Berechnungsmethodik Kanton Zürich}) definiert.
+Bei beiden Methodiken ist nicht klar, was unter einer Richtung genau zu verstehen ist.
+
+\paragraph{Lösung}~\\
+Für die Bestimmung von Bahnknoten werden von einer gegebenen Bahnstation aus diejenigen anderen Bahnstationen gezählt, die mit einem beliebigen Zug ohne Zwischenhalt erreicht werden können.
+Konkret wird also für jeden (im definierten Zeitraum) an der Bahnstation haltenden Zug ermittelt, zu welcher Station er als nächstes fahren wird.
+Die Anzahl Richtungen wird dann definiert als die Anzahl von verschiedenen Bahnstationen, die dadurch gezählt werden.

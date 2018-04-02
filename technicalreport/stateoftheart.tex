@@ -20,36 +20,36 @@ Im Folgenden ist aufgeschlüsselt, was genau die \acs{SN} 640 290~\cite{sn640290
 Grundsätzlich definieren \acs{ÖV}-Güteklassen die Qualität der Erschliessung durch den öffentlichen Verkehr.
 Diese Qualität wird durch die \nameref{Definition ÖV-Güteklassen:Bedienungsqualität der Haltestelle} und die \nameref{Definition ÖV-Güteklassen:Erreichbarkeit der Haltestelle} festgesetzt.
 Beide Kriterien sind folgend definiert.
-Anmerken muss man, dass zu besserer Verständlichkeit und Übersichtlichkeit unter anderem zusätzliche Terminologie wie Transportmittelkategorie eingeführt wird.
+Anmerken muss man, dass zu besserer Verständlichkeit und Übersichtlichkeit unter anderem zusätzliche Terminologie wie Verkehrsmittelmittelkategorie eingeführt wird.
 
 \subparagraph{Bedienungsqualität der Haltestelle}~\\
 \label{Definition ÖV-Güteklassen:Bedienungsqualität der Haltestelle}
-Die öffentlichen Verkehrsmittel werden zuerst in die in Tabelle \ref{table:Transportmittelkategorien} ersichtlichen Transportmittelkategorien eingeteilt.
+Die öffentlichen Verkehrsmittel werden zuerst in die in Tabelle \ref{table:Verkehrsmittelmittelkategorien} ersichtlichen Verkehrsmittelmittelkategorien eingeteilt.
 
 \begin{longtable}{l p{10.6cm}}
         \midrule
-        \textbf{Transportmittelkategorie 1}
+        \textbf{Verkehrsmittelmittelkategorie 1}
                                 & Bahnknoten: mehrere Bahnlinien in unterschiedliche Richtungen\\
-        \textbf{Transportmittelkategorie 2}
+        \textbf{Verkehrsmittelmittelkategorie 2}
                                 & Bahnlinie\\
-        \textbf{Transportmittelkategorie 3}
+        \textbf{Verkehrsmittelmittelkategorie 3}
                                 & Tramway, Trolleybuy, Autobus, Regionalbus, Ortsbus mit gutem Anschluss an Bahnlinie\\
-        \textbf{Transportmittelkategorie 4}
+        \textbf{Verkehrsmittelmittelkategorie 4}
                                 & Ortsbus, lokaler Kleinbus\\
         \bottomrule
-    \caption{Transportmittelkategorien}
-    \label{table:Transportmittelkategorien}
+    \caption{Verkehrsmittelmittelkategorien}
+    \label{table:Verkehrsmittelmittelkategorien}
 \end{longtable}
 
-Die Transportmittel werden dabei in die Gruppe A und B zusammengefasst, welche für die Berechnung des durchschnittlichen Kursintervalls berücksichtigt werden.
-Dabei werden für die Intervallberechnung alle Verkehrsmittel der Transportmittelkategorie in einer Gruppe berücksichtigt.
+Die Verkehrsmittelmittel werden dabei in die Gruppe A und B zusammengefasst, welche für die Berechnung des durchschnittlichen Kursintervalls berücksichtigt werden.
+Dabei werden für die Intervallberechnung alle Verkehrsmittel der Verkehrsmittelmittelkategorie in einer Gruppe berücksichtigt.
 
 \begin{longtable}[c]{l | p{2.3cm} p{2.3cm} | p{2.3cm} p{2.3cm}}
         \midrule
         \textbf{}
                                 & \multicolumn{2}{l|}{\textbf{Gruppe A}}
                                 & \multicolumn{2}{l}{\textbf{Gruppe B}}\\
-        \textbf{Transportmittelkategorie}
+        \textbf{Verkehrsmittelmittelkategorie}
                                 & \textit{1}
                                 & \textit{2}
                                 & \textit{3}
@@ -451,14 +451,14 @@ Basierend auf diesen Verbesserungsmöglichkeiten, der \nameref{Lösungsansätze:
 In allen Lösung wird die Luftlinie als massgebende Bewertung der Erreichbarkeit einer Haltestelle genommen.
 Dies berücksichtigt weder die zusätzlicher Distanz durch verwinkelte Wege noch die Topographie.
 Der Kanton Graubünden behebt diese Problematik mit manuellen Anpassungen.
-Manuelle Eingriffe eigenen sich für eine automatisierte Lösung nicht.
+Manuelle Eingriffe eigenen sich jedoch für eine automatisierte Lösung nicht.
 
 \paragraph{Lösung}~\\
-Um der Topographie und der Wegführung gerecht zu werden, wird einerseits der konkrete Weg mit all seinen Eigenschaften für die Distanzberechnung berücksichtigt.
+Um der Topographie und der Wegführung gerecht zu werden, wird einerseits der konkrete Weg entlang des Wege- und Strassennetzes für die Distanzberechnung berücksichtigt.
 Auf der anderen Seiten wird die Topographie durch die Berechnung von \gls{Leistungskilometer}n berücksichtigt.
 
-\subsubsection{Kursintervallberechnung}
-\label{Verbesserungsmöglichkeiten:Kursintervallberechnung}
+\subsubsection{Wahl des Zeitintervalls}
+\label{Verbesserungsmöglichkeiten:Wahl des Zeitintervalls}
 % TODO gefällt mir noch nicht so, zu wenig detailliert
 
 \paragraph{Problem}~\\
@@ -472,46 +472,46 @@ Die Berechnung der \acs{ÖV}-Güteklassen wird für drei Zeiträume durchgeführ
 Zusätzlich zum Standardbereich, welcher den Pendlerverkehr berücksichtigt, wird der Verkehr ausserhalb des Pendlerverkehrs in der Nacht und das Wochenende berücksichtigt.
 Natürlich muss hier eine andere Gewichtung angewendet werden, da zu Randzeiten Stundentakte weit häufiger vorkommen.
 
-\subsubsection{Transportmittelkategorie}
-\label{Verbesserungsmöglichkeiten:Transportmittelkategorie}
+\subsubsection{Taktberechnung}
+\label{Verbesserungsmöglichkeiten:Taktberechnung}
 
 \paragraph{Problem}~\\
-Die öffentlichen Verkehrsmittel werden in drei Verkehrsmittelgruppen gruppiert (siehe Kapitel \ref{Berechnungsmethodik ARE:Bedienungsqualität der Haltestelle}).
-Wie in Kapitel \ref{subsystem:GTFS} beschrieben werden die Fahrplandaten im \acs{GTFS}-Format~\cite{gtfs_spec} gehalten. 
-Es werden dabei 8 Verkehrsmittel-Typen definiert.
-In Tabelle \ref{table:Mapping Verkehrsmittel-Typ Transportmittelkategorie} ist ein Mapping der definierten Verkehrsmittel-Typen und der Verkehrsmittelgruppen ersichtlich.
+Für die Bestimmung des Taktes an einer Haltestelle werden in den bisherigen Berechnungsmethodiken in einem bestimmten Zeitintervall alle Abfahrten gezählt. Der Takt wird bestimmt als Quotient aus Anzahl Abfahrten und der Dauer dieses Intervalls, was den Mittelwert an Abfahrten pro Stunde ergibt.
+Diese Methode berücksichtigt aber nicht die Verteilung der Abfahrten, was zu starken Verzerrungen führen kann.
 
-\begin{longtable}[ht]{l l}
-        \midrule
-        \textbf{GTFS Route Type} 
-                                & \textbf{Verkehrsmittelgruppen}\\
-        0 (Tram, Streetcar, Light rail)
-                                & B\\
-        1 (Subway, Metro)
-                                & B\\
-        2 (Rail)
-                                & A\\
-        3 (Bus)
-                                & B\\
-        4 (Ferry)
-                                & B\\
-        5 (Cable car)
-                                & (C)\\
-        6 (Gondola, Suspended cable car)
-                                & C\\
-        7 (Funicular)
-                                & C\\            
-        \bottomrule
-    \caption{Mapping Verkehrsmittel-Typ Transportmittelkategorie}
-    \label{table:Mapping Verkehrsmittel-Typ Transportmittelkategorie}
-\end{longtable}
-
-Stand 13.03.2018 kommt die GTFS Route Type Kategorie 5 gemäss den Fahrplandaten~\cite{geops_fahrplandaten} in der Schweiz nicht vor und kann vernachlässigt werden.
-
-Schiffe und Seilbahnen haben nicht zwingend einen Erschliessungsfunktion und werden nur für touristische Zwecke benutzt, fliessen momentan aber ungefiltert in die Bewertung.
-
-% TODO Problematik Bahnknoten-Berechnung
-% TODO Tabelle steht momentan ein bisschen unnötigt da
+Beachten wir als Beispiel eine fiktive Bushaltestelle, an der zu Beginn der Stunde gleich zwei Busse halten, dann aber für den Rest der Stunde kein einziger mehr.
+Der Mittelwert an Abfahrten an dieser Haltestelle berechnet sich zu zwei Abfahrten pro Stunde, was einen Takt von 30 Minuten ergibt.
+Dies ist aber offensichtlich nicht ein realistischer Wert, aus Sicht eines Benutzers dieser Haltestelle handelt es sich eher um einen 60-minütigen Takt.
 
 \paragraph{Lösung}~\\
-Bei der Berücksichtigung von Schiffen und Seilbahnen soll geprüft werden, ob diese eine Erschliessungsfunktion hat.
+Für die Taktberechnung wird die statt der Anzahl Abfahrten die Wartezeit zwischen zwei Abfahrten als Grundlage verwendet.
+Der Takt $\tau$ einer Haltestelle wird definiert als das "`Doppelte der erwarteten Wartezeit auf die nächste Abfahrt [\ldots] bei zufälligem Zugang im Zeitintervall $I = [a,b)$"'.~\cite{visum_manual_formula}
+
+Da die erwartete Ankunft bei zufälligem Zugang in der Mitte zwischen zwei regulären Abfahrten liegt, ergibt das Doppelte der erwarteten Wartezeit den Takt.
+
+Wird das obige Beispiel mit diesem Ansatz erneut betrachtet, ergibt sich daraus einen Takt von 58 Minuten (siehe Tabelle \ref{table:Vergleich der Taktberechnung mit bisheriger und neuer Methodik}), was ein deutlich realistischeres Bild ergibt.
+
+\begin{longtable}[ht]{l l l}
+    \midrule
+    \textbf{Berechnungsmethodik}
+                             & \textbf{Abfahrtszeiten}
+                                                            & \textbf{Berechneter Takt}\\
+    Bisherig &                 09:01, 09:02, 10:01, 10:02, \dots & 30 Minuten \\
+    Mittelwert aus Wartezeit & 09:01, 09:02, 10:01, 10:02, \dots & 58 Minuten \\
+    \bottomrule
+\caption{Vergleich der Taktberechnung mit bisheriger und neuer Methodik}
+\label{table:Vergleich der Taktberechnung mit bisheriger und neuer Methodik}
+\end{longtable}
+
+\subsubsection{Bestimmung der Bahnknoten}
+\label{Verbesserungsmöglichkeiten:Bestimmung der Bahnknoten}
+
+\paragraph{Problem}~\\
+Bei der Unterscheidung von Bahnknoten und Bahnlinien ist bei der Berechnungsmethodik von ARE lediglich spezifiziert, dass ein Bahnknoten Bahnlinien in mehrere Richtungen hat (siehe Kapitel \ref{Lösungsansätze:Berechnungsmethodik ARE}).
+In den ÖV-Güteklassen des Kanton Zürich werden Bahnknoten als "`Bahnstationen in mindestens 6 Richtungen und/oder IR-Anschluss"' (Kapitel \ref{Lösungsansätze:Berechnungsmethodik Kanton Zürich}) definiert.
+Bei beiden Methodiken ist nicht klar, was unter einer Richtung genau zu verstehen ist.
+
+\paragraph{Lösung}~\\
+Für die Bestimmung von Bahnknoten werden von einer gegebenen Bahnstation aus diejenigen anderen Bahnstationen gezählt, die mit einem beliebigen Zug ohne Zwischenhalt erreicht werden können.
+Konkret wird also für jeden (im definierten Zeitraum) an der Bahnstation haltenden Zug ermittelt, zu welcher Station er als nächstes fahren wird.
+Die Anzahl Richtungen wird dann definiert als die Anzahl von verschiedenen Bahnstationen, die dadurch gezählt werden.

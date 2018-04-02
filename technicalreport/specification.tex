@@ -4,10 +4,369 @@
 
 \subsection{Zusammenhang zur Berechnungsmethodik ARE}
 \label{Spezifikation OeVGK18:Zusammenhang zur Berechnungsmethodik ARE}
+
 In der Weisung des \acs{UVEK} vom 16.02.2015 ist festgehalten, dass für die Beurteilung der Qualität der Erschliessung mit dem öffentlichen Verkehr die \nameref{Lösungsansätze:Berechnungsmethodik ARE} verwendet wird~\cite{weisung_uvek}.
 Dies ist der Grund warum im Folgenden der Bogen zu dieser Berechnungsmethodik geschlagen wird und die vorgeschlagenen Änderungen dieser Grundlagen gegenüber gestellt wird.
-Learnings und gemachte Anpassungen werden, wo es Sinn macht, übernommen und so gekennzeichnet. 
+Die Berechnungsmethodik \acs{ARE} wird im Original~\cite{berechnung_are} zitiert und Anpassungen aus kantonalen Berechnungsmethodiken und eigene Verbesserungen werden, wo es Sinn macht, übernommen und gekennzeichnet.
+
+\subsubsection{Art der Verkehrsmittel}
+\label{Zusammenhang zur Berechnungsmethodik ARE:Art der Verkehrsmittel}
+
+\begin{itquote}
+Die Art der Verkehrsmittel, die an einer Haltestelle abfahren, wird wie folgt unterschieden:
+\begin{itemize}[noitemsep]
+    \item Verkehrsmittelgruppe A
+    \begin{itemize}
+        \item Bahnknoten (mehrere Bahnlinien in verschiedenen Richtungen)
+        \item Bahnlinien
+    \end{itemize}
+    \item Verkehrsmittelgruppe B
+    \begin{itemize}
+        \item Tram, Busse, Postautos, Rufbusse oder Schiffe
+    \end{itemize}
+    \item Verkehrsmittelgruppe C
+    \begin{itemize}
+        \item Seilbahnen
+    \end{itemize}
+\end{itemize}
+\end{itquote}
+
+Die Verkehrsmittel werden weiterhin in drei Gruppen gehalten.
+Aufgrund der neuartigen Berechnung des Kursintervall sind Bahnknoten und Bahnlinie in separaten Gruppen eingeteilt und Seilbahnen wird mit den restlichen Verkehrsmittel zusammen betrachtet.
+
+\begin{itemize}[noitemsep]
+    \item Verkehrsmittelgruppe A
+    \begin{itemize}
+        \item Bahnknoten
+    \end{itemize}
+    \item Verkehrsmittelgruppe B
+    \begin{itemize}
+        \item Bahnlinie
+    \end{itemize}
+    \item Verkehrsmittelgruppe C
+    \begin{itemize}
+        \item Tram, Bus, Postauto, Rufbus, Schiff, Seilbahn
+    \end{itemize}
+\end{itemize}
+
+Als Bahnknoten gelten analog zu Berechnungsmethodik des Kanton Zürich Bahnstationen, die entweder einen Anschluss an den nationalen oder internationalen Fernverkehr haben und/oder Bahnlinien in mindestens 6 Richtungen verkehren. 
+
+\subsubsection{Kursintervall}
+\label{Zusammenhang zur Berechnungsmethodik ARE:Kursintervall}
+
+\begin{itquote}
+Als Stichtag für die Auswertung wird ein Werktag ausserhalb der Ferienzeit und der touristischen Hochsaison definiert.
+\end{itquote}
+
+Die Einschränkung der Wahl des Stichtags wird übernommen.
+Jedoch werden 3 weitere Zeiträume definiert, einer für das Wochenende und jeweils einer für die Nacht.
+
+\begin{itquote}
+Zur Berechnung des Kursintervalls an einer Haltestelle werden aus dem elektronischen Fahrplan die Abfahrten auf allen Linien am Stichtag zwischen 6.00 und 20.00 Uhr gezählt.
+Um die durchschnittliche Anzahl Abfahrten in eine Richtung zu ermitteln, wird die Anzahl Abfahrten halbiert.
+Für Endhaltestellen sowie Haltestellen, die nur in einer Richtung befahren werden, erfolgen entsprechende Korrekturen.
+Anschliessend wird das Kursintervall für die beiden Verkehrsmittelgruppen A und B separat berechnet (840 Minuten geteilt durch die korrigierte Anzahl Abfahrten).
+\end{itquote}
+
+Für die Taktberechnung wird die statt der Anzahl Abfahrten die Wartezeit zwischen zwei Abfahrten als Grundlage verwendet.
+Der Takt $\tau$ einer Haltestelle wird definiert als das "`Doppelte der erwarteten Wartezeit auf die nächste Abfahrt [\ldots] bei zufälligem Zugang im Zeitintervall $I = [a,b)$"'.~\cite{visum_manual_formula}
+
+\subsubsection{Haltestellenkategorie}
+\label{Zusammenhang zur Berechnungsmethodik ARE:Haltestellenkategorie}
+
+\begin{itquote}
+Die Haltestellenkategorie wird nach folgender Tabelle ermittelt:
+\begin{longtable}[c]{l | p{1.7cm} p{1.7cm} | p{1.7cm} | p{1.7cm}}
+        \midrule
+        \textbf{Verkehrsmittelmittelkategorie}
+                                & \multicolumn{2}{l|}{\textbf{A}}
+                                & \textbf{B}
+                                & \textbf{C}\\
+        \textbf{}
+                                & \textit{Bahnknoten}
+                                & \textit{Bahnlinien}
+                                & \textit{Trams, Busse, Postautos, Rufbusse und Schiffe}
+                                & \textit{Seilbahnen}\\
+        \textbf{Kursintervall}
+                                &
+                                &
+                                &
+                                &\\
+        \textit{< 5 min}
+                                & I
+                                & I
+                                & II
+                                & III\\
+        \textit{5 - 9 min}
+                                & I
+                                & II
+                                & III
+                                & IV\\
+        \textit{10 - 19 min}
+                                & II
+                                & III
+                                & IV
+                                & V\\
+        \textit{20 - 39 min}
+                                & III
+                                & IV
+                                & V
+                                & V\\
+        \textit{40 - 60 min}
+                                & IV
+                                & V
+                                & V
+                                & V\\
+        \bottomrule
+\end{longtable}
+\end{itquote}
+
+Bei der Gliederung des Kursintervalls wird die Einteilung der Berechnungsmethodik des Kanton Graubünden übernommen.
+Dies führt zu einer feineren und erweiterten Gliederung des Kursintervalls und zwei zusätzlichen Haltestellenkategorien VI und VII.
+
+\subsubsection{Distanz zur Haltestelle}
+\label{Zusammenhang zur Berechnungsmethodik ARE:Distanz zur Haltestelle}
+
+\begin{itquote}
+Für die Distanz zur Haltestelle wird die Luftliniendistanz verwendet, d.h. die ÖV-Güteklassen bilden konzentrische Kreise um die Haltestelle.
+Die Radien der Kreise betragen 300 m, 500 m, 750 m und 1‘000 m.
+\end{itquote}
+
+Als Einteilung werden neu Gehminuten mit der Einstufung 5, 7.5, 10 und 15 Minuten verwendet.
+Unter der Annahme dass die Laufgeschwindigkeit $1.4 m/s$ beträgt wird die massgebende Gehdauer mithilfe der Laufgeschwindigkeit und der Anzahl zurückzulegende \gls{Leistungskilometer} berechnet, welche die Topografie und die Wegführung berücksichtigt. 
+
+\subsubsection{ÖV-Güteklassen}
+\label{Zusammenhang zur Berechnungsmethodik ARE:ÖV-Güteklassen}
+
+\begin{itquote}
+Die Güteklassen werden nach folgender Tabelle ermittelt:
+\begin{longtable}[c]{l p{2.9cm} p{2.9cm} p{2.9cm} p{2.9cm}}
+    \midrule
+    \textbf{}
+                            & \textbf{< 300 m}
+                            & \textbf{300 - 500 m}
+                            & \textbf{501 - 750 m}
+                            & \textbf{751 - 1000m}\\
+    \textbf{I}
+                            & Klasse A
+                            & Klasse A
+                            & Klasse B
+                            & Klasse C\\
+    \textbf{II}
+                            & Klasse A
+                            & Klasse B
+                            & Klasse C
+                            & Klasse D\\
+    \textbf{III}
+                            & Klasse B
+                            & Klasse C
+                            & Klasse D
+                            & keine\\
+    \textbf{IV}
+                            & Klasse C
+                            & Klasse D
+                            & keine
+                            & keine\\
+    \textbf{V}
+                            & Klasse D
+                            & keine
+                            & keine
+                            & keine\\
+    \bottomrule
+\end{longtable}
+\end{itquote}
+
+Durch die zusätzlichen Haltestellenkategorien VI und VII werden analog zur Berechnungsmethodik des Kanton Graubünden zwei weitere ÖV-Güteklassen E und F eingeführt.
 
 \subsection{Berechnungsmethodik OeVGK18}
 \label{Berechnungsmethodik OeVGK18}
+Folgend wird die Berechnungsmethodik \gls{OeVGK18} detailliert beschrieben.
 
+\subparagraph{Art der Verkehrsmittel}~\\
+\label{Berechnungsmethodik OeVGK18:Art der Verkehrsmittel}
+Verkehrsmittel werden in folgende Verkehrsmittelgruppen eingeteilt:
+
+\begin{itemize}[noitemsep]
+    \item Verkehrsmittelgruppe A
+    \begin{itemize}
+        \item Bahnknoten
+    \end{itemize}
+    \item Verkehrsmittelgruppe B
+    \begin{itemize}
+        \item Bahnlinie
+    \end{itemize}
+    \item Verkehrsmittelgruppe C
+    \begin{itemize}
+        \item Tram, Bus, Postauto, Rufbus, Schiff, Seilbahn
+    \end{itemize}
+\end{itemize}
+
+\paragraph{Bahnknoten}~\\
+Bahnknoten sind Bahnstationen, die entweder einen Anschluss an den nationalen oder internationalen Fernverkehr haben und/oder Bahnlinien in mindestens 6 Richtungen verkehren.
+
+Die Anzahl Richtungen einer Bahnstation wird gezählt als die Anzahl umliegender Bahnstationen, die mit einem beliebigen Zug innerhalb des definierten Zeitbereichs ohne Zwischenhalt erreicht werden können.
+
+\paragraph{Schiffe und Seilbahnen}~\\
+Schiffe und Seilbahnen werden nur berücksichtigt, wenn sie ein besiedeltes Wohngebiet erschliessen und nicht ausschliesslich für touristische Zwecke verwendet werden.
+
+
+\subparagraph{Kursintervall}~\\
+\label{Berechnungsmethodik OeVGK18:Kursintervall}
+Es sind 2 Stichtage mit jeweils zwei Zeitbereichen zu definieren, welche ausserhalb der Ferienzeit und der touristischen Hochsaison liegen.
+
+\begin{longtable}[c]{l l}
+    \midrule
+    \textbf{Stichtag}
+                            & \textbf{Zeitbereich}\\
+    Werktag
+                            & 06.00 - 20.00 Uhr\\
+    Werktag
+                            & 22.00 - 05.00 Uhr\\
+    Samstag
+                            & 06.00 - 20.00 Uhr\\
+    Samstag
+                            & 22.00 - 05.00 Uhr\\
+    \bottomrule
+\caption{Kursintervall: Stichtag und Zeitbereich}
+\label{table:Ermittlung Kursintervall: Stichtag und Zeitbereich}
+\end{longtable}
+
+Der Takt $\tau$ einer Haltestelle wird definiert als das "`Doppelte der erwarteten Wartezeit auf die nächste Abfahrt [\ldots] bei zufälligem Zugang im Zeitintervall $I = [a,b)$"'~\cite{visum_manual_formula}. Es werden alle Abfahrten betrachtet, die innerhalb des definiertem Zeitbereichs an der Haltestelle abfahren.
+
+Die Umsetzung dafür geschieht wie folgt:
+
+\begin{tabbing}
+Abfahrtszeitpunkte im Intervall $I$: {\hskip 8em} \=    $x_{1 \ldots n}$      \\
+Erste Abfahrt nach Zeitpunkt $b$ (nach Fahrplan): \>    $x'$                  \\
+Fiktive Abfahrt nach $b$ bei zyklischer Fortsetzung: \> $x'' = x_1 + (b - a)$
+\end{tabbing}
+
+Für die Wartezeit am Intervallende wird die Fahrt $x_{n+1} = min\{x', x''\}$ verwendet.
+
+Takt:
+\[
+    \tau^{a, b} = \frac{1}{b - a} \sum_{i=0}^n \Delta_i
+\]
+
+\begin{conditions}
+    \Delta_i & $(x_{i+1} - x_i)^2$ {\hskip 2em} für $i \in \{1, \ldots, n - 1\}$ \\
+    \Delta_0 & $(x_1 - a)^2$ \\
+    \Delta_n & $(x_{n+1} - x_n)^2 - (x_{n+1} - b)^2$
+\end{conditions}
+
+\subparagraph{Haltestellenkategorie}~\\
+\label{Berechnungsmethodik OeVGK18:Haltestellenkategorie}
+%TODO Transportmittelkategorie vs Verkehrsmittelkategorie
+Die Haltestellenkategorie I bis VII wird mit folgender Tabelle eruiert:
+
+\begin{longtable}[c]{l p{4.0cm} p{4.0cm} p{4.0cm}}
+    \midrule
+    \textbf{}
+                            & \multicolumn{3}{l}{\textbf{Verkehrsmittelgruppe}}\\
+    \textbf{Kursintervall}
+                            & \textit{A}
+                            & \textit{B}
+                            & \textit{C}\\
+    \textit{< 5 min}
+                            & I
+                            & I
+                            & II\\
+    \textit{5 - 10 min}
+                            & I
+                            & II
+                            & III\\
+    \textit{11 - 19 min}
+                            & II
+                            & III
+                            & IV\\
+    \textit{20 - 39 min}
+                            & III
+                            & IV
+                            & V\\
+    \textit{40 - 60 min}
+                            & IV
+                            & V
+                            & VI\\
+    \textit{> 60 min}
+                            &
+                            & VII
+                            & VII\\
+    \bottomrule
+\caption{Haltestellenkategorie}
+\label{Haltestellenkategorie}
+\end{longtable}
+
+\subparagraph{Gehzeit zur Haltestelle}~\\
+\label{Berechnungsmethodik OeVGK18:Distanz zur Haltestelle}
+Bei der Berechnung der Gehzeit zu einer Haltestelle ist eine Laufgeschwindigkeit von $1.4 m/s$ anzunehmen und die Strecke entlang des Wege- und Strassennetzes zu berücksichtigen, welche im folgenden als Horizontaldistanz bezeichnet wird.
+
+Damit man der Topografie gerecht wird, ist als massgebende zu laufende Distanz Leistungsmeter zu verwenden:
+\[
+    x = 
+\begin{cases}
+    a + b/0.1 + c/0.15, & \text{if } c/d> 0.22\\
+    a + b/0.1,          & \text{otherwise}
+\end{cases}
+\]
+\begin{conditions}
+    x   &   Leistungsmeter [m]\\
+    a   &   Horizontaldistanz [m]\\
+    b   &   positive Steigung in Höhenmeter [m]\\
+    c   &   negative Steigung in Höhenmeter [m]\\
+    d   &   Horizontaldistanz mit negativer Steigung [m]
+\end{conditions}
+
+Die Gehzeit $t$ zur Haltestelle ergibt sich nun aus:
+\[ t = \frac{x}{1.4 m/s} \]
+
+
+\subparagraph{ÖV-Güteklassen}~\\
+\label{Berechnungsmethodik OeVGK18:ÖV-Güteklassen}
+Die Kombination aus Haltestellenkategorie und Distanz zur Haltestelle liefert folgende \acs{ÖV}-Güteklassen-Gruppierung:
+
+\begin{longtable}[c]{l p{3.3cm} p{3.3cm} p{3.3cm} p{3.3cm}}
+    \midrule
+    \textbf{}
+                            & \textbf{< 300 s}
+                            & \textbf{301 - 450 s}
+                            & \textbf{451 - 600 s}
+                            & \textbf{601 - 900 s}\\
+    \textbf{I}
+                            & Klasse A
+                            & Klasse A
+                            & Klasse B
+                            & Klasse C\\
+    \textbf{II}
+                            & Klasse A
+                            & Klasse B
+                            & Klasse C
+                            & Klasse D\\
+    \textbf{III}
+                            & Klasse B
+                            & Klasse C
+                            & Klasse D
+                            &\\
+    \textbf{IV}
+                            & Klasse C
+                            & Klasse D
+                            &
+                            &\\
+    \textbf{V}
+                            & Klasse D
+                            &
+                            &
+                            &\\
+    \textbf{VI}
+                            & Klasse E
+                            &
+                            &
+                            &\\
+    \textbf{VII}
+                            & Klasse F
+                            &
+                            &
+                            &\\                                
+    \bottomrule
+\caption{ÖV-Güteklassen}
+\label{table:ÖV-Güteklassen}
+\end{longtable}

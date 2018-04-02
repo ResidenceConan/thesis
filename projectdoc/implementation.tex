@@ -2,4 +2,40 @@
 \section{Implementation}
 \label{Implementation}
 
-%TODO
+In diesem Kapitel wird die Implementation der einzelnen Container beschrieben, wie sie im Kapitel \ref{Architektur:Container} definiert wurden.
+
+\subsection{ÖV-Güteklassen 2018 Generator}
+\label{Implementation:ÖV-Güteklassen 2018 Generator}
+
+\subsubsection{Mapping Verkehrsmittelgruppe und GTFS Route Type}
+\label{ÖV-Güteklassen 2018 Generator:Mapping Verkehrsmittelgruppe und GTFS Route Type}
+
+Die öffentlichen Verkehrsmittel werden in drei Verkehrsmittelgruppen gruppiert (siehe Kapitel \ref{Berechnungsmethodik OeVGK18:Art der Verkehrsmittel}).
+Wie in Kapitel \ref{subsystem:GTFS} beschrieben, werden die Fahrplandaten im \acs{GTFS}-Format~\cite{gtfs_spec} gehalten. 
+Es werden dabei 8 Verkehrsmittel-Typen definiert.
+In Tabelle \ref{table:Mapping GTFS Route Type Verkehrsmittelgruppe} ist ein Mapping der definierten GTFS Route Typen und der Verkehrsmittelgruppen ersichtlich.
+
+\begin{longtable}[ht]{l l}
+        \midrule
+        \textbf{GTFS Route Type} 
+                                & \textbf{Verkehrsmittelgruppe}\\
+        0 (Tram, Streetcar, Light rail)
+                                & B\\
+        1 (Subway, Metro)
+                                & B\\
+        2 (Rail)
+                                & A\\
+        3 (Bus)
+                                & B\\
+        4 (Ferry)
+                                & B\\
+        5 (Cable car)
+                                & (C)\\
+        6 (Gondola, Suspended cable car)
+                                & C\\
+        7 (Funicular)
+                                & C\\            
+        \bottomrule
+    \caption{Mapping GTFS Route Type Verkehrsmittelgruppe}
+    \label{table:Mapping GTFS Route Type Verkehrsmittelgruppe}
+\end{longtable}

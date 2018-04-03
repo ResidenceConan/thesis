@@ -21,7 +21,8 @@ Zur Übersicht ist das Use Case Diagramm in Abbildung \ref{fig:UseCase_OeV-Guete
 Um die Anforderungen akkurat evaluieren zu können, ist es essentiell, die Aktoren des Systems zu identifizieren.
 In der Tabelle \ref{table:Aktoren} sind die Aktoren mit ihren Interessen aufgelistet.
 
-\begin{longtable}{l p{14cm}}
+\begin{table}[ht]
+    \begin{tabular}{l p{14cm}}
         \toprule
         \textbf{Aktor}
                                 & \textbf{Beschreibung und Interesse} \\
@@ -34,9 +35,10 @@ In der Tabelle \ref{table:Aktoren} sind die Aktoren mit ihren Interessen aufgeli
         \textbf{User}
                                 & Ein \emph{User} ist grundsätzlich am aktuellen Stand der \acs{ÖV}-Güteklassen in einer bestimmten Region interessiert, welche er als Basis für weitere Entscheidungen bezieht. \\
         \bottomrule
+    \end{tabular}
     \caption{Aktoren}
     \label{table:Aktoren}
-\end{longtable}
+\end{table}
 
 \subsubsection{UC01: ÖV-Güteklassen 2018 berechnen}
 \label{Use Cases:UC01}
@@ -120,7 +122,8 @@ Die erwähnten Komponenten sind im Kapitel \ref{Architektur} genauer beschrieben
 \subsubsection{NFA01: Auslieferung der Komponenten als Docker-Image}
 \label{NFA:NFA01}
 
-\begin{longtable}{l p{10.6cm}}
+\begin{table}[H]
+    \begin{tabular}{l p{10.6cm}}
         \toprule
         \textbf{Scenario}
                                 & Auslieferung der Komponenten als Docker-Image\\
@@ -141,16 +144,18 @@ Die erwähnten Komponenten sind im Kapitel \ref{Architektur} genauer beschrieben
                                 & Die Komponenten sind als Docker-Images verfügbar, welche auf Docker Hub hochgeladen werden könnten\\  
         \textbf{Response Measure}
                                 & Einzelne Komponenten lassen sich als Docker-Image starten\\
-                                  
+                                
         \bottomrule
+    \end{tabular}
     \caption{QAS NFA01}
     \label{table:nfa01}
-\end{longtable}
+\end{table}
 
 \subsubsection{NFA02: Berechnung der ÖV-Güteklassen 2018}
 \label{NFA:NFA02}
 
-\begin{longtable}{l p{10.6cm}}
+\begin{table}[H]
+    \begin{tabular}{l p{10.6cm}}
         \toprule
         \textbf{Scenario}
                                 & Berechnung der ÖV-Güteklassen 2018\\
@@ -172,14 +177,16 @@ Die erwähnten Komponenten sind im Kapitel \ref{Architektur} genauer beschrieben
         \textbf{Response Measure}
                                 & Die ÖV-Güteklassen 2018 lassen sich innerhalb von 2 Stunden nach Absetzen des Befehls über ein CLI berechnen\\                                
         \bottomrule
+    \end{tabular}
     \caption{QAS NFA02}
     \label{table:nfa02}
-\end{longtable}
+\end{table}
 
 \subsubsection{NFA03: Periodische Aktualisierung der ÖV-Güteklassen 2018}
 \label{NFA:NFA03}
 
-\begin{longtable}{l p{10.6cm}}
+\begin{table}[H]
+    \begin{tabular}{l p{10.6cm}}
         \toprule
         \textbf{Scenario}
                                 & Periodische Aktualisierung der ÖV-Güteklassen 2018\\
@@ -201,14 +208,16 @@ Die erwähnten Komponenten sind im Kapitel \ref{Architektur} genauer beschrieben
         \textbf{Response Measure}
                                 & Alle zwei Wochen liegt ein aktualisiertes GeoJSON bereit, welches von anderen Komponenten verwendet werden kann\\
         \bottomrule
+    \end{tabular}
     \caption{QAS NFA03}
     \label{table:nfa03}
-\end{longtable}
+\end{table}
 
 \subsubsection{NFA04: Dauer des Unterbruchs bei Integration aktualisierter Daten}
 \label{NFA:NFA04}
 
-\begin{longtable}{l p{10.6cm}}
+\begin{table}[H]
+    \begin{tabular}{l p{10.6cm}}
         \toprule
         \textbf{Scenario}
                                 & Dauer des Unterbruchs bei Integration aktualisierter Daten\\
@@ -230,14 +239,16 @@ Die erwähnten Komponenten sind im Kapitel \ref{Architektur} genauer beschrieben
         \textbf{Response Measure}
                                 & Web-App ist nicht länger als eine Stunde vom Zeitpunkt des Herunterfahrens nicht verfügbar\\                                
         \bottomrule
+    \end{tabular}
     \caption{QAS NFA04}
     \label{table:nfa04}
-\end{longtable}
+\end{table}
 
 \subsubsection{NFA05: Antwortzeit ÖV-Güteklassen 2018 anzeigen}
 \label{NFA:NFA05}
 
-\begin{longtable}{l p{10.6cm}}
+\begin{table}[H]
+    \begin{tabular}{l p{10.6cm}}
         \toprule
         \textbf{Scenario}
                                 & Antwortzeit ÖV-Güteklassen 2018 anzeigen\\
@@ -259,6 +270,7 @@ Die erwähnten Komponenten sind im Kapitel \ref{Architektur} genauer beschrieben
         \textbf{Response Measure}
                                 & ÖV-Güteklassen 2018 werden nach Verändern des Zooms innerhalb von 5 Sekunden angezeigt\\
         \bottomrule
+    \end{tabular}
     \caption{QAS NFA05}
     \label{table:nfa05}
-\end{longtable}
+\end{table}

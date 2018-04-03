@@ -119,25 +119,28 @@ Insgesamt kann zwischen den beiden Varianten in Sachen Tooling praktisch keinen 
 Für die Bewertung wird jedem Kriterium einen Wert von 1 bis 6 zugewiesen, wobei 6 die Bestnote ist.
 Jedes Kriterium wird anhand der Relevanz und Wichtigkeit in unserem Projekt gewichtet.
 
-\begin{longtable}{r l p{3cm} l l}
-    \toprule
-    \textbf{ID} &
-        \textbf{Kriterium} 
-                                                    & \textbf{Relatives Gewicht (0-1)} &
-                                                                                  \textbf{Vue.js} &
-                                                                                                  \textbf{React} \\
-    \midrule
-    1     & \nameref{Analyse Framework:Funktionsumfang}           & 0.2           & 5 / 1.0   & 5 / 1.0  \\
-    2     & \nameref{Analyse Framework:Integration Leaflet}       & 0.1           & 5 / 0.5   & 4 / 0.4  \\
-    3     & \nameref{Analyse Framework:Integration Vector Tiles}  & 0.3           & 2 / 0.6   & 5 / 1.5  \\
-    4     & \nameref{Analyse Framework:Lernkurve}                 & 0.2           & 4 / 0.8   & 3 / 0.6  \\
-    5     & \nameref{Analyse Framework:Tooling}                   & 0.2           & 5 / 1.0   & 5 / 1.0  \\
-    \bottomrule
-    \multicolumn{3}{l}{\textbf{Total}}                                            & \textbf{21 / 3.9}
-                                                                                            & \textbf{22 / 4.5} \\
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{r l p{3cm} l l}
+        \toprule
+        \textbf{ID} &
+        \textbf{Kriterium} &
+        \textbf{Relatives Gewicht (0-1)} &
+        \textbf{Vue.js} &
+        \textbf{React} \\
+        \midrule
+        1     & \nameref{Analyse Framework:Funktionsumfang}           & 0.2           & 5 / 1.0   & 5 / 1.0  \\
+        2     & \nameref{Analyse Framework:Integration Leaflet}       & 0.1           & 5 / 0.5   & 4 / 0.4  \\
+        3     & \nameref{Analyse Framework:Integration Vector Tiles}  & 0.3           & 2 / 0.6   & 5 / 1.5  \\
+        4     & \nameref{Analyse Framework:Lernkurve}                 & 0.2           & 4 / 0.8   & 3 / 0.6  \\
+        5     & \nameref{Analyse Framework:Tooling}                   & 0.2           & 5 / 1.0   & 5 / 1.0  \\
+        \bottomrule
+        \multicolumn{3}{l}{\textbf{Total}}                                            & \textbf{21 / 3.9}
+                                                                                                & \textbf{22 / 4.5} \\
+    \end{tabular}
     \caption{Resultat der Frontend-Framework-Evaluation}
     \label{table:Resultat der Frontend-Framework-Evaluation}
-\end{longtable}
+\end{table}
 
 Wie in der Tabelle \ref{table:Resultat der Frontend-Framework-Evaluation} zu sehen ist, sind React und Vue.js vor der Gewichtung der Kriterien sehr ähnlich bewertet.
 Das Kriterium \nameref{Analyse Framework:Integration Vector Tiles} sorgt für den Ausschlag zu Gunsten von React.

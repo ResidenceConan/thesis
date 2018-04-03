@@ -20,36 +20,42 @@ Im Folgenden ist aufgeschlüsselt, was genau die \acs{SN} 640 290~\cite{sn640290
 Grundsätzlich definieren \acs{ÖV}-Güteklassen die Qualität der Erschliessung durch den öffentlichen Verkehr.
 Diese Qualität wird durch die \nameref{Definition ÖV-Güteklassen:Bedienungsqualität der Haltestelle} und die \nameref{Definition ÖV-Güteklassen:Erreichbarkeit der Haltestelle} festgesetzt.
 Beide Kriterien sind folgend definiert.
-Anmerken muss man, dass zu besserer Verständlichkeit und Übersichtlichkeit unter anderem zusätzliche Terminologie wie Verkehrsmittelmittelkategorie eingeführt wird.
+Anmerken muss man, dass zu besserer Verständlichkeit und Übersichtlichkeit unter anderem zusätzliche Terminologie wie Verkehrsmittelkategorie eingeführt wird.
 
 \subparagraph{Bedienungsqualität der Haltestelle}~\\
 \label{Definition ÖV-Güteklassen:Bedienungsqualität der Haltestelle}
-Die öffentlichen Verkehrsmittel werden zuerst in die in Tabelle \ref{table:Verkehrsmittelmittelkategorien} ersichtlichen Verkehrsmittelmittelkategorien eingeteilt.
+Die öffentlichen Verkehrsmittel werden zuerst in die in Tabelle \ref{table:Verkehrsmittelkategorien} ersichtlichen Verkehrsmittelkategorien eingeteilt.
 
-\begin{longtable}{l p{10.6cm}}
+\begin{table}[ht]
+    \begin{tabular}{l p{10.6cm}}
+        \toprule
+        \textbf{Verkehrsmittelkategorie}
+                                & \textbf{Verkehrsmittel}\\
         \midrule
-        \textbf{Verkehrsmittelmittelkategorie 1}
+        1
                                 & Bahnknoten: mehrere Bahnlinien in unterschiedliche Richtungen\\
-        \textbf{Verkehrsmittelmittelkategorie 2}
+        2
                                 & Bahnlinie\\
-        \textbf{Verkehrsmittelmittelkategorie 3}
+        3
                                 & Tramway, Trolleybuy, Autobus, Regionalbus, Ortsbus mit gutem Anschluss an Bahnlinie\\
-        \textbf{Verkehrsmittelmittelkategorie 4}
+        4
                                 & Ortsbus, lokaler Kleinbus\\
         \bottomrule
-    \caption{Verkehrsmittelmittelkategorien}
-    \label{table:Verkehrsmittelmittelkategorien}
-\end{longtable}
+    \end{tabular}
+    \caption{Verkehrsmittelkategorien}
+    \label{table:Verkehrsmittelkategorien}
+\end{table}
 
-Die Verkehrsmittelmittel werden dabei in die Gruppe A und B zusammengefasst, welche für die Berechnung des durchschnittlichen Kursintervalls berücksichtigt werden.
-Dabei werden für die Intervallberechnung alle Verkehrsmittel der Verkehrsmittelmittelkategorie in einer Gruppe berücksichtigt.
+Die Verkehrsmittelkategorien werden dabei in die Gruppe A und B zusammengefasst, welche für die Berechnung des durchschnittlichen Kursintervalls berücksichtigt werden.
+Dabei werden für die Intervallberechnung alle Verkehrsmittel der Verkehrsmittelkategorie in einer Gruppe berücksichtigt.
 
-\begin{longtable}[c]{l | p{2.3cm} p{2.3cm} | p{2.3cm} p{2.3cm}}
+\begin{table}[ht]
+    \begin{tabular}[c]{l | p{2.3cm} p{2.3cm} | p{2.3cm} p{2.3cm}}
         \midrule
         \textbf{}
                                 & \multicolumn{2}{l|}{\textbf{Gruppe A}}
                                 & \multicolumn{2}{l}{\textbf{Gruppe B}}\\
-        \textbf{Verkehrsmittelmittelkategorie}
+        \textbf{Verkehrsmittelkategorie}
                                 & \textit{1}
                                 & \textit{2}
                                 & \textit{3}
@@ -85,9 +91,10 @@ Dabei werden für die Intervallberechnung alle Verkehrsmittel der Verkehrsmittel
                                 & V
                                 &\\
         \bottomrule
+    \end{tabular}
     \caption{Ermittlung der Haltestellenkategorie}
     \label{table:Ermittlung der Haltestellenkategorie}
-\end{longtable}
+\end{table}
 
 Der Kursintervall ist der durchschnittliche Abstand zwischen Ankunft beziehungsweise Abfahrt (pro Linie jeweils in der Hauptlastrichtung) aller Verkehrsmittel in der gleichen Gruppe zwischen 06:00 - 20:00 Uhr jeweils von Montag bis Freitag.
 Die Norm macht hier Ausnahmen bei Verdichtungen in Hauptverkehrszeiten, Linienüberlagerungen und reinen Arbeitsplatzgebieten mit stark verdichtetem Fahrplan während Pendlerzeiten.
@@ -97,7 +104,8 @@ Die Norm macht hier Ausnahmen bei Verdichtungen in Hauptverkehrszeiten, Linienü
 Basierend auf den vorhin definierten Haltestellenkategorien (I bis V) kann die Erreichbarkeit pro Haltestellenkategorien definiert werden.
 Die Distanzen sind Luftlinien, wobei ein mittlerer Umwegfaktor von 20 bis 30\% berücksichtigt wird.
 
-\begin{longtable}[c]{l p{3.3cm} p{3.3cm} p{3.3cm} p{3.3cm}}
+\begin{table}[ht]
+    \begin{tabular}[c]{l p{3.3cm} p{3.3cm} p{3.3cm} p{3.3cm}}
         \midrule
         \textbf{}
                                 & \textbf{< 300 m}
@@ -130,9 +138,10 @@ Die Distanzen sind Luftlinien, wobei ein mittlerer Umwegfaktor von 20 bis 30\% b
                                 &
                                 &\\
         \bottomrule
+    \end{tabular}
     \caption{Ermittlung der Erreichbarkeit der Haltestelle}
     \label{table:Ermittlung Erreichbarkeit der Haltestelle}
-\end{longtable}
+\end{table}
 
 Der Topographie wird Rechnung getragen, indem man bei schwierigen Gegebenheiten die nächste Klasse wählt oder die Distanz vergrössert.
 
@@ -207,7 +216,8 @@ Es werden zwei zusätzliche Haltestellenkategorieren (VI und VII) ergänzt und e
 Auf die Unterscheidung zwischen "`Tram, Trolleybus, Autobus, Regionalbus"' und "`Ortsbus, lokaler Kleinbus"' wird verzichtet und in der ersteren Kategorie zusammengefasst.
 Ebenfalls werden Seilbahnen mit Erschliessungsfunktion wie Bushaltestellen behandelt.
 
-\begin{longtable}[c]{l p{4.0cm} p{4.0cm} p{4.0cm}}
+\begin{table}[ht]
+    \begin{tabular}[c]{l p{4.0cm} p{4.0cm} p{4.0cm}}
         \midrule
         \textbf{Kursintervall}
                                 & \textbf{Bahnknoten}
@@ -238,9 +248,10 @@ Ebenfalls werden Seilbahnen mit Erschliessungsfunktion wie Bushaltestellen behan
                                 & \cellcolor{red!25}VII
                                 & \cellcolor{red!25}VII\\
         \bottomrule
+    \end{tabular}
     \caption{Ermittlung der Haltestellenkategorie Kanton Graubünden}
     \label{table:Ermittlung der Haltestellenkategorie Kanton Graubünden}
-\end{longtable}
+\end{table}
 
 Somit werden nun Bushaltestellen, die halbstündlich und stündlich bedient werden, nicht mehr gleich kategorisiert.
 Auch werden Haltestellen erfasst, welche seltener als stündlich einen Anschluss haben.
@@ -250,7 +261,8 @@ Durch die feinere Gliederung der Taktfrequenz erhält man eine bessere Güteklas
 \label{Berechnungsmethodik Kanton Graubünden:Erreichbarkeit der Haltestelle}
 Die zusätzlichen Haltestellenkategorien (VI und VII) hat zur Folge, dass auch zusätzliche Güteklassen (E und F) eingeführt werden.
 
-\begin{longtable}[c]{l p{3.3cm} p{3.3cm} p{3.3cm} p{3.3cm}}
+\begin{table}[ht]
+    \begin{tabular}[c]{l p{3.3cm} p{3.3cm} p{3.3cm} p{3.3cm}}
         \midrule
         \textbf{}
                                 & \textbf{< 300 m}
@@ -293,9 +305,10 @@ Die zusätzlichen Haltestellenkategorien (VI und VII) hat zur Folge, dass auch z
                                 &
                                 &\\                                
         \bottomrule
+    \end{tabular}
     \caption{Ermittlung der Erreichbarkeit der Haltestelle Kanton Graubünden}
     \label{table:Ermittlung Erreichbarkeit der Haltestelle Kanton Graubünden}
-\end{longtable}
+\end{table}
 
 Bushaltestellen haben eine maximale Erschliessungswirkung von 500 Meter, da grössere Distanzen von Passagieren als zu lange empfunden wird.
 Somit werden nur Bahnknoten und Bahnlinien in den Kategorien > 500 Meter klassifiziert.
@@ -336,7 +349,8 @@ Der Kursintervall wird auf 05:30 bis 22:30 Uhr festgelegt (unter der Woche).
 Handelt es sich um Endhaltestellen oder Linien, welche nur in eine Richtung verkehren, werden alle Abfahrten gezählt.
 Zusätzlich werden wie im Kanton Graubünden  Haltestellen mit einem Kursintervall von über 60 Minuten berücksichtigt.
 
-\begin{longtable}[c]{l p{2.9cm} p{2.8cm} p{2.8cm} p{2.8cm}}
+\begin{table}[ht]
+    \begin{tabular}[c]{l p{2.9cm} p{2.8cm} p{2.8cm} p{2.8cm}}
         \midrule
         \textbf{Kursintervall}
                                 & Bahnknoten
@@ -374,16 +388,18 @@ Zusätzlich werden wie im Kanton Graubünden  Haltestellen mit einem Kursinterva
                                 &
                                 & \cellcolor{red!25}VII\\
         \bottomrule
+    \end{tabular}
     \caption{Ermittlung der Haltestellenkategorie Kanton Zürich}
     \label{table:Ermittlung der Haltestellenkategorie Kanton Zürich}
-\end{longtable}
+\end{table}
 
 
 \paragraph{Erreichbarkeit der Haltestelle}~\\
 \label{Berechnungsmethodik Kanton Zürich:Erreichbarkeit der Haltestelle}
 Auch im Kanton Zürich werden durch den zusätzlich abgebildeten Kursintervall (> 60 Minuten) zwei neue Güteklassen E und F eingeführt.
 
-\begin{longtable}[c]{l p{3.3cm} p{3.3cm} p{3.3cm} p{3.3cm}}
+\begin{table}[ht]
+    \begin{tabular}[c]{l p{3.3cm} p{3.3cm} p{3.3cm} p{3.3cm}}
         \midrule
         \textbf{}
                                 & \textbf{< 300 m}
@@ -426,9 +442,10 @@ Auch im Kanton Zürich werden durch den zusätzlich abgebildeten Kursintervall (
                                 &
                                 &\\                                
         \bottomrule
+    \end{tabular}
     \caption{Ermittlung der Erreichbarkeit der Haltestelle Kanton Zürich}
     \label{table:Ermittlung Erreichbarkeit der Haltestelle Kanton Zürich}
-\end{longtable}
+\end{table}
 
 Der Topografie wird keine Rechnung getragen, es wird strikt auf die Luftlinie gesetzt.
 Sind Haltestellen nur durch Tram und/oder Bus erschlossen, werden analog zum Kanton Graubünden nur Distanzen bis zu 500 Meter berücksichtigt.
@@ -491,17 +508,24 @@ Da die erwartete Ankunft bei zufälligem Zugang in der Mitte zwischen zwei regul
 
 Wird das obige Beispiel mit diesem Ansatz erneut betrachtet, ergibt sich daraus einen Takt von 58 Minuten (siehe Tabelle \ref{table:Vergleich der Taktberechnung mit bisheriger und neuer Methodik}), was ein deutlich realistischeres Bild ergibt.
 
-\begin{longtable}[ht]{l l l}
-    \midrule
-    \textbf{Berechnungsmethodik}
-                             & \textbf{Abfahrtszeiten}
-                                                            & \textbf{Berechneter Takt}\\
-    Bisherig &                 09:01, 09:02, 10:01, 10:02, \dots & 30 Minuten \\
-    Mittelwert aus Wartezeit & 09:01, 09:02, 10:01, 10:02, \dots & 58 Minuten \\
-    \bottomrule
-\caption{Vergleich der Taktberechnung mit bisheriger und neuer Methodik}
-\label{table:Vergleich der Taktberechnung mit bisheriger und neuer Methodik}
-\end{longtable}
+\begin{table}[ht]
+    \centering
+    \begin{tabular}[c]{l l l}
+        \toprule
+        \textbf{Berechnungsmethodik}
+                                    & \textbf{Abfahrtszeiten}
+                                    & \textbf{Berechneter Takt}\\
+        \midrule
+        Bisherig
+                                    & 09:01, 09:02, 10:01, 10:02, \dots
+                                    & 30 Minuten\\
+        Mittelwert aus Wartezeit    & 09:01, 09:02, 10:01, 10:02, \dots
+                                    & 58 Minuten\\
+        \bottomrule
+    \end{tabular}
+    \caption{Vergleich der Taktberechnung mit bisheriger und neuer Methodik}
+    \label{table:Vergleich der Taktberechnung mit bisheriger und neuer Methodik}
+\end{table}
 
 \subsubsection{Bestimmung der Bahnknoten}
 \label{Verbesserungsmöglichkeiten:Bestimmung der Bahnknoten}

@@ -2,12 +2,13 @@
 \section{Einführung}
 \label{Einführung}
 
-%TODO
+Diese Bachelorarbeit befasst sich grundlegend mit der Analyse der Qualität der Erschliessung eines Standortes mit dem öffentlichen Verkehr und deren automatisierten Berechnung.
+Im Folgenden ist die Problemstellung erläutert und es wird eine Abgrenzung gezogen, was Teil dieser Arbeit ist.
 
 \subsection{Grundlagen und Begriffe}
 \label{Einführung:Grundlagen und Begriffe}
 
-Folgend werden Grundlagen und Begriffe eingeführt, welche für das grundlegende Verständnis der Arbeit relevant sind. Für zusätzliche Definitionen kann das Glossar zur Hand gezogen werden.
+Nachfolgend werden Grundlagen und Begriffe eingeführt, welche für das grundlegende Verständnis der Arbeit relevant sind. Für zusätzliche Definitionen kann das Glossar zur Hand gezogen werden.
 
 \subsubsection{ÖV-Güteklasse}
 \label{Grundlagen und Begriffe:ÖV-Güteklasse}
@@ -27,15 +28,20 @@ OeVGK steht kurz für \acs{ÖV}-Güteklassen 2018 und bezeichnet die neue Spezif
 \label{Einführung:Problemstellung}
 
 Mit \acs{ÖV}-Güteklassen wird ermittelt, welche Gebiete wie gut mit öffentlichen Verkehrsmitteln erschlossen sind.
-Die Daten werden unter anderem von Raumplanern und Verkehrsplanern verwendet, um Entscheidungen für die Entwicklung von Gebieten zu treffen.
+Die Daten werden unter anderem von Raum- und Verkehrsplanern verwendet, um Entscheidungen für die Entwicklung von Standorten zu treffen.
+Sie haben dementsprechend einen grossen Einfluss auf die Siedlungsentwicklung.
+Gemäss dem Raumplanungsgesetzes ist eine Siedlungsentwicklung nach innen vorgeschrieben~\cite{raumplanungsgesetz}.
+So soll verdichtet werden, bevor neues Bauland erschlossen wird.
 
-Die Methodik zur Erhebung von Güteklassen wurde 1993 erstmals in der \ac{SN} 640 290~\cite{sn640290} festgelegt.
+Die Methodik zur Erhebung von \acs{ÖV}-Güteklassen wurde 1993 erstmals in der \ac{SN} 640 290~\cite{sn640290} festgelegt.
 Die Norm wurde damals zur Berechnung des Bedarfs an Parkplätzen eingeführt.
 Sie wurde 2006 durch die neue \acs{SN} 640 281~\cite{sn640281} ersetzt.
-Darin sind aber Güteklassen in dieser Form nicht mehr erhalten. Die alte Norm wird aber immer noch als Grundlage verwendet, um die aktuellen \acs{ÖV}-Güteklassen zu berechnen~\cite{berechnung_are}.
+Darin sind \acs{ÖV}-Güteklassen in dieser Form nicht mehr erhalten. Die alte Norm wird aber immer noch als Grundlage verwendet, um die aktuellen \acs{ÖV}-Güteklassen zu berechnen~\cite{berechnung_are}.
 
-Die Berechnungsmethoden, wie sie in der Norm festgehalten wurden, sind für die heutigen technischen Möglichkeiten überholt.
-Im Folgenden werden einige Probleme und Lösungsansätze für die Berechnung von Güteklassen im Bezug auf öffentliche Verkehrsmittel aufgezeigt.
+Die Berechnungsmethodik, wie sie in der Norm festgehalten wurden, ist für die heutigen technischen Möglichkeiten überholt.
+Im Folgenden werden einige Probleme der Berechnung von Güteklassen im Bezug auf öffentliche Verkehrsmittel basierend auf der \ac{SN} 640 290~\cite{sn640290} aufgezeigt.
+Diese Liste hat nicht den Anspruch abschliessend und vollständig zu sein, da die Analyse der Probleme und Erarbeitung von Verbesserungen Teil der Arbeit ist und im Kapitel \ref{Stand der Technik} aufgeschlüsselt werden.
+Sie verfolgt primär das Ziel, dem Leser einen Überblick über die zu untersuchenden Konzepte der bestehenden Berechnungsmethodik zu geben und den Handlungsbedarf aufzuzeigen.
 
 \subsubsection{Luftlinie bei Einzugsgebieten}
 \label{problem:Luftlinie bei Einzugsgebieten}
@@ -68,22 +74,51 @@ Für ein Benützer der Haltestelle ist dies allerdings ein markanter Unterschied
 \subsubsection{Berechnung an einem Stichtag}
 \label{problem:Berechnung an einem Stichtag}
 
-Bei der Berechnung der aktuellen Güteklassen vom \ac{ARE}~\cite{berechnung_are} werden für die Kategorisierung von Haltestellen die Verbindungen an einem gewissen Stichtag --- ein Werktag ausserhalb der touristischen Hochsaison --- definiert.
+Bei der Berechnung von \acs{ÖV}-Güteklassen werden Verbindungen in einem gewissen Zeitraum berücksichtigt.
 Dabei werden nur Verbindungen zwischen 6.00 Uhr und 20.00 Uhr gezählt.
-Die Ansprüche an die Güteklassen können aber auch andere Zeiten umfassen.
+Die Ansprüche an die \acs{ÖV}-Güteklassen können aber auch andere Zeiten umfassen.
 So kann es interessant sein, die Verbindungen in der Nacht oder am Wochenende einzubeziehen.
-Für touristische Regionen ist die Situation während der Hochsaison vielleicht interessanter als an einem normalen Werktag.
+
+\subsubsection{Verschiedene Berechnungsmethodiken}
+\label{problem:Verschiedene Berechnungsmethodiken}
+
+Das \ac{ARE} hat im 2011 die Berechnungsmethodik \acs{ARE}~\cite{berechnung_are} herausgegeben, welche die \acs{ÖV}-Güteklassen in einem automatisierten Prozess aus den Daten des elektronischen Fahrplans HAFAS~\cite{sbb_hafas_spec} berechnet.
+Diese Berechnung basiert auf der \acs{SN} 640 290~\cite{sn640290}.
+Anzumerken ist, dass Anpassungen an der Berechnungsmethodik der Norm vorgenommen werden, um eine automatisierte Berchnung mit verfügbaren Datenbeständen durchführen zu können.
+
+Schwächen der \acs{SN} 640 290~\cite{sn640290} und der Berechnungsmethodik \acs{ARE} und regionale Einflüsse haben unterschiedliche Kantone dazu bewogen, Anpassungen vorzunehmen.
+Einige Kantone erweitern die Berechnungsmethodik des \acs{ARE}, andere Kantone wiederum passen ihre Berechnungsmethodik basierend auf der \acs{SN} 640 290 an.
+Dies ist ein starkes Indiz, dass der Wunsch nach einer einheitlichen Berechnungsmethodik existiert, welche national angewendet werden kann.
 
 \subsection{Vision}
 \label{Einführung:Vision}
+% hier sagen, dass eine neue Spezifikation erstellt wird, welche ...
 
-\acs{ÖV}-Güteklassen 2018 ermöglicht es unterschiedlichen Stakeholdern die Qualität der öffentlichen Erschliessung eines Standortes unter Berücksichtigung des \gls{Terrainmodell}s und der Streckenführung in Kombination mit Verbesserungen aus den Erfahrungen mit dem alten Modell zu analysieren, um so Entscheidungen, welche den öffentlichen Raum betreffen, fundiert treffen zu können.
+\acs{ÖV}-Güteklassen 2018 ermöglicht es unterschiedlichen Stakeholdern die Qualität der öffentlichen Erschliessung eines Standortes unter Berücksichtigung des \gls{Terrainmodell}s und der Streckenführung in Kombination mit Verbesserungen und Erfahrungen der bestehenden Berechnungsmethodiken zu analysieren, um so Entscheidungen, welche den öffentlichen Raum betreffen, fundiert treffen zu können, sowie in der allgemeinen Standortsfindung beistehen zu können.
 
 \subsection{Ziele und Unterziele}
 \label{Einführung:Ziele und Unterziele}
 
-Für die neue Spezifikation \gls{OeVGK18} werden die in Kapitel \ref{Einführung:Problemstellung} eingeführten Probleme der bisherigen Berechnungsmethodik aufgegriffen.
-Nachfolgend werden die Lösungsansätze zu den einzelnen Problemen dargestellt.
+Nachfolgend sind die Ziele der Arbeit definiert.
+Dadurch ist ersichtlich, was Inhalt der Arbeit ist und wo Abgrenzungen gezogen werden.
+
+\subsubsection{Spezifikation OeVGK18}
+\label{Ziele und Unterziele:Spezifikation OeVGK18}
+
+\paragraph{Analyse bestehender Berechnungsmethodiken}~\\
+Es existieren unterschiedliche Berechnungsmethodiken, welche \acs{ÖV}-Güteklassen entweder auf nationaler oder kantonaler Ebene berechnen.
+Diese Methodiken berücksichtigten unterschiedliche Interessen und basieren auf verschiedenen Grundlagen.
+
+In dieser Arbeit gilt es bestehende Lösungen zu analysieren.
+Diese Analyse verfolgt das Ziel, eine Spezifikation zu entwickeln, welche einen Konsens auf nationaler Ebene erreichen kann.
+Darum sollen Erfahrungen und gemachte Verbesserungen in die neue Spezifikation \gls{OeVGK18} einfliessen.
+
+\paragraph{Evaluierung grundlegender Verbesserungen}~\\
+Die neue Spezifikation soll nicht nur eine reine kombinierte Sammlung von Verbesserungen und Erfahrungen aus bestehenden Lösungen sein, sondern auch eigene Optimierungen einbringen, wo es Sinn macht.
+Nachfolgend ist eine mögliche Verbesserungen beschrieben, welche nicht eine abschliessende Liste ist und auf eine mögliche Verwendung geprüft werden soll, sei dies konzeptionell, aber auch technisch.
+
+TODO go on
+
 
 
 \subsubsection{Luftlinie bei Einzugsgebieten}

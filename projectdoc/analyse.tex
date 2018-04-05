@@ -147,6 +147,35 @@ Das Kriterium \nameref{Analyse Framework:Integration Vector Tiles} sorgt für de
 Dieses Kriterium haben wir stark gewichtet, da die Web-Karte die Hauptkomponente unserer Web-Applikation bildet und mit \emph{Mapbox GL JS} deutlich mehr Flexibilität als Leaflet anbietet.
 In diesem Punkt bieten die vorhandenen Komponenten für Vue.js nicht die gewünschte Qualität.
 
+\subsection{ÖV-Güteklassen 2018 Generator}
+\label{Analyse:ÖV-Güteklassen 2018 Generator}
+
+Der \nameref{container:generator} Container ist für die Berechnung der "`ÖV-Güẗeklassen 2018"' verantwortlich.
+Umgesetzt wird diese Komponente als Python-Applikation.
+Für die Kommunikation und Integration mit den Umsystemen sind einige Libraries nötig, die im Folgenden kurz diskutiert werden.
+
+\subsubsection{Integration mit PostgreSQL}
+\label{analyse_generator:Integration mit PostgreSQL}
+
+Für die Integration der GTFS-Daten und der Routing-Engine für die Berechnung der Isochronen ist eine Integration mit PostgreSQL nötig.
+Die Routing-Engine läuft auf pgRouting, eine Erweiterung von PostGIS, das wiederum eine Erweiterung von PostgreSQL ist.
+Insofern braucht es für beide Integrationen lediglich eine Möglichkeit, mit PostgreSQL zu kommunizieren.
+
+Dazu bietet sich bei Python die relativ neue Library \emph{records}~\cite{records} an.
+
+Für unsere Zwecke braucht es nur simple SQL-Abfragen, da ein Grossteil der Logik mit \glspl{Stored Procedure} auf dem SQL-Server selbst umgesetzt wird.
+
+\subsubsection{Umgang mit Geometrien}
+\label{analyse_generator: Umgang mit Geometrien}
+
+In der Business-Logik des Generators wird viel mit Geometrien gehandhabt, die schlussendlich zu den "`ÖV-Güteklassen 2018"' verabeitet werden.
+Hierzu hat sich die Python-Library \emph{Shapely}~\cite{shapely} bewährt.
+Diese unterstützt die \gls{GEOS}-Funktionen, die PostGIS ebenfalls implementiert.
+Somit können mit den Geometrien die gleichen Berechnungen wie auf der Datenbank vorgenommen werden, was für eine reibungslose Integration spricht.
+
+Ebenfalls können Geometrien mit \emph{Shapely} direkt in \gls{GeoJSON} exportiert werden.
+Dies erlaubt eine einfache Serialisierung, um die berechneten Resultate an das \nameref{container:Backend} weiter zu geben.
+
 
 \subsubsection{Einschränkungen}
 \label{Analyse:Einschränkungen}

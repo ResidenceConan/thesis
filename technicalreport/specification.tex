@@ -235,7 +235,7 @@ Es sind 3 Stichtage mit jeweils zwei Zeitintervall zu definieren, welche ausserh
         Werktag
                                 & 06:00 -- 20:00 Uhr\\
         Werktag
-                                & 20:01 -- 23:59 Uhr\\
+                                & 20:00 -- 00:00 Uhr\\
         \midrule
         Samstag
                                 & 06:00 -- 20:00 Uhr\\
@@ -253,7 +253,8 @@ Es sind 3 Stichtage mit jeweils zwei Zeitintervall zu definieren, welche ausserh
 \end{table}
 
 Der Kursintervall $\tau$ einer Haltestelle wird definiert als das "`Doppelte der erwarteten Wartezeit auf die nächste Abfahrt [\ldots] bei zufälligem Zugang im Zeitintervall $I = [a,b)$"'~\cite{visum_manual_formula}.
-Es werden alle Abfahrten betrachtet, die innerhalb des definiertem Zeitintervall an der Haltestelle abfahren.
+An einer Haltestelle werden für eine Linie jeweils nur die Abfahrten in eine Richtung berücksichtigt.
+Es werden nur Abfahrten betrachtet, die innerhalb des definiertem Zeitintervall an der Haltestelle abfahren.
 
 Die Umsetzung dafür geschieht wie folgt:
 

@@ -497,28 +497,28 @@ Die Kurse am Wochenende und in der Nacht werden grundsätzlich ausgeklammert.
 Für Privatpersonen, aber auch für Planer kann dieser Zeitraum relevant sein, um sich für einen Wohnort entscheiden oder um ein Angebot ausbauen zu können.
 
 \paragraph{Lösung}~\\
-Die Berechnung der \acs{ÖV}-Güteklassen wird für drei Zeiträume durchgeführt.
-Zusätzlich zum Standardbereich, welcher den Pendlerverkehr berücksichtigt, wird der Verkehr ausserhalb des Pendlerverkehrs in der Nacht und das Wochenende berücksichtigt.
-Natürlich muss hier eine andere Gewichtung angewendet werden, da zu Randzeiten Stundentakte weit häufiger vorkommen.
+Die Berechnung der \acs{ÖV}-Güteklassen wird für drei Stichtage durchgeführt.
+Zusätzlich zum Standardbereich, welcher den Pendlerverkehr berücksichtigt, wird der Verkehr ausserhalb des Pendlerverkehrs am Abend und das Wochenende berücksichtigt.
+Die Gewichtung wird bei allen Zeitintervallen beibehalten, um einen quantitativen Vergleich zu ermöglichen.
 
-\subsubsection{Taktberechnung}
-\label{Verbesserungsmöglichkeiten:Taktberechnung}
+\subsubsection{Kursintervall}
+\label{Verbesserungsmöglichkeiten:Kursintervall}
 
 \paragraph{Problem}~\\
-Für die Bestimmung des Taktes an einer Haltestelle werden in den bisherigen Berechnungsmethodiken in einem bestimmten Zeitintervall alle Abfahrten gezählt. Der Takt wird bestimmt als Quotient aus Anzahl Abfahrten und der Dauer dieses Intervalls, was den Mittelwert an Abfahrten pro Stunde ergibt.
+Für die Bestimmung des Kursintervalls an einer Haltestelle werden in den bisherigen Berechnungsmethodiken in einem bestimmten Zeitintervall alle Abfahrten gezählt. Der Kursintervall wird bestimmt als Quotient aus Anzahl Abfahrten und der Dauer dieses Zeitintervalls, was den Mittelwert an Abfahrten pro Stunde ergibt.
 Diese Methode berücksichtigt aber nicht die Verteilung der Abfahrten, was zu starken Verzerrungen führen kann.
 
 Beachten wir als Beispiel eine fiktive Bushaltestelle, an der zu Beginn der Stunde gleich zwei Busse halten, dann aber für den Rest der Stunde kein einziger mehr.
-Der Mittelwert an Abfahrten an dieser Haltestelle berechnet sich zu zwei Abfahrten pro Stunde, was einen Takt von 30 Minuten ergibt.
-Dies ist aber offensichtlich nicht ein realistischer Wert, aus Sicht eines Benutzers dieser Haltestelle handelt es sich eher um einen 60-minütigen Takt.
+Der Mittelwert an Abfahrten an dieser Haltestelle berechnet sich zu zwei Abfahrten pro Stunde, was einen Kursintervall von 30 Minuten ergibt.
+Dies ist aber offensichtlich nicht ein realistischer Wert, aus Sicht eines Benutzers dieser Haltestelle handelt es sich eher um einen 60-minütigen Kursintervall.
 
 \paragraph{Lösung}~\\
-Für die Taktberechnung wird die statt der Anzahl Abfahrten die Wartezeit zwischen zwei Abfahrten als Grundlage verwendet.
-Der Takt $\tau$ einer Haltestelle wird definiert als das "`Doppelte der erwarteten Wartezeit auf die nächste Abfahrt [\ldots] bei zufälligem Zugang im Zeitintervall $I = [a,b)$"'.~\cite{visum_manual_formula}
+Für die Berechnung des Kursintervall wird die statt der Anzahl Abfahrten die Wartezeit zwischen zwei Abfahrten als Grundlage verwendet.
+Der Kursintervall $\tau$ einer Haltestelle wird definiert als das "`Doppelte der erwarteten Wartezeit auf die nächste Abfahrt [\ldots] bei zufälligem Zugang im Zeitintervall $I = [a,b)$"'.~\cite{visum_manual_formula}
 
-Da die erwartete Ankunft bei zufälligem Zugang in der Mitte zwischen zwei regulären Abfahrten liegt, ergibt das Doppelte der erwarteten Wartezeit den Takt.
+Da die erwartete Ankunft bei zufälligem Zugang in der Mitte zwischen zwei regulären Abfahrten liegt, ergibt das Doppelte der erwarteten Wartezeit den Kursintervall.
 
-Wird das obige Beispiel mit diesem Ansatz erneut betrachtet, ergibt sich daraus einen Takt von 58 Minuten (siehe Tabelle \ref{table:Vergleich der Taktberechnung mit bisheriger und neuer Methodik}), was ein deutlich realistischeres Bild ergibt.
+Wird das obige Beispiel mit diesem Ansatz erneut betrachtet, ergibt sich daraus einen Kursintervall von 58 Minuten (siehe Tabelle \ref{table:Vergleich der Kursintervallberechnung mit bisheriger und neuer Methodik}), was ein deutlich realistischeres Bild ergibt.
 
 \begin{table}[ht]
     \centering
@@ -526,7 +526,7 @@ Wird das obige Beispiel mit diesem Ansatz erneut betrachtet, ergibt sich daraus 
         \toprule
         \textbf{Berechnungsmethodik}
                                     & \textbf{Abfahrtszeiten}
-                                    & \textbf{Berechneter Takt}\\
+                                    & \textbf{Berechneter Kursintervall}\\
         \midrule
         Bisherig
                                     & 09:01, 09:02, 10:01, 10:02, \dots
@@ -535,8 +535,8 @@ Wird das obige Beispiel mit diesem Ansatz erneut betrachtet, ergibt sich daraus 
                                     & 58 Minuten\\
         \bottomrule
     \end{tabular}
-    \caption{Vergleich der Taktberechnung mit bisheriger und neuer Methodik}
-    \label{table:Vergleich der Taktberechnung mit bisheriger und neuer Methodik}
+    \caption{Vergleich der Kursintervallberechnung mit bisheriger und neuer Methodik}
+    \label{table:Vergleich der Kursintervallberechnung mit bisheriger und neuer Methodik}
 \end{table}
 
 \subsubsection{Bestimmung der Bahnknoten}

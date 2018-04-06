@@ -192,6 +192,16 @@ Durch die zusätzlichen Haltestellenkategorien VI und VII werden analog zur Bere
 \subsection{Berechnungsmethodik OeVGK18}
 \label{Berechnungsmethodik OeVGK18}
 Folgend wird die Berechnungsmethodik \gls{OeVGK18} detailliert beschrieben.
+In Abbildung \ref{fig:Flow_OeVGK_Brechnung} ist zur Übersicht die Berechnung der \acs{ÖV}-Güteklassen schematisch dargestellt.
+In einem ersten Schritt wird unter Berücksichtigung der Art der Verkehrsmittel (siehe Kapitel \ref{Berechnungsmethodik OeVGK18:Art der Verkehrsmittel}) und dem Kursintervall (siehe Kapitel \ref{Berechnungsmethodik OeVGK18:Kursintervall}) die Haltestellenkategorie (siehe Kapitel \ref{Berechnungsmethodik OeVGK18:Haltestellenkategorie}) eruiert.
+Abschliessend wird mithilfe der Haltestellenkategorie und der Gehzeit zur Haltestelle (siehe Kapitel \ref{Berechnungsmethodik OeVGK18:Gehzeit zur Haltestelle}) die ÖV-Güteklassen (siehe Kapitel \ref{Berechnungsmethodik OeVGK18:ÖV-Güteklassen}) berechnet.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.7\linewidth]{technicalreport/img/Flow_OeVGK_Brechnung}
+    \caption[Schema ÖV-Güteklassen Berechnung]{Schema ÖV-Güteklassen Berechnung}
+    \label{fig:Flow_OeVGK_Brechnung}
+\end{figure}
 
 \subsubsection{Art der Verkehrsmittel}
 \label{Berechnungsmethodik OeVGK18:Art der Verkehrsmittel}
@@ -322,7 +332,7 @@ Die Haltestellenkategorie I bis VII wird mit folgender Tabelle eruiert:
 \end{table}
 
 \subsubsection{Gehzeit zur Haltestelle}
-\label{Berechnungsmethodik OeVGK18:Distanz zur Haltestelle}
+\label{Berechnungsmethodik OeVGK18:Gehzeit zur Haltestelle}
 Bei der Berechnung der Gehzeit zu einer Haltestelle ist eine Laufgeschwindigkeit von $1.4 m/s$ anzunehmen und die Strecke entlang des Wege- und Strassennetzes zu berücksichtigen, welche im folgenden als Horizontaldistanz bezeichnet wird.
 
 Damit man der Topografie gerecht wird, ist als massgebende zu laufende Distanz Leistungsmeter zu verwenden:
@@ -400,3 +410,5 @@ Die Kombination aus Haltestellenkategorie und Gehzeit zur Haltestelle liefert fo
     \caption{ÖV-Güteklassen}
     \label{table:ÖV-Güteklassen}
 \end{table}
+
+Die Grenze wird bei einem Angebot schlechter als Stundentakt und einem Einzugsgebiet von 300 Sekunden gezogen, da man bei einer weiteren Betrachtung nicht mehr von einer Erschliessung reden kann und so auch nicht ausgewiesen werden soll.

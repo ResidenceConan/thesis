@@ -79,43 +79,41 @@ Die Haltestellenkategorie wird nach folgender Tabelle ermittelt:
 \begin{table}[ht]
     \centering
     \begin{itquote}
-    \begin{tabular}[c]{l | p{1.7cm} p{1.7cm} | p{1.7cm} | p{1.7cm}}
-        \midrule
-        \textbf{Verkehrsmittelkategorie}
-                                & \multicolumn{2}{l|}{\textbf{A}}
-                                & \textbf{B}
-                                & \textbf{C}\\
-        \textbf{}
-                                & \textit{Bahnknoten}
-                                & \textit{Bahnlinien}
-                                & \textit{Trams, Busse, Postautos, Rufbusse und Schiffe}
-                                & \textit{Seilbahnen}\\
+    \begin{tabular}[c]{l | p{2.3cm} p{2.3cm} | p{2.2cm} | p{2.2cm}}
+        \toprule
         \textbf{Kursintervall}
-                                &
-                                &
-                                &
-                                &\\
-        \textit{< 5 min}
+                                & \multicolumn{4}{c}{\textbf{Verkehrsmittelgruppe}}\\
+        \midrule
+        \textbf{}
+                                & \multicolumn{2}{c|}{\textbf{A}}
+                                & \multicolumn{1}{c}{\textbf{B}}
+                                & \multicolumn{1}{c}{\textbf{C}}\\
+        \textbf{}
+                                & \textbf{Bahnknoten}
+                                & \textbf{Bahnlinien}
+                                & \textbf{Trams, Busse, Postautos, Rufbusse und Schiffe}
+                                & \textbf{Seilbahnen}\\
+        \textbf{< 5 min}
                                 & I
                                 & I
                                 & II
                                 & III\\
-        \textit{5 - 9 min}
+        \textbf{5 -- 9 min}
                                 & I
                                 & II
                                 & III
                                 & IV\\
-        \textit{10 - 19 min}
+        \textbf{10 -- 19 min}
                                 & II
                                 & III
                                 & IV
                                 & V\\
-        \textit{20 - 39 min}
+        \textbf{20 -- 39 min}
                                 & III
                                 & IV
                                 & V
                                 & V\\
-        \textit{40 - 60 min}
+        \textbf{40 -- 60 min}
                                 & IV
                                 & V
                                 & V
@@ -148,13 +146,16 @@ Die Güteklassen werden nach folgender Tabelle ermittelt:
 \begin{table}[ht]
     \centering
     \begin{itquote}
-    \begin{tabular}[c]{l p{2.9cm} p{2.9cm} p{2.9cm} p{2.9cm}}
+    \begin{tabular}[c]{l p{2.2cm} p{2.2cm} p{2.2cm} p{2.2cm}}
+        \toprule
+        \textbf{Haltestellenkategorie}
+                                & \multicolumn{4}{c}{\textbf{Distanz zur Haltestelle}}\\
         \midrule
         \textbf{}
                                 & \textbf{< 300 m}
-                                & \textbf{300 - 500 m}
-                                & \textbf{501 - 750 m}
-                                & \textbf{751 - 1000m}\\
+                                & \textbf{300 -- 500 m}
+                                & \textbf{501 -- 750 m}
+                                & \textbf{751 -- 1000m}\\
         \textbf{I}
                                 & Klasse A
                                 & Klasse A
@@ -227,17 +228,18 @@ Es sind 2 Stichtage mit jeweils zwei Zeitbereichen zu definieren, welche ausserh
 \begin{table}[H]
     \centering
     \begin{tabular}[c]{l l}
-        \midrule
+        \toprule
         \textbf{Stichtag}
                                 & \textbf{Zeitbereich}\\
+        \midrule
         Werktag
-                                & 06.00 - 20.00 Uhr\\
+                                & 06.00 -- 20.00 Uhr\\
         Werktag
-                                & 22.00 - 05.00 Uhr\\
+                                & 22.00 -- 05.00 Uhr\\
         Samstag
-                                & 06.00 - 20.00 Uhr\\
+                                & 06.00 -- 20.00 Uhr\\
         Samstag
-                                & 22.00 - 05.00 Uhr\\
+                                & 22.00 -- 05.00 Uhr\\
         \bottomrule
     \end{tabular}
     \caption{Kursintervall: Stichtag und Zeitbereich}
@@ -269,40 +271,40 @@ Takt:
 
 \subparagraph{Haltestellenkategorie}~\\
 \label{Berechnungsmethodik OeVGK18:Haltestellenkategorie}
-%TODO Transportmittelkategorie vs Verkehrsmittelkategorie
 Die Haltestellenkategorie I bis VII wird mit folgender Tabelle eruiert:
 
 \begin{table}[H]
     \begin{tabular}[c]{l p{4.0cm} p{4.0cm} p{4.0cm}}
+        \toprule
+        \textbf{Kursintervall}
+                                & \multicolumn{3}{c}{\textbf{Verkehrsmittelgruppe}}\\
         \midrule
         \textbf{}
-                                & \multicolumn{3}{l}{\textbf{Verkehrsmittelgruppe}}\\
-        \textbf{Kursintervall}
-                                & \textit{A}
-                                & \textit{B}
-                                & \textit{C}\\
-        \textit{< 5 min}
+                                & \textbf{A}
+                                & \textbf{B}
+                                & \textbf{C}\\
+        \textbf{< 5 min}
                                 & I
                                 & I
                                 & II\\
-        \textit{5 - 10 min}
+        \textbf{5 -- 10 min}
                                 & I
                                 & II
                                 & III\\
-        \textit{11 - 19 min}
+        \textbf{11 -- 19 min}
                                 & II
                                 & III
                                 & IV\\
-        \textit{20 - 39 min}
+        \textbf{20 -- 39 min}
                                 & III
                                 & IV
                                 & V\\
-        \textit{40 - 60 min}
+        \textbf{40 -- 60 min}
                                 & IV
                                 & V
                                 & VI\\
-        \textit{> 60 min}
-                                &
+        \textbf{> 60 min}
+                                & -
                                 & VII
                                 & VII\\
         \bottomrule
@@ -337,16 +339,19 @@ Die Gehzeit $t$ zur Haltestelle ergibt sich nun aus:
 
 \subparagraph{ÖV-Güteklassen}~\\
 \label{Berechnungsmethodik OeVGK18:ÖV-Güteklassen}
-Die Kombination aus Haltestellenkategorie und Distanz zur Haltestelle liefert folgende \acs{ÖV}-Güteklassen-Gruppierung:
+Die Kombination aus Haltestellenkategorie und Gehzeit zur Haltestelle liefert folgende \acs{ÖV}-Güteklassen-Gruppierung:
 
 \begin{table}[H]
-    \begin{tabular}[c]{l p{3.3cm} p{3.3cm} p{3.3cm} p{3.3cm}}
+    \begin{tabular}[c]{l p{2.6cm} p{2.6cm} p{2.6cm} p{2.6cm}}
+        \toprule
+        \textbf{Haltestellenkategorie}
+                                & \multicolumn{4}{c}{\textbf{Gehzeit zur Haltestelle}}\\
         \midrule
         \textbf{}
                                 & \textbf{< 300 s}
-                                & \textbf{301 - 450 s}
-                                & \textbf{451 - 600 s}
-                                & \textbf{601 - 900 s}\\
+                                & \textbf{301 -- 450 s}
+                                & \textbf{451 -- 600 s}
+                                & \textbf{601 -- 900 s}\\
         \textbf{I}
                                 & Klasse A
                                 & Klasse A

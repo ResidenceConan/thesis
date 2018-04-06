@@ -223,42 +223,49 @@ Schiffe und Seilbahnen werden nur berücksichtigt, wenn sie ein besiedeltes Wohn
 
 \subparagraph{Kursintervall}~\\
 \label{Berechnungsmethodik OeVGK18:Kursintervall}
-Es sind 2 Stichtage mit jeweils zwei Zeitbereichen zu definieren, welche ausserhalb der Ferienzeit und der touristischen Hochsaison liegen.
+Es sind 3 Stichtage mit jeweils zwei Zeitintervall zu definieren, welche ausserhalb der Ferienzeit und der touristischen Hochsaison liegen.
 
 \begin{table}[H]
     \centering
     \begin{tabular}[c]{l l}
         \toprule
         \textbf{Stichtag}
-                                & \textbf{Zeitbereich}\\
+                                & \textbf{Zeitintervall}\\
         \midrule
         Werktag
-                                & 06.00 -- 20.00 Uhr\\
+                                & 06:00 -- 20:00 Uhr\\
         Werktag
-                                & 22.00 -- 05.00 Uhr\\
+                                & 20:01 -- 23:59 Uhr\\
+        \midrule
         Samstag
-                                & 06.00 -- 20.00 Uhr\\
+                                & 06:00 -- 20:00 Uhr\\
         Samstag
-                                & 22.00 -- 05.00 Uhr\\
+                                & 01:00 -- 04:00 Uhr\\
+        \midrule
+        Sonntag
+                                & 06:00 -- 20:00 Uhr\\
+        Sonntag
+                                & 01:00 -- 04:00 Uhr\\
         \bottomrule
     \end{tabular}
-    \caption{Kursintervall: Stichtag und Zeitbereich}
-    \label{table:Ermittlung Kursintervall: Stichtag und Zeitbereich}
+    \caption{Stichtag und Zeitintervall}
+    \label{table:Stichtag und Zeitintervall}
 \end{table}
 
-Der Takt $\tau$ einer Haltestelle wird definiert als das "`Doppelte der erwarteten Wartezeit auf die nächste Abfahrt [\ldots] bei zufälligem Zugang im Zeitintervall $I = [a,b)$"'~\cite{visum_manual_formula}. Es werden alle Abfahrten betrachtet, die innerhalb des definiertem Zeitbereichs an der Haltestelle abfahren.
+Der Kursintervall $\tau$ einer Haltestelle wird definiert als das "`Doppelte der erwarteten Wartezeit auf die nächste Abfahrt [\ldots] bei zufälligem Zugang im Zeitintervall $I = [a,b)$"'~\cite{visum_manual_formula}.
+Es werden alle Abfahrten betrachtet, die innerhalb des definiertem Zeitintervall an der Haltestelle abfahren.
 
 Die Umsetzung dafür geschieht wie folgt:
 
 \begin{tabbing}
-Abfahrtszeitpunkte im Intervall $I$: {\hskip 8em} \=    $x_{1 \ldots n}$      \\
+Abfahrtszeitpunkte im Zeitintervall $I$: {\hskip 8em} \=    $x_{1 \ldots n}$      \\
 Erste Abfahrt nach Zeitpunkt $b$ (nach Fahrplan): \>    $x'$                  \\
 Fiktive Abfahrt nach $b$ bei zyklischer Fortsetzung: \> $x'' = x_1 + (b - a)$
 \end{tabbing}
 
-Für die Wartezeit am Intervallende wird die Fahrt $x_{n+1} = min\{x', x''\}$ verwendet.
+Für die Wartezeit am Zeitintervallende wird die Fahrt $x_{n+1} = min\{x', x''\}$ verwendet.
 
-Takt:
+Kursintervall:
 \[
     \tau^{a, b} = \frac{1}{b - a} \sum_{i=0}^n \Delta_i
 \]
@@ -321,8 +328,8 @@ Damit man der Topografie gerecht wird, ist als massgebende zu laufende Distanz L
 \[
     x = 
 \begin{cases}
-    a + b/0.1 + c/0.15, & \text{if } c/d> 0.22\\
-    a + b/0.1,          & \text{otherwise}
+    a + b/0.1 + c/0.15, & \text{wenn } c/d>0.22\\
+    a + b/0.1,          & \text{sonst}
 \end{cases}
 \]
 \begin{conditions}
@@ -366,27 +373,27 @@ Die Kombination aus Haltestellenkategorie und Gehzeit zur Haltestelle liefert fo
                                 & Klasse B
                                 & Klasse C
                                 & Klasse D
-                                &\\
+                                & Klasse E\\
         \textbf{IV}
                                 & Klasse C
                                 & Klasse D
-                                &
-                                &\\
+                                & Klasse E
+                                & -\\
         \textbf{V}
                                 & Klasse D
-                                &
-                                &
-                                &\\
+                                & Klasse E
+                                & -
+                                & -\\
         \textbf{VI}
                                 & Klasse E
-                                &
-                                &
-                                &\\
+                                & -
+                                & -
+                                & -\\
         \textbf{VII}
                                 & Klasse F
-                                &
-                                &
-                                &\\                                
+                                & -
+                                & -
+                                & -\\                                
         \bottomrule
     \end{tabular}
     \caption{ÖV-Güteklassen}

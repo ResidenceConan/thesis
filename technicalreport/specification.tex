@@ -78,49 +78,49 @@ Der Takt $\tau$ einer Haltestelle wird definiert als das "`Doppelte der erwartet
 Die Haltestellenkategorie wird nach folgender Tabelle ermittelt:
 \begin{table}[ht]
     \centering
-    \begin{tabular}[c]{l | p{1.7cm} p{1.7cm} | p{1.7cm} | p{1.7cm}}
-        \midrule
-        \textbf{Verkehrsmittelkategorie}
-                                & \multicolumn{2}{l|}{\textbf{A}}
-                                & \textbf{B}
-                                & \textbf{C}\\
-        \textbf{}
-                                & \textit{Bahnknoten}
-                                & \textit{Bahnlinien}
-                                & \textit{Trams, Busse, Postautos, Rufbusse und Schiffe}
-                                & \textit{Seilbahnen}\\
+    \begin{itquote}
+    \begin{tabular}[c]{l | p{2.3cm} p{2.3cm} | p{2.2cm} | p{2.2cm}}
+        \toprule
         \textbf{Kursintervall}
-                                &
-                                &
-                                &
-                                &\\
-        \textit{< 5 min}
+                                & \multicolumn{4}{c}{\textbf{Verkehrsmittelgruppe}}\\
+        \midrule
+        \textbf{}
+                                & \multicolumn{2}{c|}{\textbf{A}}
+                                & \multicolumn{1}{c}{\textbf{B}}
+                                & \multicolumn{1}{c}{\textbf{C}}\\
+        \textbf{}
+                                & \textbf{Bahnknoten}
+                                & \textbf{Bahnlinien}
+                                & \textbf{Trams, Busse, Postautos, Rufbusse und Schiffe}
+                                & \textbf{Seilbahnen}\\
+        \textbf{< 5 min}
                                 & I
                                 & I
                                 & II
                                 & III\\
-        \textit{5 - 9 min}
+        \textbf{5 -- 9 min}
                                 & I
                                 & II
                                 & III
                                 & IV\\
-        \textit{10 - 19 min}
+        \textbf{10 -- 19 min}
                                 & II
                                 & III
                                 & IV
                                 & V\\
-        \textit{20 - 39 min}
+        \textbf{20 -- 39 min}
                                 & III
                                 & IV
                                 & V
                                 & V\\
-        \textit{40 - 60 min}
+        \textbf{40 -- 60 min}
                                 & IV
                                 & V
                                 & V
                                 & V\\
         \bottomrule
     \end{tabular}
+    \end{itquote}
 \end{table}
 \end{itquote}
 
@@ -145,13 +145,17 @@ Unter der Annahme dass die Laufgeschwindigkeit $1.4 m/s$ beträgt wird die massg
 Die Güteklassen werden nach folgender Tabelle ermittelt:
 \begin{table}[ht]
     \centering
-    \begin{tabular}[c]{l p{2.9cm} p{2.9cm} p{2.9cm} p{2.9cm}}
+    \begin{itquote}
+    \begin{tabular}[c]{l p{2.2cm} p{2.2cm} p{2.2cm} p{2.2cm}}
+        \toprule
+        \textbf{Haltestellenkategorie}
+                                & \multicolumn{4}{c}{\textbf{Distanz zur Haltestelle}}\\
         \midrule
         \textbf{}
                                 & \textbf{< 300 m}
-                                & \textbf{300 - 500 m}
-                                & \textbf{501 - 750 m}
-                                & \textbf{751 - 1000m}\\
+                                & \textbf{300 -- 500 m}
+                                & \textbf{501 -- 750 m}
+                                & \textbf{751 -- 1000m}\\
         \textbf{I}
                                 & Klasse A
                                 & Klasse A
@@ -179,6 +183,7 @@ Die Güteklassen werden nach folgender Tabelle ermittelt:
                                 & keine\\
         \bottomrule
     \end{tabular}
+    \end{itquote}
 \end{table}
 \end{itquote}
 
@@ -187,8 +192,18 @@ Durch die zusätzlichen Haltestellenkategorien VI und VII werden analog zur Bere
 \subsection{Berechnungsmethodik OeVGK18}
 \label{Berechnungsmethodik OeVGK18}
 Folgend wird die Berechnungsmethodik \gls{OeVGK18} detailliert beschrieben.
+In Abbildung \ref{fig:Flow_OeVGK_Brechnung} ist zur Übersicht die Berechnung der \acs{ÖV}-Güteklassen schematisch dargestellt.
+In einem ersten Schritt wird unter Berücksichtigung der Art der Verkehrsmittel (siehe Kapitel \ref{Berechnungsmethodik OeVGK18:Art der Verkehrsmittel}) und dem Kursintervall (siehe Kapitel \ref{Berechnungsmethodik OeVGK18:Kursintervall}) die Haltestellenkategorie (siehe Kapitel \ref{Berechnungsmethodik OeVGK18:Haltestellenkategorie}) eruiert.
+Abschliessend werden mithilfe der Haltestellenkategorie und der Gehzeit zur Haltestelle (siehe Kapitel \ref{Berechnungsmethodik OeVGK18:Gehzeit zur Haltestelle}) die ÖV-Güteklassen (siehe Kapitel \ref{Berechnungsmethodik OeVGK18:ÖV-Güteklassen}) berechnet.
 
-\subparagraph{Art der Verkehrsmittel}~\\
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.7\linewidth]{technicalreport/img/Flow_OeVGK_Brechnung}
+    \caption[Schema ÖV-Güteklassen Berechnung]{Schema ÖV-Güteklassen Berechnung}
+    \label{fig:Flow_OeVGK_Brechnung}
+\end{figure}
+
+\subsubsection{Art der Verkehrsmittel}
 \label{Berechnungsmethodik OeVGK18:Art der Verkehrsmittel}
 Verkehrsmittel werden in folgende Verkehrsmittelgruppen eingeteilt:
 
@@ -216,43 +231,52 @@ Die Anzahl Richtungen einer Bahnstation wird gezählt als die Anzahl umliegender
 Schiffe und Seilbahnen werden nur berücksichtigt, wenn sie ein besiedeltes Wohngebiet erschliessen und nicht ausschliesslich für touristische Zwecke verwendet werden.
 
 
-\subparagraph{Kursintervall}~\\
+\subsubsection{Kursintervall}
 \label{Berechnungsmethodik OeVGK18:Kursintervall}
-Es sind 2 Stichtage mit jeweils zwei Zeitbereichen zu definieren, welche ausserhalb der Ferienzeit und der touristischen Hochsaison liegen.
+Es sind 3 Stichtage mit jeweils zwei Zeitintervallen zu definieren, welche ausserhalb der Ferienzeit und der touristischen Hochsaison liegen.
 
 \begin{table}[H]
     \centering
     \begin{tabular}[c]{l l}
-        \midrule
+        \toprule
         \textbf{Stichtag}
-                                & \textbf{Zeitbereich}\\
+                                & \textbf{Zeitintervall}\\
+        \midrule
         Werktag
-                                & 06.00 - 20.00 Uhr\\
+                                & 06:00 -- 20:00 Uhr\\
         Werktag
-                                & 22.00 - 05.00 Uhr\\
+                                & 20:00 -- 00:00 Uhr\\
+        \midrule
         Samstag
-                                & 06.00 - 20.00 Uhr\\
+                                & 06:00 -- 20:00 Uhr\\
         Samstag
-                                & 22.00 - 05.00 Uhr\\
+                                & 01:00 -- 04:00 Uhr\\
+        \midrule
+        Sonntag
+                                & 06:00 -- 20:00 Uhr\\
+        Sonntag
+                                & 01:00 -- 04:00 Uhr\\
         \bottomrule
     \end{tabular}
-    \caption{Kursintervall: Stichtag und Zeitbereich}
-    \label{table:Ermittlung Kursintervall: Stichtag und Zeitbereich}
+    \caption{Stichtag und Zeitintervall}
+    \label{table:Stichtag und Zeitintervall}
 \end{table}
 
-Der Takt $\tau$ einer Haltestelle wird definiert als das "`Doppelte der erwarteten Wartezeit auf die nächste Abfahrt [\ldots] bei zufälligem Zugang im Zeitintervall $I = [a,b)$"'~\cite{visum_manual_formula}. Es werden alle Abfahrten betrachtet, die innerhalb des definiertem Zeitbereichs an der Haltestelle abfahren.
+Der Kursintervall $\tau$ einer Haltestelle wird definiert als das "`Doppelte der erwarteten Wartezeit auf die nächste Abfahrt [\ldots] bei zufälligem Zugang im Zeitintervall $I = [a,b)$"'~\cite{visum_manual_formula}.
+An einer Haltestelle werden für eine Linie jeweils nur die Abfahrten in eine Richtung berücksichtigt.
+Es werden nur Abfahrten betrachtet, die innerhalb des definiertem Zeitintervall an der Haltestelle abfahren.
 
 Die Umsetzung dafür geschieht wie folgt:
 
 \begin{tabbing}
-Abfahrtszeitpunkte im Intervall $I$: {\hskip 8em} \=    $x_{1 \ldots n}$      \\
+Abfahrtszeitpunkte im Zeitintervall $I$: {\hskip 8em} \=    $x_{1 \ldots n}$      \\
 Erste Abfahrt nach Zeitpunkt $b$ (nach Fahrplan): \>    $x'$                  \\
 Fiktive Abfahrt nach $b$ bei zyklischer Fortsetzung: \> $x'' = x_1 + (b - a)$
 \end{tabbing}
 
-Für die Wartezeit am Intervallende wird die Fahrt $x_{n+1} = min\{x', x''\}$ verwendet.
+Für die Wartezeit am Zeitintervallende wird die Fahrt $x_{n+1} = min\{x', x''\}$ verwendet.
 
-Takt:
+Kursintervall:
 \[
     \tau^{a, b} = \frac{1}{b - a} \sum_{i=0}^n \Delta_i
 \]
@@ -263,42 +287,42 @@ Takt:
     \Delta_n & $(x_{n+1} - x_n)^2 - (x_{n+1} - b)^2$
 \end{conditions}
 
-\subparagraph{Haltestellenkategorie}~\\
+\subsubsection{Haltestellenkategorie}
 \label{Berechnungsmethodik OeVGK18:Haltestellenkategorie}
-%TODO Transportmittelkategorie vs Verkehrsmittelkategorie
 Die Haltestellenkategorie I bis VII wird mit folgender Tabelle eruiert:
 
 \begin{table}[H]
     \begin{tabular}[c]{l p{4.0cm} p{4.0cm} p{4.0cm}}
+        \toprule
+        \textbf{Kursintervall}
+                                & \multicolumn{3}{c}{\textbf{Verkehrsmittelgruppe}}\\
         \midrule
         \textbf{}
-                                & \multicolumn{3}{l}{\textbf{Verkehrsmittelgruppe}}\\
-        \textbf{Kursintervall}
-                                & \textit{A}
-                                & \textit{B}
-                                & \textit{C}\\
-        \textit{< 5 min}
+                                & \textbf{A}
+                                & \textbf{B}
+                                & \textbf{C}\\
+        \textbf{< 5 min}
                                 & I
                                 & I
                                 & II\\
-        \textit{5 - 10 min}
+        \textbf{5 -- 10 min}
                                 & I
                                 & II
                                 & III\\
-        \textit{11 - 19 min}
+        \textbf{11 -- 19 min}
                                 & II
                                 & III
                                 & IV\\
-        \textit{20 - 39 min}
+        \textbf{20 -- 39 min}
                                 & III
                                 & IV
                                 & V\\
-        \textit{40 - 60 min}
+        \textbf{40 -- 60 min}
                                 & IV
                                 & V
                                 & VI\\
-        \textit{> 60 min}
-                                &
+        \textbf{> 60 min}
+                                & -
                                 & VII
                                 & VII\\
         \bottomrule
@@ -307,16 +331,16 @@ Die Haltestellenkategorie I bis VII wird mit folgender Tabelle eruiert:
     \label{Haltestellenkategorie}
 \end{table}
 
-\subparagraph{Gehzeit zur Haltestelle}~\\
-\label{Berechnungsmethodik OeVGK18:Distanz zur Haltestelle}
+\subsubsection{Gehzeit zur Haltestelle}
+\label{Berechnungsmethodik OeVGK18:Gehzeit zur Haltestelle}
 Bei der Berechnung der Gehzeit zu einer Haltestelle ist eine Laufgeschwindigkeit von $1.4 m/s$ anzunehmen und die Strecke entlang des Wege- und Strassennetzes zu berücksichtigen, welche im folgenden als Horizontaldistanz bezeichnet wird.
 
 Damit man der Topografie gerecht wird, ist als massgebende zu laufende Distanz Leistungsmeter zu verwenden:
 \[
     x = 
 \begin{cases}
-    a + b/0.1 + c/0.15, & \text{if } c/d> 0.22\\
-    a + b/0.1,          & \text{otherwise}
+    a + b/0.1 + c/0.15, & \text{wenn } c/d>0.22\\
+    a + b/0.1,          & \text{sonst}
 \end{cases}
 \]
 \begin{conditions}
@@ -331,18 +355,21 @@ Die Gehzeit $t$ zur Haltestelle ergibt sich nun aus:
 \[ t = \frac{x}{1.4 m/s} \]
 
 
-\subparagraph{ÖV-Güteklassen}~\\
+\subsubsection{ÖV-Güteklassen}
 \label{Berechnungsmethodik OeVGK18:ÖV-Güteklassen}
-Die Kombination aus Haltestellenkategorie und Distanz zur Haltestelle liefert folgende \acs{ÖV}-Güteklassen-Gruppierung:
+Die Kombination aus Haltestellenkategorie und Gehzeit zur Haltestelle liefert folgende \acs{ÖV}-Güteklassen-Gruppierung:
 
 \begin{table}[H]
-    \begin{tabular}[c]{l p{3.3cm} p{3.3cm} p{3.3cm} p{3.3cm}}
+    \begin{tabular}[c]{l p{2.6cm} p{2.6cm} p{2.6cm} p{2.6cm}}
+        \toprule
+        \textbf{Haltestellenkategorie}
+                                & \multicolumn{4}{c}{\textbf{Gehzeit zur Haltestelle}}\\
         \midrule
         \textbf{}
                                 & \textbf{< 300 s}
-                                & \textbf{301 - 450 s}
-                                & \textbf{451 - 600 s}
-                                & \textbf{601 - 900 s}\\
+                                & \textbf{301 -- 450 s}
+                                & \textbf{451 -- 600 s}
+                                & \textbf{601 -- 900 s}\\
         \textbf{I}
                                 & Klasse A
                                 & Klasse A
@@ -357,29 +384,31 @@ Die Kombination aus Haltestellenkategorie und Distanz zur Haltestelle liefert fo
                                 & Klasse B
                                 & Klasse C
                                 & Klasse D
-                                &\\
+                                & Klasse E\\
         \textbf{IV}
                                 & Klasse C
                                 & Klasse D
-                                &
-                                &\\
+                                & Klasse E
+                                & -\\
         \textbf{V}
                                 & Klasse D
-                                &
-                                &
-                                &\\
+                                & Klasse E
+                                & -
+                                & -\\
         \textbf{VI}
                                 & Klasse E
-                                &
-                                &
-                                &\\
+                                & -
+                                & -
+                                & -\\
         \textbf{VII}
                                 & Klasse F
-                                &
-                                &
-                                &\\                                
+                                & -
+                                & -
+                                & -\\                                
         \bottomrule
     \end{tabular}
     \caption{ÖV-Güteklassen}
     \label{table:ÖV-Güteklassen}
 \end{table}
+
+Die Grenze wird bei einem Angebot schlechter als Stundentakt und einem Einzugsgebiet von 300 Sekunden gezogen, da man bei einer weiteren Betrachtung nicht mehr von einer Erschliessung reden kann und so auch nicht ausgewiesen werden soll.

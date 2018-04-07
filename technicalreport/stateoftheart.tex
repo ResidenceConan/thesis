@@ -24,79 +24,76 @@ Anmerken muss man, dass zu besserer Verständlichkeit und Übersichtlichkeit unt
 
 \subparagraph{Bedienungsqualität der Haltestelle}~\\
 \label{Definition ÖV-Güteklassen:Bedienungsqualität der Haltestelle}
-Die öffentlichen Verkehrsmittel werden zuerst in die in Tabelle \ref{table:Verkehrsmittelkategorien} ersichtlichen Verkehrsmittelkategorien eingeteilt.
+Die öffentlichen Verkehrsmittel werden zuerst in Verkehrsmittelkategorien eingeteilt:
 
-\begin{table}[ht]
-    \begin{tabular}{l p{10.6cm}}
-        \toprule
-        \textbf{Verkehrsmittelkategorie}
-                                & \textbf{Verkehrsmittel}\\
-        \midrule
-        1
-                                & Bahnknoten: mehrere Bahnlinien in unterschiedliche Richtungen\\
-        2
-                                & Bahnlinie\\
-        3
-                                & Tramway, Trolleybuy, Autobus, Regionalbus, Ortsbus mit gutem Anschluss an Bahnlinie\\
-        4
-                                & Ortsbus, lokaler Kleinbus\\
-        \bottomrule
-    \end{tabular}
-    \caption{Verkehrsmittelkategorien}
-    \label{table:Verkehrsmittelkategorien}
-\end{table}
+\begin{itemize}[noitemsep]
+    \item Verkehrsmittelkategorie 1
+    \begin{itemize}
+        \item Bahnknoten: mehrere Bahnlinien in unterschiedliche Richtungen
+    \end{itemize}
+    \item Verkehrsmittelkategorie 2
+    \begin{itemize}
+        \item Bahnlinie
+    \end{itemize}
+    \item Verkehrsmittelkategorie 3
+    \begin{itemize}
+        \item Tramway, Trolleybuy, Autobus, Regionalbus, Ortsbus mit gutem Anschluss an Bahnlinie
+    \end{itemize}
+    \item Verkehrsmittelkategorie 4
+    \begin{itemize}
+        \item Ortsbus, lokaler Kleinbus
+    \end{itemize}
+\end{itemize}
 
 Die Verkehrsmittelkategorien werden dabei in die Gruppe A und B zusammengefasst, welche für die Berechnung des durchschnittlichen Kursintervalls berücksichtigt werden.
 Dabei werden für die Intervallberechnung alle Verkehrsmittel der Verkehrsmittelkategorie in einer Gruppe berücksichtigt.
 
 \begin{table}[ht]
-    \begin{tabular}[c]{l | p{2.3cm} p{2.3cm} | p{2.3cm} p{2.3cm}}
+    \begin{tabular}[c]{l | p{2.9cm} p{2.9cm} | p{2.9cm} p{2.9cm}}
+        \toprule
+        \textbf{Kursintervall}
+                                & \multicolumn{4}{c}{\textbf{Verkehrsmittelkategorie}}\\
         \midrule
         \textbf{}
-                                & \multicolumn{2}{l|}{\textbf{Gruppe A}}
-                                & \multicolumn{2}{l}{\textbf{Gruppe B}}\\
-        \textbf{Verkehrsmittelkategorie}
-                                & \textit{1}
-                                & \textit{2}
-                                & \textit{3}
-                                & \textit{4}\\
-        \textbf{Kursintervall}
-                                &
-                                &
-                                &
-                                &\\
-        \textit{< 5 min}
+                                & \multicolumn{2}{c|}{\textbf{Gruppe A}}
+                                & \multicolumn{2}{c}{\textbf{Gruppe B}}\\
+        \textbf{}
+                                & \textbf{1}
+                                & \textbf{2}
+                                & \textbf{3}
+                                & \textbf{4}\\
+        \textbf{< 5 min}
                                 & I
                                 & I
                                 & II
                                 & III\\
-        \textit{5 - 9 min}
+        \textbf{5 -- 9 min}
                                 & I
                                 & II
                                 & III
                                 & IV\\
-        \textit{10 - 19 min}
+        \textbf{10 -- 19 min}
                                 & II
                                 & III
                                 & IV
                                 & V\\
-        \textit{20 - 39 min}
+        \textbf{20 -- 39 min}
                                 & III
                                 & IV
                                 & V
                                 & V\\
-        \textit{40 - 60 min}
+        \textbf{40 -- 60 min}
                                 & IV
                                 & V
                                 & V
-                                &\\
+                                & -\\
         \bottomrule
     \end{tabular}
     \caption{Ermittlung der Haltestellenkategorie}
     \label{table:Ermittlung der Haltestellenkategorie}
 \end{table}
 
-Der Kursintervall ist der durchschnittliche Abstand zwischen Ankunft beziehungsweise Abfahrt (pro Linie jeweils in der Hauptlastrichtung) aller Verkehrsmittel in der gleichen Gruppe zwischen 06:00 - 20:00 Uhr jeweils von Montag bis Freitag.
+Der Kursintervall ist der durchschnittliche Abstand zwischen Ankunft beziehungsweise Abfahrt (pro Linie jeweils in der Hauptlastrichtung) aller Verkehrsmittel in der gleichen Gruppe zwischen 06:00 -- 20:00 Uhr jeweils von Montag bis Freitag.
 Die Norm macht hier Ausnahmen bei Verdichtungen in Hauptverkehrszeiten, Linienüberlagerungen und reinen Arbeitsplatzgebieten mit stark verdichtetem Fahrplan während Pendlerzeiten.
 
 \subparagraph{Erreichbarkeit der Haltestelle}~\\
@@ -105,13 +102,16 @@ Basierend auf den vorhin definierten Haltestellenkategorien (I bis V) kann die E
 Die Distanzen sind Luftlinien, wobei ein mittlerer Umwegfaktor von 20 bis 30\% berücksichtigt wird.
 
 \begin{table}[ht]
-    \begin{tabular}[c]{l p{3.3cm} p{3.3cm} p{3.3cm} p{3.3cm}}
+    \begin{tabular}[c]{l p{2.5cm} p{2.5cm} p{2.5cm} p{2.5cm}}
+        \toprule
+        \textbf{Haltestellenkategorie}
+                                & \multicolumn{4}{c}{\textbf{Distanz zur Haltestelle}}\\
         \midrule
         \textbf{}
                                 & \textbf{< 300 m}
-                                & \textbf{300 - 500 m}
-                                & \textbf{501 - 750 m}
-                                & \textbf{751 - 1000m}\\
+                                & \textbf{300 -- 500 m}
+                                & \textbf{501 -- 750 m}
+                                & \textbf{751 -- 1000m}\\
         \textbf{I}
                                 & Klasse A
                                 & Klasse A
@@ -126,17 +126,17 @@ Die Distanzen sind Luftlinien, wobei ein mittlerer Umwegfaktor von 20 bis 30\% b
                                 & Klasse B
                                 & Klasse C
                                 & Klasse D
-                                &\\
+                                & -\\
         \textbf{IV}
                                 & Klasse C
                                 & Klasse D
-                                &
-                                &\\
+                                & -
+                                & -\\
         \textbf{V}
                                 & Klasse D
-                                &
-                                &
-                                &\\
+                                & -
+                                & -
+                                & -\\
         \bottomrule
     \end{tabular}
     \caption{Ermittlung der Erreichbarkeit der Haltestelle}
@@ -218,33 +218,36 @@ Ebenfalls werden Seilbahnen mit Erschliessungsfunktion wie Bushaltestellen behan
 
 \begin{table}[ht]
     \begin{tabular}[c]{l p{4.0cm} p{4.0cm} p{4.0cm}}
-        \midrule
+        \toprule
         \textbf{Kursintervall}
+                                & \multicolumn{3}{c}{\textbf{Art des Verkehrsmittels}}\\
+        \midrule
+        \textbf{}
                                 & \textbf{Bahnknoten}
                                 & \textbf{Bahnlinie}
                                 & \textbf{Tram/Bus}\\
-        \textit{< 5 min}
+        \textbf{< 5 min}
                                 & I
                                 & I
                                 & II\\
-        \cellcolor{red!25}\textit{5 - 10 min}
+        \cellcolor{red!25}\textbf{5 -- 10 min}
                                 & I
                                 & II
                                 & III\\
-        \cellcolor{red!25}\textit{11 - 19 min}
+        \cellcolor{red!25}\textbf{11 -- 19 min}
                                 & II
                                 & III
                                 & IV\\
-        \textit{20 - 39 min}
+        \textbf{20 -- 39 min}
                                 & III
                                 & IV
                                 & V\\
-        \textit{40 - 60 min}
+        \textbf{40 -- 60 min}
                                 & IV
                                 & V
                                 & \cellcolor{red!25}VI\\
-        \cellcolor{red!25}\textit{> 60 min}
-                                &
+        \cellcolor{red!25}\textbf{> 60 min}
+                                & -
                                 & \cellcolor{red!25}VII
                                 & \cellcolor{red!25}VII\\
         \bottomrule
@@ -262,13 +265,16 @@ Durch die feinere Gliederung der Taktfrequenz erhält man eine bessere Güteklas
 Die zusätzlichen Haltestellenkategorien (VI und VII) hat zur Folge, dass auch zusätzliche Güteklassen (E und F) eingeführt werden.
 
 \begin{table}[ht]
-    \begin{tabular}[c]{l p{3.3cm} p{3.3cm} p{3.3cm} p{3.3cm}}
+    \begin{tabular}[c]{l p{2.5cm} p{2.5cm} p{2.5cm} p{2.5cm}}
+        \toprule
+        \textbf{Haltestellenkategorie}
+                                & \multicolumn{4}{c}{\textbf{Distanz zur Haltestelle}}\\
         \midrule
         \textbf{}
                                 & \textbf{< 300 m}
-                                & \textbf{300 - 500 m}
-                                & \textbf{501 - 750 m}
-                                & \textbf{751 - 1000m}\\
+                                & \textbf{300 -- 500 m}
+                                & \textbf{501 -- 750 m}
+                                & \textbf{751 -- 1000m}\\
         \textbf{I}
                                 & Klasse A
                                 & Klasse A
@@ -283,27 +289,27 @@ Die zusätzlichen Haltestellenkategorien (VI und VII) hat zur Folge, dass auch z
                                 & Klasse B
                                 & Klasse C
                                 & Klasse D
-                                &\\
+                                & -\\
         \textbf{IV}
                                 & Klasse C
                                 & Klasse D
-                                &
-                                &\\
+                                & -
+                                & -\\
         \textbf{V}
                                 & Klasse D
-                                &
-                                &
-                                &\\
+                                & -
+                                & -
+                                & -\\
         \cellcolor{red!25}\textbf{VI}
                                 & \cellcolor{red!25}Klasse E
-                                &
-                                &
-                                &\\
+                                & -
+                                & -
+                                & -\\
         \cellcolor{red!25}\textbf{VII}
                                 & \cellcolor{red!25}Klasse F
-                                &
-                                &
-                                &\\                                
+                                & -
+                                & -
+                                & -\\                                
         \bottomrule
     \end{tabular}
     \caption{Ermittlung der Erreichbarkeit der Haltestelle Kanton Graubünden}
@@ -351,41 +357,44 @@ Zusätzlich werden wie im Kanton Graubünden  Haltestellen mit einem Kursinterva
 
 \begin{table}[ht]
     \begin{tabular}[c]{l p{2.9cm} p{2.8cm} p{2.8cm} p{2.8cm}}
-        \midrule
+        \toprule
         \textbf{Kursintervall}
-                                & Bahnknoten
-                                & Bahnlinie
-                                & Tram
-                                & Bus\\
-        \textit{< 5 min}
+                                & \multicolumn{4}{c}{\textbf{Art des Verkehrsmittels}}\\
+        \midrule
+        \textbf{}
+                                & \textbf{Bahnknoten}
+                                & \textbf{Bahnlinie}
+                                & \textbf{Tram}
+                                & \textbf{Bus}\\
+        \textbf{< 5 min}
                                 & I
                                 & I
                                 & II
                                 & II\\
-        \textit{5 - 9 min}
+        \textbf{5 -- 9 min}
                                 & I
                                 & II
                                 & III
                                 & III\\
-        \textit{10 - 19 min}
+        \textbf{10 -- 19 min}
                                 & II
                                 & III
                                 & IV
                                 & IV\\
-        \textit{20 - 39 min}
+        \textbf{20 -- 39 min}
                                 & III
                                 & IV
-                                &
+                                & -
                                 & V\\
-        \textit{40 - 60 min}
-                                &
+        \textbf{40 -- 60 min}
+                                & -
                                 & V
-                                &
+                                & -
                                 & VI\\
-        \cellcolor{red!25}\textit{> 60 min}
-                                &
-                                &
-                                &
+        \cellcolor{red!25}\textbf{> 60 min}
+                                & -
+                                & -
+                                & -
                                 & \cellcolor{red!25}VII\\
         \bottomrule
     \end{tabular}
@@ -399,13 +408,16 @@ Zusätzlich werden wie im Kanton Graubünden  Haltestellen mit einem Kursinterva
 Auch im Kanton Zürich werden durch den zusätzlich abgebildeten Kursintervall (> 60 Minuten) zwei neue Güteklassen E und F eingeführt.
 
 \begin{table}[ht]
-    \begin{tabular}[c]{l p{3.3cm} p{3.3cm} p{3.3cm} p{3.3cm}}
+    \begin{tabular}[c]{l p{2.5cm} p{2.5cm} p{2.5cm} p{2.5cm}}
+        \toprule
+        \textbf{Haltestellenkategorie}
+                                & \multicolumn{4}{c}{\textbf{Distanz zur Haltestelle}}\\
         \midrule
         \textbf{}
                                 & \textbf{< 300 m}
-                                & \textbf{300 - 500 m}
-                                & \textbf{501 - 750 m}
-                                & \textbf{751 - 1000m}\\
+                                & \textbf{300 -- 500 m}
+                                & \textbf{501 -- 750 m}
+                                & \textbf{751 -- 1000m}\\
         \textbf{I}
                                 & Klasse A
                                 & Klasse A
@@ -420,27 +432,27 @@ Auch im Kanton Zürich werden durch den zusätzlich abgebildeten Kursintervall (
                                 & Klasse B
                                 & Klasse C
                                 & Klasse D
-                                &\\
+                                & -\\
         \textbf{IV}
                                 & Klasse C
                                 & Klasse D
                                 & \cellcolor{red!25}Klasse E
-                                &\\
+                                & -\\
         \textbf{V}
                                 & Klasse D
                                 & \cellcolor{red!25}Klasse E
                                 & \cellcolor{red!25}Klasse E
-                                &\\
+                                & -\\
         \cellcolor{red!25}\textbf{VI}
                                 & \cellcolor{red!25}Klasse E
                                 & \cellcolor{red!25}Klasse E
-                                &
-                                &\\
+                                & -
+                                & -\\
         \cellcolor{red!25}\textbf{VII}
                                 & \cellcolor{red!25}Klasse F
                                 & \cellcolor{red!25}Klasse F
-                                &
-                                &\\                                
+                                & -
+                                & -\\                                
         \bottomrule
     \end{tabular}
     \caption{Ermittlung der Erreichbarkeit der Haltestelle Kanton Zürich}
@@ -449,7 +461,7 @@ Auch im Kanton Zürich werden durch den zusätzlich abgebildeten Kursintervall (
 
 Der Topografie wird keine Rechnung getragen, es wird strikt auf die Luftlinie gesetzt.
 Sind Haltestellen nur durch Tram und/oder Bus erschlossen, werden analog zum Kanton Graubünden nur Distanzen bis zu 500 Meter berücksichtigt.
-Die Erschliessung durch Bahnknoten und Bahnlinien wird bis 750 Meter mit den Güteklassen B – E und bis 1000 Meter mit den Güteklassen C-D berücksichtigt.
+Die Erschliessung durch Bahnknoten und Bahnlinien wird bis 750 Meter mit den Güteklassen B -- E und bis 1000 Meter mit den Güteklassen C --D berücksichtigt.
 Diese Entscheidungen basieren auf ÖV-Angebotsverordnungen.
 
 \subsection{Verbesserungsmöglichkeiten}
@@ -485,28 +497,28 @@ Die Kurse am Wochenende und in der Nacht werden grundsätzlich ausgeklammert.
 Für Privatpersonen, aber auch für Planer kann dieser Zeitraum relevant sein, um sich für einen Wohnort entscheiden oder um ein Angebot ausbauen zu können.
 
 \paragraph{Lösung}~\\
-Die Berechnung der \acs{ÖV}-Güteklassen wird für drei Zeiträume durchgeführt.
-Zusätzlich zum Standardbereich, welcher den Pendlerverkehr berücksichtigt, wird der Verkehr ausserhalb des Pendlerverkehrs in der Nacht und das Wochenende berücksichtigt.
-Natürlich muss hier eine andere Gewichtung angewendet werden, da zu Randzeiten Stundentakte weit häufiger vorkommen.
+Die Berechnung der \acs{ÖV}-Güteklassen wird für drei Stichtage durchgeführt.
+Zusätzlich zum Standardbereich, welcher den Pendlerverkehr berücksichtigt, wird der Verkehr ausserhalb des Pendlerverkehrs am Abend und das Wochenende berücksichtigt.
+Die Gewichtung wird bei allen Zeitintervallen beibehalten, um einen quantitativen Vergleich zu ermöglichen.
 
-\subsubsection{Taktberechnung}
-\label{Verbesserungsmöglichkeiten:Taktberechnung}
+\subsubsection{Kursintervall}
+\label{Verbesserungsmöglichkeiten:Kursintervall}
 
 \paragraph{Problem}~\\
-Für die Bestimmung des Taktes an einer Haltestelle werden in den bisherigen Berechnungsmethodiken in einem bestimmten Zeitintervall alle Abfahrten gezählt. Der Takt wird bestimmt als Quotient aus Anzahl Abfahrten und der Dauer dieses Intervalls, was den Mittelwert an Abfahrten pro Stunde ergibt.
+Für die Bestimmung des Kursintervalls an einer Haltestelle werden in den bisherigen Berechnungsmethodiken in einem bestimmten Zeitintervall alle Abfahrten gezählt. Der Kursintervall wird bestimmt als Quotient aus Anzahl Abfahrten und der Dauer dieses Zeitintervalls, was den Mittelwert an Abfahrten pro Stunde ergibt.
 Diese Methode berücksichtigt aber nicht die Verteilung der Abfahrten, was zu starken Verzerrungen führen kann.
 
 Beachten wir als Beispiel eine fiktive Bushaltestelle, an der zu Beginn der Stunde gleich zwei Busse halten, dann aber für den Rest der Stunde kein einziger mehr.
-Der Mittelwert an Abfahrten an dieser Haltestelle berechnet sich zu zwei Abfahrten pro Stunde, was einen Takt von 30 Minuten ergibt.
-Dies ist aber offensichtlich nicht ein realistischer Wert, aus Sicht eines Benutzers dieser Haltestelle handelt es sich eher um einen 60-minütigen Takt.
+Der Mittelwert an Abfahrten an dieser Haltestelle berechnet sich zu zwei Abfahrten pro Stunde, was einen Kursintervall von 30 Minuten ergibt.
+Dies ist aber offensichtlich nicht ein realistischer Wert, aus Sicht eines Benutzers dieser Haltestelle handelt es sich eher um einen 60-minütigen Kursintervall.
 
 \paragraph{Lösung}~\\
-Für die Taktberechnung wird die statt der Anzahl Abfahrten die Wartezeit zwischen zwei Abfahrten als Grundlage verwendet.
-Der Takt $\tau$ einer Haltestelle wird definiert als das "`Doppelte der erwarteten Wartezeit auf die nächste Abfahrt [\ldots] bei zufälligem Zugang im Zeitintervall $I = [a,b)$"'.~\cite{visum_manual_formula}
+Für die Berechnung des Kursintervall wird die statt der Anzahl Abfahrten die Wartezeit zwischen zwei Abfahrten als Grundlage verwendet.
+Der Kursintervall $\tau$ einer Haltestelle wird definiert als das "`Doppelte der erwarteten Wartezeit auf die nächste Abfahrt [\ldots] bei zufälligem Zugang im Zeitintervall $I = [a,b)$"'.~\cite{visum_manual_formula}
 
-Da die erwartete Ankunft bei zufälligem Zugang in der Mitte zwischen zwei regulären Abfahrten liegt, ergibt das Doppelte der erwarteten Wartezeit den Takt.
+Da die erwartete Ankunft bei zufälligem Zugang in der Mitte zwischen zwei regulären Abfahrten liegt, ergibt das Doppelte der erwarteten Wartezeit den Kursintervall.
 
-Wird das obige Beispiel mit diesem Ansatz erneut betrachtet, ergibt sich daraus einen Takt von 58 Minuten (siehe Tabelle \ref{table:Vergleich der Taktberechnung mit bisheriger und neuer Methodik}), was ein deutlich realistischeres Bild ergibt.
+Wird das obige Beispiel mit diesem Ansatz erneut betrachtet, ergibt sich daraus einen Kursintervall von 58 Minuten (siehe Tabelle \ref{table:Vergleich der Kursintervallberechnung mit bisheriger und neuer Methodik}), was ein deutlich realistischeres Bild ergibt.
 
 \begin{table}[ht]
     \centering
@@ -514,7 +526,7 @@ Wird das obige Beispiel mit diesem Ansatz erneut betrachtet, ergibt sich daraus 
         \toprule
         \textbf{Berechnungsmethodik}
                                     & \textbf{Abfahrtszeiten}
-                                    & \textbf{Berechneter Takt}\\
+                                    & \textbf{Berechneter Kursintervall}\\
         \midrule
         Bisherig
                                     & 09:01, 09:02, 10:01, 10:02, \dots
@@ -523,8 +535,8 @@ Wird das obige Beispiel mit diesem Ansatz erneut betrachtet, ergibt sich daraus 
                                     & 58 Minuten\\
         \bottomrule
     \end{tabular}
-    \caption{Vergleich der Taktberechnung mit bisheriger und neuer Methodik}
-    \label{table:Vergleich der Taktberechnung mit bisheriger und neuer Methodik}
+    \caption{Vergleich der Kursintervallberechnung mit bisheriger und neuer Methodik}
+    \label{table:Vergleich der Kursintervallberechnung mit bisheriger und neuer Methodik}
 \end{table}
 
 \subsubsection{Bestimmung der Bahnknoten}

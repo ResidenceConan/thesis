@@ -5,21 +5,29 @@
 \subsection{Continuous Integration}
 \label{Infrastruktur:Continuous Integration}
 
-In unserem Projekt wird \ac{CI} einerseits für das automatische Erstellen dieser Dokumentation mit LaTeX verwendet, und andererseits, um automatische Tests für die Backend-Implementation auszuführen. Beides wird im Folgenden kurz beschrieben.
+In unserem Projekt wird \ac{CI} einerseits für das automatische Erstellen dieser Dokumentation mit LaTeX verwendet, und andererseits, um automatische Tests für die Backend-Implementation auszuführen.
+Beides wird im Folgenden kurz beschrieben.
 
 \subsubsection{Erstellen der LaTeX-Dokumentation}
 \label{CI:Erstellen der LaTeX-Dokumentation}
 
-Bei jedem Git Commit in das Repository der Dokumentation \cite{github:thesis} wird mit Continuous Integration ein PDF erstellt. So wird sichergestellt, dass die Dokumentation keine syntaktischen Fehler enthält. Das PDF wird in unser internes JIRA hochgeladen und direkt dem Task angehängt, der zum Commit gehört.
+Bei jedem Git Commit in das Repository der Dokumentation~\cite{github:thesis} wird mit Continuous Integration ein PDF erstellt.
+So wird sichergestellt, dass die Dokumentation keine syntaktischen Fehler enthält.
+Das PDF wird in unser internes JIRA hochgeladen und direkt dem Task angehängt, der zum Commit gehört.
 
-Für diese Continuous Integration haben wir uns für Travis CI \cite{travis-ci} entschieden, da die Integration mit Github gut funktioniert und das Produkt für Open-Source-Projekte kostenlos ist. Allerdings bietet Travis CI keine direkte Unterstützung für eine LaTeX-Umgebung, die LaTeX-Pakete aus den Repositories sind ausserdem veraltet. So muss bei jedem Build die LaTeX-Umgebung kompiliert werden, damit immer die neueste Version aller Pakete verwendet werden kann.
+Für diese Continuous Integration haben wir uns für Travis CI ~\cite{travis-ci} entschieden, da die Integration mit Github gut funktioniert und das Produkt für Open-Source-Projekte kostenlos ist.
+Allerdings bietet Travis CI keine direkte Unterstützung für eine LaTeX-Umgebung, die LaTeX-Pakete aus den Repositories sind ausserdem veraltet.
+So muss bei jedem Build die LaTeX-Umgebung kompiliert werden, damit immer die neueste Version aller Pakete verwendet werden kann.
 
 %TODO
 
-\subsubsection{CI für Backend}
+\subsubsection{CI für die Web-Applikation}
 \label{CI:CI für Backend}
 
-%TODO
+Für die Continuous Integration der Web-Applikation braucht es eine Umgebung mit Node JS, um die Applikation zu kompilieren und die Tests auszuführen.
+Dazu bietet sich ebenfalls Travis CI~\cite{travis-ci} an.
+Eine entsprechende Umgebung ist bereits vorhanden, womit der Konfigurationsaufwand sehr klein bleibt.
+
 
 \subsection{Deployment}
 \label{Infrastruktur:Deployment}

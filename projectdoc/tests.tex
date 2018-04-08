@@ -6,7 +6,25 @@
 \subsection{Strategie}
 \label{Tests:Strategie}
 
-%TODO
+\subsubsection{Web-Applikation}
+\label{tests:Web-Applikation}
+
+\paragraph{Unit-Tests}~\\
+Für das in React geschriebene Frontend werden Unit-Tests mit \emph{Jest}~\cite{jest} geschrieben.
+Dies ist ein von Facebook entwickeltes Testing-Framework, das speziell (aber nicht exklusiv) für React konzipiert wurde.
+
+% TODO: Snapshot testing erwähnen, wenn wir das gebrauchen
+
+
+\paragraph{Type-Checking}~\\
+Da JavaScript eine schwach typisierte Sprache ist, macht es Sinn, während der Entwicklung statisches Type-Checking zu verwenden.
+So können bereits zu Beginn des Entwicklungsprozesses Fehler mit Typisierungen vermieden werden.
+
+Dafür bietet sich die Library \emph{Flow}~\cite{flow} an, die wie React ebenfalls von Facebook entwickelt wird.
+Mit dieser ist es möglich, bei allen Deklarationen die Typen anzugeben.
+Kontinuierlich wird dann geprüft, dass die Typisierungen korrekt verwendet werden.
+
+
 
 \subsubsection{Healthchecks}
 \label{Tests:Healthchecks}

@@ -151,6 +151,8 @@ Basierend auf der bestehenden \nameref{Aktuelle Situation:Schweizer Norm 640 290
 
 In der Zwischenzeit wurden einige kantonale Anpassungen an dieser Methodik und der \nameref{Aktuelle Situation:Schweizer Norm 640 290} vorgenommen.
 Folgend werden grob die Abweichungen der Norm der verabschiedeten Berechnungsmethodik ARE und zweier kantonaler Methodiken beschrieben, namentlich des Kanton Graubünden und Zürich.
+Ebenfalls wird ein Blick auf eine österreichische Umsetzung der \acs{ÖV}-Güteklassen geworfen.
+% TODO Grundlagenbericht erwähnen
 
 Im Anschluss werden die Methodiken zusammen betrachtet, Schwachstellen eruiert und Verbesserungen vorgeschlagen.
 Dieses Vorgehen hat das Ziel, Erfahrungen und etablierte Grundlagen in \gls{OeVGK18} im Kapitel \ref{Spezifikation OeVGK18} einfliessen zu lassen, um so eine allgemeine Akzeptanz erreichen zu können.
@@ -463,6 +465,151 @@ Der Topografie wird keine Rechnung getragen, es wird strikt auf die Luftlinie ge
 Sind Haltestellen nur durch Tram und/oder Bus erschlossen, werden analog zum Kanton Graubünden nur Distanzen bis zu 500 Meter berücksichtigt.
 Die Erschliessung durch Bahnknoten und Bahnlinien wird bis 750 Meter mit den Güteklassen B -- E und bis 1000 Meter mit den Güteklassen C --D berücksichtigt.
 Diese Entscheidungen basieren auf ÖV-Angebotsverordnungen.
+
+\subsubsection{Berechnungsmethodik Österreich}
+\label{Lösungsansätze:Berechnungsmethodik Österreich}
+
+Im Artikel "`\acs{ÖV}-Güteklassen – ein Werkzeug zur Analyse der 
+Versorgung eines Standortes mit ÖV"'~\cite{berechnung_oesterreich} ist die Umsetzung der Analyse der Versorgung eines Standortes mit öffentlichem Verkehr in Österreich beschrieben.
+
+\paragraph{Bedienungsqualität der Haltestelle}~\\
+\label{Berechnungsmethodik Österreich:Bedienungsqualität der Haltestelle}
+Die Kursintervallberechnung erfolg analog zur \nameref{Lösungsansätze:Berechnungsmethodik ARE}.
+Herauszuheben ist, dass zwei Stichtage definiert werden, ein gewöhnlicher Werktag und einen Tag, welcher ein besonders ungünstigen Verkehrstag wiederspiegelt.
+
+Es wird keine grundsätzliche Unterscheidung zwischen Bahnknoten und Bahnlinien gezogen, sondern der Fernverkehr wird als das beste mögliche Verkehrsmittel angesehen.
+
+\begin{table}[ht]
+    \begin{tabular}[c]{l p{2.9cm} p{2.8cm} p{2.8cm} p{2.8cm}}
+        \toprule
+        \textbf{Kursintervall}
+                                & \multicolumn{4}{c}{\textbf{Art des Verkehrsmittels}}\\
+        \midrule
+        \textbf{}
+                                & \textbf{Fernverkehr REX}
+                                & \textbf{S-Bahn, U-Bahn, \dots}
+                                & \textbf{Strassenbahn, Metrobus, \dots}
+                                & \textbf{Bus}\\
+        \textbf{< 5 min}
+                                & I
+                                & I
+                                & II
+                                & \cellcolor{red!25}III\\
+        \textbf{5 -- 9 min}
+                                & I
+                                & II
+                                & III
+                                & III\\
+        \textbf{10 -- 19 min}
+                                & II
+                                & III
+                                & IV
+                                & IV\\
+        \textbf{20 -- 39 min}
+                                & III
+                                & IV
+                                & \cellcolor{red!25}V
+                                & V\\
+        \textbf{40 -- 60 min}
+                                & \cellcolor{red!25}IV
+                                & V
+                                & \cellcolor{red!25}VI
+                                & VI\\
+        \cellcolor{red!25}\textbf{60 -- 120 min}
+                                & \cellcolor{red!25}V
+                                & \cellcolor{red!25}VI
+                                & \cellcolor{red!25}VII
+                                & \cellcolor{red!25}VII\\
+        \cellcolor{red!25}\textbf{121 -- 210 min}
+                                & -
+                                & \cellcolor{red!25}VII
+                                & \cellcolor{red!25}VIII
+                                & \cellcolor{red!25}VIII\\
+        \bottomrule
+    \end{tabular}
+    \caption{Ermittlung der Haltestellenkategorie Österreich}
+    \label{table:Ermittlung der Haltestellenkategorie Österreich}
+\end{table}
+
+Es werden 3 weitere Haltestellenkategorien eingeführt und eine erweiterte Gliederung der Kursintervalle vorgenommen.
+So fliegen Haltestellen mit einem Intervall grösser 210 Minuten grundsätzlich bereits aus der Analyse.
+
+\paragraph{Erreichbarkeit der Haltestelle}~\\
+\label{Berechnungsmethodik Österreich:Erreichbarkeit der Haltestelle}
+Durch die zusätzlichen Haltestellenkategorien und feinere Kursintervallgliederung werden drei neue Güteklassen eingeführt, namentlich E, F und G.
+Die Evaluierung der \acs{ÖV}-Güteklassen ist in Tabelle \ref{table:Ermittlung Erreichbarkeit der Haltestelle Österreich} ersichtlich.
+
+Herauszuheben ist, dass die Wegführung berücksichtigt wird, was in den bisher analysierten Berechnungsmethodiken verwehrt blieb.
+Von einer Haltestelle aus werden die zu Fuss bewältigbaren Wege ermittelt.
+
+Zusätzlich werden die gebildeten \acs{ÖV}-Güteklasse-Polygone mit einem Raster, welches statistische Daten beinhaltet, verschnitten.
+So kann man beispielsweise zusätzlich die Bevölkerungsdichte evaluieren.
+
+\begin{table}[ht]
+    \begin{tabular}[c]{l p{2.0cm} p{2.0cm} p{2.0cm} p{2.0cm} p{2.0cm}}
+        \toprule
+        \textbf{Haltestellenkategorie}
+                                & \multicolumn{5}{c}{\textbf{Distanz zur Haltestelle}}\\
+        \midrule
+        \textbf{}
+                                & \textbf{< 301 m}
+                                & \textbf{301 -- 500 m}
+                                & \textbf{501 -- 750 m}
+                                & \textbf{751 -- 1000m}
+                                & \textbf{1001 -- 1250m}\\
+        \textbf{I}
+                                & Klasse A
+                                & Klasse A
+                                & Klasse B
+                                & Klasse C
+                                & \cellcolor{red!25}Klasse D\\
+        \textbf{II}
+                                & Klasse A
+                                & Klasse B
+                                & Klasse C
+                                & Klasse D
+                                & \cellcolor{red!25}Klasse E\\
+        \textbf{III}
+                                & Klasse B
+                                & Klasse C
+                                & Klasse D
+                                & \cellcolor{red!25}Klasse E
+                                & \cellcolor{red!25}Klasse F\\
+        \textbf{IV}
+                                & Klasse C
+                                & Klasse D
+                                & \cellcolor{red!25}Klasse E
+                                & \cellcolor{red!25}Klasse F
+                                & \cellcolor{red!25}Klasse G\\
+        \textbf{V}
+                                & Klasse D
+                                & \cellcolor{red!25}Klasse E
+                                & \cellcolor{red!25}Klasse F
+                                & \cellcolor{red!25}Klasse G
+                                & \cellcolor{red!25}Klasse G\\
+        \cellcolor{red!25}\textbf{VI}
+                                & \cellcolor{red!25}Klasse E
+                                & \cellcolor{red!25}Klasse F
+                                & \cellcolor{red!25}Klasse G
+                                & -
+                                & -\\
+        \cellcolor{red!25}\textbf{VII}
+                                & \cellcolor{red!25}Klasse F
+                                & \cellcolor{red!25}Klasse G
+                                & \cellcolor{red!25}Klasse G
+                                & -
+                                & -\\
+        \cellcolor{red!25}\textbf{VIII}
+                                & \cellcolor{red!25}Klasse G
+                                & \cellcolor{red!25}Klasse G
+                                & -
+                                & -
+                                & -\\                          
+        \bottomrule
+    \end{tabular}
+    \caption{Ermittlung der Erreichbarkeit der Haltestelle Österreich}
+    \label{table:Ermittlung Erreichbarkeit der Haltestelle Österreich}
+\end{table}
 
 \subsection{Verbesserungsmöglichkeiten}
 \label{Stand der Technik:Verbesserungsmöglichkeiten und Zusammenhang zu bestehenden Lösungen}

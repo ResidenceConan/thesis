@@ -89,6 +89,9 @@
 \onehalfspacing % 1.5x line spacing
 
 % count figures and labels continuously
+% hot fix for chnngcntr https://tex.stackexchange.com/questions/425600/latex-error-command-counterwithout-already-defined
+\let\counterwithout\relax
+\let\counterwithin\relax
 \usepackage{chngcntr}
 \counterwithout{figure}{chapter}
 \counterwithout{table}{chapter}

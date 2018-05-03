@@ -2,4 +2,23 @@
 \section{Softwaredokumentation}
 \label{Softwaredokumentation}
 
-%TODO
+In diesem Kapitel wird die Bedienung der Software beschrieben.
+Diese besteht aus dem \nameref{Implementation:ÖV-Güteklassen 2018 Generator}, dem Backend und dem Frontend.
+
+Mit dem Generator werden zuerst die \ac{ÖV}-Güteklassen erzeugt.
+Mit dem Resultat davon wird das Backend, ein HTTP-Server, gestartet.
+Dieser wiederum wird vom Frontend als Datenquelle gebraucht, um die \acs{ÖV}-Güteklassen zu visualisieren.
+
+\subsection{ÖV-Güteklassen 2018 Generator}
+\label{Softwaredokumentation: ÖV-Güteklassen 2018 Generator}
+
+\subsubsection{Vorbereitung}
+\label{Softwaredokumentation:Vorbereitung}
+Als Vorbereitung für das Generieren der \ac{ÖV}-Güteklassen wird eine Datenbank aufgesetzt, die alle zur Berechnung nötigen Daten, Schemas und Indices enthält.
+Um diesen Prozess möglichst automatisiert und reproduzierbar auszuführen, wurden entsprechende Docker-Container und Scripts vorbereitet.
+Vorgängig müssen dazu die Terraindaten der Schweiz als TIF besorgt werden.
+% TODO werden OSM-Daten zum Schluss auch automatisch herunter geladen?
+Die restlichen Daten werden werden automatisch während dem Setup vom Internet bezogen.
+
+Die genaue Anleitung zur Vorbereitung der Datenbank ist auf Github~\cite{github_docker_setup} verfügbar.
+

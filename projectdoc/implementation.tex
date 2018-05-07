@@ -81,8 +81,10 @@ In Abbildung \ref{fig:dataflow_OeV-Gueteklassen_2018_Generator} ist nun schemati
 Die Datenquellen \emph{GTFS}, \emph{OSM} und \emph{Terrain-Daten} entsprechen an sich keinen separaten Datenquellen, sondern werden nur zum besseren Verständnis getrennt dargestellt.
 Wie wir in Kapitel \ref{ÖV-Güteklassen 2018 Generator:Datenaufbereitung} gesehen haben, werden diese aufbereitet und optimiert in einer Datenbank \emph{oevgk18} gehalten.
 
-\paragraph{Berechnung des Kursintervalls}~\\
+\paragraph{Berechnung der Art der Verkehsmittel}~\\
+TODO
 
+\paragraph{Berechnung des Kursintervalls}~\\
 Für die Berechnung des Kursintervalls wurde die Formel, wie sie in der Spezifikation (siehe Kapitel \ref{Berechnungsmethodik OeVGK18:Kursintervall}) definiert wurde, direkt umgesetzt.
 Um alle Abfahrtszeiten einer Haltestelle zu erhalten, wurde zuerst eine SQL-Query für die GTFS-Datenbank formuliert, in der nach der \acs{UIC}-Referenz gefiltert wird.
 Die Ausführung dieser Query dauerte allerdings ca. 1.7 Sekunden pro Haltestelle, was bei einer Gesamtzahl von 28'000 Haltestellen etwa 11 Stunden dauern würde.
@@ -96,6 +98,15 @@ Die optimierte SQL-Query dauert ca. 7 Sekunden für alle 28'000 Haltestellen, wa
     \caption{Effiziente SQL-Query zur Abfrage aller Abfahrtszeiten an einem bestimmten Tag}
     \label{listing:sql_query_departure_times}
 \end{listing}
+
+\paragraph{Berechnung der Haltestellenkategorie}~\\
+TODO
+
+\paragraph{Berechnung der Gehezeit zur Haltestelle}~\\
+TODO
+
+\paragraph{Berechnung der ÖV-Güteklassen}~\\
+TODO
 
 \subsubsection{Mapping Verkehrsmittelgruppe und GTFS Route Type}
 \label{ÖV-Güteklassen 2018 Generator:Mapping Verkehrsmittelgruppe und GTFS Route Type}

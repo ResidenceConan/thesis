@@ -154,8 +154,8 @@ Diese Abfrage dauert pro Haltestelle 11.9 Sekunden, was bei momentan akuellen 18
 In einer zweiten Version war die Überlegung den Join zu persistieren, damit nicht jede Abfrage diese aufwändigen Join durchführen muss und Indizes darauf zu generieren.
 
 Der Grund warum in diesem Fall nicht eine temporäre Tabelle in Frage kommt, ist in der PostgreSQL-Dokumentation beschrieben: "`The autovacuum daemon cannot access and therefore cannot vacuum or analyze temporary tables."'~\cite{postgresql_doc}
-Es ist auch nicht möglich den Daemon manuell anzustossen, da das Erstellen der temporären Tabelle und das Starten des Daemons aus einer PostgreSQL-Funktion nicht in der selben Session durchgeführt werden kann, was den Nutzen der temporären Tabelle zu nichte macht, denn damit die Indizes greifen ist dieser Prozess jedoch relevant.
-Das persistieren des Join und das Anlegen der Indizes bringen in diesem Fall eine enorme Performanzsteigerung, wie in Tabelle \ref{table:Performanzvergleich Temp Table und Table mit Index} ersichtlich ist, mit der Annahme das Autovacuum lief.
+Es ist auch nicht möglich den Daemon manuell anzustossen, da das Erstellen der temporären Tabelle und das Starten des Daemons aus einer PostgreSQL-Funktion nicht in der selben Session durchgeführt werden kann, was den Nutzen der temporären Tabelle zu nichte macht, denn damit die Indizes greifen, ist dieser Prozess relevant.
+Das Persistieren des Join und das Anlegen der Indizes bringen in diesem Fall eine enorme Performanzsteigerung, wie in Tabelle \ref{table:Performanzvergleich Temp Table und Table mit Index} ersichtlich ist, mit der Annahme, dass Autovacuum lief.
 
 \begin{table}[ht]
     \centering
@@ -193,7 +193,7 @@ Dazu wurde die Abfrage in die Version, welche in Listing \ref{listing:count_of_d
 Die Abfrage läuft in 9.8 Sekunden und ist im Vergleich zur Lösung aus Version 2 für momentan 1815 vorhandenen Bahnhaltestellen um über 100 Sekunden schneller.
 
 \subparagraph{Finale Version}
-Da nun die Berechnung nicht mehr für alle Bahnhaltestellen einzeln durchgeführt wird, lohnt sich die Analyse ob sich die Erstellung der Tabelle (\emph{next\_station\_mapping}) und der Indizes im Vergleich zum Join in einer Common Table Expression noch lohnt.
+Da nun die Berechnung nicht mehr für alle Bahnhaltestellen einzeln durchgeführt wird, lohnt sich die Analyse, ob sich die Erstellung der Tabelle (\emph{next\_station\_mapping}) und der Indizes im Vergleich zum Join in einer Common Table Expression noch lohnt.
 
 \begin{table}[ht]
     \centering
@@ -239,7 +239,7 @@ In Tabelle \ref{table:Performanzvergleich der verschiedenen Version} sind die Re
                                 & \textbf{Dauer}\\
         \midrule
         Version 1
-                                & 21598.5 s\\
+                                & 360 min\\
         Version 2
                                 & 112.53 s\\
         Version 3

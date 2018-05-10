@@ -81,8 +81,176 @@ In Abbildung \ref{fig:dataflow_OeV-Gueteklassen_2018_Generator} ist nun schemati
 Die Datenquellen \emph{GTFS}, \emph{OSM} und \emph{Terrain-Daten} entsprechen an sich keinen separaten Datenquellen, sondern werden nur zum besseren Verständnis getrennt dargestellt.
 Wie wir in Kapitel \ref{ÖV-Güteklassen 2018 Generator:Datenaufbereitung} gesehen haben, werden diese aufbereitet und optimiert in einer Datenbank \emph{oevgk18} gehalten.
 
+Nachfolgend werden die fünf Berechnungsschritte separat beschrieben.
+
 \paragraph{Berechnung der Art der Verkehsmittel}~\\
-TODO
+Die öffentlichen Verkehrsmittel werden in drei Verkehrsmittelgruppen gruppiert (siehe Kapitel \ref{Berechnungsmethodik OeVGK18:Art der Verkehrsmittel}).
+Wie in Kapitel \ref{subsystem:GTFS} beschrieben, werden die Fahrplandaten im \acs{GTFS}-Format~\cite{gtfs_spec} gehalten. 
+Es werden dabei 8 Verkehrsmittel-Typen unterschieden.
+In Tabelle \ref{table:Mapping GTFS Route Type Verkehrsmittelgruppe} ist ein Mapping der definierten GTFS Route Typen und der Verkehrsmittelgruppen ersichtlich.
+
+\begin{table}[ht]
+    \centering
+    \begin{tabular}[ht]{l l}
+        \toprule
+        \textbf{GTFS Route Type} 
+                                & \textbf{Verkehrsmittelgruppe}\\
+        \midrule
+        0 (Tram, Streetcar, Light rail)
+                                & C\\
+        1 (Subway, Metro)
+                                & A/B\\
+        2 (Rail)
+                                & A/B\\
+        3 (Bus)
+                                & C\\
+        4 (Ferry)
+                                & C\\
+        5 (Cable car)
+                                & C\\
+        6 (Gondola, Suspended cable car)
+                                & C\\
+        7 (Funicular)
+                                & C\\            
+        \bottomrule
+    \end{tabular}
+    \caption{Mapping GTFS Route Type Verkehrsmittelgruppe}
+    \label{table:Mapping GTFS Route Type Verkehrsmittelgruppe}
+\end{table}
+
+Die Herausforderung beim Berechnen der Art der Verkehrsmittel ist die Evaluation der Bahnknoten.
+Die Definition des Bahnknoten ist im Kapitel \ref{Berechnungsmethodik OeVGK18:Art der Verkehrsmittel} genau spezifiziert.
+Für die Klassifizierung eines Bahnknoten ist die Anzahl der Richtungen, in welche man von einer Bahnstation aus verkehren kann, relevant.
+
+\begin{listing}[ht]
+    \inputminted{sql}{projectdoc/listing/count_of_distinct_next_stops.sql}
+    \caption{SQL-Query zur Bestimmung der Anzahl erreichbaren Haltestellen}
+    \label{listing:count_of_distinct_next_stops}
+\end{listing}
+
+In Listing \ref{listing:count_of_distinct_next_stops} ist ersichtlich, wie für eine spezifizierte Auswahl an Haltestellen (\emph{relevant\_stops}) die Anzahl erreichbaren Haltestellen gezählt wird.
+Im abgebildeten Query wird geprüft, ob der aktuelle Stop bei einem anderen \emph{Trip} als vorherige Haltestelle vorkommt.
+Die Anzahl wird mit der Window Function gesammelt und gruppiert für jede Haltestelle retourniert.
+
+Die abgebildete Berechnung hat mehrere Verbesserungen und Ver­schlimm­bes­se­rungen durchlaufen.
+Es lohnt sich einen ausführlicheren Blick auf die Evolution der Abfragetechnik zu legen, da diese Hoch und Tiefs durchlebt hat und einige Learnings daraus gezogen wurden.
+
+\subparagraph{1. Version}
+In einer ersten Version war angedacht, dass das Berechnen der Anzahl erreichbaren Haltestelle für jede einzelne Haltestelle separat aufgerufen wird.
+
+\begin{listing}[ht]
+    \inputminted{sql}{projectdoc/listing/count_of_distinct_next_stops_v1.sql}
+    \caption{SQL-Query zur Bestimmung der Anzahl erreichbaren Haltestellen (Version 1)}
+    \label{listing:count_of_distinct_next_stops_v1}
+\end{listing}
+
+Das Datenmodell von GTFS zwingt einem zu einem Join über mehrere grössere Tabelle, welcher mehrmals durchgeführt werden muss.
+In Listing \ref{listing:count_of_distinct_next_stops_v1} ist ersichtlich, wie in einer Common Table Expression dieser für jede Haltestelle durchgeführt wird.
+Dieser Join bildet für eine Station alle \emph{Trips} mit der Nummer des akutellen \emph{Stops} auf einem \emph{Trip} ab.
+Dieser Join ist sehr zeit- und ressourcenintensiv.
+Diese Abfrage dauert pro Haltestelle 11.9 Sekunden, was bei momentan akuellen 1815 Bahnhaltestellen extrem ins Gewicht fällt.
+
+\subparagraph{2. Version}
+In einer zweiten Version war die Überlegung den Join zu persistieren, damit nicht jede Abfrage diese aufwändigen Join durchführen muss und Indizes darauf zu generieren.
+
+Der Grund warum in diesem Fall nicht eine temporäre Tabelle in Frage kommt, ist in der PostgreSQL-Dokumentation beschrieben: "`The autovacuum daemon cannot access and therefore cannot vacuum or analyze temporary tables."'~\cite{postgresql_doc}
+Es ist auch nicht möglich den Daemon manuell anzustossen, da das Erstellen der temporären Tabelle und das Starten des Daemons aus einer PostgreSQL-Funktion nicht in der selben Session durchgeführt werden kann, was den Nutzen der temporären Tabelle zu nichte macht, denn damit die Indizes greifen ist dieser Prozess jedoch relevant.
+Das persistieren des Join und das Anlegen der Indizes bringen in diesem Fall eine enorme Performanzsteigerung, wie in Tabelle \ref{table:Performanzvergleich Temp Table und Table mit Index} ersichtlich ist, mit der Annahme das Autovacuum lief.
+
+\begin{table}[ht]
+    \centering
+    \begin{tabular}[ht]{l l l}
+        \toprule
+        \textbf{} 
+                                & \textbf{temporäre Tabelle}
+                                & \textbf{Tabelle}\\
+        \midrule
+        Erstellen der Tabelle
+                                & 6.7 s
+                                & 7.3 s\\
+        Erstellen der Indizes
+                                & -
+                                & 3.9 s\\
+        Abfrage
+                                & n * 4.8 s
+                                & n * 0.062 s\\        
+        \bottomrule
+    \end{tabular}
+    \caption{Performanzvergleich Temp Table und Table mit Index}
+    \label{table:Performanzvergleich Temp Table und Table mit Index}
+\end{table}
+
+\subparagraph{3. Version}
+Um die Datenbank nicht mit fast 2000 Abfragen für alle Bahnhaltestellen zu belasten, entstand die Idee für alle Haltestellen in einer Abfrage die erreichbaren Haltestellen zu zählen.
+
+\begin{listing}[ht]
+    \inputminted{sql}{projectdoc/listing/count_of_distinct_next_stops_v3.sql}
+    \caption{SQL-Query zur Bestimmung der Anzahl erreichbaren Haltestellen (Version 3)}
+    \label{listing:count_of_distinct_next_stops_v3}
+\end{listing}
+
+Dazu wurde die Abfrage in die Version, welche in Listing \ref{listing:count_of_distinct_next_stops_v3} ersichtlich ist umgebaut.
+Die Abfrage läuft in 9.8 Sekunden und ist im Vergleich zur Lösung aus Version 2 für momentan 1815 vorhandenen Bahnhaltestellen um über 100 Sekunden schneller.
+
+\subparagraph{Finale Version}
+Da nun die Berechnung nicht mehr für alle Bahnhaltestellen einzeln durchgeführt wird, lohnt sich die Analyse ob sich die Erstellung der Tabelle (\emph{next\_station\_mapping}) und der Indizes im Vergleich zum Join in einer Common Table Expression noch lohnt.
+
+\begin{table}[ht]
+    \centering
+    \begin{tabular}[ht]{l l l}
+        \toprule
+        \textbf{} 
+                                & \textbf{Join in Tabelle}
+                                & \textbf{Join in CTE}\\
+        \midrule
+        Erstellen der Tabelle
+                                & 7.3 s
+                                & - \\
+        Erstellen der Indizes
+                                & 3.9 s
+                                & - \\
+        Abfrage
+                                & 9.8 s
+                                & n * 0.062 s\\
+        \textbf{Total}
+                                & \textbf{21 s}
+                                & \textbf{17.5 s}\\            
+        \bottomrule
+    \end{tabular}
+    \caption{Performanzvergleich Join in Tabelle und Join in CTE}
+    \label{table:Performanzvergleich Join in Tabelle und Join in CTE}
+\end{table}
+
+In der Tabelle \ref{table:Performanzvergleich Join in Tabelle und Join in CTE} ist das Ergebnis ersichtlich.
+Die Performanzverbesserung ist durch die Natur des OeVGK18-Generator ein Tropfen auf dem heissen Stein, jedoch wird die Verbesserung übernommen, da in dieser Variante nicht zusätzliche eine Tabelle angelegt werden muss, welche nur für einen Join benötigt wird und sonst nichts mit der Domain zu tun hat.
+
+Die finale Version war bereits in Listing \ref{listing:count_of_distinct_next_stops} ersichtlich.
+
+\subparagraph{Fazit}
+Optimierungen, welche in der 2. und 3. Version Sinn gemacht haben, war in der finalen Version dann nicht mehr notwendig.
+Es hat sich gezeigt, dass es sich lohnt, vergangene Annahmen zu überdenken und zu prüfen, ob diese auf die aktuelle Situation immer noch zu treffen.
+In Tabelle \ref{table:Performanzvergleich der verschiedenen Version} sind die Resultate der Optimierungen zusammengefasst.
+
+\begin{table}[ht]
+    \centering
+    \begin{tabular}[ht]{l l}
+        \toprule
+        \textbf{Version} 
+                                & \textbf{Dauer}\\
+        \midrule
+        Version 1
+                                & 21598.5 s\\
+        Version 2
+                                & 112.53 s\\
+        Version 3
+                                & 21 s\\
+        \textbf{Finale Version}
+                                & \textbf{17.5 s}\\            
+        \bottomrule
+    \end{tabular}
+    \caption{Performanzvergleich der verschiedenen Version}
+    \label{table:Performanzvergleich der verschiedenen Version}
+\end{table}
 
 \paragraph{Berechnung des Kursintervalls}~\\
 Für die Berechnung des Kursintervalls wurde die Formel, wie sie in der Spezifikation (siehe Kapitel \ref{Berechnungsmethodik OeVGK18:Kursintervall}) definiert wurde, direkt umgesetzt.
@@ -106,41 +274,5 @@ TODO
 TODO
 
 \paragraph{Berechnung der ÖV-Güteklassen}~\\
-TODO
+TODO 
 
-\subsubsection{Mapping Verkehrsmittelgruppe und GTFS Route Type}
-\label{ÖV-Güteklassen 2018 Generator:Mapping Verkehrsmittelgruppe und GTFS Route Type}
-
-Die öffentlichen Verkehrsmittel werden in drei Verkehrsmittelgruppen gruppiert (siehe Kapitel \ref{Berechnungsmethodik OeVGK18:Art der Verkehrsmittel}).
-Wie in Kapitel \ref{subsystem:GTFS} beschrieben, werden die Fahrplandaten im \acs{GTFS}-Format~\cite{gtfs_spec} gehalten. 
-Es werden dabei 8 Verkehrsmittel-Typen definiert.
-In Tabelle \ref{table:Mapping GTFS Route Type Verkehrsmittelgruppe} ist ein Mapping der definierten GTFS Route Typen und der Verkehrsmittelgruppen ersichtlich.
-
-\begin{table}[ht]
-    \centering
-    \begin{tabular}[ht]{l l}
-        \toprule
-        \textbf{GTFS Route Type} 
-                                & \textbf{Verkehrsmittelgruppe}\\
-        \midrule
-        0 (Tram, Streetcar, Light rail)
-                                & C\\
-        1 (Subway, Metro)
-                                & -\\
-        2 (Rail)
-                                & A/B\\
-        3 (Bus)
-                                & C\\
-        4 (Ferry)
-                                & C\\
-        5 (Cable car)
-                                & -\\
-        6 (Gondola, Suspended cable car)
-                                & C\\
-        7 (Funicular)
-                                & C\\            
-        \bottomrule
-    \end{tabular}
-    \caption{Mapping GTFS Route Type Verkehrsmittelgruppe}
-    \label{table:Mapping GTFS Route Type Verkehrsmittelgruppe}
-\end{table}

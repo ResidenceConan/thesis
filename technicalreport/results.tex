@@ -12,7 +12,7 @@ In der Evaluations-Phase (Kap. \ref{Stand der Technik}) wurden bestehende Ansät
 Es zeigte sich, dass die Methoden auf einer alten Norm aufbauen, die von einigen Kantonen etwas erweitert wurden.
 Für die Berechnung der ganzen Schweiz gibt es aber keine Spezifikation, die moderne Analysen wie die Berücksichtigung des Strassennetzes vorsehen.
 
-Unter Zuhilfenahme der Berechnungsmethodik des Kanton Graubündens erstellten wir anschliessend eine eigene Spezifikation, die "`\acS{ÖV}-Güteklassen 2018"'.
+Unter Zuhilfenahme der Berechnungsmethodik des Kanton Graubündens erstellten wir anschliessend eine eigene Spezifikation, die "`\acs{ÖV}-Güteklassen 2018"'.
 Dabei haben wir neben einer genaueren Ermittlung der Erreichbarkeit (Kap. \ref{Verbesserungsmöglichkeiten:Ermittlung der Erreichbarkeit der Haltestelle}) und die Berücksichtigung des Terrains auch Punkte konkretisiert, die in bisherigen Methoden nicht genau spezifiziert sind, wie etwa die Berechnung des Kursintervalls (Kap. \ref{Verbesserungsmöglichkeiten:Kursintervall}) oder die Bestimmung von Bahnknoten (Kap. \ref{Verbesserungsmöglichkeiten:Bestimmung der Bahnknoten}).
 
 In einem nächsten Schritt wurde die Berechnung anhand der "`\acs{ÖV}-Güteklassen 2018"'-Spezifikation umgesetzt und automatisiert.
@@ -27,13 +27,34 @@ Dadurch kann die Implementation auch als Basis für Weiterentwicklungen der Bere
     \label{fig:resultat_webapp_uebersicht}
 \end{figure}
 
-Zusätzlich zur automatisierten Berechnung wurde eine Web-Applikation entwickelt, die es ermöglicht, die berechneten \acs{ÖV}-Güteklassen im Browser darzustellen (siehe Abbildung \ref{fig:resultat_webapp_uebersicht}.
+Zusätzlich zur automatisierten Berechnung wurde eine Web-Applikation entwickelt, die es ermöglicht, die berechneten \acs{ÖV}-Güteklassen im Browser darzustellen (siehe Abbildung \ref{fig:resultat_webapp_uebersicht}).
 Ebenfalls wurden darin die bisherigen \acs{ÖV}-Güteklassen vom Bundesamt für Raumentwicklung (\acs{ARE}) integriert, was einen visuellen Vergleich der beiden Resultate erleichtert.
 
 \subsection{Vergleich mit bisherigen ÖV-Güteklassen}
 \label{Resultate:Vergleich mit bisherigen ÖV-Güteklassen}
 
-% TODO
+Im Folgenden wird an einigen Beispielen gezeigt, wie die Resultate unserer Berechnung der "`\acs{ÖV}-Güteklassen 2018"' von bisherigen Methoden abweichen.
+Als Vergleich werden dazu die \acs{ÖV}-Güteklassen von \ac{ARE} aus dem Jahre 2018~\cite{berechnung_are} verwendet.
+
+\subsubsection{Einfluss der Wegführung}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\linewidth]{technicalreport/img/vergleich_wegfuehrung}
+    \caption[Vergleich zur Einfluss der Wegführung]{Vergleich zur Einfluss der Wegführung. Oben: ÖV-Güteklassen von \ac{ARE}. Unten: ÖV-Güteklassen 2018.}
+    \label{fig:vergleich_wegfuehrung}
+\end{figure}
+
+Wie in \ref{Problemstellung:Luftlinie bei Einzugsgebieten} besprochen wird bei den bisherigen Ansätzen das Einzugsgebiet einer Haltestelle mit einem Kreis, und somit als Luftlinie, beschrieben.
+Mit "`\acs{ÖV}-Güteklassen 2018"' wird nun das Einzugsgebiet durch eine \gls{Isochrone} beschrieben.
+Die Fläche zeigt das Einzugsgebiet, das von einem Fussgänger von der Haltestelle aus in der definierten Zeit erreichbar ist.
+
+Wie in Abbildung \ref{fig:vergleich_wegfuehrung} zu sehen ist, entstehen dadurch Geometrien, die dem Strassen- und Wegnetz folgen.
+Dies ergibt einen realistischeren Eindruck über die effektiven Gebiete, die von einer Haltestelle erschlossen werden.
+
+\subsubsection{Verbesserte Berechnung des Kursintervalls}
+
+\subsubsection{Verbesserte Ermittlung von Bahnknoten}
 
 \subsection{Ausblick: Weiterentwicklung}
 \label{Resultate:Ausblick: Weiterentwicklung}

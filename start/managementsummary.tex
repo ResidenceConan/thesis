@@ -8,8 +8,11 @@
 \chapter*{Management Summary}\addcontentsline{toc}{chapter}{Management Summary}
 
 \paragraph{Ausgangslage}~\\
+In der Verkehrs- und der Raumplanung werden ÖV-Güteklassen für die Beurteilung eines Standortes bezüglich der Erschliessung mit dem öffentlichen Verkehr verwendet.
+Durch diese können Entscheidungen bezüglich der Entwicklung eines Standortes getroffen werden.
+So macht es Sinn an bereits an gut erschlossenen Standorten zu verdichten und nicht neues Bauland zu erschliessen, um nachträglich die ÖV-Infrastruktur hochziehen zu müssen.
 
-%TODO
+
 
 \paragraph{Ziele, Vorgehen und Technologien}~\\
 
@@ -20,5 +23,20 @@
 %TODO
 
 \paragraph{Ausblick}~\\
+In der vorliegenden Arbeit wurde beim Berechnen der Erreichbarkeit der Fokus auf eine route-basierte Methode, namentlich Isochronen, gelegt.
+Ein weiterer spannender Ansatz, welcher in Betracht gezogen werden kann, ist ein grid- beziehungsweise raster-basierter Ansatz.
+In Abbildung \ref{fig:grid_based_approach} wurde dieser Ansatz für die Berechnung der Reisezeit zu einer Haltestelle eines Fussgängers verwendet.
+Dabei wird über ein Gebiet ein Raster gelegt, den Rastern eine Kategorie mit zugehörigen Kosten zugewiesen.
+Bei den Kosten handelt es sich im abgebildeten Fall um die Überwindungsgeschwindigkeit des jeweiligen Rasters.
+So erhält ein Raster mit einem Hinderniss die Geschwindigkeit 0 km/h und eine Grünfläche 2 km/h.
+Dies hat unteranderem den Vorteil, dass man nicht direkt vom Routing-Netzwerk abhängig ist und auch offene Flächen wie Plätze und Grünflächen einbezogen werden.
+Es lässt sich darüber streiten, ob alle Grünflächen von Fussgänger begehbar sind.
+Ebenfalls lassen sich offene Fläche für die bestehende Lösung durch eine Vorverarbeitung des Routing-Netzwerk beispielsweise durch \emph{PlazaRoute}~\cite{plaza_route} ins Routing-Netzwerk integrieren.
 
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\linewidth]{start/img/grid_based_approach.png}
+    \caption[Grid- beziehungsweise raster-basierter Ansatz]{Grid- beziehungsweise raster-basierter Ansatz~\cite{pedestrian_accessibility_planning}}
+    \label{fig:grid_based_approach}
+\end{figure}
 %TODO

@@ -9,10 +9,10 @@
 
 \paragraph{Ausgangslage}~\\
 In der Verkehrs- und der Raumplanung werden ÖV-Güteklassen für die Beurteilung eines Standortes bezüglich der Erschliessung mit dem öffentlichen Verkehr verwendet.
-Durch diese können Entscheidungen bezüglich der Entwicklung eines Standortes getroffen werden.
-So macht es Sinn an bereits an gut erschlossenen Standorten zu verdichten und nicht neues Bauland zu erschliessen, um nachträglich die ÖV-Infrastruktur hochziehen zu müssen.
+Durch diese können Entscheidungen betreffend der Entwicklung eines Standortes getroffen werden.
+So macht es Sinn an bereits gut erschlossenen Standorten zu verdichten und nicht neues Bauland zu erschliessen, um nachträglich die ÖV-Infrastruktur hochziehen zu müssen.
 Der Nutzen der ÖV-Güteklassen beschränkt sich nicht auf Verkehrs- und Raumplaner.
-Privatpersonen können ebenso bei der Wohnungs- wie auch der Wohnungssuche Gebrauch davon machen.
+Privatpersonen können ebenso bei der Wohnungs- wie auch der Jobsuche Gebrauch davon machen.
 Ein Wohnort mit guter ÖV-Anbindung ist in Zeiten erhöhter Mobilität von hohem Stellenwert.
 
 Die Methodik zur Erhebung von ÖV-Güteklassen wurde erstmals 1993 in einer inzwischen ersetzten Schweizer Norm festgelegt.
@@ -24,12 +24,12 @@ So wird unteranderem das Einzugsgebiet wie in Abbildung \ref{fig:grid_based_appr
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.8\linewidth]{start/img/air_line_ARE.png}
+    \includegraphics[width=0.50\linewidth]{start/img/air_line_ARE.png}
     \caption[Luftlinie bei Einzugsgebieten]{Luftlinie bei Einzugsgebieten~\cite{berechnung_are}}
     \label{fig:air_line_ARE}
 \end{figure}
 
-Der Topografie wird in den aktuellen Lösungen nur wage Beachtung geschenkt.
+Der Wegführung wird in den aktuellen Lösungen keine und der Topografie nur wage Beachtung geschenkt.
 So ist nicht klar, in welchem Mass eine anspruchsvollere Topografie zu Buche schlägt.
 Den eine Haltestelle in einem steilen Gebiet hat ein geringeres Einzugsgebiet als eine Haltestellen in einem flachen Gelände.
 
@@ -39,18 +39,33 @@ Erfahrungen aus der Praxis haben gezeigt, dass die bestehenden Lösungen einige 
 Im Kontext der Arbeit ÖV-Güteklassen 2018 wird in einem ersten Schritt eine neue Spezifikation entwickelt, welche auf dem Fundament der bestehenden Lösungen aufbaut, die Probleme und Learnings der kantonalen Anpassungen aufgreift und den aktuell technischen Möglichkeiten angleicht.
 
 So soll unteranderem die genaue Wegführung beim Berechnung des Einzugsgebiet berücksichtigt und der Topografie Rechnung getragen werden.
-Dies ist mit freiverfügbaren Kartedaten von OpenStreetMap (OSM) und dem   hoch aufgelöstem digitalen Terrainmodell (DTM) swissALTI$^{3D}$ von Swisstopo.
-,
+Dies ist mit freiverfügbaren Kartedaten von OpenStreetMap (OSM) und dem   hoch aufgelöstem digitalen Terrainmodell (DTM) swissALTI$^{3D}$ von Swisstopo möglich.
+
 Die theoretisch erarbeitete Spezifikation \emph{ÖV-Güteklassen 2018} wird direkt auf ihre Machbarkeit geprüft und als Generator umgesetzt, welche die Güteklassen berechnet.
 
-Abegrundet wird Arbeit durch die Visualisierung der Güteklassen und einem direkten Vergleich der ÖV-Güteklassen basierend auf der neu erarbeitenden Spezifikation der bestehenden Lösung des Bundesamt für Raumentwicklung (ARE).
-Die Visualisierung soll Raum- und Verkehrsplaner sowie Privatpersonen die Möglichkeit bieten, Standorte auf die Qualität der ÖV-Erschliessung analysieren zu können und fundierte Entscheide in ihren Problemdomainen treffen zu können.
-
-%TODO
+Abegrundet wird Arbeit durch die Visualisierung der Güteklassen und einem direkten Vergleich der ÖV-Güteklassen basierend auf der neu erarbeitenden Spezifikation  und der bestehenden Lösung des Bundesamt für Raumentwicklung (ARE).
 
 \paragraph{Ergebnisse}~\\
+Durch die Erarbeitung der \emph{ÖV-Güteklassen 2018}-Spezifikation und der technischen Umsetzung dieser lassen sich Güteklassen generieren.
+Diese sind in Abbildung \ref{fig:mntg_sum_resultat_webapp_uebersicht} ersichtlich.
 
-%TODO
+Die Visualisierung bietet Raum- und Verkehrsplaner sowie Privatpersonen die Möglichkeit, Standorte auf die Qualität der ÖV-Erschliessung analysieren zu können, um so fundierte Entscheidungen in ihren Problemdomainen treffen zu können.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=1\linewidth]{technicalreport/img/resultat_oevgk18_uebersicht}
+    \caption[Darstellung der berechneten ÖV-Güteklassen in der Web-Applikation]{Darstellung der berechneten ÖV-Güteklassen in der Web-Applikation}
+    \label{fig:mntg_sum_resultat_webapp_uebersicht}
+\end{figure}
+
+Dabei wird unter anderem zusätzlich die Wegführung berücksichtigt wie in Abbildung \ref{fig:vergleich_wegfuehrung} ersichtlich und die Topografie durch die Verwendung von Leistungskilometern in der Berechnung des Einzugsgebiet miteinbezogen.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\linewidth]{start/img/vergleich_wegfuehrung}
+    \caption[Vergleich zur Einfluss der Wegführung]{Vergleich zur Einfluss der Wegführung. Oben: ÖV-Güteklassen von \ac{ARE}. Unten: ÖV-Güteklassen 2018.}
+    \label{fig:vergleich_wegfuehrung}
+\end{figure}
 
 \paragraph{Ausblick}~\\
 In der vorliegenden Arbeit wurde beim Berechnen der Erreichbarkeit der Fokus auf eine route-basierte Methode, namentlich Isochronen, gelegt.
@@ -58,15 +73,14 @@ Ein weiterer spannender Ansatz, welcher in Betracht gezogen werden kann, ist ein
 In Abbildung \ref{fig:grid_based_approach} wurde dieser Ansatz für die Berechnung der Reisezeit zu einer Haltestelle eines Fussgängers verwendet.
 Dabei wird über ein Gebiet ein Raster gelegt, den Rastern eine Kategorie mit zugehörigen Kosten zugewiesen.
 Bei den Kosten handelt es sich im abgebildeten Fall um die Überwindungsgeschwindigkeit des jeweiligen Rasters.
-So erhält ein Raster mit einem Hinderniss die Geschwindigkeit 0 km/h und eine Grünfläche 2 km/h.
+So erhält ein Raster mit einem Hinderniss beispielsweise die Geschwindigkeit 0 km/h und eine Grünfläche 2 km/h.
 Dies hat unteranderem den Vorteil, dass man nicht direkt vom Routing-Netzwerk abhängig ist und auch offene Flächen wie Plätze und Grünflächen einbezogen werden.
 Es lässt sich darüber streiten, ob alle Grünflächen von Fussgänger begehbar sind.
 Ebenfalls lassen sich offene Fläche für die bestehende Lösung durch eine Vorverarbeitung des Routing-Netzwerk beispielsweise durch \emph{PlazaRoute}~\cite{plaza_route} ins Routing-Netzwerk integrieren.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.8\linewidth]{start/img/grid_based_approach.png}
+    \includegraphics[width=0.6\linewidth]{start/img/grid_based_approach.png}
     \caption[Grid- beziehungsweise raster-basierter Ansatz]{Grid- beziehungsweise raster-basierter Ansatz~\cite{pedestrian_accessibility_planning}}
     \label{fig:grid_based_approach}
 \end{figure}
-%TODO

@@ -25,17 +25,26 @@ So wird unteranderem das Einzugsgebiet wie in Abbildung \ref{fig:grid_based_appr
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.8\linewidth]{start/img/air_line_ARE.png}
-    \caption[Luftlinie bei Einzugsgebieten]{Luftlinie bei Einzugsgebieten}
+    \caption[Luftlinie bei Einzugsgebieten]{Luftlinie bei Einzugsgebieten~\cite{berechnung_are}}
     \label{fig:air_line_ARE}
 \end{figure}
 
 Der Topografie wird in den aktuellen Lösungen nur wage Beachtung geschenkt.
-So ist nicht klar, in welchem Mass eine anspruchsvollere Topografie zu buche schlägt.
+So ist nicht klar, in welchem Mass eine anspruchsvollere Topografie zu Buche schlägt.
+Den eine Haltestelle in einem steilen Gebiet hat ein geringeres Einzugsgebiet als eine Haltestellen in einem flachen Gelände.
+
+Erfahrungen aus der Praxis haben gezeigt, dass die bestehenden Lösungen einige Tücken in der Berechnung der Güteklassen aufweisen, welche zu einem falschen Schluss führen können.
 
 \paragraph{Ziele, Vorgehen und Technologien}~\\
-Im Kontext der Arbeit ÖV-Güteklassen 2018 wird in einem ersten Schritt eine neue Spezifikation entwickelt, welche auf dem Fundament der bestehenden Lösungen aufbaut, die Probleme dieser aufgreift und den aktuell technischen Möglichkeiten angleicht.
+Im Kontext der Arbeit ÖV-Güteklassen 2018 wird in einem ersten Schritt eine neue Spezifikation entwickelt, welche auf dem Fundament der bestehenden Lösungen aufbaut, die Probleme und Learnings der kantonalen Anpassungen aufgreift und den aktuell technischen Möglichkeiten angleicht.
+
 So soll unteranderem die genaue Wegführung beim Berechnung des Einzugsgebiet berücksichtigt und der Topografie Rechnung getragen werden.
-Die theoretisch erarbeitete Spezifikation \emph{ÖV-Güteklassen 2018} wird in 
+Dies ist mit freiverfügbaren Kartedaten von OpenStreetMap (OSM) und dem   hoch aufgelöstem digitalen Terrainmodell (DTM) swissALTI$^{3D}$ von Swisstopo.
+,
+Die theoretisch erarbeitete Spezifikation \emph{ÖV-Güteklassen 2018} wird direkt auf ihre Machbarkeit geprüft und als Generator umgesetzt, welche die Güteklassen berechnet.
+
+Abegrundet wird Arbeit durch die Visualisierung der Güteklassen und einem direkten Vergleich der ÖV-Güteklassen basierend auf der neu erarbeitenden Spezifikation der bestehenden Lösung des Bundesamt für Raumentwicklung (ARE).
+Die Visualisierung soll Raum- und Verkehrsplaner sowie Privatpersonen die Möglichkeit bieten, Standorte auf die Qualität der ÖV-Erschliessung analysieren zu können und fundierte Entscheide in ihren Problemdomainen treffen zu können.
 
 %TODO
 

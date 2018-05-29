@@ -54,17 +54,42 @@ Dies ergibt einen realistischeren Eindruck über die effektiven Gebiete, die von
 
 \subsubsection{Verbesserte Berechnung des Kursintervalls}
 
+TODO
+
 \subsubsection{Verbesserte Ermittlung von Bahnknoten}
+
+TODO
 
 \subsection{Ausblick: Weiterentwicklung}
 \label{Resultate:Ausblick: Weiterentwicklung}
 
-%Durch die neue Spezifikation und Web-Applikation ist die Grundlage für weitere und fortgeschrittene Auswertungen geschaffen.
-%Verknüpft man die neuen \acs{ÖV}-Güteklassen mit der Bevölkerungsdichte, ist es möglich automatisch Verbesserungspotential für den \acs{ÖV} zu eruieren.
-%Dadurch wären Auswertungen analog zu \emph{"`95\% der wohnhaften Personen in einem bestimmten Gebiet müssen mindestens in der \acs{ÖV}-Güteklassen XYZ sein"'} möglich.
+Durch die neue Spezifikation und Web-Applikation ist die Grundlage für weitere und fortgeschrittene Auswertungen geschaffen.
 
-%Aber auch für den privaten Gebrauch ist eine Weiterentwicklung von Interesse.
-%So ist ein Wohnortfinder, welcher die Qualität des \acs{ÖV}-Anschluss und anderen Faktoren (Nähe zu einer Schule oder Krankenhaus, etc.) berücksichtigt, eine Option, welche in Betracht gezogen werden kann.
+Verknüpft man die neuen \acs{ÖV}-Güteklassen mit der Bevölkerungsdichte, ist es möglich, Verbesserungspotential für den \acs{ÖV} zu eruieren.
+Dadurch wären Auswertungen analog zu "`95\% der wohnhaften Personen in einem bestimmten Gebiet müssen mindestens in der \acs{ÖV}-Güteklassen XYZ sein"' möglich.
+
+Aber auch für den privaten Gebrauch ist eine Weiterentwicklung von Interesse.
+So ist ein Wohnortfinder denkbar, welcher die Qualität des \acs{ÖV}-Anschlusses und anderen Faktoren (Nähe zu einer Schule oder Krankenhaus, etc.) berücksichtigt.
+
+Für die Berechnung der Einzugsgebiete wird in dieser Arbeit der Ansatz von \glspl{Isochrone} verwendet, die entlang des Strassen- und Wegnetzes verlaufen.
+Die Grundannahme dahinter ist, dass sich Fussgänger immer entlang des Wegnetzes fortbewegen.
+Dabei gibt es Probleme bei offenen Fussgängerflächen, wie sie in~\cite{plaza_route} behandelt werden.
+Ein anderer Ansatz basiert statt auf Routen auf einem Raster~\cite{pedestrian_accessibility_planning}. Dieser geht davon aus, dass sich Fussgänger überall fortbewegen, wo keine Hindernisse (Gebäude, Flüsse, Barrieren, etc.) sie daran hindern.
+Dabei wird ein Raster über die Karte gelegt und jeder Kachel einen Kostenwert zugeordnet.
+Für die Erzeugung der Einzugsgebiete werden dann vom Startpunkt aus in alle Richtungen die Kacheln eingefärbt und bei jedem Schritt die Kosten der Kachel addiert.
+Dies wird so lange wiederholt, bis die gewünschten Maximalkosten erreicht werden.
+In Abbildung \ref{fig:grid_based_approach} ist ein Ergebnis einer solchen Berechnung abgebildet.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.6\linewidth]{start/img/grid_based_approach.png}
+    \caption[Grid- beziehungsweise raster-basierter Ansatz]{Grid- beziehungsweise raster-basierter Ansatz~\cite{pedestrian_accessibility_planning}}
+    \label{fig:grid_based_approach}
+\end{figure}
+
+Mit dieser Methode ist die Qualität des Routing-Graphen und Problematiken wie bei Fussgängerflächen weniger relevant.
+Für die Berechnung von \acs{ÖV}-Güteklassen wäre dies ein spannender Ansatz für den Vergleich mit der Lösung in dieser Arbeit.
+
 
 
 \subsection{Dank}

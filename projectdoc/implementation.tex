@@ -279,13 +279,14 @@ TODO
 \paragraph{Berechnung der Gehzeit zur Haltestelle}~\\
 
 \subparagraph{Snapping von der Haltestelle auf den Routing-Graph}
-Um die \glspl{Isochrone} berechnen zu können, muss auf dem Routing-Graphen zuerst ein Startpunkt ermittelt werden, von dem das Routing entlang der Strassen und Wege ausgeht.
+Die Haltestellen stammen aus dem Datenstamm der SBB~\cite{sbb_hafas_spec} und sind somit nicht Teil des Routing-Graphen. 
+Um die \glspl{Isochrone} berechnen zu können, muss auf dem Routing-Graphen zuerst ein Startpunkt ermittelt werden, von dem das Routing entlang der Strassen und Wege ausgehen kann.
 Dieser Punkt soll möglichst nahe an der eigentlichen Haltestelle liegen.
 Es ist anzumerken, dass unsere Fahrplan-Daten lediglich ein geographischer Punkt pro Haltestelle definiert und so Buskanten oder Gleise nicht genau abbilden.
 
 Ein erster Ansatz dieses "`Snappings"' sucht den geographisch nächstliegenden Vertex des Routing-Graphen zu den Koordinaten der Haltestelle.
 Dies ist bei regulären Bushaltestellen mit zwei Kanten ein guter Ansatz, da diese Koordinaten meist neben oder direkt auf der Strasse liegen.
-Problematisch wird dies aber etwa bei grossen Bahnhöfen wie der Zürcher Hauptbahnhof.
+Problematisch wird dies aber etwa bei grossen Bahnhöfen wie dem Zürcher Hauptbahnhof.
 Die Koordinate des Bahnhofs liegt in der Mitte der Bahnhofshalle, welche als Fussgängerfläche erfasst ist.
 Da solche Flächen nicht im Routing-Graphen abgebildet werden, liegt der nächste Vertex des Routing-Graphen auf einer Rolltreppe, die nicht mit dem restlichen Graphen verbunden ist (siehe Abbildung~\ref{fig:snapping_comparison}).
 Dieses Snapping auf einen isolierten Graphen führt dazu, dass die Routing-Engine nie ausserhalb des Bahnhofs routen kann, dadurch können auch keine \glspl{Isochrone} erzeugt werden.
@@ -312,7 +313,7 @@ Der Code dazu ist in Listing \ref{listing:snap_routing_graph} ersichtlich.
 Das Ergebnis für den Zürcher Hauptbahnhof ist in Abbildung~\ref{fig:snapping_comparison} zu sehen.
 Dieser Startpunkt ist noch immer nicht optimal, da ein Fussgänger auch ein Ausgang auf der anderen Seite des Bahnhofes wählen könnte.
 Für eine optimale Bestimmung müsste der Routing-Graph mit zusätzlichen Wegen ergänzt werden.
-Für Fussgängerflächen könnte eine Methode dafür sein, zusätzliche Graph-Kanten einzufügen, wie es etwa in~\cite{plaza_route} beschrieben wurde.
+Fussgängerflächen könnten beispielsweise durch eine Vorverarbeitung durch \emph{PlazaRoute}~\cite{plaza_route} in den Routing-Graph integriert werden. Dabei werden zusätzliche Graph-Kanten eingefügt.
 
 
 \paragraph{Berechnung der ÖV-Güteklassen}~\\

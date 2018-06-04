@@ -39,7 +39,7 @@ Beide Tools werden durch separate Konfigurationen für unsere Zwecke konfigurier
 So werden aus den \acs{OSM}-Daten für das Identifizieren von \acs{ÖV}-Haltestellen nur Nodes extrahiert, welche eine \emph{uic\_ref} besitzen. \ac{UIC}-Referenzen werden für die Identifizierung von \acs{ÖV}-Haltestellen verwendet.
 
 \paragraph{GTFS-Daten}~\\
-Die Fahrplandaten werden im Docker-Container \emph{tooling} von GTFS~\cite{gtfs_spec} heruntergeladen und im CSV-Format als TXT-Dateien bereitgestellt.
+Die Fahrplandaten werden im Docker-Container \emph{tooling} automatisch von geOps~\ref{geops_fahrplandaten} im GTFS-Format~\cite{gtfs_spec} heruntergeladen und im CSV-Format als TXT-Dateien bereitgestellt.
 Diese wiederum können in einem nächsten Schritt durch den Docker-Container \emph{db} in die Datenbank gespielt werden.
 Der Datenfluss ist in Abbildung \ref{fig:dataflow-docker-setup-gtfs-data} ersichtlich.
 

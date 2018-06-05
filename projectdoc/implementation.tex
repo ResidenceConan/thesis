@@ -284,7 +284,7 @@ Um die \glspl{Isochrone} berechnen zu können, muss auf dem Routing-Graphen zuer
 Dieser Punkt soll möglichst nahe an der eigentlichen Haltestelle liegen.
 Es ist anzumerken, dass unsere Fahrplan-Daten lediglich ein geographischer Punkt pro Haltestelle definiert und so Buskanten oder Gleise nicht genau abbilden.
 
-Ein erster Ansatz dieses "`Snappings"' sucht den geographisch nächstliegenden Vertex des Routing-Graphen zu den Koordinaten der Haltestelle.
+Ein erster Ansatz dieses "`Snappings"' sucht mithilfe einer "`Nearest Neighbor"'-Suche den geographisch nächstliegenden Vertex des Routing-Graphen zu den Koordinaten der Haltestelle.
 Dies ist bei regulären Bushaltestellen mit zwei Kanten ein guter Ansatz, da diese Koordinaten meist neben oder direkt auf der Strasse liegen.
 Problematisch wird dies aber etwa bei grossen Bahnhöfen wie dem Zürcher Hauptbahnhof.
 Die Koordinate des Bahnhofs liegt in der Mitte der Bahnhofshalle, welche als Fussgängerfläche erfasst ist.
@@ -298,8 +298,8 @@ Dieses Snapping auf einen isolierten Graphen führt dazu, dass die Routing-Engin
     \label{fig:snapping_comparison}
 \end{figure}
 
-Ein optimierter Ansatz nimmt nicht direkt den nächstgelegen Punkt auf dem Routing-Graphen, sondern prüft, ob der ermittelte Vertex auf einem isolierten Segment des Graphen liegt.
-Dafür werden mit Hilfe der Routing-Engine alle Punkte gesucht, die auf dem Graphen in 200 Metern Fussweg erreichbar sind.
+Ein optimierter Ansatz nimmt nicht direkt den nächstliegenden Punkt auf dem Routing-Graphen, sondern prüft, ob dieser ermittelte Vertex auf einem isolierten Segment des Graphen liegt.
+Dafür werden mit Hilfe der Routing-Engine alle Punkte gesucht, die von diesem Vertex aus in 200 Metern Fussweg erreichbar sind.
 Wenn es einen Punkt gibt, der mindestens 150 Meter entfernt vom Startpunkt ist, wird dies als genügend bewertet, um den Startpunkt für die Erzeugung von \glspl{Isochrone} zu verwenden.
 Wenn diese Bedingung nicht erfüllt ist, werden iterativ andere Vertices geprüft (sortiert nach der Distanz zur Haltestelle), bis ein passender Vertex gefunden wird.
 Der Code dazu ist in Listing \ref{listing:snap_routing_graph} ersichtlich.

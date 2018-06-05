@@ -3,4 +3,17 @@
 \section{Umsetzungskonzept}
 \label{Umsetzungskonzept}
 
-%TODO
+Die Arbeit wird in zwei von einander abhängigen Phasen umgesetzt.
+Die erste Phase ist theoretisch gestaltet.
+Dieser wird grosse Bedeutung beigemessen, da die zweite Phase auf den Ergebnissen dieser aufbaut.
+So verfolgt die erste Phase das Ziel eine \acs{ÖV}-Güteklassen 2018 Spezifikation zu erstellen, mit dem Fokus schweizweit Akzeptanz zu erhalten.
+Dies hat die Implikation, dass bestehende Lösungen, sprich die Spezifikation des \acl{ARE} und verschiedenen ausgewählten kantonale Ausführungen analysiert werden müssen, um so einen Konsens erreichen zu können.
+Bewährtes und Akzeptiertes wird kritisch hinterfragt, aber es wird nicht mit Biegen und Brechen eine neuer Weg eingeschlagen.
+Dabei wird die Spezifikation so gestaltet, dass diese den aktuellen technischen Möglichkeiten gerecht wird.
+Dies impliziert unter anderem die Verwendung eines Routing-Graphen für die Berechnung des Einzuggebiets und das Einbeziehen eines hoch aufgelösten digitalen Terrainmodells.
+Dabei werden zusätzliche Fehler in den bisherigen Lösungen ausgemerzt.
+
+In einer zweiten Phasen wird inkrementell die Spezifikation umgesetzt.
+Dabei wird ein Generator entwickelt, welcher die \acs{ÖV}-Güteklassen aufgrund der in der ersten Phase erarbeiteten Spezifikation berechnet.
+Parallel dazu wird eine Webapplikation mit zugehörigem Backend erarbeitet, welche die berechneten \acs{ÖV}-Güteklassen 2018 darstellt und visuell dem Platzhirsch (Spezifikation des \acl{ARE}) gegenüberstellt.
+Diese Webapplikation verfolgt das Ziel, Verkehrs-, Raumplaner sowie Privatpersonen einen Einblick in die Qualität der ÖV-Erschliessung an einem Standort geben zu können.

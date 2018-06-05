@@ -276,8 +276,45 @@ Die optimierte SQL-Query dauert ca. 7 Sekunden für alle 28'000 Haltestellen, wa
 \paragraph{Berechnung der Haltestellenkategorie}~\\
 TODO
 
-\paragraph{Berechnung der Gehezeit zur Haltestelle}~\\
-TODO
+\paragraph{Berechnung der Gehzeit zur Haltestelle}~\\
+
+\subparagraph{Snapping von der Haltestelle auf den Routing-Graph}
+Die Haltestellen stammen aus dem Datenstamm der SBB~\cite{sbb_hafas_spec} und sind somit nicht Teil des Routing-Graphen. 
+Um die \glspl{Isochrone} berechnen zu können, muss auf dem Routing-Graphen zuerst ein Startpunkt ermittelt werden, von dem das Routing entlang der Strassen und Wege ausgehen kann.
+Dieser Punkt soll möglichst nahe an der eigentlichen Haltestelle liegen.
+Es ist anzumerken, dass unsere Fahrplan-Daten lediglich ein geographischer Punkt pro Haltestelle definiert und so Buskanten oder Gleise nicht genau abbilden.
+
+Ein erster Ansatz dieses "`Snappings"' sucht mithilfe einer "`Nearest Neighbor"'-Suche den geographisch nächstliegenden Vertex des Routing-Graphen zu den Koordinaten der Haltestelle.
+Dies ist bei regulären Bushaltestellen mit zwei Kanten ein guter Ansatz, da diese Koordinaten meist neben oder direkt auf der Strasse liegen.
+Problematisch wird dies aber etwa bei grossen Bahnhöfen wie dem Zürcher Hauptbahnhof.
+Die Koordinate des Bahnhofs liegt in der Mitte der Bahnhofshalle, welche als Fussgängerfläche erfasst ist.
+Da solche Flächen nicht im Routing-Graphen abgebildet werden, liegt der nächste Vertex des Routing-Graphen auf einer Rolltreppe, die nicht mit dem restlichen Graphen verbunden ist (siehe Abbildung~\ref{fig:snapping_comparison}).
+Dieses Snapping auf einen isolierten Graphen führt dazu, dass die Routing-Engine nie ausserhalb des Bahnhofs routen kann, dadurch können auch keine \glspl{Isochrone} erzeugt werden.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=1\linewidth]{projectdoc/img/snapping_comparison}
+    \caption[Snapping der Haltestelle auf den Routing-Graphen]{Die Haltestelle (blaues Quadrat) wird mit dem einfachen Ansatz zur Rolltreppe `"gesnapped"' (Roter Diamant), während die Optimierung (Grüner Punkt) ein Ergebnis erzeugt, dass mit dem restlichen Routing-Netz verbunden ist.}
+    \label{fig:snapping_comparison}
+\end{figure}
+
+Ein optimierter Ansatz nimmt nicht direkt den nächstliegenden Punkt auf dem Routing-Graphen, sondern prüft, ob dieser ermittelte Vertex auf einem isolierten Segment des Graphen liegt.
+Dafür werden mit Hilfe der Routing-Engine alle Punkte gesucht, die von diesem Vertex aus in 200 Metern Fussweg erreichbar sind.
+Wenn es einen Punkt gibt, der mindestens 150 Meter entfernt vom Startpunkt ist, wird dies als genügend bewertet, um den Startpunkt für die Erzeugung von \glspl{Isochrone} zu verwenden.
+Wenn diese Bedingung nicht erfüllt ist, werden iterativ andere Vertices geprüft (sortiert nach der Distanz zur Haltestelle), bis ein passender Vertex gefunden wird.
+Der Code dazu ist in Listing \ref{listing:snap_routing_graph} ersichtlich.
+
+\begin{listing}[ht]
+    \inputminted{sql}{projectdoc/listing/nearest_neighbor.sql}
+    \caption{SQL Stored Procedure für das "`Snapping"' der Haltestelle auf den Routing-Graph}
+    \label{listing:snap_routing_graph}
+\end{listing}
+
+Das Ergebnis für den Zürcher Hauptbahnhof ist in Abbildung~\ref{fig:snapping_comparison} zu sehen.
+Dieser Startpunkt ist noch immer nicht optimal, da ein Fussgänger auch ein Ausgang auf der anderen Seite des Bahnhofes wählen könnte.
+Für eine optimale Bestimmung müsste der Routing-Graph mit zusätzlichen Wegen ergänzt werden.
+Fussgängerflächen könnten beispielsweise durch eine Vorverarbeitung durch \emph{PlazaRoute}~\cite{plaza_route} in den Routing-Graph integriert werden. Dabei werden zusätzliche Graph-Kanten eingefügt.
+
 
 \paragraph{Berechnung der ÖV-Güteklassen}~\\
 TODO 

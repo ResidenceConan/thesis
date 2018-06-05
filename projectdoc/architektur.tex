@@ -105,7 +105,7 @@ In dieser Schicht ist die Kernlogik des Generators angesiedelt.
 Hier wird die Berechnung der \acs{ÖV}-Güteklassen koordiniert.
 So wird die Konfiguration des Users entgegen genommen und die nötigen Vorverarbeitungen und Berechnungen angestossen.
 Durch die Natur der Berechnungslogik (siehe Abbildung \ref{fig:Flow_OeVGK_Brechnung}) lässt sich die Logik analog strukturieren.
-Dabei wird die Haltestellekategorie, welche sich aus der Art des Verkehrsmittel und dem Kursintervall zusammensetzt über den Service \emph{StopCategoryCalculator} berechnen.
+Dabei wird die Haltestellekategorie, welche sich aus der Art des VerkehrsmittelS und dem Kursintervall zusammensetzt, über den Service \emph{StopCategoryCalculator} berechnet.
 Die \acs{ÖV}-Güteklassen lassen sich in einem weiteren Schritt mithilfe des \emph{StopGradeCalculator} berechnen.
 \emph{QualityGradesCalculator} übernimmt hier die Koordination der Berechnung.
 
@@ -113,7 +113,7 @@ Die \acs{ÖV}-Güteklassen lassen sich in einem weiteren Schritt mithilfe des \e
 \label{layer:integration}
 Alle Datenbankzugriffe erfolgen über die Integration-Schicht.
 Es ist bewusst kein \acl{ORM} angedacht.
-Dies aus dem Grund da intensiv mit StoredProcedures gearbeitet wird und vorallem Berechnungen auf der Datenbank durchgeführt werden und somit die Tabellen keine Objekte repräsentieren.
+Dies aus dem Grund, da intensiv mit StoredProcedures gearbeitet wird und vorallem Berechnungen auf der Datenbank durchgeführt werden und somit die Tabellen keine Objekte repräsentieren.
 
 \paragraph{ui}~\\
 \label{layer:ui}
@@ -124,8 +124,8 @@ So ist hier ein CLI angesiedelt, welche Konfigurationen über eine einfache Bedi
 \label{layer:output}
 Die Ergebnisse der \acs{ÖV}-Güteklassen werden über diese Schicht dem User exponiert.
 Der Vorteil der oben beschriebenen "`Plugin-Architektur"' macht sich hier stark sichtbar.
-Entsteht das Verlangen nach einem zusätzlichen Output der \acs{ÖV}-Güteklassen als GeoPackage kann problemlos ein Service \emph{GeoPackageWriter} erstellt werden, welche das Interface \emph{OutputWriter} implementiert und analog zum \emph{GeoJSONWriter} das Resultat als GeoPackage ausliefert.
-Die Kernlogik, sprich die business-Schicht muss so nicht angepasst werden.
+Entsteht das Verlangen nach einem zusätzlichen Output der \acs{ÖV}-Güteklassen, etwa als GeoPackage, kann problemlos ein Service \emph{GeoPackageWriter} erstellt werden, welche das Interface \emph{OutputWriter} implementiert und analog zum \emph{GeoJSONWriter} das Resultat als GeoPackage ausliefert.
+Die Kernlogik in der business-Schicht muss so nicht angepasst werden.
 
 \subsubsection{Backend}
 \label{container:Backend}

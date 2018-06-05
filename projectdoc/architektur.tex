@@ -74,37 +74,58 @@ Im Folgenden werden die einzelnen Container genauer beschrieben.
 \subsubsection{ÖV-Güteklassen 2018 Generator}
 \label{container:generator}
 
-Der "`\acs{ÖV}-Güteklassen 2018 Generator"' stellt das Kernstück der Berechnung der \acs{ÖV}-Güteklassen dar.
-Sobald der Administrator den Use Case 01 (siehe \ref{Use Cases:UC01}) startet, werden als ersten Schritt die Höhendaten vom externen System \nameref{subsystem:swissALTI3D} sowie die aktuellen Kartendaten von \nameref{subsystem:planet.osm.ch} in die \nameref{container:Routing-Engine} geladen.
-Danach wird die eigentliche Berechnung der \acs{ÖV}-Güteklassen 2018 durchgeführt.
-Die Fahrplandaten dafür werden aus dem \nameref{subsystem:GTFS}-System bezogen und die Positionen der Haltestellen werden aus den \ac{OSM}-Daten ermittelt.
-Am Schluss der Berechnung wird das Ergebnis in geografischen Formen abgebildet und als \gls{GeoJSON} an den \nameref{container:Backend}-Container ausgeliefert.
+Der "`\acs{ÖV}-Güteklassen 2018 Generator"' stellt das Kernstück der Berechnung der \acs{ÖV}-Güteklassen 2018 aufgrund der Spezifikation dar.
+In der Abbildung \ref{fig:layer_diagram_generator} ist das Schichten-Diagramm ersichtlich.
+Die Kernlogik der Berechnung befindet sich in der Schicht \nameref{layer:business}.
+Der Generator agiert auf unterschiedlichen Datenquellen, so werden Fahrplandaten (\nameref{subsystem:GTFS}), ein Routing-Graphen (\nameref{subsystem:planet.osm.ch} und \nameref{container:Routing-Engine}) und ein Terrain-Modell (\nameref{subsystem:swissALTI3D}) verarbeitet und genutzt.
+Die Komponente setzt voraus, dass vor dem Starten diese Daten im System vorhanden sind.
+Die Integration dieser Daten ist in der Schicht \nameref{layer:integration} angesiedelt.
+Die Interaktionen mit dem User sind in der Schicht \nameref{layer:ui} und die Resultate werden in der Schicht \nameref{layer:output} aufbereitet.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.9\linewidth]{projectdoc/img/guetklassen_generator_architektur.png}
-    \caption[Klassendiagramm ÖV-Güteklassen Generator]{Klassendiagramm ÖV-Güteklassen Generator}
-    \label{fig:class_diagram_generator}
+    \includegraphics[width=1.0\linewidth]{projectdoc/img/guetklassen_generator_architektur.png}
+    \caption[Schichten-Diagramm ÖV-Güteklassen Generator]{Schichten-Diagramm ÖV-Güteklassen Generator}
+    \label{fig:layer_diagram_generator}
 \end{figure}
 
-In der Abbildung \ref{fig:class_diagram_generator} wird dieser Container weiter zerlegt.
 Die Softwarearchitektur ist an die "`Clean Architecture"'-Prinzipien von \cite{martin_clean_architecture} angelehnt.
-Im Folgenden werden die einzelnen Komponenten beschrieben.
-
-% TODO: Diagramm beschreiben, sobald es ausgereift ist
-
-\paragraph{UI}~\\
-TODO
+Diese Architektur hat den Vorteil, dass die Kernlogik, die business-Schicht, keine Abhängigkeiten auf die die anderen Schichten hat.
+Diese Schicht ist somit absolut unabhängig.
+Durch das Exponieren von Interfaces für die Schichten darüber und darunter können diese separat mit unterschiedlichen Dynamiken entwickelt werden.
+So entsteht beispielsweise der Anspruch nach einem zusätzlichen Output-Format öfters als nach einer Anpassung der Berechnung der \acs{ÖV}-Güteklassen.
+Durch diese Trennung kann nun die Schicht \nameref{layer:output} um einen zusätzlichen Service ergänzt werden ohne Gefahr zu laufen, dass die Kernlogik durch die Änderung unbemerkt vom bisherigen Verhalten abweicht.
+Die Kernlogik erwartet grundsätzlich nur eine Implementation, welche das bereitgestellte Interface implementiert.
+Wie sie dieses Interface implementiert ist der business-Schicht prinzipiell egal.
+Im Folgenden werden die einzelnen Schichten beschrieben.
 
 \paragraph{business}~\\
-TODO
-% \emph{TransportStopRating} ist dafür zuständig, die Haltestellenkategorie einer Haltestelle zu ermitteln.
-
-% Der \emph{TransportStopResolver} ermittelt mit Hilfe vom \emph{OSMService} die Koordinaten einer Haltestelle.
-% Diese werden vom \emph{IsochroneHandler} als Startpunkt für die Berechnungen der Einzugsgebiete verwendet.
+\label{layer:business}
+In dieser Schicht ist die Kernlogik des Generators angesiedelt.
+Hier wird die Berechnung der \acs{ÖV}-Güteklassen koordiniert.
+So wird die Konfiguration des Users entgegen genommen und die nötigen Vorverarbeitungen und Berechnungen angestossen.
+Durch die Natur der Berechnungslogik (siehe Abbildung \ref{fig:Flow_OeVGK_Brechnung}) lässt sich die Logik analog strukturieren.
+Dabei wird die Haltestellekategorie, welche sich aus der Art des Verkehrsmittel und dem Kursintervall zusammensetzt über den Service \emph{StopCategoryCalculator} berechnen.
+Die \acs{ÖV}-Güteklassen lassen sich in einem weiteren Schritt mithilfe des \emph{StopGradeCalculator} berechnen.
+\emph{QualityGradesCalculator} übernimmt hier die Koordination der Berechnung.
 
 \paragraph{integration}~\\
-TODO
+\label{layer:integration}
+Alle Datenbankzugriffe erfolgen über die Integration-Schicht.
+Es ist bewusst kein \acl{ORM} angedacht.
+Dies aus dem Grund da intensiv mit StoredProcedures gearbeitet wird und vorallem Berechnungen auf der Datenbank durchgeführt werden und somit die Tabellen keine Objekte repräsentieren.
+
+\paragraph{ui}~\\
+\label{layer:ui}
+In der ui-Schicht sind die Interaktionen mit dem User angedacht.
+So ist hier ein CLI angesiedelt, welche Konfigurationen über eine einfache Bedienung entgegen nimmt.
+
+\paragraph{output}~\\
+\label{layer:output}
+Die Ergebnisse der \acs{ÖV}-Güteklassen werden über diese Schicht dem User exponiert.
+Der Vorteil der oben beschriebenen "`Plugin-Architektur"' macht sich hier stark sichtbar.
+Entsteht das Verlangen nach einem zusätzlichen Output der \acs{ÖV}-Güteklassen als GeoPackage kann problemlos ein Service \emph{GeoPackageWriter} erstellt werden, welche das Interface \emph{OutputWriter} implementiert und analog zum \emph{GeoJSONWriter} das Resultat als GeoPackage ausliefert.
+Die Kernlogik, sprich die business-Schicht muss so nicht angepasst werden.
 
 \subsubsection{Backend}
 \label{container:Backend}

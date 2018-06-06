@@ -355,7 +355,7 @@ Für unsere Zwecke ist es aber realistischer, den Laufweg zu berechnen, wenn man
 
 Vorgägig werden mit einer effizienten Query alle Kanten gesucht, die sich in einem Radius von 1300 Metern der Haltestelle befinden.
 Dies, weil keine Isochronen berechnet werden, die einen grösseren Radius als 1300 Meter einschliessen.
-Dadurch verringert sich die Anzahl Kanten enorm, die PgRouting mit dem Dijkstra-Algorithmus abscannen muss.
+Dadurch verringert sich die Anzahl Kanten enorm, die pgRouting mit dem Dijkstra-Algorithmus abarbeiten muss.
 
 Im zweiten Schritt wird mit diesen Vertices eine Alpha Shape~\cite{alpha_shapes} erzeugt. Dieser Algorithmus bildet das kleinst mögliche Polygon, wobei alle gefunden Vertices darin enthalten sein müssen.
 Diese Alpha Shape stellt die \gls{Isochrone} dar.
@@ -385,3 +385,4 @@ Durch die Reihenfolge wird dies bereits in diesem Schritt sichergestellt.
 
 Zusätzlich zu den \acs{ÖV}-Güteklassen wird eine GeoJSON-Datei mit den Punkten aller Haltestellen erstellt, um sie später mit der Webapplikation auf der Karte anzeigen zu können.
 Ebenfalls wird eine JSON-Datei geschrieben mit Metadaten zu den Parametern der einzelnen Stichtage, die für die Berechnung verwendet wurden.
+Mit dieser JSON-Datei wird dem Backend ebenfalls mitgeteilt, welche Stichtage angeboten werden können.

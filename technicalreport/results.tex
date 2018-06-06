@@ -52,13 +52,43 @@ Die Fläche zeigt das Einzugsgebiet, das von einem Fussgänger von der Haltestel
 Wie in Abbildung \ref{fig:vergleich_wegfuehrung} zu sehen ist, entstehen dadurch Geometrien, die dem Strassen- und Wegnetz folgen.
 Dies ergibt einen realistischeren Eindruck über die effektiven Gebiete, die von einer Haltestelle erschlossen werden.
 
+Die Berücksichtigung der Wegführung ist im Direktvergleich in Abbildung \ref{vergleich_wegfuehrung_are_isochrone} noch deutlicher sichtbar.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\linewidth]{technicalreport/img/vergleich_wegfuehrung_are_isochrone}
+    \caption[Direktvergleich Einzugsgebiet ARE und Isochrone]{Direktvergleich Einzugsgebiet von ÖV-Güteklassen von \ac{ARE} (schwarz) und ÖV-Güteklassen 2018 (rot) ohne Berücksichtigung der Topografie; Zürich, Winkelriedstrasse}
+    \label{fig:vergleich_wegfuehrung_are_isochrone}
+\end{figure}
+
+\subsubsection{Einfluss der Topografie}
+
+Der Stand der Technik berücksichtigt die Topografie nicht konsequent.
+Somit hat eine anspruchsvolle Topografie keinen Einfluss auf die Topografie.
+Das sieht man gut, wenn man die ÖV-Güteklasse des \acl{ARE} in Abbildung \ref{vergleich_wegfuehrung_are_isochrone} betrachtet.
+Auf der gut sichbaren Strecke (Universitätsstrasse) werden im Durchmesser des schwarzen Kreises über eine Distanz von 300 Metern 9 Höhenmetern zurückgelegt.
+Nach der Definition der Berechnung der Leistungskilometern (siehe Kapitel \ref{Berechnungsmethodik OeVGK18:Gehzeit zur Haltestelle}) sind das zu den 300 Metern 90 Leistungsmeter, welche zurückgelegt werden müssen.
+Der Einfluss der Topografie ist nun im Direktvergleich in Abbildung \ref{fig:vergleich_wegfuehrung_isochrone_mit_ohne_topo} sichtbar.
+Die Haltestelle hat mit Einbezug der Topografie ein kleineres Einzugsgebiet.
+Man sieht, dass sich dies gut im unteren Teil bemerktbar macht.
+Die Strecke han von unten nach oben gesehen einen starken Anstieg, welche ins Gewicht fällt.
+Beachtet man die Fläche von oben nach unten sieht man nur geringe Unterschiede, da das Gefälle den Grenzwert von 20\% nicht überschreitet.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\linewidth]{technicalreport/img/vergleich_wegfuehrung_isochrone_mit_ohne_topo.png}
+    \caption[Direktvergleich Einzugsgebiet Isochronen mit und ohne Topografie]{Direktvergleich Einzugsgebiet Isochronen mit (Fläche ausgefüllt) und ohne (rot) Berücksichtigung der Topografie; Zürich, Winkelriedstrasse}
+    \label{fig:vergleich_wegfuehrung_isochrone_mit_ohne_topo}
+\end{figure}
+
+
 \subsubsection{Verbesserte Berechnung des Kursintervalls}
 
-TODO
+TODO mit 8506358 begründen
 
 \subsubsection{Verbesserte Ermittlung von Bahnknoten}
+Bei der Ermittlung der Bahnknoten werden nun Haltestelle berücksichtigt, welche Verbindungen in eine konfigurierbare Anzahl Richtungen haben oder Zugang zu einer Fernverkehrsverbindung haben.
 
-TODO
 
 \subsection{Ausblick: Weiterentwicklung}
 \label{Resultate:Ausblick: Weiterentwicklung}
@@ -89,8 +119,6 @@ In Abbildung \ref{fig:grid_based_approach} ist ein Ergebnis einer solchen Berech
 
 Mit dieser Methode ist die Qualität des Routing-Graphen und Problematiken wie bei Fussgängerflächen weniger relevant.
 Für die Berechnung von \acs{ÖV}-Güteklassen wäre dies ein spannender Ansatz für den Vergleich mit der Lösung in dieser Arbeit.
-
-
 
 \subsection{Dank}
 \label{Resultate:Dank}

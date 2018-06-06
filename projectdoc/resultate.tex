@@ -22,12 +22,10 @@ Wie in \ref{ÖV-Güteklassen 2018 Generator:Umsetzung Spezifikation} beschrieben
 Dieser Algorithmus besteht aus zwei Teilen.
 Als erstes werden mit dem Dijkstra-Algorithmus~\cite{dijkstra_algorithm} alle Vertices ermittelt, die von der Haltestelle aus in einer festgelegten Zeit im Routing-Graphen erreichbar sind.
 Im zweiten Schritt wird mit diesen Vertices eine Alpha Shape~\cite{alpha_shapes} erzeugt, die alle gefundenen Punkte in einem Polygon einschliesst.
-Diese Alpha Shape stellt die \gls{Isochrone} dar.
 Der erste Schritt muss pro Haltestelle nur ein Mal für die grösste Distanz durchgeführt werden, für die Erzeugung der \glspl{Isochrone} für kürzere Distanzen wird das Ergebnis des Dijkstra-Algorithmus gefiltert.
 
 Der Dijkstra-Algorithmus wird in PgRouting mit der "`Boost Graph"'-Library~\cite{boost_graph} implementiert und hat eine Laufzeit von $\mathcal{O}(V \log V + E)$, wobei $E$ die Anzahl der Kanten und $V$ die Anzahl Vertices im Routing-Graphen bezeichnen.
 Für eine effizientere Berechnung werden in einem vorhergehenden Schritt alle Kanten $E\prime$ ermittelt, die maximal 1300 Meter von der Haltestelle entfernt sind.
-Dies, weil keine Isochronen erzeugt werden, die einen grösseren Bereich um die Haltestelle umschliessen.
 Diese Vorselektion der Kanten ist dank einem R-Tree-Index mit $\mathcal{O}(\log E)$ möglich.
 Insgesamt ergibt dies eine Laufzeit von $\mathcal{O}(\log E) + \mathcal{O}(V \log V + E\prime)$.
 Da die Vorselektion der Kanten $E\prime$ nur sehr klein ist ($E\prime \ll V$) und in konstanter Zeit läuft, kann dies vernachlässigt werden.

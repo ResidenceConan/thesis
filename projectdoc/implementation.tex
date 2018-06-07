@@ -274,9 +274,14 @@ Die optimierte SQL-Query dauert ca. 7 Sekunden für alle 28'000 Haltestellen, wa
 \end{listing}
 
 \paragraph{Berechnung der Haltestellenkategorie}~\\
-TODO
+Die Haltestellenkategorie setzt sich zusammen aus der Einteilung einer Haltestelle in die Verkehrsmittelgruppe (Art der Verkehrsmittel) und dem Kursintervall.
+Die Übersetzung dieser Werte in die Haltestellenkategorien  I -- VII erfolgt nach der Tabelle in der Spezifikation (\ref{Berechnungsmethodik OeVGK18:Haltestellenkategorie}).
+In der Konfigurationsdatei können diese Parameter allerdings frei angepasst werden.
 
-\paragraph{Berechnung der Gehzeit zur Haltestelle}~\\
+\paragraph{Berechnung der ÖV-Güteklassen}~\\
+Die \acs{ÖV}-Güteklassen einer einzelnen Haltestelle wird durch \glspl{Isochrone} beschrieben, die jeweils eine Fläche bilden, von der die Haltestelle innerhalb einer maximalen Gehzeit erreichbar ist.
+Jeder dieser \glspl{Isochrone} wird eine \acs{ÖV}-Güteklasse von A -- F zugewiesen.
+Welche \glspl{Isochrone} für eine Haltestelle erzeugt werden und welche Güteklasse ihnen zugewiesen wird, kann aus der Tabelle \ref{table:ÖV-Güteklassen} der Spezifikation (Kap. \ref{Berechnungsmethodik OeVGK18}) entnommen werden.
 
 \subparagraph{Snapping von der Haltestelle auf den Routing-Graph}
 Die Haltestellen stammen aus dem Datenstamm der SBB~\cite{sbb_hafas_spec} und sind somit nicht Teil des Routing-Graphen. 
@@ -315,7 +320,79 @@ Dieser Startpunkt ist noch immer nicht optimal, da ein Fussgänger auch ein Ausg
 Für eine optimale Bestimmung müsste der Routing-Graph mit zusätzlichen Wegen ergänzt werden.
 Fussgängerflächen könnten beispielsweise durch eine Vorverarbeitung durch \emph{PlazaRoute}~\cite{plaza_route} in den Routing-Graph integriert werden. Dabei werden zusätzliche Graph-Kanten eingefügt.
 
+\subparagraph{Vorbereitung des Routing-Graphen}
+Zum Zeitpunkt des Imports mit \emph{OSM2PO} besteht ein vollständiger Routing-Graph, auf dem bereits Routen berechnet werden können.
+Für die Berechnung von \glspl{Isochrone} ist dieser Routing-Graph aber nicht geeignet, da jeder Strassenabschnitt von einer Verzweigung zur nächsten als eine einzige Kante abgebildet wird.
+Werden nun \glspl{Isochrone} erstellt, beachtet der Algorithmus nur Vertices, die komplett in der definierten Zeit erreichbar sind.
+Dadurch werden Strassen ausgeschlossen, die innerhalb der Zeit nur bis zu einem Teil der Strecke erreichbar sind.
+Dies führt zu ungenauen \glspl{Isochrone}, wie in Abbildung \ref{fig:vergleich_segmentierung} ersichtlich ist.
 
-\paragraph{Berechnung der ÖV-Güteklassen}~\\
-TODO 
+Um diesen Effekt zu vermindern, wird vor der Berechnung der komplette Routing-Graph segmentiert.
+Dazu werden alle Kanten in einzelne Segmente geteilt, die maximal 30 Meter lang sind.
+Anschliessend muss die Topologie erneut berechnet werden, um die Verbindungen von Kanten und Vertices zu aktualisieren.
+Die daraus resultiertenden \glspl{Isochrone} sind deutlich genauer und bilden ein realistischeres Einzugsgebiet ab (siehe Abbildung \ref{fig:vergleich_segmentierung}).
 
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\linewidth]{projectdoc/img/vergleich_segmentierung}
+    \caption[Vergleich von Isochronen bei regulärem und segmentiertem Routing-Graph]{Mit der Segmentierung des Routing-Graphen (unten) ergeben sich gegenüber des regulären Graphen (oben) höher aufgelöste Isochronen}
+    \label{fig:vergleich_segmentierung}
+\end{figure}
+
+Als weiteren Schritt der Vorbereitung werden die Terrain-Daten in die Kosten der Kanten eingerechnet.
+Dazu wird die Formel aus der Spezifikation für Leistungskilometer (siehe \ref{Berechnungsmethodik OeVGK18:Gehzeit zur Haltestelle}) verwendet.
+Für jede Kante werden die Kosten in beide Richtungen berechnet, da Steigung und Gefälle unterschiedlich gewichtet werden.
+
+\subparagraph{Berechnung der Isochronen}
+In einem ersten Schritt wird ermittelt, welche \glspl{Isochrone} für die gegebene Haltestelle erzeugt werden müssen.
+Dabei wird die Gehzeit mithilfe der konfigurierten Laufgeschwindigkeit in Meter umgerechnet, da die Kosten des Routing-Graphen ebenfalls in Meter abgebildet sind.
+
+Anschliessend werden die \glspl{Isochrone} berechnet.
+Dieser Algorithmus besteht aus zwei Teilen.
+Als erstes werden mit dem Dijkstra-Algorithmus~\cite{dijkstra_algorithm} alle Vertices ermittelt, die von der Haltestelle aus in der festgelegten maximalen Laufdistanz im Routing-Graph erreichbar sind (siehe Listing \ref{listing:calc_isochrones_dijkstra}).
+Die Richtung der Kanten wird dabei umgekehrt, da der Dijkstra-Algorithmus die Strecke ausgehend der Haltestelle berechnet.
+Für unsere Zwecke ist es aber realistischer, den Laufweg zu berechnen, wenn man zur Haltestelle hin läuft.
+
+\begin{listing}[ht]
+    \inputminted{sql}{projectdoc/listing/calc_isochrones_preselection.sql}
+    \caption[Vorselektion der Kanten für die Berechnung von Isochronen]{Mit einer effizienten Index-Suche werden alle Kanten in der Nähe der Haltestelle ermittelt}
+    \label{listing:calc_isochrones_preselection}
+\end{listing}
+
+Vorgägig werden mit einer effizienten Query alle Kanten gesucht, die sich in einem Radius von 1300 Metern der Haltestelle befinden (siehe Listing \ref{listing:calc_isochrones_preselection}).
+Dies, weil keine Isochronen berechnet werden, die einen grösseren Radius als 1300 Meter einschliessen.
+Dadurch verringert sich die Anzahl Kanten enorm, die pgRouting mit dem Dijkstra-Algorithmus abarbeiten muss.
+
+\begin{listing}[ht]
+    \inputminted{sql}{projectdoc/listing/calc_isochrones_dijkstra.sql}
+    \caption[Dijkstra-Algorithmus zur Berechnung von Isochronen]{Mit einem Dijkstra-Algorithmus werden bis zur Maximaldistanz alle erreichbaren Vertices gesucht}
+    \label{listing:calc_isochrones_dijkstra}
+\end{listing}
+
+Im zweiten Schritt wird mit diesen Vertices eine Alpha Shape~\cite{alpha_shapes} erzeugt (siehe Listing \ref{listing:calc_isochrones_alpha_shape}). Dieser Algorithmus bildet das kleinst mögliche Polygon, wobei alle gefunden Vertices darin enthalten sein müssen.
+Diese Alpha Shape stellt die \gls{Isochrone} dar.
+
+\begin{listing}[ht]
+    \inputminted{sql}{projectdoc/listing/calc_isochrones_alpha_shape.sql}
+    \caption[Berechnung der Alpha Shape]{Mit den erreichbaren Vertices wird eine Alpha Shape erzeugt}
+    \label{listing:calc_isochrones_alpha_shape}
+\end{listing}
+
+Der erste Schritt muss pro Haltestelle nur ein Mal für die grösste zu berechnende Distanz durchgeführt werden, für die Erzeugung der \glspl{Isochrone} für kürzere Distanzen wird das Ergebnis des Dijkstra-Algorithmus gefiltert und nur die Vertices beachtet, die innerhalb dieser Distanz von der Haltestelle erreichbar sind.
+Auf die einzelnen \glspl{Isochrone} wird ein zusätzlicher Buffer angewendet, um die scharfen Ecken etwas abzurunden.
+Dadurch wird bewusst etwas Unschärfe hinzugefügt, um nicht die Illusion zu erwecken, dass die \gls{Isochrone} das Einzugsgebiet ganz genau abbildet, sondern nur eine Approximation dessen darstellt.
+
+\paragraph{Ausgabe des Ergebnisses}~\\
+Nach der Berechnung der \acs{ÖV}-Güteklassen liegt für jede Haltestelle, die mindestens eine Basiserschliessung hat, ein oder mehrere \glspl{Isochrone} vor.
+Diese gilt es nun im GeoJSON Format auszugeben.
+Dabei wird für jeden der unterschiedlichen Stichtage eine separate Datei erstellt.
+
+Für jede \gls{Isochrone} wird ein Feature erstellt, wobei die \acs{ÖV}-Güteklasse und die \emph{uic\_ref} der Haltestelle als zusätzliche Attribute mitgegeben werden.
+Anschliessend werden alle Features sortiert nach \acs{ÖV}-Güteklassen sortiert, wobei die tieferen Klassen zuerst eingefügt werden.
+Dies hat später für die Visualisierung eine Auswirkung.
+Weil die \glspl{Isochrone} der höheren Klassen diejenigen der tieferen überlagern, sollte bei der Visualisierung die tieferen Klassen zuerst gerendert werden.
+Durch die Reihenfolge wird dies bereits in diesem Schritt sichergestellt.
+
+Zusätzlich zu den \acs{ÖV}-Güteklassen wird eine GeoJSON-Datei mit den Punkten aller Haltestellen erstellt, um sie später mit der Webapplikation auf der Karte anzeigen zu können.
+Ebenfalls wird eine JSON-Datei geschrieben mit Metadaten zu den Parametern der einzelnen Stichtage, die für die Berechnung verwendet wurden.
+Mit dieser JSON-Datei wird dem Backend ebenfalls mitgeteilt, welche Stichtage angeboten werden können.

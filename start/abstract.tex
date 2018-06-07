@@ -13,7 +13,21 @@ Ebenfalls wird das Einzugsgebiet mit Luftlinien berechnet und der Topografie wir
 Die kantonalen Eigenlösungen zeigen, dass kein Konsens in der aktuellen Lösung vorhanden ist.
 
 Die Spezifikation ÖV-Güteklassen 2018 kombiniert die Learnings der kantonalen Lösungen und verbessert diese mit den aktuellen technischen Möglichkeiten mit dem Ziel eine allgemeingültige Spezifikation für die Schweiz zu erstellen.
-Dadurch kann das Einzugsgebiet auf einem Routing-Netzwerk mit Isochronen berechnet werden und die Topografie wird konsequent in Kombination mit dem  hoch aufgelösten digitalem Terrainmodell von swisstopo berücksichtigt.
+In der Spezifikation wird nun vorausgesetzt, dass das Einzugsgebiet auf einem Routing-Graphen berechnet wird.
+Ebenfalls muss die Topografie konsequent berücksichtigt werden.
+Diese Anforderung wird mit der Berechnung von Leistungskilometern erreicht.
+Die Berechnung des Intervall eine Haltestelle wurde überdacht und eine neue Formel für die Bestimmung definiert.
+
+Der ÖV-Güteklassen 2018 Generator setzt die erstellte Spezifikation um.
+So werden für das Einzugsgebiet mithilfe von pgRouting auf einem Routing-Graphen mit Isochronen berechnet.
+Dadurch hat man ein viel detaillierteres Verständnis über die Erreichbarkeit der Haltestelle.
+Durch den Einsatz eines hoch aufgelösten digitalem Terrainmodell von swisstopo wird die Topografie konsequent in die Berechnung miteinbezogen und ein Haltestelle auf einem schwer begehbaren Gelände hat somit ein kleineres Einzugsgebiet.
+Der Generator erlaubt die automatisierte Berechnung der ÖV-Güteklassen für verschiedene Stichtage.
+
+Zur Auswertung werden die aufgrund der neuen Spezifikation berechneten ÖV-Güteklassen in einer Webapplikation dargestellt.
+Dabei können diese visuell den ÖV-Güteklassen des Bundesamt für Raumentwicklung gegenübergestellt werden.
+
+
 
 %TODO results
 

@@ -8,7 +8,107 @@
 \subsection{Resultate}
 \label{Resultate und Weiterentwicklung:Resultate}
 
-%TODO
+\subsubsection{Laufzeit}
+\label{Resultate und Weiterentwicklung:Laufzeit}
+
+Um die Laufzeit für das Berechnen der \acs{ÖV}-Güteklassen 2018 auszuwerten, wird zuerst für die Kernoperation die theoretische Komplexität bestimmt.
+Mit einer Messung wird dann die reale Laufzeit ermittelt und ausgewertet.
+
+\paragraph{Theoretische Laufzeit}\label{Laufzeit:Theoretische Laufzeit}~\\
+Für die Bestimmung der theoretischen Laufzeit wird lediglich das Berechnen der \glspl{Isochrone} betrachtet, da dies für die eigentliche Berechnung der \acs{ÖV}-Güteklassen die Kernfunktion darstellt, die am meisten Laufzeit benötigt.
+
+Wie in \ref{ÖV-Güteklassen 2018 Generator:Umsetzung Spezifikation} beschrieben, wird für jede der $N$ Haltestellen eine oder mehrere \glspl{Isochrone} erzeugt.
+Dieser Algorithmus besteht aus zwei Teilen.
+Als erstes werden mit dem Dijkstra-Algorithmus~\cite{dijkstra_algorithm} alle Vertices ermittelt, die von der Haltestelle aus in einer festgelegten Zeit im Routing-Graphen erreichbar sind.
+Im zweiten Schritt wird mit diesen Vertices eine Alpha Shape~\cite{alpha_shapes} erzeugt, die alle gefundenen Punkte in einem Polygon einschliesst.
+Der erste Schritt muss pro Haltestelle nur ein Mal für die grösste Distanz durchgeführt werden, für die Erzeugung der \glspl{Isochrone} für kürzere Distanzen wird das Ergebnis des Dijkstra-Algorithmus gefiltert.
+
+Der Dijkstra-Algorithmus wird in pgRouting mit der "`Boost Graph"'-Library~\cite{boost_graph} implementiert und hat eine Laufzeit von $\mathcal{O}(V \log V + E)$, wobei $E$ die Anzahl der Kanten und $V$ die Anzahl Vertices im Routing-Graphen bezeichnen.
+Für eine effizientere Berechnung werden in einem vorhergehenden Schritt alle Kanten $E\prime$ ermittelt, die maximal 1300 Meter von der Haltestelle entfernt sind.
+Diese Vorselektion der Kanten ist dank einem R-Tree-Index mit $\mathcal{O}(\log E)$ möglich.
+Insgesamt ergibt dies eine Laufzeit von $\mathcal{O}(\log E) + \mathcal{O}(V \log V + E\prime)$.
+Da die Vorselektion der Kanten $E\prime$ nur sehr klein ist ($E\prime \ll V$) und in konstanter Zeit läuft, kann dies vernachlässigt werden.
+
+Der zweite Schritt, das Erstellen der Alpha Shape, wird nur noch mit den vorher ermittelten Punkten $V\prime$ durchgeführt.
+Da dies im Vergleich zum kompletten Graphen nur sehr wenige Punkte sind ($V\prime \ll V$), ist dieser Schritt für die Laufzeit ebenfalls zu vernachlässigen.
+
+Diese Berechnung der \glspl{Isochrone} wird für alle $N$ Haltestellen durchgeführt.
+Insgesamt ergibt das folgende Laufzeit:
+\[
+    \mathcal{O}(N (\log E + V \log V))
+\]
+
+\begin{conditions}
+    $N$   &   Anzahl Haltestellen\\
+    $V$   &   Anzahl Vertices im Routing-Graph\\
+    $E$   &   Anzahl Knoten im Routing-Graph\\
+\end{conditions}
+
+\paragraph{Reale Messung der Laufzeit}~\\
+Um einen Richtwert für die effektive Laufzeit der Berechnung zu haben, wird auf einem Test-Computer der komplette Ablauf vom Datenimport bis zur Ausgabe der \acs{ÖV}-Güteklassen 2018 als GeoJSON durchlaufen und die Zeit gemessen.
+
+\subparagraph{Testumgebung}
+Die Messung wird auf einem Desktop-Computer mit einem Intel Xeon E3-1245 mit 3.4 GHz und 16 GB Arbeitsspeicher durchgeführt.
+Als Betriebssystem wird Linux verwendet, das Terrain-Modell ist auf einer externen Festplatte im TIF-Format abgelegt.
+
+\subparagraph{Ergebnis}
+
+Die gemessene Laufzeiten sind in Tabelle \ref{table:Ergebnis_Laufzeitmessung} ersichtlich.
+Es fällt auf, dass die Vorbereitung zur eigentlichen Berechnung die meiste Zeit beansprucht.
+Dies liegt unter anderem daran, dass diese Vorbereitungsschritte externe Funktionen aufrufen, die nicht spezifisch optimiert werden können.
+So braucht etwa das Berechnen der Topologie nach der Graph-Segmentierung fast zwei Stunden.
+Dabei wird lediglich die eingebaute Funktion von pgRouting aufgerufen, die wohl nicht sehr effizient implementiert ist.
+Als Optimierung ist vorstellbar, die Topologie direkt während der Routing-Graph-Segmentierung zu aktualisieren, was aber deutlich komplexer als die jetzige Lösung wäre.
+
+Die eigentliche Berechnung der \acs{ÖV}-Güteklassen konnte mit Indizes auf der Datenbank und Optimierung der Algorithmen auf eine Laufzeit von rund 70 Minuten gebracht werden.
+Dafür wurde während der Entwicklung kontinuierlich optimiert, in früheren Iterationen dauerte die Berechnung noch mehrere Tage.
+Als Beispiel dafür sei die Optimierung zu erwähnen, den Dijkstra-Algorithmus für die Berechnung der \glspl{Isochrone} für jede Haltestelle nur ein Mal für die weiteste Distanz zu verwenden statt für jede \gls{Isochrone} einzeln.
+Allein durch diese Optimierung konnte die Laufzeit zur Berechnung einer Haltestelle von ca. 450 ms auf 30 ms reduziert werden, womit die totale Laufzeit von 18 Stunden auf rund 70 Minuten gekürzt wurde.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}[H]{l l}
+        \toprule
+        \textbf{Berechnungsschritt}
+                                & \textbf{Benötigte Zeit}\\
+        \midrule
+        \textbf{Datenimport}
+                                & \textbf{1 h 45 min} \\
+        \hspace{3mm} Fahrplandaten importieren
+                                & \hspace{3mm} 4 min \\
+        \hspace{3mm} Routingdaten importieren
+                                & \hspace{3mm} 16 min \\
+        \hspace{3mm} Terrain-Modell importieren
+                                & \hspace{3mm} 1 h 25 min \\
+        \midrule
+        \textbf{\acs{ÖV}-Güteklassen berechnen}
+                                & \textbf{4 h 56 min} \\
+        \hspace{3mm} Routing-Graph segmentieren
+                                & \hspace{3mm} 38 min \\
+        \hspace{3mm} Topologie neu berechnen
+                                & \hspace{3mm} 1 h 53 min \\
+        \hspace{3mm} Terrain-Daten in Routing-Graph rechnen
+                                & \hspace{3mm} 1 h 13 min \\
+        \hspace{3mm} \acs{ÖV}-Güteklassen für 6 Stichtage berechnen
+                                & \hspace{3mm} 1 h 12 min \\
+        \midrule
+        \textbf{Gesamt}
+                                & \textbf{6 h 41 min} \\
+        \bottomrule
+    \end{tabular}
+    \caption{Ergebnis der Laufzeitmessung}
+    \label{table:Ergebnis_Laufzeitmessung}
+\end{table}
+
+
+\subparagraph{Auswertung mit theoretischer Laufzeit}
+Im Absatz \nameref{Laufzeit:Theoretische Laufzeit} wurde die theoretische Laufzeit zur Berechnung von \glspl{Isochrone} ermittelt.
+In der Messung hat sich ergeben, dass für einen einzelnen Stichtag die Berechnung dieser \glspl{Isochrone} ca. 12 Minuten benötigt.
+
+Mit der theoretischen Laufzeit von $\mathcal{O}(N (\log E + V \log V))$ gibt es $N = 24'318$ Haltestellen sowie $E = 7'040'965$ Kanten und $V = 6'640'003$ Vertices im Routing-Graphen.
+In der Messung dauerte die Berechnung für jede der $N$ Haltestellen durchschnittlich ca. 30 ms, was einer Gesamtlaufzeit von ca. 12 Minuten entspricht.
+Diese Berechnung wurde für 6 verschiedene Stichtage und Zeitintervalle durchgeführt.
+Dabei ist anzumerken, dass in der Messung dieser Operation einige Variablen vernachlässigt wurden, wie etwa die Zeit für die Anfrage und Antwort des Datenbank-Servers.
 
 \subsection{Möglichkeiten der Weiterentwicklung}
 \label{Resultate und Weiterentwicklung:Möglichkeiten der Weiterentwicklung}

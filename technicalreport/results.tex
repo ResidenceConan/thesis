@@ -87,8 +87,56 @@ Beachtet man die Fläche von oben nach unten sieht man nur geringe Unterschiede,
 TODO mit 8506358 begründen
 
 \subsubsection{Verbesserte Ermittlung von Bahnknoten}
-Bei der Ermittlung der Bahnknoten werden nun Haltestelle berücksichtigt, welche Verbindungen in eine konfigurierbare Anzahl Richtungen haben oder Zugang zu einer Fernverkehrsverbindung haben.
+Bei der Ermittlung der Bahnknoten werden nun Haltestelle berücksichtigt, welche Verbindungen in 6 verschiedene Richtungen haben oder Zugang zu einer Fernverkehrsverbindung haben.
+Aufgrund der Daten des \acl{ARE} nehmen wir an, dass bei der Berechnung der OeVGK98 nur Haltestelle als Bahnknoten identifiziert werden, welche mindestens drei verschiedene Richtungen bedienen.
+Diese Annahme kommt zu stande, wenn man für die Bahnknoten des OeVGK98 die Anzahl verschiedenen Richtungen mit unserer Implementation eruiert.
+Dabei gibt es einen Ausreiser Genève-Aéroport, welcher nur eine Richtung anbietet.
+Die Problematik ist in Kapitel \ref{Verbesserungsmöglichkeiten:Bestimmung der Bahnknoten} beschrieben.
 
+Ein direkter Vergleich ist in Tabelle \ref{table:Vergleich Anzahl Bahnknoten} ersichtlich.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}[c]{l l l}
+        \toprule
+        \textbf{}
+                                & \textbf{OeVGK93}
+                                & \textbf{OeVGK18}\\
+        \midrule
+        \textbf{Anzahl Bahnknoten}
+                                & 150
+                                & 106\\
+        \bottomrule
+    \end{tabular}
+    \caption{Vergleich Anzahl Bahnknoten}
+    \label{table:Vergleich Anzahl Bahnknoten}
+\end{table}
+
+Da wir mindesten doppelt so viele verschiedene Richtungen wie OeVGK93 verlangen, schränken wir so die Identifikation als Bahnknoten ein, was sich in der Anzahl identifizierten Bahnknoten bemerkbar macht.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}[c]{l l l}
+        \toprule
+        \textbf{}
+                                            & \textbf{Anzahl Bahnknoten}\\
+        \midrule
+        \textbf{OeVGK93 $\cap$ OeVGK18}       & 92\\
+        \textbf{OeVGK93 $\setminus$ OeVGK18}  & 58\\
+        \textbf{OeVGK18 $\setminus$ OeVGK93}  & 14\\
+        \bottomrule
+    \end{tabular}
+    \caption{Unterschiede in der Identifikation der Bahnknoten}
+    \label{table:Unterschiede in der Identifikation der Bahnknoten}
+\end{table}
+
+Das durch die höhere Anzahl verlangter verschiedener Richtungen eine kleinere Menge als Bahnknoten identifizierten Haltestellen resultiert, scheint logisch.
+Tabelle \ref{table:Unterschiede in der Identifikation der Bahnknoten} nimmt die Unterschiede in den resultierenden identifizierten Bahnknoten unter die Lupe.
+Überraschend ist, dass die Bahnknoten, welche durch OeVGK18 identifiziert werden, nicht komplett in OeVGK93 vorkommen.
+Es handelt sich um 14 Haltestellen, welche OeVGK18 im Unterschied zu OeVGK93 als Bahnknoten bestimmt werden.
+Dabei handelt es sich unter diesen um 2 Haltestellen, welche eine Fernverkehrsverbindung haben und so als Bahnknoten identifiziert werden.
+Warum die restlichen 12 Haltestellen nicht ebenfalls als Bahnknoten identifiziert sind, entzieht sich unseren Kenntnisse.
+Darunter fällt beispielsweise die Haltestelle Flüelen mit 9 verschiedenen Richtungen.
 
 \subsection{Ausblick: Weiterentwicklung}
 \label{Resultate:Ausblick: Weiterentwicklung}

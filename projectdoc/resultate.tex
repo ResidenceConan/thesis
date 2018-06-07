@@ -63,7 +63,7 @@ Als Optimierung ist vorstellbar, die Topologie direkt während der Routing-Graph
 Die eigentliche Berechnung der \acs{ÖV}-Güteklassen konnte mit Indizes auf der Datenbank und Optimierung der Algorithmen auf eine Laufzeit von rund 70 Minuten gebracht werden.
 Dafür wurde während der Entwicklung kontinuierlich optimiert, in früheren Iterationen dauerte die Berechnung noch mehrere Tage.
 Als Beispiel dafür sei die Optimierung zu erwähnen, den Dijkstra-Algorithmus für die Berechnung der \glspl{Isochrone} für jede Haltestelle nur ein Mal für die weiteste Distanz zu verwenden statt für jede \gls{Isochrone} einzeln.
-Allein durch diese Optimierung konnte die Laufzeit zur Berechnung einer Haltestelle von ca. 450ms auf 30ms reduziert werden, womit die totale Laufzeit von 18 Stunden auf rund 70 Minuten gekürzt wurde.
+Allein durch diese Optimierung konnte die Laufzeit zur Berechnung einer Haltestelle von ca. 450 ms auf 30 ms reduziert werden, womit die totale Laufzeit von 18 Stunden auf rund 70 Minuten gekürzt wurde.
 
 \begin{table}[H]
     \centering
@@ -73,27 +73,27 @@ Allein durch diese Optimierung konnte die Laufzeit zur Berechnung einer Halteste
                                 & \textbf{Benötigte Zeit}\\
         \midrule
         \textbf{Datenimport}
-                                & \textbf{1h 45 Min} \\
-        \hspace{3mm} Fahrplandaten Importieren
-                                & \hspace{3mm} 4 Min \\
+                                & \textbf{1 h 45 min} \\
+        \hspace{3mm} Fahrplandaten importieren
+                                & \hspace{3mm} 4 min \\
         \hspace{3mm} Routingdaten importieren
-                                & \hspace{3mm} 16 Min \\
+                                & \hspace{3mm} 16 min \\
         \hspace{3mm} Terrain-Modell importieren
-                                & \hspace{3mm} 1h 25 Min \\
+                                & \hspace{3mm} 1 h 25 min \\
         \midrule
         \textbf{\acs{ÖV}-Güteklassen berechnen}
-                                & \textbf{4h 56 Min} \\
+                                & \textbf{4 h 56 min} \\
         \hspace{3mm} Routing-Graph segmentieren
-                                & \hspace{3mm} 38 Min \\
+                                & \hspace{3mm} 38 min \\
         \hspace{3mm} Topologie neu berechnen
-                                & \hspace{3mm} 1h 53 Min \\
+                                & \hspace{3mm} 1 h 53 min \\
         \hspace{3mm} Terrain-Daten in Routing-Graph rechnen
-                                & \hspace{3mm} 1h 13 Min \\
+                                & \hspace{3mm} 1 h 13 min \\
         \hspace{3mm} \acs{ÖV}-Güteklassen für 6 Stichtage berechnen
-                                & \hspace{3mm} 1h 12 Min \\
+                                & \hspace{3mm} 1 h 12 min \\
         \midrule
         \textbf{Gesamt}
-                                & \textbf{6h 41 Min} \\
+                                & \textbf{6 h 41 min} \\
         \bottomrule
     \end{tabular}
     \caption{Ergebnis der Laufzeitmessung}
@@ -106,7 +106,7 @@ Im Absatz \nameref{Laufzeit:Theoretische Laufzeit} wurde die theoretische Laufze
 In der Messung hat sich ergeben, dass für einen einzelnen Stichtag die Berechnung dieser \glspl{Isochrone} ca. 12 Minuten benötigt.
 
 Mit der theoretischen Laufzeit von $\mathcal{O}(N (\log E + V \log V))$ gibt es $N = 24'318$ Haltestellen sowie $E = 7'040'965$ Kanten und $V = 6'640'003$ Vertices im Routing-Graphen.
-In der Messung dauerte die Berechnung für jede der $N$ Haltestellen durchschnittlich ca. 30ms, was einer Gesamtlaufzeit von ca. 12 Minuten entspricht.
+In der Messung dauerte die Berechnung für jede der $N$ Haltestellen durchschnittlich ca. 30 ms, was einer Gesamtlaufzeit von ca. 12 Minuten entspricht.
 Diese Berechnung wurde für 6 verschiedene Stichtage und Zeitintervalle durchgeführt.
 Dabei ist anzumerken, dass in der Messung dieser Operation einige Variablen vernachlässigt wurden, wie etwa die Zeit für die Anfrage und Antwort des Datenbank-Servers.
 

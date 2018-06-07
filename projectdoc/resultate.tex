@@ -23,7 +23,7 @@ Als erstes werden mit dem Dijkstra-Algorithmus~\cite{dijkstra_algorithm} alle Ve
 Im zweiten Schritt wird mit diesen Vertices eine Alpha Shape~\cite{alpha_shapes} erzeugt, die alle gefundenen Punkte in einem Polygon einschliesst.
 Der erste Schritt muss pro Haltestelle nur ein Mal für die grösste Distanz durchgeführt werden, für die Erzeugung der \glspl{Isochrone} für kürzere Distanzen wird das Ergebnis des Dijkstra-Algorithmus gefiltert.
 
-Der Dijkstra-Algorithmus wird in PgRouting mit der "`Boost Graph"'-Library~\cite{boost_graph} implementiert und hat eine Laufzeit von $\mathcal{O}(V \log V + E)$, wobei $E$ die Anzahl der Kanten und $V$ die Anzahl Vertices im Routing-Graphen bezeichnen.
+Der Dijkstra-Algorithmus wird in pgRouting mit der "`Boost Graph"'-Library~\cite{boost_graph} implementiert und hat eine Laufzeit von $\mathcal{O}(V \log V + E)$, wobei $E$ die Anzahl der Kanten und $V$ die Anzahl Vertices im Routing-Graphen bezeichnen.
 Für eine effizientere Berechnung werden in einem vorhergehenden Schritt alle Kanten $E\prime$ ermittelt, die maximal 1300 Meter von der Haltestelle entfernt sind.
 Diese Vorselektion der Kanten ist dank einem R-Tree-Index mit $\mathcal{O}(\log E)$ möglich.
 Insgesamt ergibt dies eine Laufzeit von $\mathcal{O}(\log E) + \mathcal{O}(V \log V + E\prime)$.
@@ -57,7 +57,7 @@ Die gemessene Laufzeiten sind in Tabelle \ref{table:Ergebnis_Laufzeitmessung} er
 Es fällt auf, dass die Vorbereitung zur eigentlichen Berechnung die meiste Zeit beansprucht.
 Dies liegt unter anderem daran, dass diese Vorbereitungsschritte externe Funktionen aufrufen, die nicht spezifisch optimiert werden können.
 So braucht etwa das Berechnen der Topologie nach der Graph-Segmentierung fast zwei Stunden.
-Dabei wird lediglich die eingebaute Funktion von PgRouting aufgerufen, die wohl nicht sehr effizient implementiert ist.
+Dabei wird lediglich die eingebaute Funktion von pgRouting aufgerufen, die wohl nicht sehr effizient implementiert ist.
 Als Optimierung ist vorstellbar, die Topologie direkt während der Routing-Graph-Segmentierung zu aktualisieren, was aber deutlich komplexer als die jetzige Lösung wäre.
 
 Die eigentliche Berechnung der \acs{ÖV}-Güteklassen konnte mit Indizes auf der Datenbank und Optimierung der Algorithmen auf eine Laufzeit von rund 70 Minuten gebracht werden.

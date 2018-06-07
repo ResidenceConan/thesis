@@ -349,23 +349,33 @@ Dabei wird die Gehzeit mithilfe der konfigurierten Laufgeschwindigkeit in Meter 
 
 Anschliessend werden die \glspl{Isochrone} berechnet.
 Dieser Algorithmus besteht aus zwei Teilen.
-Als erstes werden mit dem Dijkstra-Algorithmus~\cite{dijkstra_algorithm} alle Vertices ermittelt, die von der Haltestelle aus in der festgelegten maximalen Laufdistanz im Routing-Graph erreichbar sind.
+Als erstes werden mit dem Dijkstra-Algorithmus~\cite{dijkstra_algorithm} alle Vertices ermittelt, die von der Haltestelle aus in der festgelegten maximalen Laufdistanz im Routing-Graph erreichbar sind (siehe Listing \ref{listing:calc_isochrones_dijkstra}).
 Die Richtung der Kanten wird dabei umgekehrt, da der Dijkstra-Algorithmus die Strecke ausgehend der Haltestelle berechnet.
 Für unsere Zwecke ist es aber realistischer, den Laufweg zu berechnen, wenn man zur Haltestelle hin läuft.
 
-Vorgägig werden mit einer effizienten Query alle Kanten gesucht, die sich in einem Radius von 1300 Metern der Haltestelle befinden.
+\begin{listing}[ht]
+    \inputminted{sql}{projectdoc/listing/calc_isochrones_preselection.sql}
+    \caption[Vorselektion der Kanten für die Berechnung von Isochronen]{Mit einer effizienten Index-Suche werden alle Kanten in der Nähe der Haltestelle ermittelt}
+    \label{listing:calc_isochrones_preselection}
+\end{listing}
+
+Vorgägig werden mit einer effizienten Query alle Kanten gesucht, die sich in einem Radius von 1300 Metern der Haltestelle befinden (siehe Listing \ref{listing:calc_isochrones_preselection}).
 Dies, weil keine Isochronen berechnet werden, die einen grösseren Radius als 1300 Meter einschliessen.
 Dadurch verringert sich die Anzahl Kanten enorm, die pgRouting mit dem Dijkstra-Algorithmus abarbeiten muss.
 
-Im zweiten Schritt wird mit diesen Vertices eine Alpha Shape~\cite{alpha_shapes} erzeugt. Dieser Algorithmus bildet das kleinst mögliche Polygon, wobei alle gefunden Vertices darin enthalten sein müssen.
+\begin{listing}[ht]
+    \inputminted{sql}{projectdoc/listing/calc_isochrones_dijkstra.sql}
+    \caption[Dijkstra-Algorithmus zur Berechnung von Isochronen]{Mit einem Dijkstra-Algorithmus werden bis zur Maximaldistanz alle erreichbaren Vertices gesucht}
+    \label{listing:calc_isochrones_dijkstra}
+\end{listing}
+
+Im zweiten Schritt wird mit diesen Vertices eine Alpha Shape~\cite{alpha_shapes} erzeugt (siehe Listing \ref{listing:calc_isochrones_alpha_shape}). Dieser Algorithmus bildet das kleinst mögliche Polygon, wobei alle gefunden Vertices darin enthalten sein müssen.
 Diese Alpha Shape stellt die \gls{Isochrone} dar.
 
-Die Funktion ist mit einer Stored Procedure implementiert und in Listing \ref{listing:calc_isochrones} in Teilen abgebildet.
-
 \begin{listing}[ht]
-    \inputminted{sql}{projectdoc/listing/calc_isochrones.sql}
-    \caption{Stored Procedure zur Berechnung von Isochronen (Auszug)}
-    \label{listing:calc_isochrones}
+    \inputminted{sql}{projectdoc/listing/calc_isochrones_alpha_shape.sql}
+    \caption[Berechnung der Alpha Shape]{Mit den erreichbaren Vertices wird eine Alpha Shape erzeugt}
+    \label{listing:calc_isochrones_alpha_shape}
 \end{listing}
 
 Der erste Schritt muss pro Haltestelle nur ein Mal für die grösste zu berechnende Distanz durchgeführt werden, für die Erzeugung der \glspl{Isochrone} für kürzere Distanzen wird das Ergebnis des Dijkstra-Algorithmus gefiltert und nur die Vertices beachtet, die innerhalb dieser Distanz von der Haltestelle erreichbar sind.

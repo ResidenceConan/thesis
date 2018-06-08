@@ -1,19 +1,42 @@
-% Manuelle und automatische Tests
-
 \section{Tests}
 \label{Tests}
 
-\subsection{Strategie}
-\label{Tests:Strategie}
 
-\subsubsection{Web-Applikation}
+\subsection{ÖV-Güteklassen 2018 Generator}
+\label{Tests:ÖV-Güteklassen 2018 Generator}
+
+Der Generator für die \acs{ÖV}-Güteklassen 2018 wurde in Python implementiert.
+Für Unit-Tests hat sich dafür in vorhergehenden Projekten das Testing-Framework \emph{pytest}~\cite{pytest} bewährt.
+
+Die Architektur wurde so gestaltet, dass die Business-Schicht keine direkte Abhängigkeit auf die Integration-Schicht hat, die für die Kommunikation mit der Datenbank verantwortlich ist und so isoliert getestet werden kann.
+Die Abhängigkeiten wurden stattdessen dynamisch in einer "`Registry"', analog zu einer Dependency Injection, gehalten.
+Dies erlaubte es uns, in den Unit-Tests die Module in der Integrations-Schicht durch Mocks auszutauschen.
+
+Da einige Logik der Berechnung in Stored Procedures auf der Datenbank implementiert wurden, wäre es wünschenswert, diese ebenfalls automatisiert zu testen.
+Zwar gibt es dafür Ansätze wie \emph{pgTAP}~\cite{pgTAP}, Unit-Tests für Datenbank-Funktionen zu schreiben, bei uns war aber neben der Logik auch die Performance ein entscheidender Faktor.
+Diese konnte nur manuell auf dem kompletten Datensatz der Schweiz getestet werden, denn erst dann wurde klar, welche Indizes benötigt wurden und wie die Datenbank eine bestimmte Query ausführt.
+
+Vorstellbar wären hingegen Integrations-Tests, die auf einem Test-Set die kompletten \acs{ÖV}-Güteklassen berechnen.
+Die Schwierigkeit daran ist das aufwändige Setup mit Fahrplan-, Routing- und Höhendaten, die alle in einer laufenden Datenbank aufgesetzt werden müssten.
+Dabei wäre es natürlich wünschenswert, das ganze Setup automatisiert in einer Continuous Integration Umgebung zu betreiben.
+
+\subsection{Backend}
+\label{Tests:Backend}
+
+Für das Backend wurde das automatische Testing auf minimale Tests beschränkt, die prüfen, dass der Server auf API-Requests keine unerwartete Antworten liefert.
+Während der Entwicklung wurde das Backend immer schlanker.
+Wurden zuerst die kompletten GeoJSON-Daten für die Web-Applikation ausgeliefert, wird seit dem Wechsel zu Vector Tiles nur noch ein JSON mit Metadaten zu den Parametern eingelesen und über eine API angeboten.
+Dementsprechend ist nur noch sehr wenig Logik vorhanden.
+
+\subsection{Web-Applikation}
 \label{tests:Web-Applikation}
 
 \paragraph{Unit-Tests}~\\
-Für das in React geschriebene Frontend werden Unit-Tests mit \emph{Jest}~\cite{jest} geschrieben.
-Dies ist ein von Facebook entwickeltes Testing-Framework, das speziell (aber nicht exklusiv) für React konzipiert wurde.
-
-% TODO: Snapshot testing erwähnen, wenn wir das gebrauchen
+Für das in React geschriebene Frontend wurde ursprünglich geplant, Unit-Tests mit \emph{Jest}~\cite{jest} zu schreiben.
+Allerdings kam schon früh zur Entwicklung das Problem auf, dass die \emph{Mapbox GL} Komponente, die für die Basiskarte verwendet wird, nicht in einem Test geladen kann, weil dafür ein Browser benötigt wird.
+Da die einzige Logik in der Applikation in der Verarbeitung der Daten vom Backend besteht, wären reine Unit-Tests aufwändig.
+Sinnvoller wäre es, ein Integration-Test zusammen mit der Backend-API zu machen.
+Dies erfordert aber ein aufwändiges Setup, um dies automatisiert mit einer Continuous Integration zu verbinden.
 
 
 \paragraph{Type-Checking}~\\
@@ -23,15 +46,3 @@ So können bereits zu Beginn des Entwicklungsprozesses Fehler mit Typisierungen 
 Dafür bietet sich die Library \emph{Flow}~\cite{flow} an, die wie React ebenfalls von Facebook entwickelt wird.
 Mit dieser ist es möglich, bei allen Deklarationen die Typen anzugeben.
 Kontinuierlich wird dann geprüft, dass die Typisierungen korrekt verwendet werden.
-
-
-
-\subsubsection{Healthchecks}
-\label{Tests:Healthchecks}
-
-%TODO
-
-\subsection{Fazit}
-\label{Tests:Fazit}
-
-%TODO

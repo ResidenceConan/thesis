@@ -59,20 +59,20 @@ Der \emph{Admin} füḧrt das manuelle Beziehen des \gls{Terrainmodell} durch un
 Das System bereit die Daten so vor, dass sie in \nameref{Use Cases:UC01} für die "`\acs{ÖV}-Güteklassen 2018"'-Berechnung einbezogen werden können
 Da die diese Daten nicht einem stetigen Wandel unterstehen und von swisstopo~\cite{swissalti3d_swisstopo} nur alle 6 Jahren aktualisiert werden, steht es dem \emph{Admin} frei, diesen Schritt auszulassen und bereits im System vorhandene, verarbeitete Höhendaten zu verwenden.
 
-\subsubsection{UC03: Fahrplandaten periodisch vorverarbeiten}
+\subsubsection{UC03: Fahrplandaten vorverarbeiten}
 \label{Use Cases:UC03}
 
 Aktoren: \emph{Admin}
 
-Der \emph{Admin} nutzt das System "`\acs{ÖV}-Güteklassen 2018"' für das periodische Beziehen der Fahrplandaten über eine externe Schnittstelle.
+Der \emph{Admin} nutzt das System "`\acs{ÖV}-Güteklassen 2018"' für das Beziehen der Fahrplandaten über eine externe Schnittstelle.
 Das System bereit die Daten so vor, dass sie in \nameref{Use Cases:UC01} für die "`\acs{ÖV}-Güteklassen 2018"'-Berechnung einbezogen werden können.
 
-\subsubsection{UC04: OSM-Daten periodisch vorverarbeiten}
+\subsubsection{UC04: OSM-Daten vorverarbeiten}
 \label{Use Cases:UC04}
 
 Aktoren: \emph{Admin}
 
-Der \emph{Admin} nutzt das System "`\acs{ÖV}-Güteklassen 2018"' für das periodische Beziehen der \acs{OSM}-Daten über eine externe Schnittstelle.
+Der \emph{Admin} nutzt das System "`\acs{ÖV}-Güteklassen 2018"' für das Beziehen der \acs{OSM}-Daten über eine externe Schnittstelle.
 Das System bereit die Daten so vor, dass sie in \nameref{Use Cases:UC01} für die "`\acs{ÖV}-Güteklassen 2018"'-Berechnung einbezogen werden können.
 
 
@@ -171,11 +171,11 @@ Die erwähnten Komponenten sind im Kapitel \ref{Architektur} genauer beschrieben
         \textbf{Environment}
                                 & Normaler Betrieb (unabhängig vom laufenden Web-App und Backend)\\
         \textbf{Artifact}
-                                & ÖV-Güteklassen 2018 Processor und seine abhängige Fremdsysteme\\
+                                & ÖV-Güteklassen 2018 Generator und seine abhängige Fremdsysteme\\
         \textbf{Response}
                                 & Berechnete ÖV-Güteklassen 2018 als GeoJSON\\  
         \textbf{Response Measure}
-                                & Die ÖV-Güteklassen 2018 lassen sich innerhalb von 2 Stunden nach Absetzen des Befehls über ein CLI berechnen\\                                
+                                & Die ÖV-Güteklassen 2018 lassen sich innerhalb von 12 Stunden nach Absetzen des Befehls über ein CLI für 6 Stichtage berechnen\\                                
         \bottomrule
     \end{tabular}
     \caption{QAS NFA02}
@@ -192,7 +192,7 @@ Die erwähnten Komponenten sind im Kapitel \ref{Architektur} genauer beschrieben
                                 & Periodische Aktualisierung der ÖV-Güteklassen 2018\\
         \midrule
         \textbf{Business Goals}
-                                & Automatisch aktualisierte ÖV-Güteklassen 2018 für weitere Auswertungen\\
+                                & Möglichkeit zur automatischen Aktualisierung der ÖV-Güteklassen 2018 für weitere Auswertungen\\
         \textbf{Relevant Quality Attributes}
                                 & Administrability\\
         \textbf{Stimulus Source}
@@ -202,11 +202,11 @@ Die erwähnten Komponenten sind im Kapitel \ref{Architektur} genauer beschrieben
         \textbf{Environment}
                                 & Normaler Betrieb (unabhängig vom laufenden Web-App und Backend)\\
         \textbf{Artifact}
-                                & ÖV-Güteklassen 2018 Processor und seine abhängige Fremdsysteme\\
+                                & ÖV-Güteklassen 2018 Generator und seine abhängige Fremdsysteme\\
         \textbf{Response}
                                 & Berechnete ÖV-Güteklassen 2018 als GeoJSON\\  
         \textbf{Response Measure}
-                                & Alle zwei Wochen liegt ein aktualisiertes GeoJSON bereit, welches von anderen Komponenten verwendet werden kann\\
+                                & ÖV-Güteklassen 2018 Generator lässt ein automatisiertes Starten zu, um so periodisch aktualisierte GeoJSONs bereitstellen zu können, welche von anderen Komponenten verwendet werden können\\
         \bottomrule
     \end{tabular}
     \caption{QAS NFA03}
@@ -254,9 +254,9 @@ Die erwähnten Komponenten sind im Kapitel \ref{Architektur} genauer beschrieben
                                 & Antwortzeit ÖV-Güteklassen 2018 anzeigen\\
         \midrule
         \textbf{Business Goals}
-                                & \\
+                                & Nutzerzufriedenheit\\
         \textbf{Relevant Quality Attributes}
-                                & Performance (response time), Scalability\\
+                                & Performance (response time), Scalability, Usability\\
         \textbf{Stimulus Source}
                                 & User, Analyst\\
         \textbf{Stimulus}

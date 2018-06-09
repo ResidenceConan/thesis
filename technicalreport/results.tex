@@ -20,12 +20,14 @@ So lassen sich die \acs{ÖV}-Güteklassen auch für nachfolgende Jahre neu berec
 Alle Parameter, die in der Spezifikation festgelegt wurden, sind in einer Konfigurationsdatei festgehalten und können beliebig verändert werden.
 Dadurch kann die Implementation auch als Basis für Weiterentwicklungen der Berechnungsmethoden dienen.
 
+\begin{landscape}
 \begin{figure}[ht]
     \centering
     \includegraphics[width=1\linewidth]{technicalreport/img/resultat_oevgk18_uebersicht}
     \caption[Darstellung der berechneten ÖV-Güteklassen in der Web-Applikation]{Darstellung der berechneten ÖV-Güteklassen in der Web-Applikation}
     \label{fig:resultat_webapp_uebersicht}
 \end{figure}
+\end{landscape}
 
 Zusätzlich zur automatisierten Berechnung wurde eine Web-Applikation entwickelt, die es ermöglicht, die berechneten \acs{ÖV}-Güteklassen im Browser darzustellen (siehe Abbildung \ref{fig:resultat_webapp_uebersicht}).
 Ebenfalls wurden darin die bisherigen \acs{ÖV}-Güteklassen vom Bundesamt für Raumentwicklung (\acs{ARE}) integriert, was einen visuellen Vergleich der beiden Resultate erleichtert.
@@ -52,13 +54,131 @@ Die Fläche zeigt das Einzugsgebiet, das von einem Fussgänger von der Haltestel
 Wie in Abbildung \ref{fig:vergleich_wegfuehrung} zu sehen ist, entstehen dadurch Geometrien, die dem Strassen- und Wegnetz folgen.
 Dies ergibt einen realistischeren Eindruck über die effektiven Gebiete, die von einer Haltestelle erschlossen werden.
 
+Die Berücksichtigung der Wegführung ist im Direktvergleich in Abbildung \ref{vergleich_wegfuehrung_are_isochrone} noch deutlicher sichtbar.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\linewidth]{technicalreport/img/vergleich_wegfuehrung_are_isochrone}
+    \caption[Direktvergleich Einzugsgebiet ARE und Isochrone]{Direktvergleich Einzugsgebiet von ÖV-Güteklassen von \ac{ARE} (schwarz) und ÖV-Güteklassen 2018 (rot) ohne Berücksichtigung der Topografie; Zürich, Winkelriedstrasse}
+    \label{fig:vergleich_wegfuehrung_are_isochrone}
+\end{figure}
+
+\subsubsection{Einfluss der Topografie}
+
+Der Stand der Technik berücksichtigt die Topografie nicht konsequent.
+Somit hat eine anspruchsvolle Topografie keinen Einfluss auf das Einzugsgebiet einer Haltestelle.
+Das sieht man gut, wenn man die ÖV-Güteklasse des \acl{ARE} in Abbildung \ref{fig:vergleich_wegfuehrung_are_isochrone} betrachtet.
+Auf der gut sichbaren Strecke (Universitätsstrasse) werden im Durchmesser des schwarzen Kreises über eine Distanz von 300 Metern 9 Höhenmetern zurückgelegt.
+Nach der Definition der Berechnung der Leistungskilometern (siehe Kapitel \ref{Berechnungsmethodik OeVGK18:Gehzeit zur Haltestelle}) sind das zu den 300 Metern 90 Leistungsmeter, welche zurückgelegt werden müssen.
+Der Einfluss der Topografie ist nun im Direktvergleich in Abbildung \ref{fig:vergleich_wegfuehrung_isochrone_mit_ohne_topo} sichtbar.
+Die Haltestelle hat mit Einbezug der Topografie ein kleineres Einzugsgebiet.
+Man sieht, dass sich dies gut im unteren Teil bemerktbar macht.
+Die Strecke han von unten nach oben gesehen einen starken Anstieg, welche ins Gewicht fällt.
+Beachtet man die Fläche von oben nach unten sieht man nur geringe Unterschiede, da das Gefälle den Grenzwert von 20\% nicht überschreitet.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\linewidth]{technicalreport/img/vergleich_wegfuehrung_isochrone_mit_ohne_topo.png}
+    \caption[Direktvergleich Einzugsgebiet Isochronen mit und ohne Topografie]{Direktvergleich Einzugsgebiet Isochronen mit (Fläche ausgefüllt) und ohne (rot) Berücksichtigung der Topografie; Zürich, Winkelriedstrasse}
+    \label{fig:vergleich_wegfuehrung_isochrone_mit_ohne_topo}
+\end{figure}
+
+
 \subsubsection{Verbesserte Berechnung des Kursintervalls}
 
-TODO
+Der Unterschied in der Berechnung des Kursintervalls ist gut sichtbar, wenn man die Haltestelle "`Aarau, Buchenhof"' betrachtet.
+Damit wir die Berechnungsmethodiken OeVGK18 und OeVGK93 vergleichen können, nehmen wir für die Auswertung von OeVGK18 der Stichtag 21.03.2018. Die Fahrplandaten des OeVGK93 stammen vom 21.03.2017.
+Dieser Vergleich ist in diesem Zusammenhang zulässig, da beide einen Werktag repräsentieren und keine Änderung im Fahrplan erkannt wurde.
+Ebenfalls sieht man für diese Haltestelle die Korrektur, welche das \ac{ARE} für Verbindungen vornimmt, welche nur in eine Richtung befahren werden.
+So wird die Anzahl Verbindungen in diesem Fall verdoppelt, um sie anschliessend bei der Berechnung wieder zu halbieren.
+
+An diesem Tag werden im Intervall 06:00 bis 20:00 Uhr 56 Fahrten an dieser Haltestelle registriert.
+Folgt man der Berechnungslogik des Bundesamts für Raumentwicklung, erfolgt daraus folgender Intervall:
+$ 840 / ((56 * 2) / 2) = 15 \text{min}$
+
+Betrachtet man nun einen Auszug der Abfahrten in Tabelle \ref{table:Abfahrtszeiten Aarau, Buchenhof}, sieht man, dass beide Buslinien 4 Minuten versetzt alle 30 Minuten verkehren.
+Die Aussage, dass man an dieser Haltestelle einen 15-Minuten-Takt hat, ist somit nicht ganz korrekt.
+Kommt man um 06:10 Uhr an die Haltestelle, wartet man 23 Minuten auf die nächste Verbindung.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}[c]{l l}
+        \toprule
+        \textbf{Abfahrtszeit}   & \textbf{Bus-Nr}\\
+        \midrule
+        06:03                   & 7\\
+        06:07                   & 5\\
+        06:33                   & 7\\
+        06:37                   & 5\\
+        07:03                   & 7\\
+        07:07                   & 5\\
+        07:33                   & 7\\
+        07:37                   & 5\\
+        \dots                   & \dots\\
+        \bottomrule
+    \end{tabular}
+    \caption{Abfahrtszeiten Bus 5 und 7, Aarau, Buchenhof}
+    \label{table:Abfahrtszeiten Aarau, Buchenhof}
+\end{table}
+
+Die neue Intervall-Berechnung gemäss Kapitel \ref{Berechnungsmethodik OeVGK18:Kursintervall} ergibt nun für die gleiche Haltestelle den Intervall 23.1 Minuten.
+Der Unterschied macht sich in der Bestimmung der Haltestellenkategorie bemerkbar.
+Da es sich bei dieser Haltestelle um eine Busstation handelt, fällt man nach der OeVGK18-Spezifikation von der Haltestellekategorie IV (OeVGK93) in die Kategorie V.
+
+Abschliessend kann man sagen, dass 23.1 Minuten eine bessere Annäherung an den eigentlichen Kursintervall als die 30 Minuten, die vom \acs{ARE} berechnet wurde.
+Dadurch wird das wahrgenommene Angebot an der Haltestelle besser wiederspiegelt.
 
 \subsubsection{Verbesserte Ermittlung von Bahnknoten}
+Bei der Ermittlung der Bahnknoten werden nun Haltestelle berücksichtigt, welche Verbindungen in 6 verschiedene Richtungen haben oder Zugang zu einer Fernverkehrsverbindung haben.
+Aufgrund der Daten des \acl{ARE} nehmen wir an, dass bei der Berechnung der OeVGK93 nur Haltestelle als Bahnknoten identifiziert werden, welche mindestens drei verschiedene Richtungen bedienen.
+Diese Annahme kommt zustande, wenn man für die Bahnknoten des OeVGK98 die Anzahl verschiedenen Richtungen mit unserer Implementation eruiert.
+Dabei gibt es mit "`Genève-Aéroport"' einen Ausreiser, welcher nur eine Richtung anbietet.
+Die Problematik ist in Kapitel \ref{Verbesserungsmöglichkeiten:Bestimmung der Bahnknoten} beschrieben.
 
-TODO
+Ein direkter Vergleich ist in Tabelle \ref{table:Vergleich Anzahl Bahnknoten} ersichtlich.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}[c]{l l l}
+        \toprule
+        \textbf{}
+                                & \textbf{OeVGK93}
+                                & \textbf{OeVGK18}\\
+        \midrule
+        \textbf{Anzahl Bahnknoten}
+                                & 150
+                                & 106\\
+        \bottomrule
+    \end{tabular}
+    \caption{Vergleich Anzahl Bahnknoten}
+    \label{table:Vergleich Anzahl Bahnknoten}
+\end{table}
+
+Da wir mindesten doppelt so viele verschiedene Richtungen wie OeVGK93 verlangen, schränken wir so die Identifikation als Bahnknoten ein, was sich in der Anzahl identifizierten Bahnknoten bemerkbar macht.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}[c]{l l l}
+        \toprule
+        \textbf{}
+                                            & \textbf{Anzahl Bahnknoten}\\
+        \midrule
+        \textbf{OeVGK93 $\cap$ OeVGK18}       & 92\\
+        \textbf{OeVGK93 $\setminus$ OeVGK18}  & 58\\
+        \textbf{OeVGK18 $\setminus$ OeVGK93}  & 14\\
+        \bottomrule
+    \end{tabular}
+    \caption{Unterschiede in der Identifikation der Bahnknoten}
+    \label{table:Unterschiede in der Identifikation der Bahnknoten}
+\end{table}
+
+Das durch die höhere Anzahl verlangter verschiedener Richtungen eine kleinere Menge als Bahnknoten identifizierte Haltestellen resultiert, scheint logisch.
+Tabelle \ref{table:Unterschiede in der Identifikation der Bahnknoten} nimmt die Unterschiede in den resultierenden Bahnknoten unter die Lupe.
+Überraschend ist, dass die Bahnknoten, welche durch OeVGK18 identifiziert werden, nicht komplett in OeVGK93 vorkommen.
+Es handelt sich um 14 Haltestellen, welche OeVGK18 im Unterschied zu OeVGK93 als Bahnknoten bestimmt werden.
+Dabei handelt es sich unter diesen um 2 Haltestellen, welche eine Fernverkehrsverbindung haben und so als Bahnknoten gezählt werden.
+Warum die restlichen 12 Haltestellen nicht ebenfalls als Bahnknoten identifiziert sind, entzieht sich unseren Kenntnissen.
+Darunter fällt beispielsweise die Haltestelle Flüelen mit 9 verschiedenen Richtungen.
 
 \subsection{Ausblick: Weiterentwicklung}
 \label{Resultate:Ausblick: Weiterentwicklung}
@@ -89,8 +209,6 @@ In Abbildung \ref{fig:grid_based_approach} ist ein Ergebnis einer solchen Berech
 
 Mit dieser Methode ist die Qualität des Routing-Graphen und Problematiken wie bei Fussgängerflächen weniger relevant.
 Für die Berechnung von \acs{ÖV}-Güteklassen wäre dies ein spannender Ansatz für den Vergleich mit der Lösung in dieser Arbeit.
-
-
 
 \subsection{Dank}
 \label{Resultate:Dank}

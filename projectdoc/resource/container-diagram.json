@@ -18,7 +18,7 @@
       "name": "GTFS (geOps)",
       "description": "Fahrplan-Daten",
       "tags": "",
-      "position": "125,720",
+      "position": "130,800",
       "containers": []
     },
     {
@@ -33,7 +33,7 @@
           "description": "",
           "technology": "",
           "tags": "",
-          "position": "1735,1345",
+          "position": "2290,1340",
           "components": []
         },
         {
@@ -56,11 +56,20 @@
         },
         {
           "type": "Container",
+          "name": "Tile-Server",
+          "description": "",
+          "technology": "",
+          "tags": "",
+          "position": "1525,805",
+          "components": []
+        },
+        {
+          "type": "Container",
           "name": "Web-App",
           "description": "",
           "technology": "",
           "tags": "",
-          "position": "1735,805",
+          "position": "2295,800",
           "components": []
         }
       ]
@@ -86,7 +95,7 @@
       "name": "User",
       "description": "",
       "tags": "",
-      "position": "1745,115"
+      "position": "2335,220"
     }
   ],
 
@@ -108,7 +117,7 @@
     },
     {
       "source": "Backend",
-      "description": "Erhält GeoJSON von",
+      "description": "Erhält Metadaten von",
       "technology": "",
       "destination": "ÖV-Güteklassen 2018 Generator",
       "tags": ""
@@ -135,6 +144,13 @@
       "tags": ""
     },
     {
+      "source": "Tile-Server",
+      "description": "erhält ÖV-Güteklassen von",
+      "technology": "",
+      "destination": "ÖV-Güteklassen 2018 Generator",
+      "tags": ""
+    },
+    {
       "source": "User",
       "description": "via Web-Browser",
       "technology": "HTTPS",
@@ -143,9 +159,16 @@
     },
     {
       "source": "Web-App",
-      "description": "Lädt visualisierte Daten von",
+      "description": "lädt Metadaten von",
       "technology": "",
       "destination": "Backend",
+      "tags": ""
+    },
+    {
+      "source": "Web-App",
+      "description": "lädt ÖV-Güteklassen von",
+      "technology": "",
+      "destination": "Tile-Server",
       "tags": ""
     }
   ],
@@ -154,6 +177,7 @@
   "styles": [
     {
       "type": "element",
+      "description": "",
       "tag": "Person",
       "width": "",
       "height": "",
@@ -162,10 +186,12 @@
       "fontSize": "",
       "border": "",
       "opacity": "",
-      "shape": "Person"
+      "shape": "Person",
+      "metadata": ""
     },
     {
       "type": "element",
+      "description": "",
       "tag": "storage",
       "width": "",
       "height": "",
@@ -174,7 +200,8 @@
       "fontSize": "",
       "border": "",
       "opacity": "",
-      "shape": "Cylinder"
+      "shape": "Cylinder",
+      "metadata": ""
     }
   ]
 }

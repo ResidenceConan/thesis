@@ -65,7 +65,7 @@ Im Folgenden werden die einzelnen Container genauer beschrieben.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.8\linewidth]{projectdoc/img/container-diagram.png}
+    \includegraphics[width=1.0\linewidth]{projectdoc/img/container-diagram.png}
     \caption[Containerdiagramm]{Containerdiagramm ÖV-Güteklassen 2018}
     \label{fig:container-diagram}
 \end{figure}
@@ -127,24 +127,64 @@ Der Vorteil der oben beschriebenen "`Plugin-Architektur"' macht sich hier stark 
 Entsteht das Verlangen nach einem zusätzlichen Output der \acs{ÖV}-Güteklassen, etwa als GeoPackage, kann problemlos ein Service \emph{GeoPackageWriter} erstellt werden, welche das Interface \emph{OutputWriter} implementiert und analog zum \emph{GeoJSONWriter} das Resultat als GeoPackage ausliefert.
 Die Kernlogik in der business-Schicht muss so nicht angepasst werden.
 
+Der \emph{MetadataWriter} ist gesondert hervorzuheben.
+Durch diesen werden Konsumenten des Resultats des "`\acs{ÖV}-Güteklassen 2018 Generator"' darüber informiert, welche \acs{ÖV}-Güteklassen generiert wurden, sprich für welche Stichtage und Zeitintervalle liegt ein Ergebnis vor.
+Dabei handelt es sich um eine JSON-Datei.
+
 \subsubsection{Backend}
 \label{container:Backend}
 
 Das Backend nimmt die Ergebnisse der Berechnungen vom Container \nameref{container:generator} entgegen.
-Mit diesen Daten wird eine Web-\ac{API} angeboten, die dann von der \nameref{container:Web-App} verwendet wird, um die Visualisierung auf der Web-Karte zu realisieren.
-Die Daten werden der Web-App im \gls{GeoJSON}-Format ausgeliefert.
+Konkret heisst das, dass das Backend die Metadaten, welche vom Container \nameref{container:generator} zusätzlich zu den \acs{ÖV}-Güteklassen geschrieben werden, einliest und diese Daten über eine Web-\ac{API} möglichen Clients zur Verfügung stellt.
+Das Web-\ac{API} exponiert somit die Information über welche Stichtage und Zeitintervalle \acs{ÖV}-Güteklassen vorhanden sind.
 
-% Hat das Backend noch andere Verantwortlichkeiten?
+Über das Backend werden nicht direkt die generierten \acs{ÖV}-Güteklassen beispielsweise als GeoJSON ausgeliefert.
+Dies aus dem Grund, da diese Dateien eine Grösse haben, welche eine Auslieferung über ein Web-\ac{API} nicht zumutbar machen.
+Für die Visualisierung auf einer Karte eignen sich andere Varianten, welche in den Container \nameref{container:Web-App} und \nameref{container:Tile-Server} angesprochen werden.
+
+\paragraph{Web-\ac{API}}
+Die Services, welche über das Web-\ac{API} exponiert werden, sind in Tabelle \ref{table:Wep-API} aufgeführt.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}[c]{l l p{10.5cm}}
+        \toprule
+        \textbf{Route}          
+                                & \textbf{Argument}
+                                & \textbf{Zweck}\\
+        \midrule
+        \emph{/typesOfDays}
+                                & -
+                                & Retourniert die Stichtage für welche \acs{ÖV}-Güteklassen vorhanden sind.\\
+        \emph{/gradings}        & typeOfDay
+                                & Retourniert die Zeitintervalle, welche für den übergebenen Stichtag (typeOfDay) vorhanden sind.\\
+        \bottomrule
+    \end{tabular}
+    \caption{Web-\ac{API}}
+    \label{table:Wep-API}
+\end{table}
+
 
 \subsubsection{Web-App}
 \label{container:Web-App}
 
 Die Web-App dient als Frontend des Systems "`\acs{ÖV}-Güteklassen 2018"'.
 Die Applikation wird als \ac{SPA} direkt an den Browser des Users ausgeliefert.
-Von dort werden dann per JavaScript die Daten im \gls{GeoJSON}-Format vom \ac{API} des \nameref{container:Backend}-Containers abgerufen und visualisiert.
+Die Web-App nutzt das \ac{API} des \nameref{container:Backend}-Containers für das Beziehen von Metadaten, welche die verfügbaren ÖV-Güteklassen beschreiben.
+Mithilfe der Metadaten können die ÖV-Güteklassen vom Container \nameref{container:Tile-Server} bezogen und visualisiert werden.
 
 Dafür wird, wie in den Rahmenbedingungen (Kap. \ref{Einführung:Rahmenbedingungen, Umfeld, Definitionen, Abgrenzungen}) festgehalten, entweder \emph{Vue.js}~\cite{vuejs} oder \emph{React}~\cite{react} verwendet.
-Die beiden Varianten werden im Kapitel \ref{Analyse:Evaluation Frontend-Framework} evaluiert und eine Entscheidung getroffen.
+Die beiden Varianten wurden im Kapitel \ref{Analyse:Evaluation Frontend-Framework} evaluiert.
+
+\subsubsection{Tile-Server}
+\label{container:Tile-Server}
+
+Die berechneten \acs{ÖV}-Güteklassen werden als Vector Tiles~\cite{geometalab_vectortiles} ausgeliefert.
+Der Grund dafür ist, dass die Performanz um einiges besser ist, als wenn man direkt ein GeoJSON oder Raster-Kacheln ausliefert, da unteranderm nur der gerade geforderte Auszug geladen wird und bei unterschiedlichen Zoom-Stufen skaliert werden kann.
+Davon verspricht man sich ein bessere Usability, da die \acs{ÖV}-Güteklassen je nach Position und Zoom-Stufe schneller verfügbar sind.
+Ebenfalls muss das Frontend keine grosse Dateien vom Backend laden, was bei der Visualisierung eines GeoJSON der Fall wäre.
+
+Damit der Container \nameref{container:Web-App} Vector-Tiles von den generierten \acs{ÖV}-Güteklassen beziehen kann, müssen diese über einen Tile-Server exponiert werden.
 
 \subsubsection{Routing-Engine}
 \label{container:Routing-Engine}

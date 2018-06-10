@@ -396,3 +396,24 @@ Durch die Reihenfolge wird dies bereits in diesem Schritt sichergestellt.
 Zusätzlich zu den \acs{ÖV}-Güteklassen wird eine GeoJSON-Datei mit den Punkten aller Haltestellen erstellt, um sie später mit der Webapplikation auf der Karte anzeigen zu können.
 Ebenfalls wird eine JSON-Datei geschrieben mit Metadaten zu den Parametern der einzelnen Stichtage, die für die Berechnung verwendet wurden.
 Mit dieser JSON-Datei wird dem Backend ebenfalls mitgeteilt, welche Stichtage angeboten werden können.
+
+\subsection{Backend}
+\label{Implementation:Backend}
+
+In diesem Abschnitt wird der Container \nameref{container:Backend} erläutert.
+Primäres Ziel der Komponente ist es, Nutzer Informationen über verfügbare \acs{ÖV}-Güteklasse bereit zu stellen.
+Es handelt sich dabei um eine schlanke Flask-Applikation~\cite{flask}.
+
+Das Backend wird beim Starten initialisiert.
+Dabei wird eine generierte Metadaten-Datei des Container \nameref{container:generator} eingelesen.
+Genauer Sinn und Zweck dieser Datei ist im Abschnitt \ref{layer:output} beschrieben.
+Diese Datei beinhaltet die Information, welche \acs{ÖV}-Güteklassen verfügbaren sind.
+
+Diese Informationen werden über ein Web-\ac{API} exponiert.
+Das Web-\ac{API} wird ebenfalls mit Flask exponiert.
+Diese besteht aus \acl{REST}-Services.
+Die verfügbaren Services sind in der Tabelle \ref{table:Wep-API} beschrieben.
+Im Bezug auf das Maturity Model~\cite{maturity_model} von Leonard Richardson befinden wir uns auf Level 2.
+
+Mithilfe von Flasgger~\cite{flasgger} wird eine \ac{OAS}~\cite{open-api-specificaiton} erstellt.
+Dies hat den Vorteil, dass die \ac{API} sauber dokumentiert ist und Clients der \ac{API} in unterschiedlichen Sprachen generiert werden können.

@@ -555,7 +555,7 @@ Dies ist irreführend, da ein Gebiet mit zum Beispiel Güteklasse A durchgehend 
 Für die Lösung dieses Problems gibt es zwei Ansätze:
 
 \begin{enumerate}
-    \item Die Deckkraft der einzelnen Geometrien auf 100\% setzen und dabei die Deckkraft der kompletten Ebene verringern
+    \item Die Deckkraft der einzelnen Geometrien auf 100\% setzen und dabei die Deckkraft des kompletten Layers verringern
     \item Die Geometrien voneinander ausschneiden, so dass keine Überlagerungen mehr existieren
 \end{enumerate}
 
@@ -566,7 +566,7 @@ Da alle Geometrien von allen anderen ausgeschnitten werden, ist dies eine komple
 Es enstanden ausserdem Probleme mit der Topologie der ausgeschnittenen Geometrien sowie Render-Fehler im Browser.
 
 Diese Problematiken haben uns dazu bewegt, von Mapbox GL auf Leaflet umzusteigen.
-Die erste Option, die Verringerung der Deckkraft auf der kompletten Ebene, ist dort kein Problem.
+Die erste Option, die Verringerung der Deckkraft auf dem kompletten Layer, ist dort kein Problem.
 Damit wurde auch das Ausschneiden der einzelnen Geometrien überflüssig.
 
 \paragraph{Vector Tiles mit Leaflet}~\\

@@ -401,14 +401,14 @@ Mit dieser JSON-Datei wird dem Backend ebenfalls mitgeteilt, welche Stichtage an
 \label{Implementation:Backend}
 
 In diesem Abschnitt wird der Container \nameref{container:Backend} erläutert.
-Primäres Ziel der Komponente ist es, Nutzer Informationen über verfügbare \acs{ÖV}-Güteklasse bereit zu stellen.
+Primäres Ziel der Komponente ist es, Nutzer Informationen über verfügbare \acs{ÖV}-Güteklasse bereitzustellen.
 Es handelt sich dabei um eine schlanke Flask-Applikation~\cite{flask} mit sehr geringer Logik.
 
 Das Backend wird beim Starten initialisiert.
 Dabei wird eine generierte Metadaten-Datei des Container \nameref{container:generator} eingelesen.
 Genauer Sinn und Zweck dieser Datei ist im Abschnitt \ref{layer:output} beschrieben.
 Diese Datei beinhaltet die Information, welche \acs{ÖV}-Güteklassen verfügbar sind.
-Dadurch kann die Web-App entscheiden, welche \acs{ÖV}-Güteklassen der Benutzer auswählen kann und wie er diese vom Container \nameref{container:Tile-Server} bezogen werden können.
+Dadurch kann die Web-App entscheiden, welche \acs{ÖV}-Güteklassen der Benutzer auswählen kann und wie diese vom Container \nameref{container:Tile-Server} bezogen werden können.
 
 Diese Informationen werden über ein Web-\ac{API} exponiert.
 Das Web-\ac{API} wird ebenfalls mit Flask exponiert.
@@ -437,14 +437,13 @@ Dieser wird im Kapitel \ref{Infrastruktur:Deployment} genauer beschrieben.
 Der Container \nameref{container:generator} generiert die \acs{ÖV}-Güteklassen aktuell im GeoJSON-Format.
 Damit der Tile-Server Vector Tiles ausliefern kann, müssen die \acs{ÖV}-Güteklassen in ein entsprechendes Format umgewandelt werden.
 Der oben erwähnte Tile-Server nutzt MBTiles~\cite{mbtiles}.
-Dabei handelt es sich um eine Spezifikation, um beliebige gekachelte Karten-Daten zu speichern.
+Dabei handelt es sich um eine Spezifikation von Mapbox, um beliebige gekachelte Karten-Daten zu speichern.
 Dieses Format ist extrem effizient für Transfers, was in unserer Problemdomain relevant ist.
-Für die Konvertierung bietet sich das Tool \emph{tippecanoe}~\cite{tippecanoe} vom gleichen Hersteller wie die Spezifikation des Dateiformats MBTiles an.
+Für die Konvertierung bietet sich das Tool \emph{tippecanoe}~\cite{tippecanoe}, ebenfalls von Mapbox, an.
 Dieses erlaubt die Konvertierung von verschiedenen Dateiformaten, so auch GeoJSON in in MBTiles und die Konfiguration der zu generierenden Vector-Tilesets.
 
 Die Indirektion über das GeoJSON-Format ist bewusst.
-Die ÖV-Güteklassen können als GeoJSON breiter verwendet werden.
-Diese können beispielsweise problemlos in QGIS verwendet werden.
+Die ÖV-Güteklassen können als GeoJSON breiter verwendet werden, etwa in QGIS.
 Das MBTiles ist speziell auf Vector-Tilesets ausgelegt, was bei uns nicht der Hauptfokus ist.
 
 Der Tile-Converter ist als Docker-Container verfügbar.
@@ -465,8 +464,8 @@ Ein Auszug ist in Abbildung \ref{fig:Web_App} ersichtlich.
     \label{fig:Web_App}
 \end{figure}
 
-Zur Übersicht sind die React-Komponente in einer Baumstruktur in Abbildung \ref{fig:Web_App_Component} aufgeschlüsselt.
-Dabei handelt es sich nicht um ein klassisches UML-Komponenten-Diagram.
+Zur Übersicht sind die React-Komponenten in einer Baumstruktur in Abbildung \ref{fig:Web_App_Component} aufgeschlüsselt.
+Dabei handelt es sich nicht um ein klassisches UML-Komponenten-Diagramm.
 Die Verantwortlichkeiten werden nachfolgend kurz beschrieben.
 
 \begin{figure}[H]
@@ -485,12 +484,12 @@ Zur einfachen Bedienung ist ebenfalls ein \gls{Geocoding} eingebunden.
 
 \paragraph{OeVGKControl}
 Interessant ist die Haupt-Komponente \emph{OeVGKControl}, welche die Benutzereingaben und die Karte kontrolliert.
-Diese Komponente nutzt die Web-\acs{API} vom Backend.
+Diese Komponente nutzt das Web-\acs{API} vom Backend.
 Der Ablauf ist stark vereinfacht in Abbildung \ref{fig:Web-App_Sequence} sichtbar.
-Beim Mounten dieser Komponente werden vom Backend die verfügbaren Stichtage geladen (Schritt 1 und 2).
+Beim Mounten dieser Komponente werden vom Backend die verfügbaren Stichtage angefragt (Schritt 1 und 2).
 Anschliessend werden für einen Stichtag die zugehörigen Zeitintervalle geladen (Schritt 3 und 4).
-Mit diesen beiden Informationen wird vom Tile-Server die gewünschte \acs{ÖV}-Güteklasse geladen (Schritt 7).
-Wählt der User einen neuen Stichtag oder Zeitintervall wiederholt sich der obige Ablauf.
+Mit diesen beiden Informationen werden vom Tile-Server dann die gewünschten \acs{ÖV}-Güteklassen geladen (Schritt 7).
+Wählt der User einen neuen Stichtag oder Zeitintervall, wiederholt sich der obige Ablauf.
 
 \begin{figure}[ht]
     \centering
@@ -499,19 +498,19 @@ Wählt der User einen neuen Stichtag oder Zeitintervall wiederholt sich der obig
     \label{fig:Web-App_Sequence}
 \end{figure}
 
-Anmerken muss man, dass auf den Tile-Server für eine \acs{ÖV}-Güteklasse nicht nur einmal zugegriffen wird, wie man aufgrund der Sequenz annehmen könnte.
-Der Vorteil der Vector-Tiles und dem damit verbundenen Tile-Server liegt darin, dass gerade nur die Tiles geladen werden, welche benötigt werden. Verändert man Auszug und Zoomstufe hat man somit Zugriffe auf den Tile-Server.
+Es sei angemerkt, dass auf dem Tile-Server für ein Satz von \acs{ÖV}-Güteklassen nicht nur einmal zugegriffen wird, wie man aufgrund der Sequenz annehmen könnte.
+Der Vorteil der Vector-Tiles und dem damit verbundenen Tile-Server liegt darin, dass gerade nur die Tiles geladen werden, welche benötigt werden. Verändert man Auszug und Zoomstufe, löst man somit Zugriffe auf den Tile-Server aus.
 
 \paragraph{LeafletMap}
 \emph{LeafletMap} ist für die Darstellung der Karte verantwortlich.
-Dabei wird die Komponente Map von react-leaflet~\cite{react-leaflet} verwendet.
-Mithilfe von MapboxGL (MapboxGLLayer)~\cite{mapbox-gl-leaflet} kann die Basiskarte ebenfalls mit Vector-Tiles abgebildet werden, was standardmässig von Leaflet nicht unterstützt wird.
+Dabei wird die Komponente \emph{Map} von react-leaflet~\cite{react-leaflet} verwendet.
+Mithilfe von MapboxGL (MapboxGLLayer)~\cite{mapbox_gl_leaflet} kann die Basiskarte ebenfalls mit Vector-Tiles abgebildet werden, was standardmässig von Leaflet nicht unterstützt wird.
 
 \paragraph{VectorgridLayer}
 Die Kartendaten, welche über die Basiskarte gerendert werden, werden mit der Komponente \emph{VectorgridLayer} verwaltet.
 So existiert jeweils ein Layer für die \acs{ÖV}-Güteklassen 2018, für die \acs{ÖV}-Güteklassen des \acl{ARE} und eine für die ÖV-Haltestellen.
 Somit werden alle Kartendaten mit Vector-Tiles abgebildet.
-Alle vorherigen Layer sind in Abbildung \ref{fig:Vector-Grid-Layers} ersichtlich.
+Alle diese Layer sind in Abbildung \ref{fig:Vector-Grid-Layers} ersichtlich.
 
 \begin{figure}[ht]
     \centering

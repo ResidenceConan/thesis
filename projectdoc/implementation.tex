@@ -528,3 +528,53 @@ Dadurch müssen auf einer tieferen Zoom-Stufe weniger grosse Vector-Tiles gelade
     \caption[Vergleich Zoom-Stufe ÖV-Haltestelle Layer]{Vergleich Zoom-Stufe ÖV-Haltestelle Layer: Zoom-Stufe 13 (links) und 14 (rechts)}
     \label{fig:zoom-level-comparison}
 \end{figure}
+
+
+\subsubsection{Wechsel von Mapbox GL auf Leaflet}
+
+Während der Analyse-Phase wurden die beiden Frontend-Frameworks Vue.js und React evaluiert (siehe Kapitel~\ref{Analyse:Evaluation Frontend-Framework}).
+Die Unterstützung von Mapbox GL~\cite{mapbox_gl_js} war das ausschlagende Kriterium für den Entscheid zugunsten von React.
+Der Grund für den Einsatz von Mapbox GL gegenüber Leaflet~\cite{leaflet} war die gute Unterstützung von Vector Tiles.
+Trotz all dem hat sich während der Entwicklung gezeigt, dass sich der Wechsel zu Leaflet lohnt.
+Im Folgenden soll dies begründet werden.
+
+Der ausschlaggebende Nachteil von Mapbox GL zeigte sich bei der Integration der \acs{ÖV}-Güteklassen, um sie auf der Webkarte anzeigen zu können.
+Wenn sich mehrere Haltestellen nah beieinander befinden, überschneiden sich ihre \glspl{Isochrone}.
+Da wir hinter den Geometrien der \acs{ÖV}-Güteklassen auch die Basiskarte im Hintergrund anzeigen möchten, muss die Deckkraft der Geometrien entsprechend verringert werden.
+Mapbox GL unterstützt die Einstellung der Deckkraft aber ausschliesslich auf Feature-Ebene, sprich auf einzelne Geometrien.
+Bei sich überlagernden Features entsteht damit der Effekt, dass die Farben sich mischen und einander verstärken (siehe Abbildung~\ref{fig:problem_overlapping_isochrones}).
+Dies ist irreführend, da ein Gebiet mit zum Beispiel Güteklasse A durchgehend gleich kategorisiert werden soll, egal, von wie vielen verschiedenen Haltestellen mit der gleichen Güteklasse das Gebiet erschlossen wird.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\linewidth]{projectdoc/img/problem_overlapping_isochrones}
+    \caption[Problematik von sich überlappenden Geometrien mit gleicher Deckkraf]{Überlappende Geometrien mit gleicher Deckkraft ergeben gemischte und irreführende Farbflächen}
+    \label{fig:problem_overlapping_isochrones}
+\end{figure}
+
+Für die Lösung dieses Problems gibt es zwei Ansätze:
+
+\begin{enumerate}
+    \item Die Deckkraft der einzelnen Geometrien auf 100\% setzen und dabei die Deckkraft der kompletten Ebene verringern
+    \item Die Geometrien voneinander ausschneiden, so dass keine Überlagerungen mehr existieren
+\end{enumerate}
+
+Der erste Ansatz ist mit Mapbox GL momentan nicht möglich.
+Die Unterstützung dafür wird aktuell auf Github diskutiert und steht noch offen~\cite{mapbox_layer_opacity}.
+Der zweite Ansatz wurde während der Entwicklung implementiert.
+Da alle Geometrien von allen anderen ausgeschnitten werden, ist dies eine komplexe Operation in der Grössenordnung $\mathcal{O}(n^2)$.
+Es enstanden ausserdem Probleme mit der Topologie der ausgeschnittenen Geometrien sowie Render-Fehler im Browser.
+
+Diese Problematiken haben uns dazu bewegt, von Mapbox GL auf Leaflet umzusteigen.
+Die erste Option, die Verringerung der Deckkraft auf der kompletten Ebene, ist dort kein Problem.
+Damit wurde auch das Ausschneiden der einzelnen Geometrien überflüssig.
+
+\paragraph{Vector Tiles mit Leaflet}~\\
+Der Wechsel zu Leaflet bedeutet auch, dass Vector Tiles nicht mehr nativ unterstützt werden.
+Allerdings gibt es mit \emph{Leaflet.VectorGrid}~\cite{leaflet_vector_grid} eine Erweiterung, die genau dies erlaubt.
+Dafür gibt es zwar keine vorgefertigten React-Komponenten, mit etwas Handarbeit können diese aber leicht selbst erstellt werden.
+
+Ein Spezialfall ist das Einbinden der Basiskarte, die von OpenMapTiles~\cite{openmaptiles} bezogen werden.
+Diese werden von \emph{VectorGrid} nicht unterstützt.
+Es gibt aber wiederum von Mapbox selbst eine Library, um Mapbox GL in einer Leaflet-Karte einzubinden~\cite{mapbox_gl_leaflet}.
+Somit haben wir schlussendlich einen Hybrid aus Mapbox GL und Leaflet, wobei Mapbox GL nur für die Basiskarte verwendet wird, wo die oben genannten Probleme mit der Deckkraft nicht relevant sind.

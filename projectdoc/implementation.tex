@@ -466,22 +466,67 @@ Ein Auszug ist in Abbildung \ref{fig:Web_App} ersichtlich.
 \end{figure}
 
 Zur Übersicht sind die React-Komponente in einer Baumstruktur in Abbildung \ref{fig:Web_App_Component} aufgeschlüsselt.
+Dabei handelt es sich nicht um ein klassisches UML-Komponenten-Diagram.
 Die Verantwortlichkeiten werden nachfolgend kurz beschrieben.
 
-\begin{figure}[ht]
+\begin{figure}[H]
     \centering
     \includegraphics[width=1.0\linewidth]{projectdoc/img/Web-App_Component.png}
-    \caption[Web-App React Component Übersicht]{Web-App React Component Übersicht}
+    \caption[Web-App React Komponente Übersicht]{Web-App React Component Übersicht (grau: externe Komponente)}
     \label{fig:Web_App_Component}
 \end{figure}
  
 \paragraph{App}
 Der zentrale Einstieg der React-Applikation ist die \emph{App}-Komponente.
-Der ganze Header wird über den HeaderControl verwaltet, welche aus zwei Modals (=Dialogen), welche geöffnet werden können.
+
+\paragraph{HeaderControl}
+Der ganze Header wird über den \emph{HeaderControl} verwaltet, welche aus zwei Modals (=Dialogen), welche geöffnet werden können, besteht.
+Zur einfachen Bedienung ist ebenfalls ein \gls{Geocoding} eingebunden.
 
 \paragraph{OeVGKControl}
 Interessant ist die Haupt-Komponente \emph{OeVGKControl}, welche die Benutzereingaben und die Karte kontrolliert.
 Diese Komponente nutzt die Web-\acs{API} vom Backend.
-Beim Mounten dieser Komponente werden vom Backend die verfügbaren Stichtage geladen.
-Anschliessend werden für einen Stichtag die verfügbare Zeitintervalle geladen.
-Mit diesen beiden Informationen wird vom Tile-Server die richtigen \acs{ÖV-Güteklassen} geladen.
+Der Ablauf ist stark vereinfacht in Abbildung \ref{fig:Web-App_Sequence} sichtbar.
+Beim Mounten dieser Komponente werden vom Backend die verfügbaren Stichtage geladen (Schritt 1 und 2).
+Anschliessend werden für einen Stichtag die zugehörigen Zeitintervalle geladen (Schritt 3 und 4).
+Mit diesen beiden Informationen wird vom Tile-Server die gewünschte \acs{ÖV}-Güteklasse geladen (Schritt 7).
+Wählt der User einen neuen Stichtag oder Zeitintervall wiederholt sich der obige Ablauf.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=1.0\linewidth]{projectdoc/img/Web-App_Sequence.png}
+    \caption[Auszug Zusammenspiel React Components]{Auszug Zusammenspiel React Components}
+    \label{fig:Web-App_Sequence}
+\end{figure}
+
+Anmerken muss man, dass auf den Tile-Server für eine \acs{ÖV}-Güteklasse nicht nur einmal zugegriffen wird, wie man aufgrund der Sequenz annehmen könnte.
+Der Vorteil der Vector-Tiles und dem damit verbundenen Tile-Server liegt darin, dass gerade nur die Tiles geladen werden, welche benötigt werden. Verändert man Auszug und Zoomstufe hat man somit Zugriffe auf den Tile-Server.
+
+\paragraph{LeafletMap}
+\emph{LeafletMap} ist für die Darstellung der Karte verantwortlich.
+Dabei wird die Komponente Map von react-leaflet~\cite{react-leaflet} verwendet.
+Mithilfe von MapboxGL (MapboxGLLayer)~\cite{mapbox-gl-leaflet} kann die Basiskarte ebenfalls mit Vector-Tiles abgebildet werden, was standardmässig von Leaflet nicht unterstützt wird.
+
+\paragraph{VectorgridLayer}
+Die Kartendaten, welche über die Basiskarte gerendert werden, werden mit der Komponente \emph{VectorgridLayer} verwaltet.
+So existiert jeweils ein Layer für die \acs{ÖV}-Güteklassen 2018, für die \acs{ÖV}-Güteklassen des \acl{ARE} und eine für die ÖV-Haltestellen.
+Somit werden alle Kartendaten mit Vector-Tiles abgebildet.
+Alle vorherigen Layer sind in Abbildung \ref{fig:Vector-Grid-Layers} ersichtlich.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.6\linewidth]{projectdoc/img/vectorgrid_layers.png}
+    \caption[Vector-Grid-Layers]{Vector-Grid-Layers}
+    \label{fig:Vector-Grid-Layers}
+\end{figure}
+
+Beim Layer, welcher die ÖV-Haltestellen anzeigt, ist der Vorteil der Vector-Tiles stark sichtbar.
+So wurden diese Vector-Tiles so konfiguriert, dass sie erst ab einer gewissen Zoom-Stufe angezeigt werden. In der Abbildung \ref{fig:zoom-level-comparison} sieht man den Unterschied zwischen Zoom-Stufe 13 (links) und 14 (rechts).
+Dadurch müssen auf einer höheren Zoom-Stufe weniger grosse Vector-Tiles geladen werden und der Fokus bleibt auf den \acs{ÖV}-Güteklassen.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=1.0\linewidth]{projectdoc/img/zoom-level-comparison.png}
+    \caption[Vergleich Zoom-Stufe ÖV-Haltestelle Layer]{Vergleich Zoom-Stufe ÖV-Haltestelle Layer: Zoom-Stufe 13 (links) und 14 (rechts)}
+    \label{fig:zoom-level-comparison}
+\end{figure}

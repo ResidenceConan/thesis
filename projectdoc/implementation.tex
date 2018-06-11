@@ -425,7 +425,10 @@ Die konkrete Web-\ac{API}, welche das Backend exponiert, kann mit ReDoc (OpenAPI
 \label{Implementation:Tile-Server}
 
 Als Tile-Server bietet sich TileServer GL~\cite{tile-server-gl} an.
+Wie die GeoJSON in ein vom Tile-Server unterstütztes Format gelangen, ist im Abschnitt \ref{Implementation:Tile-Converter} beschrieben.
 
+Der Tile-Converter ist als Docker-Container verfügbar.
+Dieser wird im Kapitel \ref{Infrastruktur:Deployment} genauer beschrieben.
 
 
 \subsubsection{Tile-Converter}
@@ -435,11 +438,50 @@ Der Container \nameref{container:generator} generiert die \acs{ÖV}-Güteklassen
 Damit der Tile-Server Vector Tiles ausliefern kann, müssen die \acs{ÖV}-Güteklassen in ein entsprechendes Format umgewandelt werden.
 Der oben erwähnte Tile-Server nutzt MBTiles~\cite{mbtiles}.
 Dabei handelt es sich um eine Spezifikation, um beliebige gekachelte Karten-Daten zu speichern.
-Dieses Format ist extrem effizient für Transfer, was in unserer Problemdomain relevant ist.
-Für die Konvertierung bietet sich das Tool \emph{tippecanoe} vom gleichen Hersteller wie die Spezifkation des Dateiformats MBTiles an.
+Dieses Format ist extrem effizient für Transfers, was in unserer Problemdomain relevant ist.
+Für die Konvertierung bietet sich das Tool \emph{tippecanoe}~\cite{tippecanoe} vom gleichen Hersteller wie die Spezifikation des Dateiformats MBTiles an.
 Dieses erlaubt die Konvertierung von verschiedenen Dateiformaten, so auch GeoJSON in in MBTiles und die Konfiguration der zu generierenden Vector-Tilesets.
 
-\subsection{Frontend}
-\label{Implementation:Frontend}
+Die Indirektion über das GeoJSON-Format ist bewusst.
+Die ÖV-Güteklassen können als GeoJSON breiter verwendet werden.
+Diese können beispielsweise problemlos in QGIS verwendet werden.
+Das MBTiles ist speziell auf Vector-Tilesets ausgelegt, was bei uns nicht der Hauptfokus ist.
 
+Der Tile-Converter ist als Docker-Container verfügbar.
+Dieser wird im Kapitel \ref{Infrastruktur:Deployment} genauer beschrieben.
+
+\subsection{Web-App}
+\label{Implementation:Web-App}
+
+In einer Evaluation, welche im Kapitel \ref{Analyse:Evaluation Frontend-Framework} beschrieben ist, wurde entschieden, dass der Fokus auf React~\cite{react} gelegt wird.
+Die Web-App wurde dementsprechend mit React entwickelt.
 Grafisch wurde das Frontend aufgrund der \nameref{appendix:wireframes} umgesetzt.
+Ein Auszug ist in Abbildung \ref{fig:Web_App} ersichtlich.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=1.0\linewidth]{projectdoc/img/screenshot-webapp.png}
+    \caption[Web-App]{Web-App}
+    \label{fig:Web_App}
+\end{figure}
+
+Zur Übersicht sind die React-Komponente in einer Baumstruktur in Abbildung \ref{fig:Web_App_Component} aufgeschlüsselt.
+Die Verantwortlichkeiten werden nachfolgend kurz beschrieben.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=1.0\linewidth]{projectdoc/img/Web-App_Component.png}
+    \caption[Web-App React Component Übersicht]{Web-App React Component Übersicht}
+    \label{fig:Web_App_Component}
+\end{figure}
+ 
+\paragraph{App}
+Der zentrale Einstieg der React-Applikation ist die \emph{App}-Komponente.
+Der ganze Header wird über den HeaderControl verwaltet, welche aus zwei Modals (=Dialogen), welche geöffnet werden können.
+
+\paragraph{OeVGKControl}
+Interessant ist die Haupt-Komponente \emph{OeVGKControl}, welche die Benutzereingaben und die Karte kontrolliert.
+Diese Komponente nutzt die Web-\acs{API} vom Backend.
+Beim Mounten dieser Komponente werden vom Backend die verfügbaren Stichtage geladen.
+Anschliessend werden für einen Stichtag die verfügbare Zeitintervalle geladen.
+Mit diesen beiden Informationen wird vom Tile-Server die richtigen \acs{ÖV-Güteklassen} geladen.

@@ -408,6 +408,7 @@ Das Backend wird beim Starten initialisiert.
 Dabei wird eine generierte Metadaten-Datei des Container \nameref{container:generator} eingelesen.
 Genauer Sinn und Zweck dieser Datei ist im Abschnitt \ref{layer:output} beschrieben.
 Diese Datei beinhaltet die Information, welche \acs{ÖV}-Güteklassen verfügbar sind.
+Dadurch kann die Web-App entscheiden, welche \acs{ÖV}-Güteklassen der Benutzer auswählen kann und wie er diese vom Container \nameref{container:Tile-Server} bezogen werden können.
 
 Diese Informationen werden über ein Web-\ac{API} exponiert.
 Das Web-\ac{API} wird ebenfalls mit Flask exponiert.
@@ -418,4 +419,27 @@ Im Bezug auf das Maturity Model~\cite{maturity_model} von Leonard Richardson bef
 Mithilfe von Flasgger~\cite{flasgger} wird eine \ac{OAS}~\cite{open-api-specificaiton} erstellt.
 Dies hat den Vorteil, dass die \ac{API} sauber dokumentiert ist und Clients der \ac{API} in unterschiedlichen Sprachen generiert werden können.
 
-Die konkrete Web-\ac{API}, welche das Backend exponiert, kann mit ReDoc (OpenAPI/Swagger-generated API Reference Documentation)~\cite{oevgk18-backend-api-spec} oder mit dem klassischen Swagger UI~\cite{oevgk18-backend-api-swaggerui} betracht werden.  
+Die konkrete Web-\ac{API}, welche das Backend exponiert, kann mit ReDoc (OpenAPI/Swagger-generated API Reference Documentation)~\cite{oevgk18-backend-api-spec} oder mit dem klassischen Swagger UI~\cite{oevgk18-backend-api-swaggerui} betracht werden.
+
+\subsection{Tile-Server}
+\label{Implementation:Tile-Server}
+
+Als Tile-Server bietet sich TileServer GL~\cite{tile-server-gl} an.
+
+
+
+\subsubsection{Tile-Converter}
+\label{Implementation:Tile-Converter}
+
+Der Container \nameref{container:generator} generiert die \acs{ÖV}-Güteklassen aktuell im GeoJSON-Format.
+Damit der Tile-Server Vector Tiles ausliefern kann, müssen die \acs{ÖV}-Güteklassen in ein entsprechendes Format umgewandelt werden.
+Der oben erwähnte Tile-Server nutzt MBTiles~\cite{mbtiles}.
+Dabei handelt es sich um eine Spezifikation, um beliebige gekachelte Karten-Daten zu speichern.
+Dieses Format ist extrem effizient für Transfer, was in unserer Problemdomain relevant ist.
+Für die Konvertierung bietet sich das Tool \emph{tippecanoe} vom gleichen Hersteller wie die Spezifkation des Dateiformats MBTiles an.
+Dieses erlaubt die Konvertierung von verschiedenen Dateiformaten, so auch GeoJSON in in MBTiles und die Konfiguration der zu generierenden Vector-Tilesets.
+
+\subsection{Frontend}
+\label{Implementation:Frontend}
+
+Grafisch wurde das Frontend aufgrund der \nameref{appendix:wireframes} umgesetzt.

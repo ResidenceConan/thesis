@@ -4,7 +4,7 @@
 # Hopefully this will become obsolete in the near future.
 mkdir ~/texlive
 cd ~/texlive
-wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
+wget http://ctan.127001.ovh/systems/texlive/tlnet/install-tl-unx.tar.gz
 tar xf install-tl-unx.tar.gz
 rm install-tl-unx.tar.gz
 cd install-tl-*

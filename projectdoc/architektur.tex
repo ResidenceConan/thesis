@@ -179,12 +179,21 @@ Die beiden Varianten wurden im Kapitel \ref{Analyse:Evaluation Frontend-Framewor
 \subsubsection{Tile-Server}
 \label{container:Tile-Server}
 
-Die berechneten \acs{ÖV}-Güteklassen werden als Vector Tiles~\cite{geometalab_vectortiles} ausgeliefert.
-Der Grund dafür ist, dass die Performanz um einiges besser ist, als wenn man direkt ein GeoJSON oder Raster-Kacheln ausliefert, da unteranderm nur der gerade geforderte Auszug geladen wird und bei unterschiedlichen Zoom-Stufen skaliert werden kann.
-Davon verspricht man sich ein bessere Usability, da die \acs{ÖV}-Güteklassen je nach Position und Zoom-Stufe schneller verfügbar sind.
-Ebenfalls muss das Frontend keine grosse Dateien vom Backend laden, was bei der Visualisierung eines GeoJSON der Fall wäre.
+Der Tile-Server ist ein wichtiger Container, welche vom Web-App genutzt wird.
+Durch diesen und die damit verbundenen Verwendung von Vector-Tiles~\cite{geometalab_vectortiles} wird eine enorme Performanzsteigerung und somit eine bessere Usability erreicht.
+Der Tile-Server war in einer ersten Version nicht angedacht.
+In einer ersten Version hat die Web-App die \acs{ÖV}-Güteklassen direkt als GeoJSON vom Backend bezogen.
+Dies war auf zwei Ebenen problematisch.
+In einem ersten Schritt musste das GeoJSON vom Server geladen werden.
+Das GeoJSON für die \acs{ÖV}-Güteklassen 2018 am Stichtag 13.11.2018 tagsüber hat eine Grösse von 65 MB.
+Dieses muss in voller Grösse geladen werden und das für jeden verfügbaren Stichtag, welcher ein Benutzer auswählt.
+Die Visualisierung des GeoJSON in dieser Grössenordnung ist extrem unflüssig und man wartet beim Verschieben der Karten mehrere Sekunden auf die Darstellung der \acs{ÖV}-Güteklassen.
 
-Damit der Container \nameref{container:Web-App} Vector-Tiles von den generierten \acs{ÖV}-Güteklassen beziehen kann, müssen diese über einen Tile-Server exponiert werden.
+Diese Problematik ist mit der Verwendung von Vector-Tiles und einem Tile-Server obsolet.
+Der Tile-Server liefert genau die Daten aus, welcher der Benutzer gerade betrachten möchte.
+Liegt der Fokus beispielsweise auf Rapperswil-Jona, werden die \acs{ÖV}-Güteklassen in diesem Gebiet geladen und nicht für die ganze Schweiz.
+Die \acs{ÖV}-Güteklassen werden einfach gesagt gekachelt, was das Ausliefern eines Auszugs der Daten möglich macht.
+Je nach Zoom-Stufe ist es möglich darzustellende Features zusammenzufassen, weniger oder mehr Detail in die Darstellung zu bringen und kann somit die zu ladende Grösse der Vector-Tiles und somit die Antwortzeit vom Server optimieren.
 
 \subsubsection{Routing-Engine}
 \label{container:Routing-Engine}

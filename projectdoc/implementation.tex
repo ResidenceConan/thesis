@@ -401,16 +401,16 @@ Mit dieser JSON-Datei wird dem Backend ebenfalls mitgeteilt, welche Stichtage an
 \label{Implementation:Backend}
 
 In diesem Abschnitt wird der Container \nameref{container:Backend} erläutert.
-Primäres Ziel der Komponente ist es, Nutzer Informationen über verfügbare \acs{ÖV}-Güteklasse bereit zu stellen.
+Primäres Ziel der Komponente ist es, Nutzer Informationen über verfügbare \acs{ÖV}-Güteklasse bereitzustellen.
 Es handelt sich dabei um eine schlanke Flask-Applikation~\cite{flask} mit sehr geringer Logik.
 
 Das Backend wird beim Starten initialisiert.
 Dabei wird eine generierte Metadaten-Datei des Container \nameref{container:generator} eingelesen.
 Genauer Sinn und Zweck dieser Datei ist im Abschnitt \ref{layer:output} beschrieben.
 Diese Datei beinhaltet die Information, welche \acs{ÖV}-Güteklassen verfügbar sind.
+Dadurch kann die Web-App entscheiden, welche \acs{ÖV}-Güteklassen der Benutzer auswählen kann und wie diese vom Container \nameref{container:Tile-Server} bezogen werden können.
 
 Diese Informationen werden über ein Web-\ac{API} exponiert.
-Das Web-\ac{API} wird ebenfalls mit Flask exponiert.
 Diese besteht aus \acl{REST}-Services.
 Die verfügbaren Services sind in der Tabelle \ref{table:Wep-API} beschrieben.
 Im Bezug auf das Maturity Model~\cite{maturity_model} von Leonard Richardson befinden wir uns auf Level 2.
@@ -418,4 +418,113 @@ Im Bezug auf das Maturity Model~\cite{maturity_model} von Leonard Richardson bef
 Mithilfe von Flasgger~\cite{flasgger} wird eine \ac{OAS}~\cite{open-api-specificaiton} erstellt.
 Dies hat den Vorteil, dass die \ac{API} sauber dokumentiert ist und Clients der \ac{API} in unterschiedlichen Sprachen generiert werden können.
 
-Die konkrete Web-\ac{API}, welche das Backend exponiert, kann mit ReDoc (OpenAPI/Swagger-generated API Reference Documentation)~\cite{oevgk18-backend-api-spec} oder mit dem klassischen Swagger UI~\cite{oevgk18-backend-api-swaggerui} betracht werden.  
+Die konkrete Web-\ac{API}, welche das Backend exponiert, kann mit ReDoc (OpenAPI/Swagger-generated API Reference Documentation)~\cite{oevgk18-backend-api-spec} oder mit dem klassischen Swagger UI~\cite{oevgk18-backend-api-swaggerui} betracht werden.
+
+\subsection{Tile-Server}
+\label{Implementation:Tile-Server}
+
+Als Tile-Server bietet sich TileServer GL~\cite{tile-server-gl} an.
+Wie die GeoJSON in ein vom Tile-Server unterstütztes Format gelangen, ist im Abschnitt \ref{Implementation:Tile-Converter} beschrieben.
+
+Der Tile-Converter ist als Docker-Container verfügbar.
+Dieser wird im Kapitel \ref{Infrastruktur:Deployment} genauer beschrieben.
+
+
+\subsubsection{Tile-Converter}
+\label{Implementation:Tile-Converter}
+
+Der Container \nameref{container:generator} generiert die \acs{ÖV}-Güteklassen aktuell im GeoJSON-Format.
+Damit der Tile-Server Vector Tiles ausliefern kann, müssen die \acs{ÖV}-Güteklassen in ein entsprechendes Format umgewandelt werden.
+Der oben erwähnte Tile-Server nutzt MBTiles~\cite{mbtiles}.
+Dabei handelt es sich um eine Spezifikation von Mapbox, um beliebige gekachelte Karten-Daten zu speichern.
+Dieses Format ist extrem effizient für Transfers, was in unserer Problemdomain relevant ist.
+Für die Konvertierung bietet sich das Tool \emph{tippecanoe}~\cite{tippecanoe}, ebenfalls von Mapbox, an.
+Dieses erlaubt die Konvertierung von verschiedenen Dateiformaten, so auch GeoJSON in in MBTiles und die Konfiguration der zu generierenden Vector-Tilesets.
+
+Die Indirektion über das GeoJSON-Format ist bewusst.
+Die ÖV-Güteklassen können als GeoJSON breiter verwendet werden, etwa in QGIS.
+Das MBTiles ist speziell auf Vector-Tilesets ausgelegt, was bei uns nicht der Hauptfokus ist.
+
+Der Tile-Converter ist als Docker-Container verfügbar.
+Dieser wird im Kapitel \ref{Infrastruktur:Deployment} genauer beschrieben.
+
+\subsection{Web-App}
+\label{Implementation:Web-App}
+
+In einer Evaluation, welche im Kapitel \ref{Analyse:Evaluation Frontend-Framework} beschrieben ist, wurde entschieden, dass der Fokus auf React~\cite{react} gelegt wird.
+Die Web-App wurde dementsprechend mit React entwickelt.
+Grafisch wurde das Frontend aufgrund der \nameref{appendix:wireframes} umgesetzt.
+Ein Auszug ist in Abbildung \ref{fig:Web_App} ersichtlich.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=1.0\linewidth]{projectdoc/img/screenshot-webapp.png}
+    \caption[Web-App]{Web-App}
+    \label{fig:Web_App}
+\end{figure}
+
+Zur Übersicht sind die React-Komponenten in einer Baumstruktur in Abbildung \ref{fig:Web_App_Component} aufgeschlüsselt.
+Dabei handelt es sich nicht um ein klassisches UML-Komponenten-Diagramm.
+Die Verantwortlichkeiten werden nachfolgend kurz beschrieben.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\linewidth]{projectdoc/img/Web-App_Component.png}
+    \caption[Web-App React Komponente Übersicht]{Web-App React Component Übersicht (grau: externe Komponente)}
+    \label{fig:Web_App_Component}
+\end{figure}
+ 
+\paragraph{App}
+Der zentrale Einstieg der React-Applikation ist die \emph{App}-Komponente.
+
+\paragraph{HeaderControl}
+Der ganze Header wird über den \emph{HeaderControl} verwaltet, welche aus zwei Modals (=Dialogen), welche geöffnet werden können, besteht.
+Zur einfachen Bedienung ist ebenfalls ein \gls{Geocoding} eingebunden.
+
+\paragraph{OeVGKControl}
+Interessant ist die Haupt-Komponente \emph{OeVGKControl}, welche die Benutzereingaben und die Karte kontrolliert.
+Diese Komponente nutzt das Web-\acs{API} vom Backend.
+Der Ablauf ist stark vereinfacht in Abbildung \ref{fig:Web-App_Sequence} sichtbar.
+Beim Mounten dieser Komponente werden vom Backend die verfügbaren Stichtage angefragt (Schritt 1 und 2).
+Anschliessend werden für einen Stichtag die zugehörigen Zeitintervalle geladen (Schritt 3 und 4).
+Mit diesen beiden Informationen werden vom Tile-Server dann die gewünschten \acs{ÖV}-Güteklassen geladen (Schritt 7).
+Wählt der User einen neuen Stichtag oder Zeitintervall, wiederholt sich der obige Ablauf.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=1.0\linewidth]{projectdoc/img/Web-App_Sequence.png}
+    \caption[Auszug Zusammenspiel React Components]{Auszug Zusammenspiel React Components}
+    \label{fig:Web-App_Sequence}
+\end{figure}
+
+Es sei angemerkt, dass auf dem Tile-Server für ein Satz von \acs{ÖV}-Güteklassen nicht nur einmal zugegriffen wird, wie man aufgrund der Sequenz annehmen könnte.
+Der Vorteil der Vector-Tiles und dem damit verbundenen Tile-Server liegt darin, dass gerade nur die Tiles geladen werden, welche benötigt werden. Verändert man Auszug und Zoomstufe, löst man somit Zugriffe auf den Tile-Server aus.
+
+\paragraph{LeafletMap}
+\emph{LeafletMap} ist für die Darstellung der Karte verantwortlich.
+Dabei wird die Komponente \emph{Map} von react-leaflet~\cite{react-leaflet} verwendet.
+Mithilfe von MapboxGL (MapboxGLLayer)~\cite{mapbox_gl_leaflet} kann die Basiskarte ebenfalls mit Vector-Tiles abgebildet werden, was standardmässig von Leaflet nicht unterstützt wird.
+
+\paragraph{VectorgridLayer}
+Die Kartendaten, welche über die Basiskarte gerendert werden, werden mit der Komponente \emph{VectorgridLayer} verwaltet.
+So existiert jeweils ein Layer für die \acs{ÖV}-Güteklassen 2018, für die \acs{ÖV}-Güteklassen des \acl{ARE} und eine für die ÖV-Haltestellen.
+Somit werden alle Kartendaten mit Vector-Tiles abgebildet.
+Alle diese Layer sind in Abbildung \ref{fig:Vector-Grid-Layers} ersichtlich.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.6\linewidth]{projectdoc/img/vectorgrid_layers.png}
+    \caption[Vector-Grid Layers]{Vector-Grid Layers}
+    \label{fig:Vector-Grid-Layers}
+\end{figure}
+
+Beim Layer, welcher die ÖV-Haltestellen anzeigt, ist der Vorteil der Vector-Tiles stark sichtbar.
+So wurden diese Vector-Tiles so konfiguriert, dass sie erst ab einer gewissen Zoom-Stufe angezeigt werden. In der Abbildung \ref{fig:zoom-level-comparison} sieht man den Unterschied zwischen Zoom-Stufe 13 (links) und 14 (rechts).
+Dadurch müssen auf einer tieferen Zoom-Stufe weniger grosse Vector-Tiles geladen werden und der Fokus bleibt auf den \acs{ÖV}-Güteklassen.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=1.0\linewidth]{projectdoc/img/zoom-level-comparison.png}
+    \caption[Vergleich Zoom-Stufe ÖV-Haltestelle Layer]{Vergleich Zoom-Stufe ÖV-Haltestelle Layer: Zoom-Stufe 13 (links) und 14 (rechts)}
+    \label{fig:zoom-level-comparison}
+\end{figure}

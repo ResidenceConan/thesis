@@ -3,10 +3,15 @@
 \section{Resultate und Weiterentwicklung}
 \label{Resultate und Weiterentwicklung}
 
-%TODO
 
 \subsection{Resultate}
 \label{Resultate und Weiterentwicklung:Resultate}
+
+Mit unserer Spezifikation "`\acs{ÖV}-Güteklassen 2018"' sowie deren Implementation ist die Grundlage für eine Einheitliche Ermittlung von \acs{ÖV}-Güteklassen für die gesamte Schweiz geschaffen.
+Mithilfe des entwickelten Generators können die \acs{ÖV}-Güteklassen jederzeit und automatisiert mit den aktuellsten Datensätzen erzeugt werden.
+Die Webapplikation erlaubt eine Visualisierung der errechneten Geodaten auf einer interaktiven Webkarte.
+Zusätzlich können die \acs{ÖV}-Güteklassen des \ac{ARE} den \acs{ÖV}-Güteklassen 2018 visuell überlagert werden, um sie zu vergleichen.
+
 
 \subsubsection{Laufzeit}
 \label{Resultate und Weiterentwicklung:Laufzeit}
@@ -113,4 +118,27 @@ Dabei ist anzumerken, dass in der Messung dieser Operation einige Variablen vern
 \subsection{Möglichkeiten der Weiterentwicklung}
 \label{Resultate und Weiterentwicklung:Möglichkeiten der Weiterentwicklung}
 
-%TODO
+Im Teil \ref{Technischer Bericht} Kapitel \ref{Resultate} wurde bereits auf mögliche Weiterentwicklung eingegangen, die alternative Ansätze zur Ermittlung von \acs{ÖV}-Güteklassen beinhalten.
+In diesem Abschnitt soll der Fokus auf der Implementation unserer Spezifikation liegen.
+
+Während der Arbeit sind folgende Ansätze zur Weiterentwicklung und Optimierung aufgekommen:
+
+\paragraph{Parallelisierung}
+Die Berechnung der \acs{ÖV}-Güteklassen 2018 wurde während der Entwicklung stets optimiert, um eine akzeptable Laufzeit zu erzielen.
+Der Grossteil der Optimierungen involvierte Datenbank-Indices oder Vorberechnungen, um die Komplexität zu Verringern.
+Da die Berechnung der \acs{ÖV}-Güteklassen für jede Haltestelle unabhängig erfolgt, könnte zusäztlich der ganze Prozess parallelisiert werden, um Multi-Core-Systeme auszunutzen.
+In der jetzigen Implementation wurde dies für die Berechnung der Leistungskilometer bereits umgesetzt.
+Mit der Parallelisierung des gesamten Prozesses könnte etwa auf einem 4-Core System eine Laufzeitverbesserung von annähernd Faktor 4 erzielt werden.
+
+\paragraph{Effizientere Segmentierung des Routing-Graphen}
+In der jetzigen Implementation wird der Routing-Graph segmentiert und anschliessend mit einer integrierten Funktion von pgRouting die komplette Topographie neu berechnet.
+Diese Funktion dauert einige Stunden.
+Eine Optimierung könnte sein, die Topographie des Graphen bereits während der Segmentierung neu zu berechnen.
+Da jede Kante in mehrere Kanten zerstückelt wird, müssten dazu jeweils neue Vertices eingefügt und entsprechend verbunden werden.
+Dies bedeutet etwas höhere Komplexität bei der Segmentierung, dafür entfällt der Schritt zur Neuberechnung des kompletten Graphen durch pgRouting.
+
+\paragraph{Zusätzliche Ausgabeformate}
+Momentan werden die errechneten \acs{ÖV}-Güteklassen im \gls{GeoJSON}-Format ausgegeben.
+Für eine weitergehende Analyse der Resultate kann es sinnvoll sein, die Resultate zusätzlich in zum Beispiel einer PostGIS-Datenbank auszugeben.
+Dabei könnten auch beliebige Metadaten zu den Haltestellen und Geometrien eingebunden werden, die während der Berechnung entstehen.
+Durch unsere Architektur benötigt ein zusätzliches Ausgabeformat lediglich eine weitere Implementation von \emph{OutputWriter} (siehe Kapitel \ref{container:generator}).

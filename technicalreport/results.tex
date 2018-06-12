@@ -191,6 +191,7 @@ Dadurch wären Auswertungen analog zu "`95\% der wohnhaften Personen in einem be
 Aber auch für den privaten Gebrauch ist eine Weiterentwicklung von Interesse.
 So ist ein Wohnortfinder denkbar, welcher die Qualität des \acs{ÖV}-Anschlusses und anderen Faktoren (Nähe zu einer Schule oder Krankenhaus, etc.) berücksichtigt.
 
+\paragraph{Raster-Ansatz}~\\
 Für die Berechnung der Einzugsgebiete wird in dieser Arbeit der Ansatz von \glspl{Isochrone} verwendet, die entlang des Strassen- und Wegnetzes verlaufen.
 Die Grundannahme dahinter ist, dass sich Fussgänger immer entlang des Wegnetzes fortbewegen.
 Dabei gibt es Probleme bei offenen Fussgängerflächen, wie sie in~\cite{plaza_route} behandelt werden.
@@ -209,6 +210,16 @@ In Abbildung \ref{fig:grid_based_approach} ist ein Ergebnis einer solchen Berech
 
 Mit dieser Methode ist die Qualität des Routing-Graphen und Problematiken wie bei Fussgängerflächen weniger relevant.
 Für die Berechnung von \acs{ÖV}-Güteklassen wäre dies ein spannender Ansatz für den Vergleich mit der Lösung in dieser Arbeit.
+
+\paragraph{Multimodaler Verkehr}~\\
+In allen bisherigen Ansätzen zur Ermittlung von \acs{ÖV}-Güteklassen wird das Einzugsgebiet von Haltestellen über die Laufdistanz charakterisiert.
+Dabei werden die Möglichkeiten des Individualverkehrs (wie etwa Auto, Fahrrad, etc.) nicht mit eingerechnet.
+Die Maximaldistanz eines Erschliessungsgebiets liegt bei Laufdistanzen bei 15 Minuten Gehzeit.
+Mit einem Fahrrad etwa wäre die Distanz deutlich grösser, die in 15 Minuten zurückgelegt werden können.
+Für andere Verkehrsmittel bräuchte es daher jeweils andere Massstäbe.
+
+Die jetzige Einschränkung auf Fussdistanzen führt auch daher, dass die \acs{ÖV}-Güteklassen nicht zu komplex werden sollen, damit eine einfache und schnelle Interpretation möglich bleibt.
+Daher ist hier abzuwägen, inwiefern es sinnvoll ist, andere Arten des Individualverkehrs miteinzubeziehen.
 
 \subsection{Dank}
 \label{Resultate:Dank}

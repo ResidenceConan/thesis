@@ -18,7 +18,7 @@ Für unsere Zwecke sind folgende Kriterien massgebend:
 
 Für das Kriterium 1 bringen GraphHopper und pgRouting bereits eingebaute Funktionen mit, für OSRM gibt es ein experimentelles Tool von Mapbox~\cite{mapbox_osrm_isochrone}.
 
-Für das zweite Kriterium, die Integration von Höhendaten, gibt es bei GraphHopper und OSRM eingeschränkte Möglichkeiten. GraphHopper bietet zwar an, das weltweit abdeckende Modell von \ac{SRTM} direkt einzubinden, dessen Genauigkeit ist mit 90 Metern aber deutlich tiefer als bei unserem swissALTI$^{3D}$-Modell~\cite{swissalti3d_swisstopo} mit 2--10 Metern. Die Integration eines eigenen Modells würde bei beiden Routing-Engines eine Anpassung der Implementierung benötigen.
+Für das zweite Kriterium, die Integration von Höhendaten, gibt es bei GraphHopper und OSRM eingeschränkte Möglichkeiten. GraphHopper bietet zwar an, das weltweit abdeckende Modell von \ac{SRTM} direkt einzubinden, dessen Genauigkeit ist mit 90 Metern aber deutlich tiefer als bei unserem swissALTI$^{3D}$-Modell mit 2--10 Metern~\cite{swissalti3d_swisstopo}. Die Integration eines eigenen Modells würde bei beiden Routing-Engines eine Anpassung der Implementation benötigen.
 
 Bei pgRouting bringt die Implementation selbst keine direkte Unterstützung von Höhendaten mit.
 Im Unterschied zu den anderen Varianten kann die Kosten-Funktion zur Berechnung von Wegzeiten aber einfach selbst angepasst werden.
@@ -90,7 +90,7 @@ Dies hat unter anderem den Vorteil, dass nicht bei jeder Zoomstufe ein neues Bil
 Für die Integration solcher Vector Tiles in Webkarten hat die Firma Mapbox ein Format spezifiziert und mit \emph{Mapbox GL JS}~\cite{mapbox_gl_js} eine JavaScript-Library veröffentlicht, um diese einzubinden.
 Diese Library bietet deutlich mehr Möglichkeiten als Leaflet, um die Darstellung von Kacheln individuell anzupassen.
 Die Vektor-Daten selbst sind bei Mapbox bis zu einem gewissen Abrufvolumen kostenlos erhältlich.
-Es können aber auch andere Datenquellen, wie z.B. von OpenMapTiles~\cite{openmaptiles}, verwendet werden.
+Es können aber auch andere Datenquellen wie z.B. von OpenMapTiles~\cite{openmaptiles} verwendet werden.
 
 Für die Integration mit React und Vue.js gibt es mehrere vorgefertigte Komponenten von Dritten.
 Wir haben jeweils die beliebtesten (Anzahl Github-Stars) davon angeschaut.
@@ -128,13 +128,13 @@ Da sowohl React wie auch Vue.js auf NodeJS aufsetzen und den Paketmanager NPM be
 
 Um eine neue Applikation zu erstellen, bietet React das Tool \emph{create-react-app}~\cite{create_react_app} an.
 Beim Ausführen kann man angeben, welche zusätzlichen Libraries (z.B. für Unit-Testing) man verwenden möchte.
-Während der Entwicklung kann ausserdem ein lokaler Server gestartet werden, der jeweils automatisch das Browser-Fenster neu ladet, wenn sich der Source-Code geändert hat.
+Während der Entwicklung kann ausserdem ein lokaler Server gestartet werden, der jeweils automatisch das Browser-Fenster neu lädt, wenn sich der Source-Code geändert hat.
 
 Vue.js bietet mit \emph{vue-cli}~\cite{vue_cli} ein ähnliches Tool an.
 Um eine neue Applikation aufzusetzen, kann zwischen verschiedenen Templates gewählt werden, welche sich aufgrund der geplanten Grösse der Applikation unterscheiden.
 Während der Entwicklung bietet \emph{vue-cli} die praktisch identischen Möglichkeiten wie das Tool für React.
 
-Insgesamt kann zwischen den beiden Varianten in Sachen Tooling keinen Unterschied festgestellt werden.
+Insgesamt kann zwischen den beiden Varianten in Sachen Tooling kein markanter Unterschied festgestellt werden.
 
 
 \subsubsection{Auswertung}
@@ -174,7 +174,7 @@ In diesem Punkt bieten die vorhandenen Komponenten für Vue.js nicht die gewüns
 \subsection{ÖV-Güteklassen 2018 Generator}
 \label{Analyse:ÖV-Güteklassen 2018 Generator}
 
-Der \nameref{container:generator} Container ist für die Berechnung der "`ÖV-Güẗeklassen 2018"' verantwortlich.
+Der Container \nameref{container:generator} (siehe Kapitel \ref{Architektur}) ist für die Berechnung der "`ÖV-Güẗeklassen 2018"' verantwortlich.
 Umgesetzt wird diese Komponente als Python-Applikation.
 Für die Kommunikation und Integration mit den Umsystemen sind einige Libraries nötig, die im Folgenden kurz diskutiert werden.
 
@@ -216,6 +216,6 @@ Die restlichen Wireframes sind im Anhang \nameref{appendix:wireframes} abgebilde
 \end{figure}
 
 Grundsätzlich besteht das UI aus einer interaktiven Web-Karte, die sich über das gesamte Browser-Fenster erstreckt.
-Darauf befindet sich ein Steuerelement, um die Anzeige der \glspl{ÖV-Güteklassen} zu konfigurieren.
+Darauf befindet sich ein Steuerelement, um die Anzeige der \gls{ÖV-Güteklassen} zu konfigurieren.
 Die beiden Karten-Layer der Datensätze \gls{OeVGK18} und \gls{OeVGKARE} können ein- oder ausgeblendet werden.
 Bei der \gls{OeVGK18} können zusätzlich Parameter wie der Tag (Wochentag oder Wochenende) sowie der Zeitbereich (Tag, Abend oder Nacht) konfiguriert werden.

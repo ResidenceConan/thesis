@@ -4,11 +4,52 @@
 % etwa 200 Worte (etwa 20 Zeilen). Es sind keine Bilder zu verwenden.
 
 \chapter*{Abstract}\addcontentsline{toc}{chapter}{Abstract}
+ÖV-Güteklassen werden für die Beurteilung der Erschliessung mit dem öffentlichen Verkehr verwendet.
+Die heute anerkannte Spezifikation der ÖV-Güteklassen des Bundesamts für Raumentwicklung (ARE)  basiert auf einer inzwischen ersetzten Schweizer Norm aus dem Jahre 1993.
+Diverse Kantone haben in Eigeninitiativen Anpassungen daran vorgenommen, um kantonalen Gegebenheiten gerecht zu werden.
+Die Implementationen dieser sind überholt und werden den aktuellen technischen Möglichkeiten nicht gerecht.
+So führen einige Kantone die Berechnung dieser in Handarbeit durch.
+Ebenfalls wird das Einzugsgebiet mit Luftlinien berechnet und die Topographie nicht konsequent in die Berechnung miteinbezogen.
+Die kantonalen Eigenlösungen zeigen, dass noch kein Konsens einer aktuellen Lösung vorhanden ist.
 
-%TODO
+ÖV-Güteklassen 2018 kombiniert die Erkenntnisse einiger kantonalen Lösungen und verbessert diese mit den aktuellen technischen Möglichkeiten mit dem Ziel, eine allgemeingültige Spezifikation für die Schweiz zu erstellen.
+In der Spezifikation wird nun vorausgesetzt, dass das Einzugsgebiet auf einem Fussgänger-Routing-Graphen berechnet wird.
+Ebenfalls soll die Topographie konsequent berücksichtigt werden.
+Diese Anforderung wird mit der Berechnung von Leistungskilometern erreicht.
+
+Der ÖV-Güteklassen 2018 Generator setzt die neu erstellte Spezifikation um.
+Er erzeugt einen schweizweiten Geodatensatz.
+So werden mithilfe von OpenStreetMap-Daten und mit der pgRouting-Software (PostgreSQL) auf einem Fussgänger-Graphen für jedes Einzugsgebiet Isochronen berechnet.
+Dadurch erhält man ein adäquates Verständnis über die Erreichbarkeit einer Haltestelle.
+Durch den Einsatz des hochaufgelösten digitalen Terrainmodells swissALTI$^{3D}$ von Swisstopo wird die Topographie in die Berechnung miteinbezogen.
+Eine Haltestelle auf einem schwer begehbaren Gelände hat somit ein kleineres Einzugsgebiet.
+Die Berechnung des Kursintervalls einer Haltestelle wurde überdacht und eine neue Formel definiert.
+Der Generator erlaubt die automatisierte Berechnung der ÖV-Güteklassen für verschiedene Stichtage.
+
+Zur Veranschaulichung werden die berechneten ÖV-Güteklassen 2018 in einer
+Webapplikation dargestellt.
+Dabei können diese den ÖV-Güteklassen des ARE überlagert werden.
+
+ÖV-Güteklassen 2018 geht mit der Zeit und passt sich denn aktuellen technischen Möglichkeiten an.
+Durch die Konsolidierung einiger kantonaler Lösungen und Berücksichtigung der genauen Wegführung und Topographie wurde der erste Schritt in Richtung einer schweizweit anerkannten ÖV-Güteklassen-Spezifikation gemacht.
 
 \cleardoublepage
 
 \chapter*{Abstract}
 
-%TODO
+Public transport quality gradings ("`ÖV-Güteklassen"') are used to measure the coverage radius of public transportation stations by distance and time.
+The currently accepted specification by the Swiss Federal Office for Spatial Development (ARE) is based on an outdated standard from 1993.
+Multiple cantons have since made adjustments to the methods to cater to their specific needs.
+The varied alterations show that there is a need to create a general solution for Switzerland.
+The cantonal adjustments and the current specification use linear distance for coverage radii and do not incorporate topographic data into the calculation.
+
+This thesis introduces a new uniform specification for public transport quality gradings ("ÖV-Güteklassen 2018") which incorporates the varied approaches from the cantons and combines them with more modern technical capabilities.
+The specification requires the coverage areas to be calculated along a pedestrian routing graph that incorporates topography of the area as well as the frequency of service.
+
+Additionally, we created a software that implements the newly designed specification.
+With the help of the routing engine "`pgRouting"', we create coverage areas along a pedestrian routing graph that allows for a more detailed understanding of the public transport coverage radius.
+A high-resolution digital height model from Swisstopo integrates the topography into this radius allowing a public transport stop on a steep hill to show a smaller area of coverage.
+Furthermore, we define a new formula to calculate the time intervals of public transport stations and incorporate that into our quality measurement.
+
+In order to evaluate the effectiveness  of the calculation for the new specification, we created a web application which allows the new coverage areas to be examined and compared with the current public transport gradings from ARE.
+This web application allows for analysis of the differences between the two specifications and emphasizes the greater accuracy of the proposed new specification to form a unified public transit quality grading throughout the country.

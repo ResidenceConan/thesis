@@ -12,7 +12,7 @@ Die Abhängigkeiten wurden stattdessen dynamisch in einer "`Registry"', analog z
 Dies erlaubte es uns, in den Unit-Tests die Module in der Integrations-Schicht durch Mocks auszutauschen.
 
 Da einige Logik der Berechnung in Stored Procedures auf der Datenbank implementiert wurden, wäre es wünschenswert, diese ebenfalls automatisiert zu testen.
-Zwar gibt es dafür Ansätze wie \emph{pgTAP}~\cite{pgTAP}, Unit-Tests für Datenbank-Funktionen zu schreiben, bei uns war aber neben der Logik auch die Performance ein entscheidender Faktor.
+Zwar gibt es dafür Ansätze wie \emph{pgTAP}~\cite{pgTAP}, um Unit-Tests für Datenbank-Funktionen zu schreiben, bei uns war aber neben der Logik auch die Performance ein entscheidender Faktor.
 Diese konnte nur manuell auf dem kompletten Datensatz der Schweiz getestet werden, denn erst dann wurde klar, welche Indizes benötigt wurden und wie die Datenbank eine bestimmte Query ausführt.
 
 Vorstellbar wären hingegen Integrations-Tests, die auf einem Test-Set die kompletten \acs{ÖV}-Güteklassen berechnen.
@@ -25,17 +25,18 @@ Dabei wäre es natürlich wünschenswert, das ganze Setup automatisiert in einer
 Für das Backend wurde das automatische Testing auf minimale Tests beschränkt, die prüfen, dass der Server auf API-Requests keine unerwartete Antworten liefert.
 Während der Entwicklung wurde das Backend immer schlanker.
 Wurden zuerst die kompletten GeoJSON-Daten für die Web-Applikation ausgeliefert, wird seit dem Wechsel zu Vector Tiles nur noch ein JSON mit Metadaten zu den Parametern eingelesen und über eine API angeboten.
-Dementsprechend ist nur noch sehr wenig Logik vorhanden.
+Dementsprechend ist neben dem Exponieren von Metadaten keine Logik vorhanden.
 
 \subsection{Web-Applikation}
 \label{tests:Web-Applikation}
 
 \paragraph{Unit-Tests}~\\
 Für das in React geschriebene Frontend wurde ursprünglich geplant, Unit-Tests mit \emph{Jest}~\cite{jest} zu schreiben.
-Allerdings kam schon früh zur Entwicklung das Problem auf, dass die \emph{Mapbox GL} Komponente, die für die Basiskarte verwendet wird, nicht in einem Test geladen kann, weil dafür ein Browser benötigt wird.
-Da die einzige Logik in der Applikation in der Verarbeitung der Daten vom Backend besteht, wären reine Unit-Tests aufwändig.
+Allerdings kam schon früh zur Entwicklung das Problem auf, dass die \emph{Mapbox GL} Komponente, die für die Basiskarte verwendet wird, nicht in einem Test geladen werden kann, weil dafür ein Browser benötigt wird.
+Da die einzige Logik in der Applikation in der Verarbeitung der Metadaten vom Backend besteht, wären reine Unit-Tests aufwändig.
 Sinnvoller wäre es, ein Integration-Test zusammen mit der Backend-API zu machen.
 Dies erfordert aber ein aufwändiges Setup, um dies automatisiert mit einer Continuous Integration zu verbinden.
+Dieser Aufwand wäre aufgrund der Anforderungen der Web-Applikation nicht gerechtfertigt.
 
 \paragraph{Type-Checking}~\\
 Da JavaScript eine schwach typisierte Sprache ist, macht es Sinn, während der Entwicklung statisches Type-Checking zu verwenden.

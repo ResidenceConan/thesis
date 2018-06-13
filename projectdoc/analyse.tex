@@ -5,7 +5,7 @@
 \subsection{Routing Engine}
 \label{Analyse:Routing Engine}
 
-In den Rahmenbedingungen (Kapitel \ref{Einführung:Rahmenbedingungen, Umfeld, Definitionen, Abgrenzungen}) wurde festgehalten, für die Implementation der "`\acs{ÖV}-Güteklassen 2018"' PostGIS~\cite{postgis} und die Routing-Engine pgRouting~\cite{pgRouting} zu verwenden, soweit dies die Technologie erlaubt.
+In den Rahmenbedingungen (Kapitel \ref{Einführung:Rahmenbedingungen, Umfeld, Definitionen, Abgrenzungen}) wurde festgehalten, für die Implementation der "`\acs{ÖV}-Güteklassen 2018"' PostGIS~\cite{postgis} und die Routing-Engine pgRouting~\cite{pgRouting} zu verwenden, soweit diese die gewünschte Funktionalität unterstützt.
 Nachfolgend soll kurz aufgezeigt werden, welche alternativen Technologien in Frage kommen und ob die technische Machbarkeit mit PostGIS/pgRouting gegeben ist.
 
 Für die Wahl einer Routing-Engine gibt es drei grosse Open-Source Lösungen, die sich bewährt haben: OSRM~\cite{osrm}, GraphHopper~\cite{graphhopper} und pgRouting.
@@ -20,7 +20,8 @@ Für das Kriterium 1 bringen GraphHopper und pgRouting bereits eingebaute Funkti
 
 Für das zweite Kriterium, die Integration von Höhendaten, gibt es bei GraphHopper und OSRM eingeschränkte Möglichkeiten. GraphHopper bietet zwar an, das weltweit abdeckende Modell von \ac{SRTM} direkt einzubinden, dessen Genauigkeit ist mit 90 Metern aber deutlich tiefer als bei unserem swissALTI$^{3D}$-Modell~\cite{swissalti3d_swisstopo} mit 2--10 Metern. Die Integration eines eigenen Modells würde bei beiden Routing-Engines eine Anpassung der Implementierung benötigen.
 
-Bei pgRouting bringt die Implementation selbst keine direkte Unterstützung von Höhendaten an, im Unterschied zu den anderen Varianten kann die Kosten-Funktion zur Berechnung von Wegzeiten aber einfach selbst angepasst werden.
+Bei pgRouting bringt die Implementation selbst keine direkte Unterstützung von Höhendaten mit.
+Im Unterschied zu den anderen Varianten kann die Kosten-Funktion zur Berechnung von Wegzeiten aber einfach selbst angepasst werden.
 Durch die Benutzung von PostgreSQL mit PostGIS bietet dieser Ansatz deutlich mehr Flexibilität.
 Das Terrainmodell kann in einer separaten Datenbank effizient als Raster persistiert und für die Kostenberechnung der einzelnen Kanten abgerufen werden.
 
@@ -33,12 +34,12 @@ Abschliessend kann man sagen, dass die Kriterien mit pgRouting erfüllt werden u
 
 Wie in den Rahmenbedingungen (Kap. \ref{Einführung:Rahmenbedingungen, Umfeld, Definitionen, Abgrenzungen}) vorausgesetzt, stehen für die Technologie der Web-Applikation (Frontend) die Optionen React~\cite{react} oder Vue.js~\cite{vuejs} zur Auswahl.
 Die Wahl viel auf diese zwei Frameworks, da sich beide momentan schnell verbreiten und zum Design von \ac{SPA} ausgelegt sind, was für unsere Zwecke zum Darstellen einer Karte gut geeignet ist.
-Ein grösseres Framework wie Angular wäre dafür zu gross, weshalb die Evaluation auf diese zwei leichtgewichtigeren Varianten eingeschränkt wird.
+Ein grösseres Framework wie Angular ist für unsere Anforderungen zu mächtig, weshalb die Evaluation auf diese zwei leichtgewichtigeren Varianten eingeschränkt wird.
 
 Vue.js und React werden im Folgenden anhand mehrerer Kriterien verglichen.
 Als Demonstration wird mit beiden Varianten eine identische kleine Web-Applikation entwickelt.
 Diese besteht aus einer Web-Karte und einem kleinen Kontrollelement, um einen zusätzlichen Layer einzublenden.
-Der Code ist unter~\cite{github:playground} zu finden.
+Der Code ist auf Github~\cite{github:playground} zu finden.
 
 Zum Schluss wird ein Fazit gezogen und entschieden, welches Framework für das Frontend eingesetzt wird.
 
@@ -76,7 +77,7 @@ Es wird analysiert, wie fortgeschritten die Leaflet-Unterstützung in den jeweil
 Für React bietet \emph{react-leaflet}~\cite{react-leaflet} die Funktionalität von Leaflet an, das Equivalent für Vue.js bildet \emph{Vue2Leaflet}~\cite{vue2leaflet}.
 
 Beide Komponenten bieten eine rudimentäre Dokumentation an, die Bedienung wird aber erst mit den zahlreichen Beispielen klar.
-Von der Funktionalität her ist kein grosser Unterschied festzustellen.
+Bezüglich der Funktionalität ist kein grosser Unterschied festzustellen.
 \emph{Vue2Leaflet} bildet zwar nicht die komplette Leaflet-Library ab, die für diese Arbeit benötigten Funktionen sind aber alle vorhanden.
 
 
@@ -86,8 +87,8 @@ Von der Funktionalität her ist kein grosser Unterschied festzustellen.
 Vector Tiles sind Kacheln, die Ausschnitte aus Karten als Vektoren darstellen, anstatt wie bei Raster-Kacheln mit simplen Bildern~\cite{geometalab_vectortiles}.
 Dies hat unter anderem den Vorteil, dass nicht bei jeder Zoomstufe ein neues Bild geladen werden muss, sondern die Vektoren beliebig vergrössert werden können.
 
-Für die Integration solcher Vector Tiles in Webkarten hat die Firma Mapbox ein Format spezifiziert und mit \emph{Mapbox GL JS} eine JavaScript-Library veröffentlicht, um diese einzubinden.~\cite{mapbox_gl_js}
-Diese Library bietet deutlich mehr Möglichkeiten als Leaflet, die Darstellung von Kacheln individuell anzupassen.
+Für die Integration solcher Vector Tiles in Webkarten hat die Firma Mapbox ein Format spezifiziert und mit \emph{Mapbox GL JS}~\cite{mapbox_gl_js} eine JavaScript-Library veröffentlicht, um diese einzubinden.
+Diese Library bietet deutlich mehr Möglichkeiten als Leaflet, um die Darstellung von Kacheln individuell anzupassen.
 Die Vektor-Daten selbst sind bei Mapbox bis zu einem gewissen Abrufvolumen kostenlos erhältlich.
 Es können aber auch andere Datenquellen, wie z.B. von OpenMapTiles~\cite{openmaptiles}, verwendet werden.
 
@@ -98,7 +99,7 @@ Für React ist dies \emph{react-mapbox-gl}~\cite{react_mapbox_gl}, für Vue.js \
 Die React-Komponente ist gut dokumentiert und relativ einfach zu benutzen.
 Die einzelnen Komponenten sind sauber in React-Komponenten abgebildet, was das Handling mit mehreren Layern angenehm macht.
 
-Dagegen ist die Vue.js-Komponente nur ein einfacher Wrapper um die API von \emph{Mapbox GL}.
+Dagegen ist die Vue.js-Komponente nur ein einfacher Wrapper um die API von \emph{Mapbox GL JS}.
 So kann z.B. ein zusätzlicher Layer nicht direkt im Template eingebunden werden, sondern muss über Event-Handling nach dem Laden der Karte hinzugefügt werden.
 Dies macht das dynamische Hinzufügen und Entfernen von Karten-Elementen, was wir in unserer Applikation viel benötigen, sehr mühsam.
 
@@ -118,7 +119,7 @@ Die Template-Syntax von Vue.js ist deutlich vertrauter, auch weil sie sehr dem S
 Vue.js erlaubt auch einiges an "`Syntactic Sugar"' in den Templates.
 So ist simples Data-Binding mit Event-Handling direkt im Template möglich, während bei React dies separat behandelt werden muss.
 
-Aus dieser Einschätzung kann man sagen, dass die Lernkurve bei Vue.js etwas flacher als bei React ist.
+Aufgrund dieser Einschätzung kann man sagen, dass der Lernerfolg bei Vue.js schneller eintritt.
 
 \subsubsection{Tooling}
 \label{Analyse Framework:Tooling}
@@ -130,11 +131,10 @@ Beim Ausführen kann man angeben, welche zusätzlichen Libraries (z.B. für Unit
 Während der Entwicklung kann ausserdem ein lokaler Server gestartet werden, der jeweils automatisch das Browser-Fenster neu ladet, wenn sich der Source-Code geändert hat.
 
 Vue.js bietet mit \emph{vue-cli}~\cite{vue_cli} ein ähnliches Tool an.
-Um eine neue Applikation aufzusetzen, kann zwischen verschiedenen Templates gewählt werden.
-Es gibt verschiedene Templates für z.B. unterschiedliche Grössen der geplanten Applikation.
+Um eine neue Applikation aufzusetzen, kann zwischen verschiedenen Templates gewählt werden, welche sich aufgrund der geplanten Grösse der Applikation unterscheiden.
 Während der Entwicklung bietet \emph{vue-cli} die praktisch identischen Möglichkeiten wie das Tool für React.
 
-Insgesamt kann zwischen den beiden Varianten in Sachen Tooling praktisch keinen Unterschied festgestellt werden.
+Insgesamt kann zwischen den beiden Varianten in Sachen Tooling keinen Unterschied festgestellt werden.
 
 
 \subsubsection{Auswertung}
@@ -181,7 +181,7 @@ Für die Kommunikation und Integration mit den Umsystemen sind einige Libraries 
 \subsubsection{Integration mit PostgreSQL}
 \label{analyse_generator:Integration mit PostgreSQL}
 
-Für die Integration der GTFS-Daten und der Routing-Engine für die Berechnung der \glspl{Isochrone} ist eine Integration mit PostgreSQL nötig.
+Für die Integration der Fahrplandaten und der Routing-Engine für die Berechnung der \glspl{Isochrone} ist eine Integration mit PostgreSQL nötig.
 Die Routing-Engine läuft auf pgRouting, eine Erweiterung von PostGIS, das wiederum eine Erweiterung von PostgreSQL ist.
 Insofern braucht es für beide Integrationen lediglich eine Möglichkeit, mit PostgreSQL zu kommunizieren.
 
@@ -195,23 +195,11 @@ Für unsere Zwecke braucht es nur simple SQL-Abfragen, da ein Grossteil der Logi
 In der Business-Logik des Generators wird viel mit Geometrien gehandhabt, die schlussendlich zu den "`ÖV-Güteklassen 2018"' verabeitet werden.
 Hierzu hat sich die Python-Library \emph{Shapely}~\cite{shapely} bewährt.
 Diese unterstützt die \gls{GEOS}-Funktionen, die PostGIS ebenfalls implementiert.
-Somit können mit den Geometrien die gleichen Berechnungen wie auf der Datenbank vorgenommen werden, was für eine reibungslose Integration spricht.
+Dadurch können mit den Geometrien die gleichen Berechnungen wie auf der Datenbank vorgenommen werden, falls dies benötigt wird.
+Dies spricht somit für eine reibungslose Integration.
 
 Ebenfalls können Geometrien mit \emph{Shapely} direkt in \gls{GeoJSON} exportiert werden.
-Dies erlaubt eine einfache Serialisierung, um die berechneten Resultate an das \nameref{container:Backend} weiter zu geben.
-
-\subsection{Web-Applikation}
-\label{analyse:Web-Applikation}
-
-Wie in Kapitel \ref{Analyse:Evaluation Frontend-Framework} evaluiert, wird für die Web-Applikation React~\cite{react} verwendet.
-Für unsere Zwecke werden zusätzlich dazu Libraries benötigt, die im Folgenden kurz aufgezeigt werden.
-
-\subsubsection{Webkarte}
-\label{analyse_webapp:Webkarte}
-
-% TODO: Je nachdem, ob wir Leaflet oder Mapbox GL einsetzen
-
-
+Dies erlaubt eine einfache Serialisierung, was wiederum eine einfache Weiterverarbeitung der Resultate ermöglicht.
 
 \subsection{Design Frontend}
 \label{analyse:Design Frontend}
@@ -229,10 +217,5 @@ Die restlichen Wireframes sind im Anhang \nameref{appendix:wireframes} abgebilde
 
 Grundsätzlich besteht das UI aus einer interaktiven Web-Karte, die sich über das gesamte Browser-Fenster erstreckt.
 Darauf befindet sich ein Steuerelement, um die Anzeige der \glspl{ÖV-Güteklassen} zu konfigurieren.
-Die beiden Karten-Layer der Datensätze \gls{OeVGK18} und \gls{OeVGK93} können ein- oder ausgeblendet werden.
+Die beiden Karten-Layer der Datensätze \gls{OeVGK18} und \gls{OeVGKARE} können ein- oder ausgeblendet werden.
 Bei der \gls{OeVGK18} können zusätzlich Parameter wie der Tag (Wochentag oder Wochenende) sowie der Zeitbereich (Tag, Abend oder Nacht) konfiguriert werden.
-
-\subsubsection{Einschränkungen}
-\label{Analyse:Einschränkungen}
-
-%TODO

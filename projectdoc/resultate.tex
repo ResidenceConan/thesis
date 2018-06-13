@@ -11,6 +11,7 @@ Mit unserer Spezifikation "`\acs{ÖV}-Güteklassen 2018"' sowie deren Implementa
 Mithilfe des entwickelten Generators können die \acs{ÖV}-Güteklassen jederzeit und automatisiert mit den aktuellsten Datensätzen für unterschiedliche Stichtage und Zeitintervalle erzeugt werden.
 Die Webapplikation erlaubt eine Visualisierung der errechneten Geodaten auf einer interaktiven Webkarte.
 Zusätzlich können die \acs{ÖV}-Güteklassen des \ac{ARE} den \acs{ÖV}-Güteklassen 2018 visuell überlagert werden, um sie zu vergleichen.
+Durch das erstellte Docker-Setup wird ein einfaches Deployment erreicht.
 
 
 \subsubsection{Laufzeit}
@@ -62,13 +63,14 @@ Die gemessene Laufzeiten sind in Tabelle \ref{table:Ergebnis_Laufzeitmessung} er
 Es fällt auf, dass die Vorbereitung zur eigentlichen Berechnung die meiste Zeit beansprucht.
 Dies liegt unter anderem daran, dass diese Vorbereitungsschritte externe Funktionen aufrufen, die nicht spezifisch optimiert werden können.
 So braucht etwa das Berechnen der Topologie nach der Graph-Segmentierung fast zwei Stunden.
-Dabei wird lediglich die eingebaute Funktion von pgRouting aufgerufen, die wohl nicht sehr effizient implementiert ist.
+Dabei wird lediglich die eingebaute Funktion von pgRouting aufgerufen.
 Als Optimierung ist vorstellbar, die Topologie direkt während der Routing-Graph-Segmentierung zu aktualisieren, was aber deutlich komplexer als die jetzige Lösung wäre.
 
-Die eigentliche Berechnung der \acs{ÖV}-Güteklassen konnte mit Indizes auf der Datenbank und Optimierung der Algorithmen auf eine Laufzeit von rund 70 Minuten gebracht werden.
+Die eigentliche Berechnung der \acs{ÖV}-Güteklassen für 6 Stichtage konnte mit Indizes auf der Datenbank und Optimierung der Algorithmen auf eine Laufzeit von rund 70 Minuten gebracht werden.
 Dafür wurde während der Entwicklung kontinuierlich optimiert, in früheren Iterationen dauerte die Berechnung noch mehrere Tage.
 Als Beispiel dafür sei die Optimierung zu erwähnen, den Dijkstra-Algorithmus für die Berechnung der \glspl{Isochrone} für jede Haltestelle nur ein Mal für die weiteste Distanz zu verwenden statt für jede \gls{Isochrone} einzeln.
 Allein durch diese Optimierung konnte die Laufzeit zur Berechnung einer Haltestelle von ca. 450 ms auf 30 ms reduziert werden, womit die totale Laufzeit von 18 Stunden auf rund 70 Minuten gekürzt wurde.
+Die nicht-funktionale Anforderung \nameref{NFA:NFA02} wurde somit klar eingehalten und übertroffen.
 
 \begin{table}[H]
     \centering
@@ -129,10 +131,13 @@ Der Grossteil der Optimierungen involvierte Datenbank-Indices oder Vorberechnung
 Da die Berechnung der \acs{ÖV}-Güteklassen für jede Haltestelle unabhängig erfolgt, könnte zusäztlich der ganze Prozess parallelisiert werden, um Multi-Core-Systeme auszunutzen.
 In der jetzigen Implementation wurde dies für die Berechnung der Leistungskilometer bereits umgesetzt.
 Mit der Parallelisierung des gesamten Prozesses könnte etwa auf einem 4-Core System eine Laufzeitverbesserung von annähernd Faktor 4 erzielt werden.
+Aufgrund der Natur der Berechnungen eignet sich besonders der Ansatz "`Data parallelism"'~\cite{parallel_comp}.
+Die Berechnungen gehen von Haltestellen aus.
+Somit kann man diese problemlos in einzelne Bereiche aufteilen und unabhängig voneinander parallel berechnen.
 
 \paragraph{Effizientere Segmentierung des Routing-Graphen}
 In der jetzigen Implementation wird der Routing-Graph segmentiert und anschliessend mit einer integrierten Funktion von pgRouting die komplette Topographie neu berechnet.
-Diese Funktion dauert einige Stunden.
+Diese Funktion dauert knapp 2 Stunden.
 Eine Optimierung könnte sein, die Topographie des Graphen bereits während der Segmentierung neu zu berechnen.
 Da jede Kante in mehrere Kanten zerstückelt wird, müssten dazu jeweils neue Vertices eingefügt und entsprechend verbunden werden.
 Dies bedeutet etwas höhere Komplexität bei der Segmentierung, dafür entfällt der Schritt zur Neuberechnung des kompletten Graphen durch pgRouting.

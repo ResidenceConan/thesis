@@ -16,7 +16,7 @@ Für eine einfache Handhabung wurde ein Docker-Setup gewählt.
 Die Bedienung dieses Setups ist im Kapitel \ref{Softwaredokumentation} ausführlich beschrieben.
 
 Grundsätzlich kann man sagen, dass zwei Docker-Container existieren, namentlich \emph{tooling} und \emph{db}.
-Der Docker-Container \emph{tooling} nimmt Daten in gängigen Formaten entgegen oder bezieht diese von externen Diensten und bereitet sie so vor, dass diese vom Docker-Container \emph{db} in die Datenbank \emph{oevgk18} für eine Weitereverwendung des \acs{ÖV}-Güteklassen 2018 Generator geladen werden können.
+Der Docker-Container \emph{tooling} nimmt Daten entgegen oder bezieht diese von externen Diensten und bereitet sie so vor, dass diese vom Docker-Container \emph{db} in die Datenbank \emph{oevgk18} für eine Weitereverwendung des \acs{ÖV}-Güteklassen 2018 Generator geladen werden können.
 Der Docker-Container \emph{db} sorgt ebenfalls dafür, dass beim Starten die nötigen Extensions (pgrouting, hstore, \dots) aktiviert sind und zuerst die Schemas und danach die Stored Procedures erstellt werden.
 Zusätzlich müssen nach den einzelnen Imports, welche nachfolgend beschrieben werden, zusätzliche Modifaktionen am Schema vorgenommen werden.
 Diese Modifikationen werden in einem Post-Import-Schritt durchgeführt, weil die Terrain- sowie die OSM-Daten durch Tools importiert werden, welche ein Schema vorgeben und somit ein bereits modifiziertes Schema überschrieben wird. Ebenfall werden zusätzliche Indizes erstellt.
@@ -26,8 +26,10 @@ Der \acs{ÖV}-Güteklassen 2018 Generator operiert grundsätzlich auf drei exter
 Für jede Datenquelle existiert ein Service im Docker-Container \emph{tooling} und ein Pendant im Docker-Container \emph{db}, welche die vorverarbeiteten Daten des Docker-Container \emph{tooling} entgegennimmt und in die Datenbank spielt.
 
 \paragraph{OSM-Daten}~\\
-\acs{OSM}-Daten werden von der Routing-Enginge für das Berechnen von Isolinien und für das Identifizieren von \acs{ÖV}-Haltestellen verwendet.
-In Abbildung \ref{fig:dataflow-docker-setup-osm-data} ist ersichtlich, wie der Docker-Container \emph{tooling} die \acs{PBF}-Datei der Schweiz von einem externen Dienst~\cite{planet_osm_ch} bezieht und für die zwei vorhin erwähnten Zwecke verarbeitet.
+\acs{OSM}-Daten werden von der Routing-Engine für das Berechnen von \glspl{Isochrone} und für das Identifizieren von \acs{ÖV}-Haltestellen verwendet.
+In Abbildung \ref{fig:dataflow-docker-setup-osm-data} ist ersichtlich, wie der Docker-Container \emph{tooling} die \acs{PBF}-Datei der Schweiz von einem externen Dienst~\cite{planet_osm_ch} bezieht und für die zwei vorhin erwähnten Zwecke vorbereitet.
+Es besteht ebenfalls die Möglichkeit eine lokale \acs{OSM}-Datei zu verwenden.
+Dies ist vorallem für Testing-Zwecken vorteilhaft, da auf kleineren Ausschnitten getestet werden kann.
 
 \begin{figure}[ht]
     \centering
@@ -36,13 +38,11 @@ In Abbildung \ref{fig:dataflow-docker-setup-osm-data} ist ersichtlich, wie der D
     \label{fig:dataflow-docker-setup-osm-data}
 \end{figure}
 
-Das Routing-Netzwerk wird mithilfe des Tools \emph{OSM2PO}~\cite{OSM2PO} für pgrouting aufbereitet und als SQL-Datei bereitgestellt.
-Die \acs{ÖV}-Haltestellen werden durch Osmosis~\cite{osmosis} gefiltert und ebenfalls in eine SQL-Datei exportiert.
-Beide Tools werden durch separate Konfigurationen für unsere Zwecke konfiguriert.
-So werden aus den \acs{OSM}-Daten für das Identifizieren von \acs{ÖV}-Haltestellen nur Nodes extrahiert, welche eine \emph{uic\_ref} besitzen. \ac{UIC}-Referenzen werden für die Identifizierung von \acs{ÖV}-Haltestellen verwendet.
+Der Routing-Graph wird mithilfe des Tools \emph{OSM2PO}~\cite{OSM2PO} für pgRouting aufbereitet und als SQL-Datei bereitgestellt.
+\emph{OSM2PO} wird durch eine separate Konfiguration für unsere Zwecke konfiguriert.
 
 \paragraph{GTFS-Daten}~\\
-Die Fahrplandaten werden im Docker-Container \emph{tooling} automatisch von geOps~\ref{geops_fahrplandaten} im GTFS-Format~\cite{gtfs_spec} heruntergeladen und im CSV-Format als TXT-Dateien bereitgestellt.
+Die Fahrplandaten werden im Docker-Container \emph{tooling} automatisch von geOps~\cite{geops_fahrplandaten} im GTFS-Format~\cite{gtfs_spec} heruntergeladen und im CSV-Format als TXT-Dateien bereitgestellt.
 Diese wiederum können in einem nächsten Schritt durch den Docker-Container \emph{db} in die Datenbank gespielt werden.
 Der Datenfluss ist in Abbildung \ref{fig:dataflow-docker-setup-gtfs-data} ersichtlich.
 
@@ -58,7 +58,7 @@ Das Terrainmodell kann aufgrund der Grösse der Datei und aus lizenztechnischen 
 Diese Datei wird mit raster2pgsql~\cite{raster2pgsql}, einem Tool von PostGIS, welches Raster-Formate in ein Format konvertiert, welche in eine PostGIS-Tabelle geladen werden kann, verarbeitet.
 Dabei wird von der üblichen Struktur (ein Service im Docker-Container \emph{tooling} und ein Pendant im \emph{db}) abgewichen.
 raster2pgsql ist darauf ausgelegt direkt in eine PostgreSQL-Datenbank zu schreiben.
-Der Weg über eine Intermediate-Datei wäre somit eine nicht begründete Indirektion.
+Der Weg über eine Intermediate-Datei wäre somit eine überflüssige Indirektion.
 Somit entfällt hier der Service im Docker-Container \emph{tooling}.
 Der Datenfluss ist in Abbildung \ref{fig:dataflow-docker-setup-terrain-data} ersichtlich.
 
@@ -73,9 +73,10 @@ Der Datenfluss ist in Abbildung \ref{fig:dataflow-docker-setup-terrain-data} ers
 \label{ÖV-Güteklassen 2018 Generator:Umsetzung Spezifikation}
 
 \paragraph{Datenfluss}~\\
-Durch die unterschiedliche Natur der Datenquellen und der Menge dieser ist es hilfreich, zu visualisieren, zu welchem Zeitpunkt, welche Daten zu welchen Zweck benötigt werden.
+Durch die unterschiedliche Natur der Datenquellen und der Menge dieser ist es hilfreich, zu visualisieren, zu welchem Zeitpunkt, welche Daten zu welchem Zweck benötigt werden.
 Wie in Abbildung \ref{fig:Flow_OeVGK_Brechnung} ersichtlich ist, werden die \acs{ÖV}-Güteklassen in fünf Schritten berechnet. 
 In Abbildung \ref{fig:dataflow_OeV-Gueteklassen_2018_Generator} ist nun schematisch die Raison d’Être der Datenquellen ersichtlich.
+Die Pfeilrichtung beschreibt den Datenfluss.
 
 \begin{figure}[ht]
     \centering
@@ -85,7 +86,7 @@ In Abbildung \ref{fig:dataflow_OeV-Gueteklassen_2018_Generator} ist nun schemati
 \end{figure}
 
 Die Datenquellen \emph{GTFS}, \emph{OSM} und \emph{Terrain-Daten} entsprechen an sich keinen separaten Datenquellen, sondern werden nur zum besseren Verständnis getrennt dargestellt.
-Wie wir in Kapitel \ref{ÖV-Güteklassen 2018 Generator:Datenaufbereitung} gesehen haben, werden diese aufbereitet und optimiert in einer Datenbank \emph{oevgk18} gehalten.
+Wie wir in Kapitel \ref{ÖV-Güteklassen 2018 Generator:Datenaufbereitung} gesehen haben, werden diese aufbereitet und in einer Datenbank \emph{oevgk18} gehalten.
 
 Nachfolgend werden die fünf Berechnungsschritte separat beschrieben.
 
@@ -124,13 +125,13 @@ In Tabelle \ref{table:Mapping GTFS Route Type Verkehrsmittelgruppe} ist ein Mapp
     \label{table:Mapping GTFS Route Type Verkehrsmittelgruppe}
 \end{table}
 
-Die Herausforderung beim Berechnen der Art der Verkehrsmittel ist die Evaluation der Bahnknoten.
+Die Herausforderung beim Berechnen der Art der Verkehrsmittel ist die Bestimmung der Bahnknoten.
 Die Definition des Bahnknoten ist im Kapitel \ref{Berechnungsmethodik OeVGK18:Art der Verkehrsmittel} genau spezifiziert.
 Für die Klassifizierung eines Bahnknoten ist die Anzahl der Richtungen, in welche man von einer Bahnstation aus verkehren kann, relevant.
 
 \begin{listing}[ht]
     \inputminted{sql}{projectdoc/listing/count_of_distinct_next_stops.sql}
-    \caption{SQL-Query zur Bestimmung der Anzahl erreichbaren Haltestellen}
+    \caption{SQL-Query zur Bestimmung der Anzahl erreichbaren Haltestellen (finale Version)}
     \label{listing:count_of_distinct_next_stops}
 \end{listing}
 
@@ -138,7 +139,7 @@ In Listing \ref{listing:count_of_distinct_next_stops} ist ersichtlich, wie für 
 Im abgebildeten Query wird geprüft, ob der aktuelle Stop bei einem anderen \emph{Trip} als vorherige Haltestelle vorkommt.
 Die Anzahl wird mit der Window Function gesammelt und gruppiert für jede Haltestelle retourniert.
 
-Die abgebildete Berechnung hat mehrere Verbesserungen und Ver­schlimm­bes­se­rungen durchlaufen.
+Die abgebildete Berechnung hat mehrere Ver- und Verschlimmbesserungen durchlaufen.
 Es lohnt sich einen ausführlicheren Blick auf die Evolution der Abfragetechnik zu legen, da diese Hoch und Tiefs durchlebt hat und einige Learnings daraus gezogen wurden.
 
 \subparagraph{1. Version}
@@ -154,14 +155,14 @@ Das Datenmodell von GTFS zwingt einem zu einem Join über mehrere grössere Tabe
 In Listing \ref{listing:count_of_distinct_next_stops_v1} ist ersichtlich, wie in einer Common Table Expression dieser für jede Haltestelle durchgeführt wird.
 Dieser Join bildet für eine Station alle \emph{Trips} mit der Nummer des akutellen \emph{Stops} auf einem \emph{Trip} ab.
 Dieser Join ist sehr zeit- und ressourcenintensiv.
-Diese Abfrage dauert pro Haltestelle 11.9 Sekunden, was bei momentan akuellen 1815 Bahnhaltestellen extrem ins Gewicht fällt.
+Diese Abfrage dauert pro Haltestelle 11.9 Sekunden, was bei momentan akuellen 1815 Bahnhaltestellen extrem ins Gewicht fällt und nicht zumutbar ist.
 
 \subparagraph{2. Version}
 In einer zweiten Version war die Überlegung den Join zu persistieren, damit nicht jede Abfrage diese aufwändigen Join durchführen muss und Indizes darauf zu generieren.
 
 Der Grund warum in diesem Fall nicht eine temporäre Tabelle in Frage kommt, ist in der PostgreSQL-Dokumentation beschrieben: "`The autovacuum daemon cannot access and therefore cannot vacuum or analyze temporary tables."'~\cite{postgresql_doc}
 Es ist auch nicht möglich den Daemon manuell anzustossen, da das Erstellen der temporären Tabelle und das Starten des Daemons aus einer PostgreSQL-Funktion nicht in der selben Session durchgeführt werden kann, was den Nutzen der temporären Tabelle zu nichte macht, denn damit die Indizes greifen, ist dieser Prozess relevant.
-Das Persistieren des Join und das Anlegen der Indizes bringen in diesem Fall eine enorme Performanzsteigerung, wie in Tabelle \ref{table:Performanzvergleich Temp Table und Table mit Index} ersichtlich ist, mit der Annahme, dass Autovacuum lief.
+Das Persistieren des Join in einer persistenten Tabelle (\emph{next\_station\_mapping}) und das Anlegen der Indizes bringen in diesem Fall eine enorme Performanzsteigerung, wie in Tabelle \ref{table:Performanzvergleich Temp Table und Table mit Index} ersichtlich ist, mit der Annahme, dass Autovacuum lief.
 
 \begin{table}[ht]
     \centering
@@ -228,7 +229,7 @@ Da nun die Berechnung nicht mehr für alle Bahnhaltestellen einzeln durchgeführ
 \end{table}
 
 In der Tabelle \ref{table:Performanzvergleich Join in Tabelle und Join in CTE} ist das Ergebnis ersichtlich.
-Die Performanzverbesserung ist durch die Natur des OeVGK18-Generator ein Tropfen auf dem heissen Stein, jedoch wird die Verbesserung übernommen, da in dieser Variante nicht zusätzliche eine Tabelle angelegt werden muss, welche nur für einen Join benötigt wird und sonst nichts mit der Domain zu tun hat.
+Die Performanzverbesserung ist nicht immens, jedoch wird die Verbesserung übernommen, da in dieser Variante nicht zusätzliche eine Tabelle angelegt werden muss, welche nur für einen Join benötigt wird und sonst nichts mit der Domain zu tun hat.
 
 Die finale Version war bereits in Listing \ref{listing:count_of_distinct_next_stops} ersichtlich.
 
@@ -287,7 +288,7 @@ Welche \glspl{Isochrone} für eine Haltestelle erzeugt werden und welche Gütekl
 Die Haltestellen stammen aus dem Datenstamm der SBB~\cite{sbb_hafas_spec} und sind somit nicht Teil des Routing-Graphen. 
 Um die \glspl{Isochrone} berechnen zu können, muss auf dem Routing-Graphen zuerst ein Startpunkt ermittelt werden, von dem das Routing entlang der Strassen und Wege ausgehen kann.
 Dieser Punkt soll möglichst nahe an der eigentlichen Haltestelle liegen.
-Es ist anzumerken, dass unsere Fahrplan-Daten lediglich ein geographischer Punkt pro Haltestelle definiert und so Buskanten oder Gleise nicht genau abbilden.
+Es ist anzumerken, dass unsere Fahrplandaten lediglich ein geographischer Punkt pro Haltestelle definiert und so Buskanten oder Gleise nicht genau abbilden.
 
 Ein erster Ansatz dieses "`Snappings"' sucht mithilfe einer "`Nearest Neighbor"'-Suche den geographisch nächstliegenden Vertex des Routing-Graphen zu den Koordinaten der Haltestelle.
 Dies ist bei regulären Bushaltestellen mit zwei Kanten ein guter Ansatz, da diese Koordinaten meist neben oder direkt auf der Strasse liegen.
@@ -354,19 +355,19 @@ Die Richtung der Kanten wird dabei umgekehrt, da der Dijkstra-Algorithmus die St
 Für unsere Zwecke ist es aber realistischer, den Laufweg zu berechnen, wenn man zur Haltestelle hin läuft.
 
 \begin{listing}[ht]
-    \inputminted{sql}{projectdoc/listing/calc_isochrones_preselection.sql}
-    \caption[Vorselektion der Kanten für die Berechnung von Isochronen]{Mit einer effizienten Index-Suche werden alle Kanten in der Nähe der Haltestelle ermittelt}
-    \label{listing:calc_isochrones_preselection}
+    \inputminted{sql}{projectdoc/listing/calc_isochrones_dijkstra.sql}
+    \caption[Dijkstra-Algorithmus zur Berechnung von Isochronen]{Mit einem Dijkstra-Algorithmus werden bis zur Maximaldistanz alle erreichbaren Vertices gesucht (Auszug)}
+    \label{listing:calc_isochrones_dijkstra}
 \end{listing}
 
-Vorgägig werden mit einer effizienten Query alle Kanten gesucht, die sich in einem Radius von 1300 Metern der Haltestelle befinden (siehe Listing \ref{listing:calc_isochrones_preselection}).
+Vorgängig werden mit einer Query alle Kanten gesucht, die sich in einem Radius von 1300 Metern der Haltestelle befinden (siehe Listing \ref{listing:calc_isochrones_preselection}).
 Dies, weil keine Isochronen berechnet werden, die einen grösseren Radius als 1300 Meter einschliessen.
 Dadurch verringert sich die Anzahl Kanten enorm, die pgRouting mit dem Dijkstra-Algorithmus abarbeiten muss.
 
 \begin{listing}[ht]
-    \inputminted{sql}{projectdoc/listing/calc_isochrones_dijkstra.sql}
-    \caption[Dijkstra-Algorithmus zur Berechnung von Isochronen]{Mit einem Dijkstra-Algorithmus werden bis zur Maximaldistanz alle erreichbaren Vertices gesucht}
-    \label{listing:calc_isochrones_dijkstra}
+    \inputminted{sql}{projectdoc/listing/calc_isochrones_preselection.sql}
+    \caption[Vorselektion der Kanten für die Berechnung von Isochronen]{Mit einer effizienten Index-Suche werden alle Kanten in der Nähe der Haltestelle ermittelt (Auszug)}
+    \label{listing:calc_isochrones_preselection}
 \end{listing}
 
 Im zweiten Schritt wird mit diesen Vertices eine Alpha Shape~\cite{alpha_shapes} erzeugt (siehe Listing \ref{listing:calc_isochrones_alpha_shape}). Dieser Algorithmus bildet das kleinst mögliche Polygon, wobei alle gefunden Vertices darin enthalten sein müssen.
@@ -374,20 +375,20 @@ Diese Alpha Shape stellt die \gls{Isochrone} dar.
 
 \begin{listing}[ht]
     \inputminted{sql}{projectdoc/listing/calc_isochrones_alpha_shape.sql}
-    \caption[Berechnung der Alpha Shape]{Mit den erreichbaren Vertices wird eine Alpha Shape erzeugt}
+    \caption[Berechnung der Alpha Shape]{Mit den erreichbaren Vertices wird eine Alpha Shape erzeugt (Auszug)}
     \label{listing:calc_isochrones_alpha_shape}
 \end{listing}
 
 Der erste Schritt muss pro Haltestelle nur ein Mal für die grösste zu berechnende Distanz durchgeführt werden, für die Erzeugung der \glspl{Isochrone} für kürzere Distanzen wird das Ergebnis des Dijkstra-Algorithmus gefiltert und nur die Vertices beachtet, die innerhalb dieser Distanz von der Haltestelle erreichbar sind.
 Auf die einzelnen \glspl{Isochrone} wird ein zusätzlicher Buffer angewendet, um die scharfen Ecken etwas abzurunden.
-Dadurch wird bewusst etwas Unschärfe hinzugefügt, um nicht die Illusion zu erwecken, dass die \gls{Isochrone} das Einzugsgebiet ganz genau abbildet, sondern nur eine Approximation dessen darstellt.
+Dadurch wird bewusst etwas Unschärfe hinzugefügt, um nicht die Illusion zu erwecken, dass die \gls{Isochrone} das Einzugsgebiet exakt abbildet, sondern nur eine Approximation dessen darstellt.
 
 \paragraph{Ausgabe des Ergebnisses}~\\
 Nach der Berechnung der \acs{ÖV}-Güteklassen liegt für jede Haltestelle, die mindestens eine Basiserschliessung hat, ein oder mehrere \glspl{Isochrone} vor.
 Diese gilt es nun im GeoJSON Format auszugeben.
 Dabei wird für jeden der unterschiedlichen Stichtage eine separate Datei erstellt.
 
-Für jede \gls{Isochrone} wird ein Feature erstellt, wobei die \acs{ÖV}-Güteklasse und die \emph{uic\_ref} der Haltestelle als zusätzliche Attribute mitgegeben werden.
+Für jede \gls{Isochrone} wird ein GeoJSON-Feature erstellt, wobei die \acs{ÖV}-Güteklasse und die \emph{uic\_ref} der Haltestelle als zusätzliche Attribute mitgegeben werden.
 Anschliessend werden alle Features sortiert nach \acs{ÖV}-Güteklassen sortiert, wobei die tieferen Klassen zuerst eingefügt werden.
 Dies hat später für die Visualisierung eine Auswirkung.
 Weil die \glspl{Isochrone} der höheren Klassen diejenigen der tieferen überlagern, sollte bei der Visualisierung die tieferen Klassen zuerst gerendert werden.
@@ -418,7 +419,7 @@ Im Bezug auf das Maturity Model~\cite{maturity_model} von Leonard Richardson bef
 Mithilfe von Flasgger~\cite{flasgger} wird eine \ac{OAS}~\cite{open-api-specificaiton} erstellt.
 Dies hat den Vorteil, dass die \ac{API} sauber dokumentiert ist und Clients der \ac{API} in unterschiedlichen Sprachen generiert werden können.
 
-Die konkrete Web-\ac{API}, welche das Backend exponiert, kann mit ReDoc (OpenAPI/Swagger-generated API Reference Documentation)~\cite{oevgk18-backend-api-spec} oder mit dem klassischen Swagger UI~\cite{oevgk18-backend-api-swaggerui} betracht werden.
+Die konkrete Web-\ac{API}, welche das Backend exponiert, kann mit ReDoc (OpenAPI/Swagger-generated API Reference Documentation)~\cite{oevgk18-backend-api-spec} oder mit dem klassischen Swagger UI~\cite{oevgk18-backend-api-swaggerui} betrachtet werden.
 
 \subsection{Tile-Server}
 \label{Implementation:Tile-Server}
@@ -439,11 +440,11 @@ Der oben erwähnte Tile-Server nutzt MBTiles~\cite{mbtiles}.
 Dabei handelt es sich um eine Spezifikation von Mapbox, um beliebige gekachelte Karten-Daten zu speichern.
 Dieses Format ist extrem effizient für Transfers, was in unserer Problemdomain relevant ist.
 Für die Konvertierung bietet sich das Tool \emph{tippecanoe}~\cite{tippecanoe}, ebenfalls von Mapbox, an.
-Dieses erlaubt die Konvertierung von verschiedenen Dateiformaten, so auch GeoJSON in in MBTiles und die Konfiguration der zu generierenden Vector-Tilesets.
+Dieses erlaubt die Konvertierung von verschiedenen Dateiformaten, so auch GeoJSON in MBTiles und die Konfiguration der zu generierenden Vector Tilesets.
 
 Die Indirektion über das GeoJSON-Format ist bewusst.
 Die ÖV-Güteklassen können als GeoJSON breiter verwendet werden, etwa in QGIS.
-Das MBTiles ist speziell auf Vector-Tilesets ausgelegt, was bei uns nicht der Hauptfokus ist.
+Das MBTiles ist speziell auf Vector Tilesets ausgelegt, was bei uns nicht der Hauptfokus ist.
 
 Der Tile-Converter ist als Docker-Container verfügbar.
 Dieser wird im Kapitel \ref{Infrastruktur:Deployment} genauer beschrieben.
@@ -464,7 +465,7 @@ Ein Auszug ist in Abbildung \ref{fig:Web_App} ersichtlich.
 \end{figure}
 
 Zur Übersicht sind die React-Komponenten in einer Baumstruktur in Abbildung \ref{fig:Web_App_Component} aufgeschlüsselt.
-Dabei handelt es sich nicht um ein klassisches UML-Komponenten-Diagramm.
+Dabei handelt es sich im engeren Sinn nicht um ein klassisches UML-Komponenten-Diagramm.
 Die Verantwortlichkeiten werden nachfolgend kurz beschrieben.
 
 \begin{figure}[H]
@@ -488,7 +489,7 @@ Der Ablauf ist stark vereinfacht in Abbildung \ref{fig:Web-App_Sequence} sichtba
 Beim Mounten dieser Komponente werden vom Backend die verfügbaren Stichtage angefragt (Schritt 1 und 2).
 Anschliessend werden für einen Stichtag die zugehörigen Zeitintervalle geladen (Schritt 3 und 4).
 Mit diesen beiden Informationen werden vom Tile-Server dann die gewünschten \acs{ÖV}-Güteklassen geladen (Schritt 7).
-Wählt der User einen neuen Stichtag oder Zeitintervall, wiederholt sich der obige Ablauf.
+Wählt der User einen neuen Stichtag oder Zeitintervall, wiederholt sich der Ablauf.
 
 \begin{figure}[ht]
     \centering
@@ -497,18 +498,18 @@ Wählt der User einen neuen Stichtag oder Zeitintervall, wiederholt sich der obi
     \label{fig:Web-App_Sequence}
 \end{figure}
 
-Es sei angemerkt, dass auf dem Tile-Server für ein Satz von \acs{ÖV}-Güteklassen nicht nur einmal zugegriffen wird, wie man aufgrund der Sequenz annehmen könnte.
-Der Vorteil der Vector-Tiles und dem damit verbundenen Tile-Server liegt darin, dass gerade nur die Tiles geladen werden, welche benötigt werden. Verändert man Auszug und Zoomstufe, löst man somit Zugriffe auf den Tile-Server aus.
+Es sei angemerkt, dass auf dem Tile-Server für einen Satz von \acs{ÖV}-Güteklassen nicht nur einmal zugegriffen wird, wie man aufgrund der Sequenz annehmen könnte.
+Der Vorteil der Vector Tiles und dem damit verbundenen Tile-Server liegt darin, dass gerade nur die Tiles geladen werden, welche benötigt werden. Verändert man Auszug und Zoomstufe, löst man somit Zugriffe auf den Tile-Server aus.
 
 \paragraph{LeafletMap}
 \emph{LeafletMap} ist für die Darstellung der Karte verantwortlich.
 Dabei wird die Komponente \emph{Map} von react-leaflet~\cite{react-leaflet} verwendet.
-Mithilfe von MapboxGL (MapboxGLLayer)~\cite{mapbox_gl_leaflet} kann die Basiskarte ebenfalls mit Vector-Tiles abgebildet werden, was standardmässig von Leaflet nicht unterstützt wird.
+Mithilfe von Mapbox GL JS (MapboxGLLayer)~\cite{mapbox_gl_leaflet} kann die Basiskarte ebenfalls mit Vector Tiles abgebildet werden, was standardmässig von Leaflet nicht unterstützt wird.
 
 \paragraph{VectorgridLayer}
 Die Kartendaten, welche über die Basiskarte gerendert werden, werden mit der Komponente \emph{VectorgridLayer} verwaltet.
 So existiert jeweils ein Layer für die \acs{ÖV}-Güteklassen 2018, für die \acs{ÖV}-Güteklassen des \acl{ARE} und eine für die ÖV-Haltestellen.
-Somit werden alle Kartendaten mit Vector-Tiles abgebildet.
+Somit werden alle Kartendaten mit Vector Tiles abgebildet.
 Alle diese Layer sind in Abbildung \ref{fig:Vector-Grid-Layers} ersichtlich.
 
 \begin{figure}[ht]
@@ -518,14 +519,14 @@ Alle diese Layer sind in Abbildung \ref{fig:Vector-Grid-Layers} ersichtlich.
     \label{fig:Vector-Grid-Layers}
 \end{figure}
 
-Beim Layer, welcher die ÖV-Haltestellen anzeigt, ist der Vorteil der Vector-Tiles stark sichtbar.
-So wurden diese Vector-Tiles so konfiguriert, dass sie erst ab einer gewissen Zoom-Stufe angezeigt werden. In der Abbildung \ref{fig:zoom-level-comparison} sieht man den Unterschied zwischen Zoom-Stufe 13 (links) und 14 (rechts).
-Dadurch müssen auf einer tieferen Zoom-Stufe weniger grosse Vector-Tiles geladen werden und der Fokus bleibt auf den \acs{ÖV}-Güteklassen.
+Beim Layer, welcher die ÖV-Haltestellen anzeigt, ist der Vorteil der Vector Tiles stark sichtbar.
+So wurden diese Vector Tiles so konfiguriert, dass sie erst ab einer gewissen Zoomstufe angezeigt werden. In der Abbildung \ref{fig:zoom-level-comparison} sieht man den Unterschied zwischen Zoomstufe 13 (links) und 14 (rechts).
+Dadurch müssen auf einer tieferen Zoomstufe weniger grosse Vector Tiles geladen werden und der Fokus bleibt auf den \acs{ÖV}-Güteklassen.
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=1.0\linewidth]{projectdoc/img/zoom-level-comparison.png}
-    \caption[Vergleich Zoom-Stufe ÖV-Haltestelle Layer]{Vergleich Zoom-Stufe ÖV-Haltestelle Layer: Zoom-Stufe 13 (links) und 14 (rechts)}
+    \caption[Vergleich Zoom-Stufe ÖV-Haltestelle Layer]{Vergleich Zoomstufe ÖV-Haltestelle Layer: Zoomstufe 13 (links) und 14 (rechts)}
     \label{fig:zoom-level-comparison}
 \end{figure}
 
@@ -534,21 +535,21 @@ Dadurch müssen auf einer tieferen Zoom-Stufe weniger grosse Vector-Tiles gelade
 
 In einer Analyse wurden die beiden Frontend-Frameworks Vue.js und React evaluiert (siehe Kapitel~\ref{Analyse:Evaluation Frontend-Framework}).
 Die Unterstützung von Mapbox GL JS~\cite{mapbox_gl_js} war das ausschlagende Kriterium für den Entscheid zugunsten von React.
-Der Grund für den Einsatz von Mapbox GL JS gegenüber Leaflet~\cite{leaflet} war die gute Unterstützung von Vector-Tiles.
+Der Grund für den Einsatz von Mapbox GL JS gegenüber Leaflet~\cite{leaflet} war die gute Unterstützung von Vector Tiles.
 Trotz alldem hat sich während der Entwicklung gezeigt, dass der Wechsel zu Leaflet praktisch unausweichlich ist.
 Im Folgenden ist dieser Schritt begründet.
 
 Der ausschlaggebende Nachteil von Mapbox GL JS zeigte sich bei der Integration der \acs{ÖV}-Güteklassen, um sie auf der Webkarte anzeigen zu können.
 Wenn sich mehrere Haltestellen nah beieinander befinden, überschneiden sich ihre \glspl{Isochrone}.
 Da wir hinter den Geometrien der \acs{ÖV}-Güteklassen auch die Basiskarte im Hintergrund anzeigen möchten, muss die Deckkraft der Geometrien entsprechend verringert werden.
-Mapbox GL JS unterstützt die Einstellung der Deckkraft aber ausschliesslich auf Feature-Ebene, sprich auf einzelne Geometrien.
+Mapbox GL JS unterstützt die Einstellung der Deckkraft aber ausschliesslich auf Feature-Ebene, sprich auf einzelnen Geometrien.
 Bei sich überlagernden Features entsteht damit der Effekt, dass die Farben sich mischen und einander verstärken (siehe Abbildung~\ref{fig:problem_overlapping_isochrones}).
-Dies ist irreführend, da ein Gebiet mit zum Beispiel Güteklasse A durchgehend gleich kategorisiert werden soll, egal, von wie vielen verschiedenen Haltestellen mit der gleichen Güteklasse das Gebiet erschlossen wird.
+Dies ist irreführend, da ein Gebiet mit zum Beispiel Güteklasse A durchgehend gleich kategorisiert werden soll, egal von wie vielen verschiedenen Haltestellen mit der gleichen Güteklasse das Gebiet erschlossen wird.
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.8\linewidth]{projectdoc/img/problem_overlapping_isochrones}
-    \caption[Problematik von sich überlappenden Geometrien mit gleicher Deckkraf]{Überlappende Geometrien mit gleicher Deckkraft ergeben gemischte und irreführende Farbflächen}
+    \caption[Problematik von sich überlappenden Geometrien mit gleicher Deckkraft]{Überlappende Geometrien mit gleicher Deckkraft ergeben gemischte und irreführende Farbflächen}
     \label{fig:problem_overlapping_isochrones}
 \end{figure}
 
@@ -564,7 +565,7 @@ Die Unterstützung dafür wird aktuell auf Github diskutiert und steht noch offe
 Der zweite Ansatz wurde während der Entwicklung implementiert.
 Da alle Geometrien von allen anderen ausgeschnitten werden, ist dies eine komplexe Operation in der Grössenordnung $\mathcal{O}(n^2)$.
 Mit einem R-Tree-Index kann diesem Problem entgegen gesteuert werden.
-Es enstanden ausserdem Probleme mit der Topologie der ausgeschnittenen Geometrien sowie Render-Fehler im Browser.
+Es entstanden Probleme mit der Topologie der ausgeschnittenen Geometrien sowie Render-Fehler im Browser.
 
 Diese Problematiken haben uns dazu bewegt, von Mapbox GL JS auf Leaflet umzusteigen.
 Die erste Option, die Verringerung der Deckkraft auf dem kompletten Layer, ist dort kein Problem.

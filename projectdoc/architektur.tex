@@ -26,17 +26,18 @@ Im Folgenden werden die Umsysteme sowie die Beziehungen zu unserem System "`ÖV-
 \subsubsection{swissALTI$^{3D}$}
 \label{subsystem:swissALTI3D}
 
-Als \gls{Terrainmodell} wird swissALTI$^{3D}$, ein Produkt von swisstopo~\cite{swissalti3d_swisstopo}, verwendet.
-Dieses wird manuell vom Admin bezogen, da der Datensatz mit ca. 120GB für ein Download über das Web-\ac{API} zu gross ist und da die Daten keinem stetigem Wandel unterstellt sind.
-Diese werden von swisstopo~\cite{swissalti3d_swisstopo} in einem Nachführungszyklus von 6 Jahren aktualisiert.
+Als \gls{Terrainmodell} wird swissALTI$^{3D}$, ein Produkt von Swisstopo~\cite{swissalti3d_swisstopo}, verwendet.
+Dieses wird aus lizenztechnischen Gründen und aufgrund der Grösse (ca. 120 GB) manuell vom Admin bezogen.
+Ebenfalls sind die Daten keinem stetigem Wandel unterstellt.
+Sie werden von Swisstopo~\cite{swissalti3d_swisstopo} in einem Nachführungszyklus von 6 Jahren aktualisiert.
 
 Das \gls{Terrainmodell} wird anschliessend in die Routing-Engine integriert, wo die Höhenunterschiede für die Kostenberechnung einer Route verwendet werden können.
 
 \subsubsection{GTFS}
 \label{subsystem:GTFS}
 
-Die Fahrplandaten werden von der SBB regelmässig im HAFAS-Format publiziert.~\cite{sbb_hafas_spec}
-Diese werden von geOps~\cite{geops_fahrplandaten} in das offene und einfacher handhabbare Format \ac{GTFS}~\cite{gtfs_spec} konvertiert und kostenfrei publiziert.~\cite{geops_fahrplandaten}
+Die Fahrplandaten werden von der SBB regelmässig im HAFAS-Format~\cite{sbb_hafas_spec} publiziert.
+geOps~\cite{geops_fahrplandaten} konvertiert diese in das offene und einfacher handhabbare Format \ac{GTFS}~\cite{gtfs_spec} und publiziert die Daten kostenfrei.
 Diese können im CSV-Format für eine Speicherung in einer relationalen Datenbank bezogen werden.
 Das Datenmodell ist in Abbildung \ref{fig:GTFS_data_model} ersichtlich.
 
@@ -69,7 +70,6 @@ Im Folgenden werden die einzelnen Container genauer beschrieben.
     \caption[Containerdiagramm]{Containerdiagramm ÖV-Güteklassen 2018}
     \label{fig:container-diagram}
 \end{figure}
-% TODO: Use Express export instead of a screenshot
 
 \subsubsection{ÖV-Güteklassen 2018 Generator}
 \label{container:generator}
@@ -106,14 +106,14 @@ Hier wird die Berechnung der \acs{ÖV}-Güteklassen koordiniert.
 So wird die Konfiguration des Users entgegen genommen und die nötigen Vorverarbeitungen und Berechnungen angestossen.
 Durch die Natur der Berechnungslogik (siehe Abbildung \ref{fig:Flow_OeVGK_Brechnung}) lässt sich die Logik analog strukturieren.
 Dabei wird die Haltestellekategorie, welche sich aus der Art des VerkehrsmittelS und dem Kursintervall zusammensetzt, über den Service \emph{StopCategoryCalculator} berechnet.
-Die \acs{ÖV}-Güteklassen lassen sich in einem weiteren Schritt mithilfe des \emph{StopGradeCalculator} berechnen.
+Die \acs{ÖV}-Güteklassen lassen sich in einem weiteren Schritt mithilfe des \emph{TransportGroupRetriever} und \emph{StopGradeCalculator} berechnen.
 \emph{QualityGradesCalculator} übernimmt hier die Koordination der Berechnung.
 
 \paragraph{integration}~\\
 \label{layer:integration}
 Alle Datenbankzugriffe erfolgen über die Integration-Schicht.
 Es ist bewusst kein \acl{ORM} angedacht.
-Dies aus dem Grund, da intensiv mit StoredProcedures gearbeitet wird und vorallem Berechnungen auf der Datenbank durchgeführt werden und somit die Tabellen keine Objekte repräsentieren.
+Dies aus dem Grund, da intensiv mit StoredProcedures gearbeitet wird und vorallem Berechnungen auf der Datenbank durchgeführt werden und nicht direkt ein Datenmodell existiert, welches im Generator verwendet und in der Datenbank persistiert wird.
 
 \paragraph{ui}~\\
 \label{layer:ui}
@@ -142,7 +142,7 @@ Das Web-\ac{API} exponiert somit die Information über welche Stichtage und Zeit
 Dies aus dem Grund, da diese Dateien eine Grösse haben, welche eine Auslieferung über ein Web-\ac{API} nicht zumutbar machen.
 Für die Visualisierung auf einer Karte eignen sich andere Varianten, welche in den Container \nameref{container:Web-App} und \nameref{container:Tile-Server} angesprochen werden.
 
-\paragraph{Web-\ac{API}}
+\paragraph{Web-\ac{API}}~\\
 Die Services, welche über das Web-\ac{API} exponiert werden, sind in Tabelle \ref{table:Wep-API} aufgeführt.
 
 \begin{table}[H]
@@ -170,17 +170,16 @@ Die Services, welche über das Web-\ac{API} exponiert werden, sind in Tabelle \r
 
 Die Web-App dient als Frontend des Systems "`\acs{ÖV}-Güteklassen 2018"'.
 Die Applikation wird als \ac{SPA} direkt an den Browser des Users ausgeliefert.
-Die Web-App nutzt das \ac{API} des \nameref{container:Backend}-Containers für das Beziehen von Metadaten, welche die verfügbaren ÖV-Güteklassen beschreiben.
+Die Web-App nutzt das Web-\ac{API} des \nameref{container:Backend}-Containers für das Beziehen von Metadaten, welche die verfügbaren ÖV-Güteklassen beschreiben.
 Mithilfe der Metadaten können die ÖV-Güteklassen vom Container \nameref{container:Tile-Server} bezogen und visualisiert werden.
 
-Dafür wird, wie in den Rahmenbedingungen (Kap. \ref{Einführung:Rahmenbedingungen, Umfeld, Definitionen, Abgrenzungen}) festgehalten, entweder \emph{Vue.js}~\cite{vuejs} oder \emph{React}~\cite{react} verwendet.
-Die beiden Varianten wurden im Kapitel \ref{Analyse:Evaluation Frontend-Framework} evaluiert.
+Dafür wird, wie in der Evaluation (siehe Kapitel \ref{Analyse:Evaluation Frontend-Framework}) festgehalten, \emph{React}~\cite{react} eingesetzt.
 
 \subsubsection{Tile-Server}
 \label{container:Tile-Server}
 
 Der Tile-Server ist ein wichtiger Container, welche vom Web-App genutzt wird.
-Durch diesen und die damit verbundenen Verwendung von Vector-Tiles~\cite{geometalab_vectortiles} wird eine enorme Performanzsteigerung und somit eine bessere Usability erreicht.
+Durch diesen und die damit verbundenen Verwendung von Vector Tiles~\cite{geometalab_vectortiles} wird eine enorme Performanzsteigerung und somit eine bessere Usability erreicht.
 Der Tile-Server war in einer ersten Version nicht angedacht.
 In einer ersten Version hat die Web-App die \acs{ÖV}-Güteklassen direkt als GeoJSON vom Backend bezogen.
 Dies war auf zwei Ebenen problematisch.
@@ -189,23 +188,17 @@ Das GeoJSON für die \acs{ÖV}-Güteklassen 2018 am Stichtag 13.11.2018 tagsübe
 Dieses muss in voller Grösse geladen werden und das für jeden verfügbaren Stichtag, welcher ein Benutzer auswählt.
 Die Visualisierung des GeoJSON in dieser Grössenordnung ist extrem unflüssig und man wartet beim Verschieben der Karten mehrere Sekunden auf die Darstellung der \acs{ÖV}-Güteklassen.
 
-Diese Problematik ist mit der Verwendung von Vector-Tiles und einem Tile-Server obsolet.
+Diese Problematik ist mit der Verwendung von Vector Tiles und einem Tile-Server obsolet.
 Der Tile-Server liefert genau die Daten aus, welcher der Benutzer gerade betrachten möchte.
 Liegt der Fokus beispielsweise auf Rapperswil-Jona, werden die \acs{ÖV}-Güteklassen in diesem Gebiet geladen und nicht für die ganze Schweiz.
 Die \acs{ÖV}-Güteklassen werden einfach gesagt gekachelt, was das Ausliefern eines Auszugs der Daten möglich macht.
-Je nach Zoom-Stufe ist es möglich darzustellende Features zusammenzufassen, weniger oder mehr Detail in die Darstellung zu bringen und kann somit die zu ladende Grösse der Vector-Tiles und somit die Antwortzeit vom Server optimieren.
+Je nach Zoomstufe ist es möglich darzustellende Features zusammenzufassen, weniger oder mehr Detail in die Darstellung zu bringen und kann somit die zu ladende Grösse der Vector Tiles und somit die Antwortzeit vom Server optimieren.
 
 \subsubsection{Routing-Engine}
 \label{container:Routing-Engine}
 
-Die Routing-Engine ist für die Berechnung von Isolinien verantwortlich.
-Dazu werden zuerst periodisch die Kartendaten von \nameref{subsystem:planet.osm.ch} eingelesen und zusammen mit dem \gls{Terrainmodell} von \nameref{subsystem:swissALTI3D}, das zuvor vom Admin manuell besorgt wurde, eine Routing-Topologie erstellt.
+Die Routing-Engine ist für die Berechnung von \glspl{Isochrone} verantwortlich.
+Dazu werden zuerst die Kartendaten von \nameref{subsystem:planet.osm.ch} eingelesen und zusammen mit dem \gls{Terrainmodell} von \nameref{subsystem:swissALTI3D}, das zuvor vom Admin manuell besorgt wurde, einen Routing-Graphen erstellt.
 
-Sobald der Admin die Berechnung der ÖV-Güteklassen auslöst, wird die Routing-Engine vom \nameref{container:generator} nach Isolinien abgefragt, die mit Haltestellen als Startpunkt und einer gewissen Distanz (gewichtet nach Höhenunterschied) berechnet werden.
+Sobald der Admin die Berechnung der ÖV-Güteklassen auslöst, wird die Routing-Engine vom \nameref{container:generator} nach \glspl{Isochrone} abgefragt, die mit Haltestellen als Startpunkt und einer gewissen Distanz berechnet werden.
 Diese Isodistanzen bilden Polygone, die anschliessend vom Generator weiter verarbeitet werden.
-
-
-\subsection{Code}
-\label{Architektur:Code}
-
-%TODO vlt. auf anderes Kapitel verweisen

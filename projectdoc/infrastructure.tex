@@ -12,11 +12,11 @@ Beides wird im Folgenden kurz beschrieben.
 \label{CI:Erstellen der LaTeX-Dokumentation}
 
 Bei jedem Git Commit in das Repository der Dokumentation~\cite{github:thesis} wird mit Continuous Integration ein PDF erstellt.
-So wird sichergestellt, dass die Dokumentation keine syntaktischen Fehler enthält.
-Das PDF wird in unser internes JIRA hochgeladen und direkt dem Task angehängt, der zum Commit gehört.
+So wird sichergestellt, dass die Dokumentation keine syntaktischen Fehler aufweist.
+Das PDF wird in unser internes JIRA hochgeladen und direkt dem Task angehängt, der zum Branch gehört.
 
 Für diese Continuous Integration haben wir uns für Travis CI ~\cite{travis-ci} entschieden, da die Integration mit Github gut funktioniert und das Produkt für Open-Source-Projekte kostenlos ist.
-Allerdings bietet Travis CI keine direkte Unterstützung für eine LaTeX-Umgebung, die LaTeX-Pakete aus den Repositories sind ausserdem veraltet.
+Allerdings bietet Travis CI keine direkte Unterstützung für eine LaTeX-Umgebung an. Die LaTeX-Pakete aus den Repositories sind ausserdem veraltet.
 So muss bei jedem Build die LaTeX-Umgebung kompiliert werden, damit immer die neueste Version aller Pakete verwendet werden kann.
 
 
@@ -26,8 +26,8 @@ So muss bei jedem Build die LaTeX-Umgebung kompiliert werden, damit immer die ne
 Für die Continuous Integration der Web-Applikation braucht es eine Umgebung mit Node JS, um die Applikation zu kompilieren und die Tests auszuführen.
 Für den \nameref{Implementation:ÖV-Güteklassen 2018 Generator} wird eine entsprechende Umgebung für Python benötigt.
 Dazu bietet sich ebenfalls Travis CI~\cite{travis-ci} an.
-Eine entsprechenden Umgebungen sind bereits vorhanden, womit der Konfigurationsaufwand sehr klein bleibt.
-
+Die entsprechenden Umgebungen sind bereits vorhanden, womit der Konfigurationsaufwand sehr klein bleibt.
+Ebenfalls existiert ein Cron-Job, welcher die Builds und somit die Tests in regelmässigen Abständen ausführt.
 
 \subsection{Deployment}
 \label{Infrastruktur:Deployment}
@@ -36,9 +36,10 @@ Für das Deployment wurde eine Docker-Umgebung eingerichtet, die für die einfac
 Die Details dazu sind im Kapitel \ref{Implementation:ÖV-Güteklassen 2018 Generator} beschrieben.
 
 Um die berechneten \acs{ÖV}-Güteklassen in der Web-Applikation zu visualisieren, wurde eine zusätzliche Docker-Umgebung vorbereitet.
-Diese kombiniert das Backend, Frontend sowie der Tile-Server, damit man die komplette Applikation ohne zusätzliche Konfiguration lokal oder auf einem Server deployen kann.
+Diese kombiniert die Web-App, Backend sowie der Tile-Server, damit man die komplette Applikation ohne zusätzliche Konfiguration lokal oder auf einem Server deployen kann.
+Dies hat den Vorteil, dass das Setup, welches deployed wird, analog lokal gestartet und getestet werden kann.
 Um die Services in einem gemeinsamen Endpoint zu verbinden, wird eine Nginx-Instanz als Reverse-Proxy verwendet, der die \acs{API}-Requests an die entsprechenden Endpoints weiterleitet.
-Die Umgebung ist in Abbildung \ref{fig:deployment_web-app} schemahaft dargestellt.
+Die Umgebung ist in Abbildung \ref{fig:deployment_web-app} dargestellt.
 
 \begin{figure}[ht]
     \centering
@@ -47,6 +48,6 @@ Die Umgebung ist in Abbildung \ref{fig:deployment_web-app} schemahaft dargestell
     \label{fig:deployment_web-app}
 \end{figure}
 
-Zusätzlich wurde ein Service eingerichtet, um die errechneten \acs{ÖV}-Güteklassen im GeoJSON-Format in Map-Tiles umzuwandeln, damit der Tile-Server damit umgehen kann.
+Zusätzlich wurde ein Service eingerichtet, um die errechneten \acs{ÖV}-Güteklassen im GeoJSON-Format in Map-Tiles, sprich in MBTiles (siehe Kapitel \ref{Implementation:Tile-Converter}) umzuwandeln, damit der Tile-Server damit umgehen kann.
 Der Benutzer kann die GeoJSON-Dateien in einem Ordner ablegen und die Docker-Umgebung mit Docker Compose starten.
 Die Aufbereitung der Map-Tiles geschieht dann automatisch im Hintergrund.

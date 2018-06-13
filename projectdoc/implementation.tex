@@ -16,20 +16,21 @@ Für eine einfache Handhabung wurde ein Docker-Setup gewählt.
 Die Bedienung dieses Setups ist im Kapitel \ref{Softwaredokumentation} ausführlich beschrieben.
 
 Grundsätzlich kann man sagen, dass zwei Docker-Container existieren, namentlich \emph{tooling} und \emph{db}.
-Der Docker-Container \emph{tooling} nimmt Daten entgegen oder bezieht diese von externen Diensten und bereitet sie so vor, dass diese vom Docker-Container \emph{db} in die Datenbank \emph{oevgk18} für eine Weitereverwendung des \acs{ÖV}-Güteklassen 2018 Generator geladen werden können.
+Der Docker-Container \emph{tooling} nimmt Daten entgegen oder bezieht diese von externen Diensten und bereitet sie so vor, dass diese vom Docker-Container \emph{db} in die Datenbank \emph{oevgk18} für eine Weitereverwendung des \acs{ÖV}-Güteklassen 2018 Generators geladen werden können.
 Der Docker-Container \emph{db} sorgt ebenfalls dafür, dass beim Starten die nötigen Extensions (pgrouting, hstore, \dots) aktiviert sind und zuerst die Schemas und danach die Stored Procedures erstellt werden.
 Zusätzlich müssen nach den einzelnen Imports, welche nachfolgend beschrieben werden, zusätzliche Modifaktionen am Schema vorgenommen werden.
-Diese Modifikationen werden in einem Post-Import-Schritt durchgeführt, weil die Terrain- sowie die OSM-Daten durch Tools importiert werden, welche ein Schema vorgeben und somit ein bereits modifiziertes Schema überschrieben wird. Ebenfall werden zusätzliche Indizes erstellt.
+Diese Modifikationen werden in einem Post-Import-Schritt durchgeführt, weil die Terrain- sowie die OSM-Daten durch Tools importiert werden, welche ein Schema vorgeben und somit bereits vorhandene Schemas überschrieben werden.
+Ebenfalls werden zusätzliche Indizes erstellt.
 
-Im weiteren sind die Services, welche die beiden Docker-Container bereitstellen, anhand eines Datenflussdiagrams aufgeschlüsselt.
-Der \acs{ÖV}-Güteklassen 2018 Generator operiert grundsätzlich auf drei externen Datenquellen, namentlich sind dass die Fahrplandaten (nachfolgend \emph{gtfs data}), das Terrainmodell (nachfolgend \emph{terrain data)} und die \acs{OSM}-Daten (nachfolgend \emph{osm data}).
-Für jede Datenquelle existiert ein Service im Docker-Container \emph{tooling} und ein Pendant im Docker-Container \emph{db}, welche die vorverarbeiteten Daten des Docker-Container \emph{tooling} entgegennimmt und in die Datenbank spielt.
+Im weiteren sind die Services, welche die beiden Docker-Container bereitstellen, anhand eines Datenflussdiagramms aufgeschlüsselt.
+Der \acs{ÖV}-Güteklassen 2018 Generator operiert grundsätzlich auf drei externen Datenquellen, namentlich sind das die Fahrplandaten (nachfolgend \emph{gtfs data}), das Terrainmodell (nachfolgend \emph{terrain data)} und die \acs{OSM}-Daten (nachfolgend \emph{osm data}).
+Für jede Datenquelle existiert ein Service im Docker-Container \emph{tooling} und ein Pendant im Docker-Container \emph{db}, welche die vorverarbeiteten Daten des Docker-Containers \emph{tooling} entgegennimmt und in die Datenbank spielt.
 
 \paragraph{OSM-Daten}~\\
 \acs{OSM}-Daten werden von der Routing-Engine für das Berechnen von \glspl{Isochrone} und für das Identifizieren von \acs{ÖV}-Haltestellen verwendet.
 In Abbildung \ref{fig:dataflow-docker-setup-osm-data} ist ersichtlich, wie der Docker-Container \emph{tooling} die \acs{PBF}-Datei der Schweiz von einem externen Dienst~\cite{planet_osm_ch} bezieht und für die zwei vorhin erwähnten Zwecke vorbereitet.
-Es besteht ebenfalls die Möglichkeit eine lokale \acs{OSM}-Datei zu verwenden.
-Dies ist vorallem für Testing-Zwecken vorteilhaft, da auf kleineren Ausschnitten getestet werden kann.
+Es besteht ebenfalls die Möglichkeit, eine lokale \acs{OSM}-Datei zu verwenden.
+Dies ist vorallem für Testing-Zwecke vorteilhaft, da auf kleineren Ausschnitten leichter getestet werden kann.
 
 \begin{figure}[ht]
     \centering
@@ -39,7 +40,7 @@ Dies ist vorallem für Testing-Zwecken vorteilhaft, da auf kleineren Ausschnitte
 \end{figure}
 
 Der Routing-Graph wird mithilfe des Tools \emph{OSM2PO}~\cite{OSM2PO} für pgRouting aufbereitet und als SQL-Datei bereitgestellt.
-\emph{OSM2PO} wird durch eine separate Konfiguration für unsere Zwecke konfiguriert.
+\emph{OSM2PO} wird durch eine separate Konfiguration für unsere Zwecke konfiguriert, so dass die Routen für Fussgänger optimiert werden.
 
 \paragraph{GTFS-Daten}~\\
 Die Fahrplandaten werden im Docker-Container \emph{tooling} automatisch von geOps~\cite{geops_fahrplandaten} im GTFS-Format~\cite{gtfs_spec} heruntergeladen und im CSV-Format als TXT-Dateien bereitgestellt.
@@ -55,9 +56,9 @@ Der Datenfluss ist in Abbildung \ref{fig:dataflow-docker-setup-gtfs-data} ersich
 
 \paragraph{Terrain-Daten}~\\
 Das Terrainmodell kann aufgrund der Grösse der Datei und aus lizenztechnischen Gründen nicht von einem externen Dienst bezogen und muss somit dem Service manuell als TIF-Datei bereitgestellt werden.
-Diese Datei wird mit raster2pgsql~\cite{raster2pgsql}, einem Tool von PostGIS, welches Raster-Formate in ein Format konvertiert, welche in eine PostGIS-Tabelle geladen werden kann, verarbeitet.
+Diese Datei wird mit raster2pgsql~\cite{raster2pgsql} verarbeitet, einem Tool von PostGIS, welches Raster-Formate in ein Format konvertiert, welches in eine PostGIS-Tabelle geladen werden kann.
 Dabei wird von der üblichen Struktur (ein Service im Docker-Container \emph{tooling} und ein Pendant im \emph{db}) abgewichen.
-raster2pgsql ist darauf ausgelegt direkt in eine PostgreSQL-Datenbank zu schreiben.
+raster2pgsql ist darauf ausgelegt, direkt in eine PostgreSQL-Datenbank zu schreiben.
 Der Weg über eine Intermediate-Datei wäre somit eine überflüssige Indirektion.
 Somit entfällt hier der Service im Docker-Container \emph{tooling}.
 Der Datenfluss ist in Abbildung \ref{fig:dataflow-docker-setup-terrain-data} ersichtlich.
@@ -73,7 +74,7 @@ Der Datenfluss ist in Abbildung \ref{fig:dataflow-docker-setup-terrain-data} ers
 \label{ÖV-Güteklassen 2018 Generator:Umsetzung Spezifikation}
 
 \paragraph{Datenfluss}~\\
-Durch die unterschiedliche Natur der Datenquellen und der Menge dieser ist es hilfreich, zu visualisieren, zu welchem Zeitpunkt, welche Daten zu welchem Zweck benötigt werden.
+Durch die unterschiedliche Natur der Datenquellen und der Menge dieser ist es hilfreich, zu visualisieren, zu welchem Zeitpunkt welche Daten zu welchem Zweck benötigt werden.
 Wie in Abbildung \ref{fig:Flow_OeVGK_Brechnung} ersichtlich ist, werden die \acs{ÖV}-Güteklassen in fünf Schritten berechnet. 
 In Abbildung \ref{fig:dataflow_OeV-Gueteklassen_2018_Generator} ist nun schematisch die Raison d’Être der Datenquellen ersichtlich.
 Die Pfeilrichtung beschreibt den Datenfluss.
@@ -91,10 +92,10 @@ Wie wir in Kapitel \ref{ÖV-Güteklassen 2018 Generator:Datenaufbereitung} geseh
 Nachfolgend werden die fünf Berechnungsschritte separat beschrieben.
 
 \paragraph{Berechnung der Art der Verkehsmittel}~\\
-Die öffentlichen Verkehrsmittel werden in drei Verkehrsmittelgruppen gruppiert (siehe Kapitel \ref{Berechnungsmethodik OeVGK18:Art der Verkehrsmittel}).
-Wie in Kapitel \ref{subsystem:GTFS} beschrieben, werden die Fahrplandaten im \acs{GTFS}-Format~\cite{gtfs_spec} gehalten. 
+Die öffentlichen Verkehrsmittel werden in drei Verkehrsmittelgruppen gruppiert (siehe Kapitel \ref{Berechnungsmethodik OeVGK18:Art der Verkehrsmittel} im Teil \ref{Technischer Bericht}).
+Wie in Kapitel \ref{subsystem:GTFS} beschrieben werden die Fahrplandaten im \acs{GTFS}-Format~\cite{gtfs_spec} gehalten. 
 Es werden dabei 8 Verkehrsmittel-Typen unterschieden.
-In Tabelle \ref{table:Mapping GTFS Route Type Verkehrsmittelgruppe} ist ein Mapping der definierten GTFS Route Typen und der Verkehrsmittelgruppen ersichtlich.
+In Tabelle \ref{table:Mapping GTFS Route Type Verkehrsmittelgruppe} ist ein Mapping der definierten GTFS Route Typen zu den Verkehrsmittelgruppen ersichtlich.
 
 \begin{table}[ht]
     \centering
@@ -140,10 +141,10 @@ Im abgebildeten Query wird geprüft, ob der aktuelle Stop bei einem anderen \emp
 Die Anzahl wird mit der Window Function gesammelt und gruppiert für jede Haltestelle retourniert.
 
 Die abgebildete Berechnung hat mehrere Ver- und Verschlimmbesserungen durchlaufen.
-Es lohnt sich einen ausführlicheren Blick auf die Evolution der Abfragetechnik zu legen, da diese Hoch und Tiefs durchlebt hat und einige Learnings daraus gezogen wurden.
+Es lohnt sich einen ausführlicheren Blick auf die Evolution der Abfragetechnik zu legen, da diese Hoch und Tiefs durchlebt hat und einige Erkenntnisse daraus gezogen wurden.
 
 \subparagraph{1. Version}
-In einer ersten Version war angedacht, dass das Berechnen der Anzahl erreichbaren Haltestelle für jede einzelne Haltestelle separat aufgerufen wird.
+In einer ersten Version war angedacht, dass das Berechnen der Anzahl erreichbaren Haltestellen für jede einzelne Haltestelle separat aufgerufen wird.
 
 \begin{listing}[ht]
     \inputminted{sql}{projectdoc/listing/count_of_distinct_next_stops_v1.sql}
@@ -151,17 +152,17 @@ In einer ersten Version war angedacht, dass das Berechnen der Anzahl erreichbare
     \label{listing:count_of_distinct_next_stops_v1}
 \end{listing}
 
-Das Datenmodell von GTFS zwingt einem zu einem Join über mehrere grössere Tabelle, welcher mehrmals durchgeführt werden muss.
+Das Datenmodell von GTFS zwingt einem zu einem Join über mehrere grosse Tabellen, welcher mehrmals durchgeführt werden muss.
 In Listing \ref{listing:count_of_distinct_next_stops_v1} ist ersichtlich, wie in einer Common Table Expression dieser für jede Haltestelle durchgeführt wird.
 Dieser Join bildet für eine Station alle \emph{Trips} mit der Nummer des akutellen \emph{Stops} auf einem \emph{Trip} ab.
 Dieser Join ist sehr zeit- und ressourcenintensiv.
 Diese Abfrage dauert pro Haltestelle 11.9 Sekunden, was bei momentan akuellen 1815 Bahnhaltestellen extrem ins Gewicht fällt und nicht zumutbar ist.
 
 \subparagraph{2. Version}
-In einer zweiten Version war die Überlegung den Join zu persistieren, damit nicht jede Abfrage diese aufwändigen Join durchführen muss und Indizes darauf zu generieren.
+In einer zweiten Version war die Überlegung, den Join zu persistieren, damit nicht jede Abfrage diese aufwändigen Join durchführen muss und Indizes darauf zu generieren.
 
-Der Grund warum in diesem Fall nicht eine temporäre Tabelle in Frage kommt, ist in der PostgreSQL-Dokumentation beschrieben: "`The autovacuum daemon cannot access and therefore cannot vacuum or analyze temporary tables."'~\cite{postgresql_doc}
-Es ist auch nicht möglich den Daemon manuell anzustossen, da das Erstellen der temporären Tabelle und das Starten des Daemons aus einer PostgreSQL-Funktion nicht in der selben Session durchgeführt werden kann, was den Nutzen der temporären Tabelle zu nichte macht, denn damit die Indizes greifen, ist dieser Prozess relevant.
+Der Grund, warum in diesem Fall nicht eine temporäre Tabelle in Frage kommt, ist in der PostgreSQL-Dokumentation beschrieben: "`The autovacuum daemon cannot access and therefore cannot vacuum or analyze temporary tables."'~\cite{postgresql_doc}
+Es ist auch nicht möglich den Daemon manuell anzustossen, da das Erstellen der temporären Tabelle und das Starten des Daemons aus einer PostgreSQL-Funktion nicht in der selben Session durchgeführt werden kann, was den Nutzen der temporären Tabelle zunichte macht, denn damit die Indizes greifen, ist dieser Prozess relevant.
 Das Persistieren des Join in einer persistenten Tabelle (\emph{next\_station\_mapping}) und das Anlegen der Indizes bringen in diesem Fall eine enorme Performanzsteigerung, wie in Tabelle \ref{table:Performanzvergleich Temp Table und Table mit Index} ersichtlich ist, mit der Annahme, dass Autovacuum lief.
 
 \begin{table}[ht]
@@ -188,7 +189,7 @@ Das Persistieren des Join in einer persistenten Tabelle (\emph{next\_station\_ma
 \end{table}
 
 \subparagraph{3. Version}
-Um die Datenbank nicht mit fast 2000 Abfragen für alle Bahnhaltestellen zu belasten, entstand die Idee für alle Haltestellen in einer Abfrage die erreichbaren Haltestellen zu zählen.
+Um die Datenbank nicht mit fast 2000 Abfragen für alle Bahnhaltestellen zu belasten, entstand die Idee, für alle Haltestellen in einer Abfrage die erreichbaren Haltestellen zu zählen.
 
 \begin{listing}[ht]
     \inputminted{sql}{projectdoc/listing/count_of_distinct_next_stops_v3.sql}
@@ -196,8 +197,8 @@ Um die Datenbank nicht mit fast 2000 Abfragen für alle Bahnhaltestellen zu bela
     \label{listing:count_of_distinct_next_stops_v3}
 \end{listing}
 
-Dazu wurde die Abfrage in die Version, welche in Listing \ref{listing:count_of_distinct_next_stops_v3} ersichtlich ist umgebaut.
-Die Abfrage läuft in 9.8 Sekunden und ist im Vergleich zur Lösung aus Version 2 für momentan 1815 vorhandenen Bahnhaltestellen um über 100 Sekunden schneller.
+Dazu wurde die Abfrage in die Version umgebaut, welche in Listing \ref{listing:count_of_distinct_next_stops_v3} ersichtlich ist.
+Die Abfrage läuft in 9.8 Sekunden durch und ist im Vergleich zur Lösung aus Version 2 für momentan 1815 vorhandenen Bahnhaltestellen um über 100 Sekunden schneller.
 
 \subparagraph{Finale Version}
 Da nun die Berechnung nicht mehr für alle Bahnhaltestellen einzeln durchgeführt wird, lohnt sich die Analyse, ob sich die Erstellung der Tabelle (\emph{next\_station\_mapping}) und der Indizes im Vergleich zum Join in einer Common Table Expression noch lohnt.
@@ -234,7 +235,7 @@ Die Performanzverbesserung ist nicht immens, jedoch wird die Verbesserung übern
 Die finale Version war bereits in Listing \ref{listing:count_of_distinct_next_stops} ersichtlich.
 
 \subparagraph{Fazit}
-Optimierungen, welche in der 2. und 3. Version Sinn gemacht haben, war in der finalen Version dann nicht mehr notwendig.
+Optimierungen, welche in der 2. und 3. Version Sinn gemacht hatten, waren in der finalen Version nicht mehr notwendig.
 Es hat sich gezeigt, dass es sich lohnt, vergangene Annahmen zu überdenken und zu prüfen, ob diese auf die aktuelle Situation immer noch zu treffen.
 In Tabelle \ref{table:Performanzvergleich der verschiedenen Version} sind die Resultate der Optimierungen zusammengefasst.
 
@@ -276,13 +277,13 @@ Die optimierte SQL-Query dauert ca. 7 Sekunden für alle 28'000 Haltestellen, wa
 
 \paragraph{Berechnung der Haltestellenkategorie}~\\
 Die Haltestellenkategorie setzt sich zusammen aus der Einteilung einer Haltestelle in die Verkehrsmittelgruppe (Art der Verkehrsmittel) und dem Kursintervall.
-Die Übersetzung dieser Werte in die Haltestellenkategorien  I -- VII erfolgt nach der Tabelle in der Spezifikation (\ref{Berechnungsmethodik OeVGK18:Haltestellenkategorie}).
+Die Übersetzung dieser Werte in die Haltestellenkategorien  I -- VII erfolgt nach der Tabelle in der Spezifikation (Kapitel \ref{Berechnungsmethodik OeVGK18:Haltestellenkategorie} im Teil \ref{Technischer Bericht}).
 In der Konfigurationsdatei können diese Parameter allerdings frei angepasst werden.
 
 \paragraph{Berechnung der ÖV-Güteklassen}~\\
 Die \acs{ÖV}-Güteklassen einer einzelnen Haltestelle wird durch \glspl{Isochrone} beschrieben, die jeweils eine Fläche bilden, von der die Haltestelle innerhalb einer maximalen Gehzeit erreichbar ist.
 Jeder dieser \glspl{Isochrone} wird eine \acs{ÖV}-Güteklasse von A -- F zugewiesen.
-Welche \glspl{Isochrone} für eine Haltestelle erzeugt werden und welche Güteklasse ihnen zugewiesen wird, kann aus der Tabelle \ref{table:ÖV-Güteklassen} der Spezifikation (Kap. \ref{Berechnungsmethodik OeVGK18}) entnommen werden.
+Welche \glspl{Isochrone} für eine Haltestelle erzeugt werden und welche Güteklasse ihnen zugewiesen wird, kann aus der Tabelle \ref{table:ÖV-Güteklassen} der Spezifikation (Kap. \ref{Berechnungsmethodik OeVGK18} im Teil \ref{Technischer Bericht}) entnommen werden.
 
 \subparagraph{Snapping von der Haltestelle auf den Routing-Graph}
 Die Haltestellen stammen aus dem Datenstamm der SBB~\cite{sbb_hafas_spec} und sind somit nicht Teil des Routing-Graphen. 
@@ -300,7 +301,7 @@ Dieses Snapping auf einen isolierten Graphen führt dazu, dass die Routing-Engin
 \begin{figure}[ht]
     \centering
     \includegraphics[width=1\linewidth]{projectdoc/img/snapping_comparison}
-    \caption[Snapping der Haltestelle auf den Routing-Graphen]{Die Haltestelle (blaues Quadrat) wird mit dem einfachen Ansatz zur Rolltreppe `"gesnapped"' (Roter Diamant), während die Optimierung (Grüner Punkt) ein Ergebnis erzeugt, dass mit dem restlichen Routing-Netz verbunden ist.}
+    \caption[Snapping der Haltestelle auf den Routing-Graphen]{Die Haltestelle (blaues Quadrat) wird mit dem einfachen Ansatz zur Rolltreppe "`gesnapped"' (Roter Diamant), während die Optimierung (Grüner Punkt) ein Ergebnis erzeugt, dass mit dem restlichen Routing-Netz verbunden ist.}
     \label{fig:snapping_comparison}
 \end{figure}
 
@@ -389,9 +390,9 @@ Diese gilt es nun im GeoJSON Format auszugeben.
 Dabei wird für jeden der unterschiedlichen Stichtage eine separate Datei erstellt.
 
 Für jede \gls{Isochrone} wird ein GeoJSON-Feature erstellt, wobei die \acs{ÖV}-Güteklasse und die \emph{uic\_ref} der Haltestelle als zusätzliche Attribute mitgegeben werden.
-Anschliessend werden alle Features sortiert nach \acs{ÖV}-Güteklassen sortiert, wobei die tieferen Klassen zuerst eingefügt werden.
+Anschliessend werden alle Features sortiert nach \acs{ÖV}-Güteklassen, wobei die tieferen Klassen zuerst eingefügt werden.
 Dies hat später für die Visualisierung eine Auswirkung.
-Weil die \glspl{Isochrone} der höheren Klassen diejenigen der tieferen überlagern, sollte bei der Visualisierung die tieferen Klassen zuerst gerendert werden.
+Weil die \glspl{Isochrone} der höheren Klassen diejenigen der tieferen überlagern, sollten bei der Visualisierung die tieferen Klassen zuerst gerendert werden.
 Durch die Reihenfolge wird dies bereits in diesem Schritt sichergestellt.
 
 Zusätzlich zu den \acs{ÖV}-Güteklassen wird eine GeoJSON-Datei mit den Punkten aller Haltestellen erstellt, um sie später mit der Web-Applikation auf der Karte anzeigen zu können.
@@ -401,14 +402,14 @@ Mit dieser JSON-Datei wird dem Backend ebenfalls mitgeteilt, welche Stichtage an
 \subsection{Backend}
 \label{Implementation:Backend}
 
-In diesem Abschnitt wird der Container \nameref{container:Backend} erläutert.
+In diesem Abschnitt wird die Implementation des Containers \nameref{container:Backend} erläutert.
 Primäres Ziel der Komponente ist es, Nutzer Informationen über verfügbare \acs{ÖV}-Güteklasse bereitzustellen.
 Es handelt sich dabei um eine schlanke Flask-Applikation~\cite{flask} mit sehr geringer Logik.
 
 Das Backend wird beim Starten initialisiert.
 Dabei wird eine generierte Metadaten-Datei des Container \nameref{container:generator} eingelesen.
 Genauer Sinn und Zweck dieser Datei ist im Abschnitt \ref{layer:output} beschrieben.
-Diese Datei beinhaltet die Information, welche \acs{ÖV}-Güteklassen verfügbar sind.
+Diese Datei beinhaltet Informationen, welche \acs{ÖV}-Güteklassen verfügbar sind.
 Dadurch kann die Web-App entscheiden, welche \acs{ÖV}-Güteklassen der Benutzer auswählen kann und wie diese vom Container \nameref{container:Tile-Server} bezogen werden können.
 
 Diese Informationen werden über ein Web-\ac{API} exponiert.
@@ -417,9 +418,9 @@ Die verfügbaren Services sind in der Tabelle \ref{table:Wep-API} beschrieben.
 Im Bezug auf das Maturity Model~\cite{maturity_model} von Leonard Richardson befinden wir uns auf Level 2.
 
 Mithilfe von Flasgger~\cite{flasgger} wird eine \ac{OAS}~\cite{open-api-specificaiton} erstellt.
-Dies hat den Vorteil, dass die \ac{API} sauber dokumentiert ist und Clients der \ac{API} in unterschiedlichen Sprachen generiert werden können.
+Dies hat den Vorteil, dass das \ac{API} sauber dokumentiert ist und Clients der \ac{API} in unterschiedlichen Sprachen generiert werden können.
 
-Die konkrete Web-\ac{API}, welche das Backend exponiert, kann mit ReDoc (OpenAPI/Swagger-generated API Reference Documentation)~\cite{oevgk18-backend-api-spec} oder mit dem klassischen Swagger UI~\cite{oevgk18-backend-api-swaggerui} betrachtet werden.
+Das konkrete Web-\ac{API}, welches das Backend exponiert, kann mit ReDoc (OpenAPI/Swagger-generated API Reference Documentation)~\cite{oevgk18-backend-api-spec} oder mit dem klassischen Swagger UI~\cite{oevgk18-backend-api-swaggerui} betrachtet werden.
 
 \subsection{Tile-Server}
 \label{Implementation:Tile-Server}
@@ -479,8 +480,8 @@ Die Verantwortlichkeiten werden nachfolgend kurz beschrieben.
 Der zentrale Einstieg der React-Applikation ist die \emph{App}-Komponente.
 
 \paragraph{HeaderControl}
-Der ganze Header wird über den \emph{HeaderControl} verwaltet, welche aus zwei Modals (=Dialogen), welche geöffnet werden können, besteht.
-Zur einfachen Bedienung ist ebenfalls ein \gls{Geocoding} eingebunden.
+Der ganze Header wird über den \emph{HeaderControl} verwaltet, welche aus zwei Modals (=Dialogen) besteht, die geöffnet werden können.
+Zur einfachen Bedienung ist ebenfalls ein \gls{Geocoding} als Suchfunktion eingebunden.
 
 \paragraph{OeVGKControl}
 Interessant ist die Haupt-Komponente \emph{OeVGKControl}, welche die Benutzereingaben und die Karte kontrolliert.
@@ -565,7 +566,7 @@ Die Unterstützung dafür wird aktuell auf Github diskutiert und steht noch offe
 Der zweite Ansatz wurde während der Entwicklung implementiert.
 Da alle Geometrien von allen anderen ausgeschnitten werden, ist dies eine komplexe Operation in der Grössenordnung $\mathcal{O}(n^2)$.
 Mit einem R-Tree-Index kann diesem Problem entgegen gesteuert werden.
-Es entstanden Probleme mit der Topologie der ausgeschnittenen Geometrien sowie Render-Fehler im Browser.
+Es entstanden ausserdem Probleme mit der Topologie der ausgeschnittenen Geometrien sowie Render-Fehler im Browser.
 
 Diese Problematiken haben uns dazu bewegt, von Mapbox GL JS auf Leaflet umzusteigen.
 Die erste Option, die Verringerung der Deckkraft auf dem kompletten Layer, ist dort kein Problem.

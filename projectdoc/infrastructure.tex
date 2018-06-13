@@ -51,3 +51,42 @@ Die Umgebung ist in Abbildung \ref{fig:deployment_web-app} dargestellt.
 Zusätzlich wurde ein Service eingerichtet, um die errechneten \acs{ÖV}-Güteklassen im GeoJSON-Format in Map-Tiles, sprich in MBTiles (siehe Kapitel \ref{Implementation:Tile-Converter}) umzuwandeln, damit der Tile-Server damit umgehen kann.
 Der Benutzer kann die GeoJSON-Dateien in einem Ordner ablegen und die Docker-Umgebung mit Docker Compose starten.
 Die Aufbereitung der Map-Tiles geschieht dann automatisch im Hintergrund.
+
+\subsection{Version Control}
+\label{Infrastruktur:Version Control}
+
+Alle Artefakte, welche in dieser Arbeit erstellt wurden, sind öffentlich auf Github verfügbar.
+Es wurde dazu eine Github Organisation mit dem Namen "`public-transport-quality-grades"'~\cite{github} erstellt.
+
+In der Tabelle \ref{table:github_overview} sind die einzelnen Repositoriers aufgelistet und kurz der Inhalt erläutert.
+Dies soll eine Übersich und einen raschen Einstieg in die Version Control ermöglichen.
+
+\begin{table}[H]
+    \begin{tabular}{l p{10.6cm}}
+        \toprule
+        \textbf{Name}           & \textbf{Inhalt}\\
+        \midrule
+        thesis~\cite{github:thesis}
+                                & Bachelorarbeit\\
+        oevgk18-specification~\cite{github:oevgk18-specification}
+                                & Aus der Bachelorarbeit extrahierte \acs{ÖV}-Güteklassen 2018 Spezifikation\\
+        oevgk18-generator~\cite{github:oevgk18-generator}
+                                & \acs{ÖV}-Güteklassen 2018 Generator\\
+        web-app~\cite{github:web-app}
+                                & Web-Applikation zur Visualisierung der \acs{ÖV}-Güteklassen 2018\\
+        backend~\cite{github:backend}
+                                & Backend der \acs{ÖV}-Güteklassen 2018\\
+        backend-api~\cite{github:backend-api}
+                                & Dokumentation des Web-\acs{API} des Backend\\
+        admin~\cite{github:admin}
+                                & Sitzungsprotokolle und Entscheidungen\\
+        infrastructure~\cite{github:infrastructure}
+                                & Interne Projekt-Infrastruktur (Jira-Setup, \dots)\\  
+        playground~\cite{github:playground}
+                                & Spielwiese für die Evaluation von Frameworks\\
+                                
+        \bottomrule
+    \end{tabular}
+    \caption{Github Repository Übersicht}
+    \label{table:github_overview}
+\end{table}

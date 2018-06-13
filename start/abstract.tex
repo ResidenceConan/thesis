@@ -37,20 +37,19 @@ Durch die Konsolidierung einiger kantonaler Lösungen und Berücksichtigung der 
 
 \chapter*{Abstract}
 
-Public transport quality gradings ("`ÖV-Güteklassen"') are used to measure the coverage of public transportation (...).
-The currently accepted specification by the Swiss Federal Office for Spatial Development (ARE) is based on a superseded standard from 1993.
-Multiple cantons have since made adjustments to the methods to cater to their specific requirements (/ needs?).
-The implementation of those are not using the full capabilities of geospatial analysis.
-For instance, they are using linear distances for coverage areas (?) and do not incorporate topographic data into the calculation.
-The individual approaches from the cantons show that there has been no consensus for a general solution.
+Public transport quality gradings ("`ÖV-Güteklassen"') are used to measure the coverage radius of public transportation stations by distance and time.
+The currently accepted specification by the Swiss Federal Office for Spatial Development (ARE) is based on an outdated standard from 1993.
+Multiple cantons have since made adjustments to the methods to cater to their specific needs.
+The varied alterations show that there is a need to create a general solution for Switzerland.
+The cantonal adjustments and the current specification use linear distance for coverage radii and do not incorporate topographic data into the calculation.
 
-This thesis introduces a new specification for public transport quality gradings ("ÖV-Güteklassen 2018") which incorporates approaches from the cantons and combines them with more modern technical capabilities with the aim to create a general solution for Switzerland.
-The specification requires the coverage areas to be calculated along a pedestrian routing graph and the topography to be incorporated.
+This thesis introduces a new uniform specification for public transport quality gradings ("ÖV-Güteklassen 2018") which incorporates the varied approaches from the cantons and combines them with more modern technical capabilities.
+The specification requires the coverage areas to be calculated along a pedestrian routing graph that incorporates topography of the area as well as the frequency of service.
 
-Our software implements the newly created specification.
-With the help of the routing engine "`pgRouting"', we create coverage areas along a pedestrian routing graph, which allows for a more detailed understanding of the public transport coverage.
-The topography is integrated with a high-resolution digital height model from swisstopo.
-This way, a public transport stop on (e.g.) a steep hill gets a smaller area of coverage.
-Furthermore, we define a new formula to calculate the interval of a public transport stop.
+Additionally, we created a software that implements the newly designed specification.
+With the help of the routing engine "`pgRouting"', we create coverage areas along a pedestrian routing graph that allows for a more detailed understanding of the public transport coverage radius.
+A high-resolution digital height model from swisstopo integrates the topography into this radius allowing a public transport stop on a steep hill to show a smaller area of coverage.
+Furthermore, we define a new formula to calculate the time intervals of public transport stations and incorporate that into our quality measurement.
 
-To evaluate the results of the calculation for the new specification, we created an web application which allows the coverage areas to be examined and compared with the current public transport gradings from ARE.
+In order to evaluate the effectiveness  of the calculation for the new specification, we created a web application which allows the new coverage areas to be examined and compared with the current public transport gradings from ARE.
+This web application allows for analysis of the differences between the two specifications and emphasizes the greater accuracy of the proposed new specification to form a unified public transit quality grading throughout the country.

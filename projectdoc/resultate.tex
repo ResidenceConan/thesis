@@ -7,9 +7,9 @@
 \subsection{Resultate}
 \label{Resultate und Weiterentwicklung:Resultate}
 
-Mit unserer Spezifikation "`\acs{ÖV}-Güteklassen 2018"' sowie deren Implementation ist die Grundlage für eine einheitliche Ermittlung von \acs{ÖV}-Güteklassen für die gesamte Schweiz geschaffen.
+Mit unserer Spezifikation \gls{OeVGK18} sowie deren Implementation ist die Grundlage für eine einheitliche Ermittlung von \acs{ÖV}-Güteklassen für die gesamte Schweiz geschaffen.
 Mithilfe des entwickelten Generators können die \acs{ÖV}-Güteklassen jederzeit und automatisiert mit den aktuellsten Datensätzen für unterschiedliche Stichtage und Zeitintervalle erzeugt werden.
-Die Webapplikation erlaubt eine Visualisierung der errechneten Geodaten auf einer interaktiven Webkarte.
+Die Web-Applikation erlaubt eine Visualisierung der errechneten Geodaten auf einer interaktiven Webkarte.
 Zusätzlich können die \acs{ÖV}-Güteklassen des \ac{ARE} den \acs{ÖV}-Güteklassen 2018 visuell überlagert werden, um sie zu vergleichen.
 Durch das erstellte Docker-Setup wird ein einfaches Deployment erreicht.
 
@@ -23,7 +23,7 @@ Mit einer Messung wird dann die reale Laufzeit ermittelt und ausgewertet.
 \paragraph{Theoretische Laufzeit}\label{Laufzeit:Theoretische Laufzeit}~\\
 Für die Bestimmung der theoretischen Laufzeit wird lediglich das Berechnen der \glspl{Isochrone} betrachtet, da dies für die eigentliche Berechnung der \acs{ÖV}-Güteklassen die Kernfunktion darstellt, die am meisten Laufzeit benötigt.
 
-Wie in \ref{ÖV-Güteklassen 2018 Generator:Umsetzung Spezifikation} beschrieben, wird für jede der $N$ Haltestellen eine oder mehrere \glspl{Isochrone} erzeugt.
+Wie in \ref{ÖV-Güteklassen 2018 Generator:Umsetzung Spezifikation} beschrieben wird für jede der $N$ Haltestellen eine oder mehrere \glspl{Isochrone} erzeugt.
 Dieser Algorithmus besteht aus zwei Teilen.
 Als erstes werden mit dem Dijkstra-Algorithmus~\cite{dijkstra_algorithm} alle Vertices ermittelt, die von der Haltestelle aus in einer festgelegten Zeit im Routing-Graphen erreichbar sind.
 Im zweiten Schritt wird mit diesen Vertices eine Alpha Shape~\cite{alpha_shapes} erzeugt, die alle gefundenen Punkte in einem Polygon einschliesst.
@@ -121,13 +121,13 @@ Dabei ist anzumerken, dass in der Messung dieser Operation einige Variablen vern
 \label{Resultate und Weiterentwicklung:Möglichkeiten der Weiterentwicklung}
 
 Im Teil \ref{Technischer Bericht} Kapitel \ref{Resultate} wurde bereits auf mögliche Weiterentwicklung eingegangen, die alternative Ansätze zur Ermittlung von \acs{ÖV}-Güteklassen beinhalten.
-In diesem Abschnitt soll der Fokus auf der Implementation unserer Spezifikation liegen.
+In diesem Abschnitt soll der Fokus auf der Implementation unserer Spezifikation \gls{OeVGK18} liegen.
 
 Während der Arbeit sind folgende Ansätze zur Weiterentwicklung und Optimierung aufgekommen:
 
 \paragraph{Parallelisierung}
 Die Berechnung der \acs{ÖV}-Güteklassen 2018 wurde während der Entwicklung stets optimiert, um eine akzeptable Laufzeit zu erzielen.
-Der Grossteil der Optimierungen involvierte Datenbank-Indices oder Vorberechnungen, um die Komplexität zu Verringern.
+Der Grossteil der Optimierungen involvierte Datenbank-Indizes oder Vorberechnungen, um die Komplexität zu Verringern.
 Da die Berechnung der \acs{ÖV}-Güteklassen für jede Haltestelle unabhängig erfolgt, könnte zusäztlich der ganze Prozess parallelisiert werden, um Multi-Core-Systeme auszunutzen.
 In der jetzigen Implementation wurde dies für die Berechnung der Leistungskilometer bereits umgesetzt.
 Mit der Parallelisierung des gesamten Prozesses könnte etwa auf einem 4-Core System eine Laufzeitverbesserung von annähernd Faktor 4 erzielt werden.

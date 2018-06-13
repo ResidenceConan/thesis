@@ -51,8 +51,8 @@ Das Datenmodell ist in Abbildung \ref{fig:GTFS_data_model} ersichtlich.
 \subsubsection{planet.osm.ch}
 \label{subsystem:planet.osm.ch}
 
-Für die Berechnung der ÖV-Güteklassen benötigt es aktuelle Kartendaten, um die Erreichbarkeiten von Haltestellen entlang dem Strassennetz zu analysieren.
-Dazu bieten sich Daten von \ac{OSM} ideal an, da sie frei verfügbar sind und kontinuierlich aktualisiert werden.
+Für die Berechnung der ÖV-Güteklassen braucht es aktuelle Kartendaten, um die Erreichbarkeiten von Haltestellen entlang dem Strassennetz zu analysieren.
+Dazu bieten sich Daten von \acl{OSM} ideal an, da sie frei verfügbar sind und kontinuierlich aktualisiert werden.
 
 Unter planet.osm.ch~\cite{planet_osm_ch} werden täglich aktualisierte \ac{OSM}-Daten der ganzen Schweiz bereit gestellt.
 Die Daten sind im \ac{PBF} und werden mit entsprechenden Tools in eine relationale Datenbank importiert, wo sie von einer Routing-Engine genutzt werden können.
@@ -76,11 +76,11 @@ Im Folgenden werden die einzelnen Container genauer beschrieben.
 
 Der "`\acs{ÖV}-Güteklassen 2018 Generator"' stellt das Kernstück der Berechnung der \acs{ÖV}-Güteklassen 2018 aufgrund der Spezifikation dar.
 In der Abbildung \ref{fig:layer_diagram_generator} ist das Schichten-Diagramm ersichtlich.
-Die Kernlogik der Berechnung befindet sich in der Schicht \nameref{layer:business}.
+Die Kernlogik der Berechnung befindet sich in der Schicht \emph{\nameref{layer:business}}.
 Der Generator agiert auf unterschiedlichen Datenquellen, so werden Fahrplandaten (\nameref{subsystem:GTFS}), ein Routing-Graphen (\nameref{subsystem:planet.osm.ch} und \nameref{container:Routing-Engine}) und ein Terrain-Modell (\nameref{subsystem:swissALTI3D}) verarbeitet und genutzt.
 Die Komponente setzt voraus, dass vor dem Starten diese Daten im System vorhanden sind.
-Die Integration dieser Daten ist in der Schicht \nameref{layer:integration} angesiedelt.
-Die Interaktionen mit dem User sind in der Schicht \nameref{layer:ui} und die Resultate werden in der Schicht \nameref{layer:output} aufbereitet.
+Die Integration dieser Daten ist in der Schicht \emph{\nameref{layer:integration}} angesiedelt.
+Die Interaktionen mit dem User sind in der Schicht \emph{\nameref{layer:ui}} und die Resultate werden in der Schicht \emph{\nameref{layer:output}} aufbereitet.
 
 \begin{figure}[ht]
     \centering
@@ -90,13 +90,13 @@ Die Interaktionen mit dem User sind in der Schicht \nameref{layer:ui} und die Re
 \end{figure}
 
 Die Softwarearchitektur ist an die "`Clean Architecture"'-Prinzipien von \cite{martin_clean_architecture} angelehnt.
-Diese Architektur hat den Vorteil, dass die Kernlogik, die business-Schicht, keine Abhängigkeiten auf die die anderen Schichten hat.
+Diese Architektur hat den Vorteil, dass die Kernlogik, die \emph{\nameref{layer:business}}-Schicht, keine Abhängigkeiten auf die die anderen Schichten hat.
 Diese Schicht ist somit absolut unabhängig.
 Durch das Exponieren von Interfaces für die Schichten darüber und darunter können diese separat mit unterschiedlichen Dynamiken entwickelt werden.
 So entsteht beispielsweise der Anspruch nach einem zusätzlichen Output-Format öfters als nach einer Anpassung der Berechnung der \acs{ÖV}-Güteklassen.
-Durch diese Trennung kann nun die Schicht \nameref{layer:output} um einen zusätzlichen Service ergänzt werden ohne Gefahr zu laufen, dass die Kernlogik durch die Änderung unbemerkt vom bisherigen Verhalten abweicht.
+Durch diese Trennung kann nun die Schicht \nameref{layer:output} um einen zusätzlichen Service ergänzt werden, ohne dabei Gefahr zu laufen, dass die Kernlogik durch die Änderung unbemerkt vom bisherigen Verhalten abweicht.
 Die Kernlogik erwartet grundsätzlich nur eine Implementation, welche das bereitgestellte Interface implementiert.
-Wie sie dieses Interface implementiert ist der business-Schicht prinzipiell egal.
+Wie sie dieses Interface implementiert ist der \emph{\nameref{layer:business}}-Schicht prinzipiell egal.
 Im Folgenden werden die einzelnen Schichten beschrieben.
 
 \paragraph{business}~\\
@@ -105,20 +105,20 @@ In dieser Schicht ist die Kernlogik des Generators angesiedelt.
 Hier wird die Berechnung der \acs{ÖV}-Güteklassen koordiniert.
 So wird die Konfiguration des Users entgegen genommen und die nötigen Vorverarbeitungen und Berechnungen angestossen.
 Durch die Natur der Berechnungslogik (siehe Abbildung \ref{fig:Flow_OeVGK_Brechnung}) lässt sich die Logik analog strukturieren.
-Dabei wird die Haltestellekategorie, welche sich aus der Art des VerkehrsmittelS und dem Kursintervall zusammensetzt, über den Service \emph{StopCategoryCalculator} berechnet.
+Dabei wird die Haltestellekategorie, welche sich aus der Art des Verkehrsmittels und dem Kursintervall zusammensetzt, über den Service \emph{StopCategoryCalculator} berechnet.
 Die \acs{ÖV}-Güteklassen lassen sich in einem weiteren Schritt mithilfe des \emph{TransportGroupRetriever} und \emph{StopGradeCalculator} berechnen.
 \emph{QualityGradesCalculator} übernimmt hier die Koordination der Berechnung.
 
 \paragraph{integration}~\\
 \label{layer:integration}
-Alle Datenbankzugriffe erfolgen über die Integration-Schicht.
+Alle Datenbankzugriffe erfolgen über die \emph{\nameref{layer:integration}}-Schicht.
 Es ist bewusst kein \acl{ORM} angedacht.
-Dies aus dem Grund, da intensiv mit StoredProcedures gearbeitet wird und vorallem Berechnungen auf der Datenbank durchgeführt werden und nicht direkt ein Datenmodell existiert, welches im Generator verwendet und in der Datenbank persistiert wird.
+Dies aus dem Grund, da intensiv mit \glspl{Stored Procedure} gearbeitet wird und vorallem Berechnungen auf der Datenbank durchgeführt werden und nicht direkt ein Datenmodell existiert, welches im Generator verwendet und in der Datenbank persistiert wird.
 
 \paragraph{ui}~\\
 \label{layer:ui}
 In der ui-Schicht sind die Interaktionen mit dem User angedacht.
-So ist hier ein CLI angesiedelt, welche Konfigurationen über eine einfache Bedienung entgegen nimmt.
+So ist hier ein \ac{CLI} angesiedelt, welche Konfigurationen über eine einfache Bedienung entgegen nimmt.
 
 \paragraph{output}~\\
 \label{layer:output}
@@ -128,15 +128,15 @@ Entsteht das Verlangen nach einem zusätzlichen Output der \acs{ÖV}-Güteklasse
 Die Kernlogik in der business-Schicht muss so nicht angepasst werden.
 
 Der \emph{MetadataWriter} ist gesondert hervorzuheben.
-Durch diesen werden Konsumenten des Resultats des "`\acs{ÖV}-Güteklassen 2018 Generator"' darüber informiert, welche \acs{ÖV}-Güteklassen generiert wurden, sprich für welche Stichtage und Zeitintervalle liegt ein Ergebnis vor.
+Durch diesen werden Konsumenten des Resultats des "`\acs{ÖV}-Güteklassen 2018 Generator"' darüber informiert, welche \acs{ÖV}-Güteklassen generiert wurden, sprich für welche Stichtage und Zeitintervalle ein Ergebnis vorliegt.
 Dabei handelt es sich um eine JSON-Datei.
 
 \subsubsection{Backend}
 \label{container:Backend}
 
 Das Backend nimmt die Ergebnisse der Berechnungen vom Container \nameref{container:generator} entgegen.
-Konkret heisst das, dass das Backend die Metadaten, welche vom Container \nameref{container:generator} zusätzlich zu den \acs{ÖV}-Güteklassen geschrieben werden, einliest und diese Daten über eine Web-\ac{API} möglichen Clients zur Verfügung stellt.
-Das Web-\ac{API} exponiert somit die Information über welche Stichtage und Zeitintervalle \acs{ÖV}-Güteklassen vorhanden sind.
+Konkret heisst das, dass das Backend die Metadaten, welche vom Generator zusätzlich zu den \acs{ÖV}-Güteklassen geschrieben werden, einliest und diese Daten über ein Web-\acs{API} möglichen Clients zur Verfügung stellt.
+Das Web-\acs{API} exponiert somit die Information, über welche Stichtage und Zeitintervalle \acs{ÖV}-Güteklassen vorhanden sind.
 
 Über das Backend werden nicht direkt die generierten \acs{ÖV}-Güteklassen beispielsweise als GeoJSON ausgeliefert.
 Dies aus dem Grund, da diese Dateien eine Grösse haben, welche eine Auslieferung über ein Web-\ac{API} nicht zumutbar machen.
@@ -157,7 +157,7 @@ Die Services, welche über das Web-\ac{API} exponiert werden, sind in Tabelle \r
                                 & -
                                 & Retourniert die Stichtage für welche \acs{ÖV}-Güteklassen vorhanden sind.\\
         \emph{/gradings}        & typeOfDay
-                                & Retourniert die Zeitintervalle, welche für den übergebenen Stichtag (typeOfDay) vorhanden sind.\\
+                                & Retourniert die Metadaten für die \acs{ÖV}-Güteklassen, welche für den übergebenen Stichtag (typeOfDay) vorhanden sind.\\
         \bottomrule
     \end{tabular}
     \caption{Web-\ac{API}}
@@ -178,10 +178,10 @@ Dafür wird, wie in der Evaluation (siehe Kapitel \ref{Analyse:Evaluation Fronte
 \subsubsection{Tile-Server}
 \label{container:Tile-Server}
 
-Der Tile-Server ist ein wichtiger Container, welche vom Web-App genutzt wird.
+Der Tile-Server ist ein wichtiger Container, welcher von der \nameref{container:Web-App} genutzt wird.
 Durch diesen und die damit verbundenen Verwendung von Vector Tiles~\cite{geometalab_vectortiles} wird eine enorme Performanzsteigerung und somit eine bessere Usability erreicht.
 Der Tile-Server war in einer ersten Version nicht angedacht.
-In einer ersten Version hat die Web-App die \acs{ÖV}-Güteklassen direkt als GeoJSON vom Backend bezogen.
+In dieser hat die Web-App die \acs{ÖV}-Güteklassen direkt als GeoJSON vom Backend bezogen.
 Dies war auf zwei Ebenen problematisch.
 In einem ersten Schritt musste das GeoJSON vom Server geladen werden.
 Das GeoJSON für die \acs{ÖV}-Güteklassen 2018 am Stichtag 13.11.2018 tagsüber hat eine Grösse von 65 MB.
@@ -190,15 +190,15 @@ Die Visualisierung des GeoJSON in dieser Grössenordnung ist extrem unflüssig u
 
 Diese Problematik ist mit der Verwendung von Vector Tiles und einem Tile-Server obsolet.
 Der Tile-Server liefert genau die Daten aus, welcher der Benutzer gerade betrachten möchte.
-Liegt der Fokus beispielsweise auf Rapperswil-Jona, werden die \acs{ÖV}-Güteklassen in diesem Gebiet geladen und nicht für die ganze Schweiz.
-Die \acs{ÖV}-Güteklassen werden einfach gesagt gekachelt, was das Ausliefern eines Auszugs der Daten möglich macht.
-Je nach Zoomstufe ist es möglich darzustellende Features zusammenzufassen, weniger oder mehr Detail in die Darstellung zu bringen und kann somit die zu ladende Grösse der Vector Tiles und somit die Antwortzeit vom Server optimieren.
+Liegt der Fokus beispielsweise auf Rapperswil-Jona, werden die \acs{ÖV}-Güteklassen nur in diesem Gebiet geladen und nicht für die ganze Schweiz.
+Die \acs{ÖV}-Güteklassen werden gekachelt, was das Ausliefern eines Auszugs der Daten möglich macht.
+Je nach Zoomstufe ist es möglich, darzustellende Features zusammenzufassen und weniger oder mehr Detail in die Darstellung zu bringen. Somit kann die zu ladende Grösse der Vector Tiles und dadurch die Antwortzeit vom Server optimiert werden.
 
 \subsubsection{Routing-Engine}
 \label{container:Routing-Engine}
 
 Die Routing-Engine ist für die Berechnung von \glspl{Isochrone} verantwortlich.
-Dazu werden zuerst die Kartendaten von \nameref{subsystem:planet.osm.ch} eingelesen und zusammen mit dem \gls{Terrainmodell} von \nameref{subsystem:swissALTI3D}, das zuvor vom Admin manuell besorgt wurde, einen Routing-Graphen erstellt.
+Dazu werden zuerst die Kartendaten vom System \nameref{subsystem:planet.osm.ch} eingelesen und zusammen mit dem \gls{Terrainmodell} von \nameref{subsystem:swissALTI3D}, das zuvor vom Admin manuell besorgt wurde, einen Routing-Graphen erstellt.
 
 Sobald der Admin die Berechnung der ÖV-Güteklassen auslöst, wird die Routing-Engine vom \nameref{container:generator} nach \glspl{Isochrone} abgefragt, die mit Haltestellen als Startpunkt und einer gewissen Distanz berechnet werden.
 Diese Isodistanzen bilden Polygone, die anschliessend vom Generator weiter verarbeitet werden.

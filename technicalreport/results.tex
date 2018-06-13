@@ -12,10 +12,10 @@ In einer Evaluation (Teil \ref{Stand der Technik}) wurden bestehende Ansätze zu
 Es zeigte sich, dass die Methoden auf einer alten Norm aufbauen, die von einigen Kantonen erweitert wurden.
 Für die Berechnung der ganzen Schweiz gibt es aber keine Spezifikation, die moderne Analysen wie die Berücksichtigung des Strassennetzes vorsehen.
 
-Unter Zuhilfenahme der verschiedenen Berechnungsmethodiken erstellten wir anschliessend eine eigene Spezifikation, die "`\acs{ÖV}-Güteklassen 2018"'.
+Unter Zuhilfenahme der verschiedenen Berechnungsmethodiken erstellten wir anschliessend eine eigene Spezifikation, die \gls{OeVGK18}.
 Dabei haben wir neben einer genaueren Ermittlung der Erreichbarkeit (Kap. \ref{Verbesserungsmöglichkeiten:Ermittlung der Erreichbarkeit der Haltestelle}) und die Berücksichtigung des Terrains auch Punkte konkretisiert, die in bisherigen Methoden nicht genau spezifiziert sind, wie etwa die Berechnung des Kursintervalls (Kap. \ref{Verbesserungsmöglichkeiten:Kursintervall}) oder die Bestimmung von Bahnknoten (Kap. \ref{Verbesserungsmöglichkeiten:Bestimmung der Bahnknoten}).
 
-In einem nächsten Schritt wurde die Berechnung anhand der "`\acs{ÖV}-Güteklassen 2018"'-Spezifikation umgesetzt und automatisiert.
+In einem nächsten Schritt wurde die Berechnung anhand der \gls{OeVGK18}-Spezifikation umgesetzt und automatisiert.
 So lassen sich die \acs{ÖV}-Güteklassen auch für nachfolgende Jahre neu berechnen.
 Alle Parameter, die in der Spezifikation festgelegt wurden, sind in einer Konfigurationsdatei festgehalten und können beliebig verändert werden.
 Dadurch kann die Implementation auch als Basis für Weiterentwicklungen der Berechnungsmethoden dienen.
@@ -35,7 +35,7 @@ Ebenfalls wurden darin die bisherigen \acs{ÖV}-Güteklassen vom Bundesamt für 
 \subsection{Vergleich mit bisherigen ÖV-Güteklassen}
 \label{Resultate:Vergleich mit bisherigen ÖV-Güteklassen}
 
-Im Folgenden wird an einigen Beispielen gezeigt, wie die Resultate unserer Berechnung der "`\acs{ÖV}-Güteklassen 2018"' von bisherigen Methoden abweichen.
+Im Folgenden wird an einigen Beispielen gezeigt, wie die Resultate unserer Berechnung der \gls{OeVGK18} von bisherigen Methoden abweichen.
 Als Vergleich werden dazu die \acs{ÖV}-Güteklassen von \ac{ARE} aus dem Jahre 2018~\cite{berechnung_are} verwendet.
 
 \subsubsection{Einfluss der Wegführung}
@@ -47,8 +47,8 @@ Als Vergleich werden dazu die \acs{ÖV}-Güteklassen von \ac{ARE} aus dem Jahre 
     \label{fig:vergleich_wegfuehrung}
 \end{figure}
 
-Wie in \ref{Problemstellung:Luftlinie bei Einzugsgebieten} besprochen, wird bei den bisherigen Ansätzen das Einzugsgebiet einer Haltestelle mit einem Kreis, und somit als Luftlinie, beschrieben.
-Mit "`\acs{ÖV}-Güteklassen 2018"' wird nun das Einzugsgebiet durch eine \gls{Isochrone} beschrieben.
+Wie in \ref{Problemstellung:Luftlinie bei Einzugsgebieten} besprochen wird bei den bisherigen Ansätzen das Einzugsgebiet einer Haltestelle mit einem Kreis, und somit als Luftlinie, beschrieben.
+Mit \gls{OeVGK18} wird nun das Einzugsgebiet durch eine \gls{Isochrone} beschrieben.
 Die Fläche zeigt das Einzugsgebiet, das von einem Fussgänger von der Haltestelle aus in der definierten Zeit erreichbar ist.
 
 Wie in Abbildung \ref{fig:vergleich_wegfuehrung} zu sehen ist, entstehen dadurch Geometrien, die dem Strassen- und Wegnetz folgen.
@@ -69,12 +69,12 @@ Der Stand der Technik berücksichtigt die Topographie nicht konsequent.
 Somit hat eine anspruchsvolle Topographie keinen Einfluss auf das Einzugsgebiet einer Haltestelle.
 Das sieht man gut, wenn man die ÖV-Güteklasse des \acl{ARE} in Abbildung \ref{fig:vergleich_wegfuehrung_are_isochrone} betrachtet.
 Auf der gut sichbaren Strecke (Universitätsstrasse) werden im Durchmesser des schwarzen Kreises über eine Distanz von 300 Metern 9 Höhenmetern zurückgelegt.
-Nach der Definition der Berechnung der Leistungskilometern (siehe Kapitel \ref{Berechnungsmethodik OeVGK18:Gehzeit zur Haltestelle}) sind das zu den 300 Metern 90 Leistungsmeter, welche zurückgelegt werden müssen.
+Nach der Definition der Berechnung der Leistungskilometern (siehe Kapitel \ref{Berechnungsmethodik OeVGK18:Gehzeit zur Haltestelle}) sind das zu den 300 Metern zusätzliche 90 Leistungsmeter, welche zurückgelegt werden müssen.
 Der Einfluss der Topographie ist nun im Direktvergleich in Abbildung \ref{fig:vergleich_wegfuehrung_isochrone_mit_ohne_topo} sichtbar.
 Die Haltestelle hat mit Einbezug der Topographie ein kleineres Einzugsgebiet.
 Man sieht, dass sich dies gut im unteren Teil bemerktbar macht.
-Die Strecke han von unten nach oben gesehen einen starken Anstieg, welche ins Gewicht fällt.
-Beachtet man die Fläche von oben nach unten sieht man nur geringe Unterschiede, da das Gefälle den Grenzwert von 22\% nicht überschreitet.
+Die Strecke han von unten nach oben gesehen einen starken Anstieg, welcher ins Gewicht fällt.
+Beachtet man die Fläche von oben nach unten, sieht man nur geringe Unterschiede, da das Gefälle den Grenzwert von 22\% nicht überschreitet.
 
 \begin{figure}[ht]
     \centering
@@ -87,7 +87,7 @@ Beachtet man die Fläche von oben nach unten sieht man nur geringe Unterschiede,
 \subsubsection{Verbesserte Berechnung des Kursintervalls}
 
 Der Unterschied in der Berechnung des Kursintervalls ist gut sichtbar, wenn man die Haltestelle "`Aarau, Buchenhof"' betrachtet.
-Damit wir die Berechnungsmethodiken OeVGK18 und OeVGKARE vergleichen können, nehmen wir für die Auswertung von OeVGK18 der Stichtag 21.03.2018. Die Fahrplandaten des OeVGKARE stammen vom 21.03.2017.
+Damit wir die Berechnungsmethodiken OeVGK18 und OeVGKARE vergleichen können, nehmen wir für die Auswertung von OeVGK18 den Stichtag 21.03.2018. Die Fahrplandaten des OeVGKARE stammen vom 21.03.2017.
 Dieser Vergleich ist in diesem Zusammenhang zulässig, da beide einen Werktag repräsentieren und keine Änderung im Fahrplan erkannt wurde.
 Ebenfalls sieht man für diese Haltestelle die Korrektur, welche das \ac{ARE} für Verbindungen vornimmt, welche nur in eine Richtung befahren werden.
 So wird die Anzahl Verbindungen in diesem Fall verdoppelt, um sie anschliessend bei der Berechnung wieder zu halbieren.
@@ -129,9 +129,9 @@ Abschliessend kann man sagen, dass 23.1 Minuten eine bessere Annäherung an den 
 Dadurch wird das wahrgenommene Angebot an der Haltestelle besser wiederspiegelt.
 
 \subsubsection{Verbesserte Ermittlung von Bahnknoten}
-Bei der Ermittlung der Bahnknoten werden nun Haltestelle berücksichtigt, welche Verbindungen in 6 verschiedene Richtungen oder Zugang zu einer Fernverkehrsverbindung haben.
-Aufgrund der Daten des \acl{ARE} nehmen wir an, dass bei der Berechnung der OeVGKARE nur Haltestelle als Bahnknoten identifiziert werden, welche mindestens drei verschiedene Richtungen bedienen.
-Diese Annahme kommt zustande, wenn man für die Bahnknoten des OeVGK98 die Anzahl verschiedenen Richtungen mit unserer Implementation eruiert.
+Bei der Ermittlung der Bahnknoten werden nur Haltestellen berücksichtigt, welche Verbindungen in 6 verschiedene Richtungen oder Zugang zu einer Fernverkehrsverbindung haben.
+Aufgrund der Daten des \acl{ARE} nehmen wir an, dass bei der Berechnung der \gls{OeVGKARE} nur Haltestellen als Bahnknoten identifiziert werden, welche mindestens drei verschiedene Richtungen bedienen.
+Diese Annahme kommt zustande, wenn man für die Bahnknoten des \gls{OeVGKARE} die Anzahl verschiedenen Richtungen mit unserer Implementation eruiert.
 Dabei gibt es mit "`Genève-Aéroport"' einen Ausreiser, welcher nur eine Richtung anbietet.
 Die Problematik ist in Kapitel \ref{Verbesserungsmöglichkeiten:Bestimmung der Bahnknoten} beschrieben.
 
@@ -154,7 +154,7 @@ Ein direkter Vergleich ist in Tabelle \ref{table:Vergleich Anzahl Bahnknoten} er
     \label{table:Vergleich Anzahl Bahnknoten}
 \end{table}
 
-Da wir mindesten doppelt so viele verschiedene Richtungen wie OeVGKARE verlangen, schränken wir so die Identifikation als Bahnknoten ein, was sich in der Anzahl identifizierten Bahnknoten bemerkbar macht.
+Da wir mindestens doppelt so viele verschiedene Richtungen wie OeVGKARE verlangen, schränken wir so die Identifikation als Bahnknoten ein, was sich in der Anzahl identifizierter Bahnknoten bemerkbar macht.
 
 \begin{table}[H]
     \centering
@@ -172,7 +172,7 @@ Da wir mindesten doppelt so viele verschiedene Richtungen wie OeVGKARE verlangen
     \label{table:Unterschiede in der Identifikation der Bahnknoten}
 \end{table}
 
-Das durch die höhere Anzahl verlangter verschiedener Richtungen eine kleinere Menge als Bahnknoten identifizierte Haltestellen resultiert, scheint logisch.
+Dass durch die höhere Anzahl verlangter verschiedener Richtungen eine kleinere Menge als Bahnknoten identifizierte Haltestellen resultiert, scheint logisch.
 Tabelle \ref{table:Unterschiede in der Identifikation der Bahnknoten} nimmt die Unterschiede in den resultierenden Bahnknoten unter die Lupe.
 Überraschend ist, dass die Bahnknoten, welche durch OeVGK18 identifiziert werden, nicht komplett in OeVGKARE vorkommen.
 Es handelt sich um 14 Haltestellen, welche OeVGK18 im Unterschied zu OeVGKARE als Bahnknoten bestimmt werden.
@@ -185,7 +185,7 @@ Darunter fällt beispielsweise die Haltestelle Flüelen mit 9 verschiedenen Rich
 
 Bisher hat man sich auf einen Stichtag ausserhalb der touristischen Hochsaison beschränkt, um so ein allgemeingültiges Resultat zu erhalten.
 Dadurch schränkt man die Auswertungsmöglichkeiten stark ein, da die Qualität der \acs{ÖV}-Erschliessung beispielsweise an einem Wochenende oder am Abend/in der Nacht genauso interessant auszuwerten ist wie tagsüber.
-Durch die Konfigurationsmöglichkeit des "`\acs{ÖV}-Güteklassen Generators"' ist es eine Leichtigkeit, in einem Schritt die \acs{ÖV}-Güteklassen für unterschiedliche Stichtage und Zeitintervalle zu berechnen.
+Durch die Konfigurationsmöglichkeit des "`\acs{ÖV}-Güteklassen 2018 Generators"' ist es eine Leichtigkeit, in einem Schritt die \acs{ÖV}-Güteklassen für unterschiedliche Stichtage und Zeitintervalle zu berechnen.
 
 \begin{figure}[ht]
     \centering

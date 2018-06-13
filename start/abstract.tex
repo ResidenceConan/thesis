@@ -9,19 +9,19 @@ Die heute anerkannte Spezifikation der ÖV-Güteklassen des Bundesamts für Raum
 Diverse Kantone haben in Eigeninitiativen Anpassungen daran vorgenommen, um kantonalen Gegebenheiten gerecht zu werden.
 Die Implementationen dieser sind überholt und werden den aktuellen technischen Möglichkeiten nicht gerecht.
 So führen einige Kantone die Berechnung dieser in Handarbeit durch.
-Ebenfalls wird das Einzugsgebiet mit Luftlinien berechnet und die Topografie nicht konsequent in die Berechnung mit einbezogen.
+Ebenfalls wird das Einzugsgebiet mit Luftlinien berechnet und die Topographie nicht konsequent in die Berechnung miteinbezogen.
 Die kantonalen Eigenlösungen zeigen, dass noch kein Konsens einer aktuellen Lösung vorhanden ist.
 
 Die neu erarbeiteten ÖV-Güteklassen 2018 kombinieren die Erkenntnisse einiger kantonalen Lösungen und verbessert diese mit den aktuellen technischen Möglichkeiten mit dem Ziel, eine allgemeingültige Spezifikation für die Schweiz zu erstellen.
 In der Spezifikation wird nun vorausgesetzt, dass das Einzugsgebiet auf einem Fussgänger-Routing-Graphen berechnet wird.
-Ebenfalls soll die Topografie konsequent berücksichtigt werden.
+Ebenfalls soll die Topographie konsequent berücksichtigt werden.
 Diese Anforderung wird mit der Berechnung von Leistungskilometern erreicht.
 
 Der ÖV-Güteklassen 2018 Generator setzt die neu erstellte Spezifikation um.
 Er erzeugt einen schweizweiten Geodatensatz.
 So werden mithilfe von OpenStreetMap-Daten und mit der pgRouting-Software (PostgreSQL) auf einem Fussgänger-Graphen für jedes Einzugsgebiet Isochronen berechnet.
 Dadurch erhält man ein adäquates Verständnis über die Erreichbarkeit einer Haltestelle.
-Durch den Einsatz des hochaufgelösten digitalen Terrainmodells swissALTI$^{3D}$ von Swisstopo wird die Topografie in die Berechnung mit einbezogen.
+Durch den Einsatz des hochaufgelösten digitalen Terrainmodells swissALTI$^{3D}$ von Swisstopo wird die Topographie in die Berechnung miteinbezogen.
 Eine Haltestelle auf einem schwer begehbaren Gelände hat somit ein kleineres Einzugsgebiet.
 Die Berechnung des Kursintervalls einer Haltestelle wurde überdacht und eine neue Formel definiert.
 Der Generator erlaubt die automatisierte Berechnung der ÖV-Güteklassen für verschiedene Stichtage.
@@ -31,7 +31,7 @@ Webapplikation dargestellt.
 Dabei können diese den ÖV-Güteklassen des ARE überlagert werden.
 
 ÖV-Güteklassen 2018 geht mit der Zeit und passt sich denn aktuellen technischen Möglichkeiten an.
-Durch die Konsolidierung einiger kantonaler Lösungen und Berücksichtigung der genauen Wegführung und Topografie wurde der erste Schritt in Richtung einer schweizweit anerkannter ÖV-Güteklassen-Spezifikation gemacht.
+Durch die Konsolidierung einiger kantonaler Lösungen und Berücksichtigung der genauen Wegführung und Topographie wurde der erste Schritt in Richtung einer schweizweit anerkannten ÖV-Güteklassen-Spezifikation gemacht.
 
 \cleardoublepage
 

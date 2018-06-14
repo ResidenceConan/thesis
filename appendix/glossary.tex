@@ -35,6 +35,11 @@
     description={Ein spezifiziertes Format (RFC 7946) für die serialisierte Repräsentation von geografischen Daten. Dafür wird die JSON-Notation verwendet.}
 }
 
+\newglossaryentry{GeoJSON Feature}{
+    name={GeoJSON Feature},
+    description={Beschreibt eine Geometrie im GeoJSON-Format. Dabei kann es sich um einen Punkt, Multipolygon, Line, etc. handeln.}
+}
+
 \newglossaryentry{Terrainmodell}{
     name={Terrainmodell},
     description={Ein digitales Terrainmodell (DTM) beschreibt die Geländeform ohne Bewuchs und Bebauung.}
@@ -68,4 +73,53 @@
     description={Eine Haltestelle wird, wenn nicht explizit erwähnt, als eine ÖV-Haltestelle verstanden, an der ein öffentliches Verkehrsmittel hält. Dies kann z.B. ein Bahnhof, eine Bus- oder Tramhaltestelle oder auch eine Berg- oder Talstation einer Seilbahn sein.}
 }
 
-%TODO GeoJSON Feature
+\newglossaryentry{Routing-Engine}{
+    name={Routing-Engine},
+    plural={Routing-Engines},
+    description={Eine Software, die aus Kartendaten einen Routing-Graphen aufbereitet und Funktionalitäten anbietet, um auf diesen Routen zu berechnen.}
+}
+
+\newglossaryentry{Routing-Graph}{
+    name={Routing-Graph},
+    plural={Routing-Graphen},
+    description={Dabei handelt es sich um einen Verbund von Vertices, welche über Kanten miteinander verbunden sind und somit ein Netz darstellen.}
+}
+
+\newglossaryentry{Kante}{
+    name={Kante},
+    plural={Kanten},
+    description={Beschreibt eine Verbindung zwischen zwei Vertices.}
+}
+
+\newglossaryentry{Vertex}{
+    name={Vertex},
+    plural={Vertices},
+    description={Beschreibt den Anfang und das Ende einer Graph-Kante.}
+}
+
+\newglossaryentry{Bahnknote}{
+    name={Bahnknote},
+    plural={Bahnknoten},
+    description={Beschreibt eine Haltestelle, auf welcher Bahnlinien in eine definierten Anzahl verschiedener Richtungen verkehren.}
+}
+
+\newglossaryentry{QGIS}{
+    name={QGIS},
+    description={Ein frei verfügbares Geoinformationssystem für den Desktop für die Anzeige, Bearbeitung und Analyse von geografischen Daten.}
+}
+
+\newglossaryentry{Dijkstra-Algorithmus}{
+    name={Dijkstra-Algorithmus},
+    plural={Dijkstra-Algorithmen},
+    description={Sucht den kürzesten Pfad zwischen einem Start- und Endvertex auf einem Routing-Graphen.}
+}
+
+\newglossaryentry{Nearest Neighbor Suche}{
+    name={Nearest Neighbor Suche},
+    description={Sucht auf einem Routing-Graphen Vertices, welche am nächsten zu einem bestimmten Vertex sind.}
+}
+
+\newglossaryentry{Driving Distance}{
+    name={Driving Distance},
+    description={Sucht mithilfe des Dijkstra-Algorithmus auf einem Routing-Graphen alle Vertices, welche innerhalb eines Kostenmaximums (z.B. Distanz) sind.}
+}

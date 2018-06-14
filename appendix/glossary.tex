@@ -12,7 +12,7 @@
 
 \newglossaryentry{ÖV-Güteklassen}{
     name={ÖV-Güteklassen},
-    description={ÖV-Güteklassen geben Auskunft darüber, wie gut ein Standort mit dem öffentlichen Verkehr erschlossen ist.}
+    description={Geben Auskunft darüber, wie gut ein Standort mit dem öffentlichen Verkehr erschlossen ist.}
 }
 
 \newglossaryentry{OeVGK93}{
@@ -22,7 +22,7 @@
 
 \newglossaryentry{OeVGKARE}{
     name={OeVGKARE},
-    description={OeVGKARE steht kurz für ÖV-Güteklassen des Bundestamt für Raumentwicklung und bezeichnet die Spezifikation und Umsetzung der ÖV-Güteklassen basierend auf OeVGK93 mit Erweiterungen.}
+    description={Steht kurz für ÖV-Güteklassen des Bundestamt für Raumentwicklung und bezeichnet die Spezifikation und Umsetzung der ÖV-Güteklassen basierend auf OeVGK93 mit Erweiterungen.}
 }
 
 \newglossaryentry{OeVGK18}{
@@ -35,6 +35,12 @@
     description={Ein spezifiziertes Format (RFC 7946) für die serialisierte Repräsentation von geografischen Daten. Dafür wird die JSON-Notation verwendet.}
 }
 
+\newglossaryentry{GeoJSON Feature}{
+    name={GeoJSON-Feature},
+    plural={Features},
+    description={Beschreibt eine Geometrie im GeoJSON-Format. Dabei kann es sich um einen Punkt, Multipolygon, Linie, etc. handeln.}
+}
+
 \newglossaryentry{Terrainmodell}{
     name={Terrainmodell},
     description={Ein digitales Terrainmodell (DTM) beschreibt die Geländeform ohne Bewuchs und Bebauung.}
@@ -42,7 +48,7 @@
 
 \newglossaryentry{Leistungskilometer}{
     name={Leistungskilometer},
-    description={Der Leistungskilometer berücksichtigt die Horizontaltdistanz sowie die Werte, die sich aus Steigung und starker Gefälle errechnen lassen und ist ein Mass zur Abschätzung des Zeit- und Energieaufwands.}
+    description={Der Leistungskilometer berücksichtigt die Horizontaldistanz sowie die Werte, die sich aus Steigung und starker Gefälle errechnen lassen und ist ein Mass zur Abschätzung des Zeit- und Energieaufwands.}
 }
 
 \newglossaryentry{GEOS}{
@@ -62,4 +68,53 @@
     description={Eine Darstellung der Erreichbarkeit auf einer Karte von einem Standort aus. Definiert wird dies als geschlossene Linie um einen Standort, die alle Punkte miteinander verbindet, die mit gleicher Laufzeit von diesem Standort entfernt sind.}
 }
 
-%TODO GeoJSON Feature
+\newglossaryentry{Haltestelle}{
+    name={Haltestelle},
+    plural={Haltestellen},
+    description={Wird, wenn nicht anders erwähnt, als eine ÖV-Haltestelle verstanden, an der ein öffentliches Verkehrsmittel hält. Dies kann z.B. ein Bahnhof, eine Bus- oder Tramhaltestelle oder auch eine Berg- oder Talstation einer Seilbahn sein.}
+}
+
+\newglossaryentry{Routing-Engine}{
+    name={Routing-Engine},
+    plural={Routing-Engines},
+    description={Eine Software, die aus Kartendaten einen Routing-Graphen aufbereitet und Funktionalitäten anbietet, um auf diesen Routen zu berechnen.}
+}
+
+\newglossaryentry{Routing-Graph}{
+    name={Routing-Graph},
+    plural={Routing-Graphen},
+    description={Ein Verbund von Vertices, welche über Kanten miteinander verbunden ist und ein Strassen- und Wegenetzwerk abbildet, über das Routen berechnet werden können.}
+}
+
+\newglossaryentry{Kante}{
+    name={Kante},
+    plural={Kanten},
+    description={Beschreibt eine Verbindung zwischen zwei Vertices.}
+}
+
+\newglossaryentry{Vertex}{
+    name={Vertex},
+    plural={Vertices},
+    description={Beschreibt den Anfang und das Ende einer Graph-Kante.}
+}
+
+\newglossaryentry{QGIS}{
+    name={QGIS},
+    description={Ein frei verfügbares Geoinformationssystem für den Desktop für die Anzeige, Bearbeitung und Analyse von geografischen Daten.}
+}
+
+\newglossaryentry{Dijkstra-Algorithmus}{
+    name={Dijkstra-Algorithmus},
+    plural={Dijkstra-Algorithmen},
+    description={Sucht den kürzesten Pfad zwischen einem Start- und Endvertex auf einem Routing-Graphen.}
+}
+
+\newglossaryentry{Nearest Neighbor Suche}{
+    name={Nearest Neighbor Suche},
+    description={Sucht auf einem Routing-Graphen Vertices, welche am nächsten zu einem bestimmten Vertex sind.}
+}
+
+\newglossaryentry{Driving Distance}{
+    name={Driving Distance},
+    description={Sucht mithilfe des Dijkstra-Algorithmus auf einem Routing-Graphen alle Vertices, welche innerhalb eines Kostenmaximums (z.B. Distanz) sind.}
+}

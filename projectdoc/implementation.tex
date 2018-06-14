@@ -260,6 +260,18 @@ In Tabelle \ref{table:Performanzvergleich der verschiedenen Version} sind die Re
     \label{table:Performanzvergleich der verschiedenen Version}
 \end{table}
 
+\subparagraph{Integration der Bahnhöfe mit Anschluss an den Fernverkehr}
+In der Spezifikation zur Ermittlung von Bahnknoten (Teil \ref{Technischer Bericht} Kap. \ref{Berechnungsmethodik OeVGK18:Art der Verkehrsmittel}) wird verlangt, dass auch diejenigen Bahnhöfe als Bahnknoten zu identifizieren sind, die einen Anschluss an den nationalen Fernverkehr haben.
+Aus den Fahrplandaten ist nicht einfach zu erkennen, welche Züge als Fernverkehr gelten.
+
+Stattdessen werden die Fernverkehrskonzessionen genutzt, die vom Bundesamt für Verkehr (BAV) vergeben werden.
+Da zum Zeitpunkt dieser Arbeit (Juni 2018) allein die SBB den Auftrag zur Erschliessung des Fernverkehrs in der Schweiz besitzt, ist die Konzession PBK 0584~\cite{bav_tu_verzeichnis} relevant.
+Dort sind alle Bahnhöfe aufgelistet, die garantiert mit dem Fernverkehr erschlossen werden.
+Damit werden sie mit unserer Spezifikation als Bahnknoten identifiziert.
+
+Der Datensatz der Fernverkehrskonzessionen ist leider nicht in einem maschinen-lesbaren Format vorhanden.
+Die Bahnhöfe wurden daher aus der Liste manuell in ein CSV geschrieben~\cite{github:oevgk18-generator}, das in die Datenbank eingelesen wird.
+
 \paragraph{Berechnung des Kursintervalls}~\\
 Für die Berechnung des Kursintervalls wurde die Formel, wie sie in der Spezifikation (siehe Kapitel \ref{Berechnungsmethodik OeVGK18:Kursintervall}) definiert wurde, direkt umgesetzt.
 Um alle Abfahrtszeiten einer Haltestelle zu erhalten, wurde zuerst eine SQL-Query für die GTFS-Datenbank formuliert, in der nach der \acs{UIC}-Referenz gefiltert wird.

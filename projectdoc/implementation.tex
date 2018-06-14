@@ -291,7 +291,7 @@ Um die \glspl{Isochrone} berechnen zu können, muss auf dem Routing-Graphen zuer
 Dieser Punkt soll möglichst nahe an der eigentlichen Haltestelle liegen.
 Es ist anzumerken, dass unsere Fahrplandaten lediglich ein geographischer Punkt pro Haltestelle definiert und so Buskanten oder Gleise nicht genau abbilden.
 
-Ein erster Ansatz dieses "`Snappings"' sucht mithilfe einer "`Nearest Neighbor"'-Suche den geographisch nächstliegenden Vertex des Routing-Graphen zu den Koordinaten der Haltestelle.
+Ein erster Ansatz dieses "`Snappings"' sucht mithilfe einer "`\gls{Nearest Neighbor Suche}"' den geographisch nächstliegenden Vertex des Routing-Graphen zu den Koordinaten der Haltestelle.
 Dies ist bei regulären Bushaltestellen mit zwei Kanten ein guter Ansatz, da diese Koordinaten meist neben oder direkt auf der Strasse liegen.
 Problematisch wird dies aber etwa bei grossen Bahnhöfen wie dem Zürcher Hauptbahnhof.
 Die Koordinate des Bahnhofs liegt in der Mitte der Bahnhofshalle, welche als Fussgängerfläche erfasst ist.

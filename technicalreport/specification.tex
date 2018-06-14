@@ -13,7 +13,7 @@ Die Berechnungsmethodik \acs{ARE} wird im Original~\cite{berechnung_are} zitiert
 \label{Zusammenhang zur Berechnungsmethodik ARE:Art der Verkehrsmittel}
 
 \begin{itquote}
-Die Art der Verkehrsmittel, die an einer Haltestelle abfahren, wird wie folgt unterschieden:
+Die Art der Verkehrsmittel, die an einer \gls{Haltestelle} abfahren, wird wie folgt unterschieden:
 \begin{itemize}[noitemsep]
     \item Verkehrsmittelgruppe A
     \begin{itemize}
@@ -62,14 +62,14 @@ Die Einschränkung zur Wahl des Stichtags wird übernommen.
 Jedoch werden 2 weitere Zeiträume definiert, einer für das Wochenende und jeweils einer für die Nacht.
 
 \begin{itquote}
-Zur Berechnung des Kursintervalls an einer Haltestelle werden aus dem elektronischen Fahrplan die Abfahrten auf allen Linien am Stichtag zwischen 6.00 und 20.00 Uhr gezählt.
+Zur Berechnung des Kursintervalls an einer \gls{Haltestelle} werden aus dem elektronischen Fahrplan die Abfahrten auf allen Linien am Stichtag zwischen 6.00 und 20.00 Uhr gezählt.
 Um die durchschnittliche Anzahl Abfahrten in eine Richtung zu ermitteln, wird die Anzahl Abfahrten halbiert.
-Für Endhaltestellen sowie Haltestellen, die nur in einer Richtung befahren werden, erfolgen entsprechende Korrekturen.
+Für Endhaltestellen sowie \glspl{Haltestelle}, die nur in einer Richtung befahren werden, erfolgen entsprechende Korrekturen.
 Anschliessend wird das Kursintervall für die beiden Verkehrsmittelgruppen A und B separat berechnet (840 Minuten geteilt durch die korrigierte Anzahl Abfahrten).
 \end{itquote}
 
 Für die Kursintervallberechnung wird die statt der Anzahl Abfahrten die Wartezeit zwischen zwei Abfahrten als Grundlage verwendet.
-Der Kursintervall $\tau$ einer Haltestelle wird definiert als das "`Doppelte der erwarteten Wartezeit auf die nächste Abfahrt [\ldots] bei zufälligem Zugang im Zeitintervall $I = [a,b)$"'~\cite{visum_manual_formula}.
+Der Kursintervall $\tau$ einer \gls{Haltestelle} wird definiert als das "`Doppelte der erwarteten Wartezeit auf die nächste Abfahrt [\ldots] bei zufälligem Zugang im Zeitintervall $I = [a,b)$"'~\cite{visum_manual_formula}.
 
 \subsubsection{Haltestellenkategorie}
 \label{Zusammenhang zur Berechnungsmethodik ARE:Haltestellenkategorie}
@@ -149,7 +149,7 @@ Die Güteklassen werden nach folgender Tabelle ermittelt:
     \begin{tabular}[c]{l p{2.2cm} p{2.2cm} p{2.2cm} p{2.2cm}}
         \toprule
         \textbf{Haltestellenkategorie}
-                                & \multicolumn{4}{c}{\textbf{Distanz zur Haltestelle}}\\
+                                & \multicolumn{4}{c}{\textbf{Distanz zur \gls{Haltestelle}}}\\
         \midrule
         \textbf{}
                                 & \textbf{< 300 m}
@@ -192,9 +192,9 @@ Durch die zusätzlichen Haltestellenkategorien VI und VII werden analog zur Bere
 \subsection{Berechnungsmethodik OeVGK18}
 \label{Berechnungsmethodik OeVGK18}
 Folgend wird die Berechnungsmethodik \gls{OeVGK18} detailliert beschrieben.
-In Abbildung \ref{fig:Flow_OeVGK_Brechnung} ist zur Übersicht die Berechnung der \acs{ÖV}-Güteklassen schematisch dargestellt.
+In Abbildung \ref{fig:Flow_OeVGK_Brechnung} ist zur Übersicht die Berechnung der \gls{ÖV-Güteklassen} schematisch dargestellt.
 In einem ersten Schritt wird unter Berücksichtigung der Art der Verkehrsmittel (siehe Kapitel \ref{Berechnungsmethodik OeVGK18:Art der Verkehrsmittel}) und dem Kursintervall (siehe Kapitel \ref{Berechnungsmethodik OeVGK18:Kursintervall}) die Haltestellenkategorie (siehe Kapitel \ref{Berechnungsmethodik OeVGK18:Haltestellenkategorie}) eruiert.
-Abschliessend werden mithilfe der Haltestellenkategorie und der Gehzeit zur Haltestelle (siehe Kapitel \ref{Berechnungsmethodik OeVGK18:Gehzeit zur Haltestelle}) die ÖV-Güteklassen (siehe Kapitel \ref{Berechnungsmethodik OeVGK18:ÖV-Güteklassen}) berechnet.
+Abschliessend werden mithilfe der Haltestellenkategorie und der Gehzeit zur \gls{Haltestelle} (siehe Kapitel \ref{Berechnungsmethodik OeVGK18:Gehzeit zur Haltestelle}) die ÖV-Güteklassen (siehe Kapitel \ref{Berechnungsmethodik OeVGK18:ÖV-Güteklassen}) berechnet.
 
 \begin{figure}[ht]
     \centering
@@ -262,8 +262,8 @@ Es sind 3 Stichtage mit jeweils zwei Zeitintervallen zu definieren, welche ausse
     \label{table:Stichtag und Zeitintervall}
 \end{table}
 
-Der Kursintervall $\tau$ einer Haltestelle wird definiert als das "`Doppelte der erwarteten Wartezeit auf die nächste Abfahrt [\ldots] bei zufälligem Zugang im Zeitintervall $I = [a,b)$"'~\cite{visum_manual_formula}.
-Es werden nur Abfahrten betrachtet, die innerhalb des definiertem Zeitintervall an der Haltestelle abfahren.
+Der Kursintervall $\tau$ einer \gls{Haltestelle} wird definiert als das "`Doppelte der erwarteten Wartezeit auf die nächste Abfahrt [\ldots] bei zufälligem Zugang im Zeitintervall $I = [a,b)$"'~\cite{visum_manual_formula}.
+Es werden nur Abfahrten betrachtet, die innerhalb des definiertem Zeitintervall an der \gls{Haltestelle} abfahren.
 
 Die Umsetzung dafür geschieht wie folgt:
 
@@ -333,7 +333,7 @@ Die Haltestellenkategorie I bis VII wird mit folgender Tabelle eruiert:
 
 \subsubsection{Gehzeit zur Haltestelle}
 \label{Berechnungsmethodik OeVGK18:Gehzeit zur Haltestelle}
-Bei der Berechnung der Gehzeit zu einer Haltestelle ist eine Laufgeschwindigkeit von $1.4 m/s$ anzunehmen und die Strecke entlang des Wege- und Strassennetzes zu berücksichtigen, welche im Folgenden als Horizontaldistanz bezeichnet wird.
+Bei der Berechnung der Gehzeit zu einer \gls{Haltestelle} ist eine Laufgeschwindigkeit von $1.4 m/s$ anzunehmen und die Strecke entlang des Wege- und Strassennetzes zu berücksichtigen, welche im Folgenden als Horizontaldistanz bezeichnet wird.
 
 Damit man der Topographie gerecht wird, ist als massgebende zu laufende Distanz Leistungsmeter zu verwenden:
 \[
@@ -351,19 +351,19 @@ Damit man der Topographie gerecht wird, ist als massgebende zu laufende Distanz 
     d   &   Horizontaldistanz mit negativer Steigung [m]
 \end{conditions}
 
-Die Gehzeit $t$ zur Haltestelle ergibt sich nun aus:
+Die Gehzeit $t$ zur \gls{Haltestelle} ergibt sich nun aus:
 \[ t = \frac{x}{1.4 m/s} \]
 
 
 \subsubsection{ÖV-Güteklassen}
 \label{Berechnungsmethodik OeVGK18:ÖV-Güteklassen}
-Die Kombination aus Haltestellenkategorie und Gehzeit zur Haltestelle liefert folgende \acs{ÖV}-Güteklassen-Gruppierung:
+Die Kombination aus Haltestellenkategorie und Gehzeit zur \gls{Haltestelle} liefert folgende \gls{ÖV-Güteklassen}-Gruppierung:
 
 \begin{table}[H]
     \begin{tabular}[c]{l p{2.6cm} p{2.6cm} p{2.6cm} p{2.6cm}}
         \toprule
         \textbf{Haltestellenkategorie}
-                                & \multicolumn{4}{c}{\textbf{Gehzeit zur Haltestelle [s]}}\\
+                                & \multicolumn{4}{c}{\textbf{Gehzeit zur \gls{Haltestelle} [s]}}\\
         \midrule
         \textbf{}
                                 & \textbf{≤ 300}

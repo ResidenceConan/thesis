@@ -10,24 +10,24 @@ In diesem Kapitel wird die Implementation der einzelnen Container beschrieben, w
 \subsubsection{Datenaufbereitung}
 \label{ÖV-Güteklassen 2018 Generator:Datenaufbereitung}
 
-Der \acs{ÖV}-Güteklassen 2018 Generator operiert auf unterschiedlichen Daten von externen Datenquellen.
+Der \gls{ÖV-Güteklassen} 2018 Generator operiert auf unterschiedlichen Daten von externen Datenquellen.
 Diese Daten kommen in den verschiedensten Formaten daher und müssen für eine weitere Verarbeitung gefiltert, aufbereitet und optimiert werden.
 Für eine einfache Handhabung wurde ein Docker-Setup gewählt.
 Die Bedienung dieses Setups ist im Kapitel \ref{Softwaredokumentation} ausführlich beschrieben.
 
 Grundsätzlich kann man sagen, dass zwei Docker-Container existieren, namentlich \emph{tooling} und \emph{db}.
-Der Docker-Container \emph{tooling} nimmt Daten entgegen oder bezieht diese von externen Diensten und bereitet sie so vor, dass diese vom Docker-Container \emph{db} in die Datenbank \emph{oevgk18} für eine Weitereverwendung des \acs{ÖV}-Güteklassen 2018 Generators geladen werden können.
-Der Docker-Container \emph{db} sorgt ebenfalls dafür, dass beim Starten die nötigen Extensions (pgrouting, hstore, \dots) aktiviert sind und zuerst die Schemas und danach die Stored Procedures erstellt werden.
+Der Docker-Container \emph{tooling} nimmt Daten entgegen oder bezieht diese von externen Diensten und bereitet sie so vor, dass diese vom Docker-Container \emph{db} in die Datenbank \emph{oevgk18} für eine Weitereverwendung des \gls{ÖV-Güteklassen} 2018 Generators geladen werden können.
+Der Docker-Container \emph{db} sorgt ebenfalls dafür, dass beim Starten die nötigen Extensions (pgrouting, hstore, \dots) aktiviert sind und zuerst die Schemas und danach die \glspl{Stored Procedure} erstellt werden.
 Zusätzlich müssen nach den einzelnen Imports, welche nachfolgend beschrieben werden, zusätzliche Modifaktionen am Schema vorgenommen werden.
 Diese Modifikationen werden in einem Post-Import-Schritt durchgeführt, weil die Terrain- sowie die OSM-Daten durch Tools importiert werden, welche ein Schema vorgeben und somit bereits vorhandene Schemas überschrieben werden.
 Ebenfalls werden zusätzliche Indizes erstellt.
 
 Im weiteren sind die Services, welche die beiden Docker-Container bereitstellen, anhand eines Datenflussdiagramms aufgeschlüsselt.
-Der \acs{ÖV}-Güteklassen 2018 Generator operiert grundsätzlich auf drei externen Datenquellen, namentlich sind das die Fahrplandaten (nachfolgend \emph{gtfs data}), das Terrainmodell (nachfolgend \emph{terrain data)} und die \acs{OSM}-Daten (nachfolgend \emph{osm data}).
+Der \gls{ÖV-Güteklassen} 2018 Generator operiert grundsätzlich auf drei externen Datenquellen, namentlich sind das die Fahrplandaten (nachfolgend \emph{gtfs data}), das \gls{Terrainmodell} (nachfolgend \emph{terrain data)} und die \acs{OSM}-Daten (nachfolgend \emph{osm data}).
 Für jede Datenquelle existiert ein Service im Docker-Container \emph{tooling} und ein Pendant im Docker-Container \emph{db}, welche die vorverarbeiteten Daten des Docker-Containers \emph{tooling} entgegennimmt und in die Datenbank spielt.
 
 \paragraph{OSM-Daten}~\\
-\acs{OSM}-Daten werden von der Routing-Engine für das Berechnen von \glspl{Isochrone} und für das Identifizieren von \acs{ÖV}-Haltestellen verwendet.
+\acs{OSM}-Daten werden von der \gls{Routing-Engine} für das Berechnen von \glspl{Isochrone} und für das Identifizieren von \acs{ÖV}-Haltestellen verwendet.
 In Abbildung \ref{fig:dataflow-docker-setup-osm-data} ist ersichtlich, wie der Docker-Container \emph{tooling} die \acs{PBF}-Datei der Schweiz von einem externen Dienst~\cite{planet_osm_ch} bezieht und für die zwei vorhin erwähnten Zwecke vorbereitet.
 Es besteht ebenfalls die Möglichkeit, eine lokale \acs{OSM}-Datei zu verwenden.
 Dies ist vorallem für Testing-Zwecke vorteilhaft, da auf kleineren Ausschnitten leichter getestet werden kann.
@@ -39,7 +39,7 @@ Dies ist vorallem für Testing-Zwecke vorteilhaft, da auf kleineren Ausschnitten
     \label{fig:dataflow-docker-setup-osm-data}
 \end{figure}
 
-Der Routing-Graph wird mithilfe des Tools \emph{OSM2PO}~\cite{OSM2PO} für pgRouting aufbereitet und als SQL-Datei bereitgestellt.
+Der \gls{Routing-Graph} wird mithilfe des Tools \emph{OSM2PO}~\cite{OSM2PO} für pgRouting aufbereitet und als SQL-Datei bereitgestellt.
 \emph{OSM2PO} wird durch eine separate Konfiguration für unsere Zwecke konfiguriert, so dass die Routen für Fussgänger optimiert werden.
 
 \paragraph{GTFS-Daten}~\\
@@ -55,7 +55,7 @@ Der Datenfluss ist in Abbildung \ref{fig:dataflow-docker-setup-gtfs-data} ersich
 \end{figure}
 
 \paragraph{Terrain-Daten}~\\
-Das Terrainmodell kann aufgrund der Grösse der Datei und aus lizenztechnischen Gründen nicht von einem externen Dienst bezogen und muss somit dem Service manuell als TIF-Datei bereitgestellt werden.
+Das \gls{Terrainmodell} kann aufgrund der Grösse der Datei und aus lizenztechnischen Gründen nicht von einem externen Dienst bezogen und muss somit dem Service manuell als TIF-Datei bereitgestellt werden.
 Diese Datei wird mit raster2pgsql~\cite{raster2pgsql} verarbeitet, einem Tool von PostGIS, welches Raster-Formate in ein Format konvertiert, welches in eine PostGIS-Tabelle geladen werden kann.
 Dabei wird von der üblichen Struktur (ein Service im Docker-Container \emph{tooling} und ein Pendant im \emph{db}) abgewichen.
 raster2pgsql ist darauf ausgelegt, direkt in eine PostgreSQL-Datenbank zu schreiben.
@@ -75,7 +75,7 @@ Der Datenfluss ist in Abbildung \ref{fig:dataflow-docker-setup-terrain-data} ers
 
 \paragraph{Datenfluss}~\\
 Durch die unterschiedliche Natur der Datenquellen und der Menge dieser ist es hilfreich, zu visualisieren, zu welchem Zeitpunkt welche Daten zu welchem Zweck benötigt werden.
-Wie in Abbildung \ref{fig:Flow_OeVGK_Brechnung} ersichtlich ist, werden die \acs{ÖV}-Güteklassen in fünf Schritten berechnet. 
+Wie in Abbildung \ref{fig:Flow_OeVGK_Brechnung} ersichtlich ist, werden die \gls{ÖV-Güteklassen} in fünf Schritten berechnet. 
 In Abbildung \ref{fig:dataflow_OeV-Gueteklassen_2018_Generator} ist nun schematisch die Raison d’Être der Datenquellen ersichtlich.
 Die Pfeilrichtung beschreibt den Datenfluss.
 
@@ -132,31 +132,31 @@ Für die Klassifizierung eines Bahnknoten ist die Anzahl der Richtungen, in welc
 
 \begin{listing}[ht]
     \inputminted{sql}{projectdoc/listing/count_of_distinct_next_stops.sql}
-    \caption{SQL-Query zur Bestimmung der Anzahl erreichbaren Haltestellen (finale Version)}
+    \caption{SQL-Query zur Bestimmung der Anzahl erreichbaren \glspl{Haltestelle} (finale Version)}
     \label{listing:count_of_distinct_next_stops}
 \end{listing}
 
-In Listing \ref{listing:count_of_distinct_next_stops} ist ersichtlich, wie für eine spezifizierte Auswahl an Haltestellen (\emph{relevant\_stops}) die Anzahl erreichbaren Haltestellen gezählt wird.
-Im abgebildeten Query wird geprüft, ob der aktuelle Stop bei einem anderen \emph{Trip} als vorherige Haltestelle vorkommt.
-Die Anzahl wird mit der Window Function gesammelt und gruppiert für jede Haltestelle retourniert.
+In Listing \ref{listing:count_of_distinct_next_stops} ist ersichtlich, wie für eine spezifizierte Auswahl an \glspl{Haltestelle} (\emph{relevant\_stops}) die Anzahl erreichbaren \glspl{Haltestelle} gezählt wird.
+Im abgebildeten Query wird geprüft, ob der aktuelle Stop bei einem anderen \emph{Trip} als vorherige \gls{Haltestelle} vorkommt.
+Die Anzahl wird mit der Window Function gesammelt und gruppiert für jede \gls{Haltestelle} retourniert.
 
 Die abgebildete Berechnung hat mehrere Ver- und Verschlimmbesserungen durchlaufen.
 Es lohnt sich einen ausführlicheren Blick auf die Evolution der Abfragetechnik zu legen, da diese Hoch und Tiefs durchlebt hat und einige Erkenntnisse daraus gezogen wurden.
 
 \subparagraph{1. Version}
-In einer ersten Version war angedacht, dass das Berechnen der Anzahl erreichbaren Haltestellen für jede einzelne Haltestelle separat aufgerufen wird.
+In einer ersten Version war angedacht, dass das Berechnen der Anzahl erreichbaren \glspl{Haltestelle} für jede einzelne \gls{Haltestelle} separat aufgerufen wird.
 
 \begin{listing}[ht]
     \inputminted{sql}{projectdoc/listing/count_of_distinct_next_stops_v1.sql}
-    \caption{SQL-Query zur Bestimmung der Anzahl erreichbaren Haltestellen (Version 1)}
+    \caption{SQL-Query zur Bestimmung der Anzahl erreichbaren \glspl{Haltestelle} (Version 1)}
     \label{listing:count_of_distinct_next_stops_v1}
 \end{listing}
 
 Das Datenmodell von GTFS zwingt einem zu einem Join über mehrere grosse Tabellen, welcher mehrmals durchgeführt werden muss.
-In Listing \ref{listing:count_of_distinct_next_stops_v1} ist ersichtlich, wie in einer Common Table Expression dieser für jede Haltestelle durchgeführt wird.
+In Listing \ref{listing:count_of_distinct_next_stops_v1} ist ersichtlich, wie in einer Common Table Expression dieser für jede \gls{Haltestelle} durchgeführt wird.
 Dieser Join bildet für eine Station alle \emph{Trips} mit der Nummer des akutellen \emph{Stops} auf einem \emph{Trip} ab.
 Dieser Join ist sehr zeit- und ressourcenintensiv.
-Diese Abfrage dauert pro Haltestelle 11.9 Sekunden, was bei momentan akuellen 1815 Bahnhaltestellen extrem ins Gewicht fällt und nicht zumutbar ist.
+Diese Abfrage dauert pro \gls{Haltestelle} 11.9 Sekunden, was bei momentan akuellen 1815 Bahnhaltestellen extrem ins Gewicht fällt und nicht zumutbar ist.
 
 \subparagraph{2. Version}
 In einer zweiten Version war die Überlegung, den Join zu persistieren, damit nicht jede Abfrage diese aufwändigen Join durchführen muss und Indizes darauf zu generieren.
@@ -189,11 +189,11 @@ Das Persistieren des Join in einer persistenten Tabelle (\emph{next\_station\_ma
 \end{table}
 
 \subparagraph{3. Version}
-Um die Datenbank nicht mit fast 2000 Abfragen für alle Bahnhaltestellen zu belasten, entstand die Idee, für alle Haltestellen in einer Abfrage die erreichbaren Haltestellen zu zählen.
+Um die Datenbank nicht mit fast 2000 Abfragen für alle Bahnhaltestellen zu belasten, entstand die Idee, für alle \glspl{Haltestelle} in einer Abfrage die erreichbaren \glspl{Haltestelle} zu zählen.
 
 \begin{listing}[ht]
     \inputminted{sql}{projectdoc/listing/count_of_distinct_next_stops_v3.sql}
-    \caption{SQL-Query zur Bestimmung der Anzahl erreichbaren Haltestellen (Version 3)}
+    \caption{SQL-Query zur Bestimmung der Anzahl erreichbaren \glspl{Haltestelle} (Version 3)}
     \label{listing:count_of_distinct_next_stops_v3}
 \end{listing}
 
@@ -274,12 +274,12 @@ Die Bahnhöfe wurden daher aus der Liste manuell in ein CSV extrahiert~\cite{git
 
 \paragraph{Berechnung des Kursintervalls}~\\
 Für die Berechnung des Kursintervalls wurde die Formel, wie sie in der Spezifikation (siehe Kapitel \ref{Berechnungsmethodik OeVGK18:Kursintervall}) definiert wurde, direkt umgesetzt.
-Um alle Abfahrtszeiten einer Haltestelle zu erhalten, wurde zuerst eine SQL-Query für die GTFS-Datenbank formuliert, in der nach der \acs{UIC}-Referenz gefiltert wird.
-Die Ausführung dieser Query dauerte allerdings ca. 1.7 Sekunden pro Haltestelle, was bei einer Gesamtzahl von 28'000 Haltestellen etwa 11 Stunden dauern würde.
+Um alle Abfahrtszeiten einer \gls{Haltestelle} zu erhalten, wurde zuerst eine SQL-Query für die GTFS-Datenbank formuliert, in der nach der \acs{UIC}-Referenz gefiltert wird.
+Die Ausführung dieser Query dauerte allerdings ca. 1.7 Sekunden pro \gls{Haltestelle}, was bei einer Gesamtzahl von 28'000 \glspl{Haltestelle} etwa 11 Stunden dauern würde.
 
-Viel effizienter ist es, die Abfahrtszeiten für alle Haltestellen in einer einzelnen Abfrage zu aggregieren.
+Viel effizienter ist es, die Abfahrtszeiten für alle \glspl{Haltestelle} in einer einzelnen Abfrage zu aggregieren.
 Diese ist in Listing \ref{listing:sql_query_departure_times} abgebildet.
-Die optimierte SQL-Query dauert ca. 7 Sekunden für alle 28'000 Haltestellen, was eine drastische Verbesserung darstellt.
+Die optimierte SQL-Query dauert ca. 7 Sekunden für alle 28'000 \glspl{Haltestelle}, was eine drastische Verbesserung darstellt.
 
 \begin{listing}[ht]
     \inputminted{sql}{projectdoc/listing/departure_time_cte.sql}
@@ -288,126 +288,126 @@ Die optimierte SQL-Query dauert ca. 7 Sekunden für alle 28'000 Haltestellen, wa
 \end{listing}
 
 \paragraph{Berechnung der Haltestellenkategorie}~\\
-Die Haltestellenkategorie setzt sich zusammen aus der Einteilung einer Haltestelle in die Verkehrsmittelgruppe (Art der Verkehrsmittel) und dem Kursintervall.
+Die Haltestellenkategorie setzt sich zusammen aus der Einteilung einer \gls{Haltestelle} in die Verkehrsmittelgruppe (Art der Verkehrsmittel) und dem Kursintervall.
 Die Übersetzung dieser Werte in die Haltestellenkategorien  I -- VII erfolgt nach der Tabelle in der Spezifikation (Kapitel \ref{Berechnungsmethodik OeVGK18:Haltestellenkategorie} im Teil \ref{Technischer Bericht}).
 In der Konfigurationsdatei können diese Parameter allerdings frei angepasst werden.
 
 \paragraph{Berechnung der ÖV-Güteklassen}~\\
-Die \acs{ÖV}-Güteklassen einer einzelnen Haltestelle wird durch \glspl{Isochrone} beschrieben, die jeweils eine Fläche bilden, von der die Haltestelle innerhalb einer maximalen Gehzeit erreichbar ist.
+Die \gls{ÖV-Güteklassen} einer einzelnen \gls{Haltestelle} wird durch \glspl{Isochrone} beschrieben, die jeweils eine Fläche bilden, von der die \gls{Haltestelle} innerhalb einer maximalen Gehzeit erreichbar ist.
 Jeder dieser \glspl{Isochrone} wird eine \acs{ÖV}-Güteklasse von A -- F zugewiesen.
-Welche \glspl{Isochrone} für eine Haltestelle erzeugt werden und welche Güteklasse ihnen zugewiesen wird, kann aus der Tabelle \ref{table:ÖV-Güteklassen} der Spezifikation (Kap. \ref{Berechnungsmethodik OeVGK18} im Teil \ref{Technischer Bericht}) entnommen werden.
+Welche \glspl{Isochrone} für eine \gls{Haltestelle} erzeugt werden und welche Güteklasse ihnen zugewiesen wird, kann aus der Tabelle \ref{table:ÖV-Güteklassen} der Spezifikation (Kap. \ref{Berechnungsmethodik OeVGK18} im Teil \ref{Technischer Bericht}) entnommen werden.
 
 \subparagraph{Snapping von der Haltestelle auf den Routing-Graph}
-Die Haltestellen stammen aus dem Datenstamm der SBB~\cite{sbb_hafas_spec} und sind somit nicht Teil des Routing-Graphen. 
-Um die \glspl{Isochrone} berechnen zu können, muss auf dem Routing-Graphen zuerst ein Startpunkt ermittelt werden, von dem das Routing entlang der Strassen und Wege ausgehen kann.
-Dieser Punkt soll möglichst nahe an der eigentlichen Haltestelle liegen.
-Es ist anzumerken, dass unsere Fahrplandaten lediglich ein geographischer Punkt pro Haltestelle definiert und so Buskanten oder Gleise nicht genau abbilden.
+Die \glspl{Haltestelle} stammen aus dem Datenstamm der SBB~\cite{sbb_hafas_spec} und sind somit nicht Teil des \glspl{Routing-Graph}. 
+Um die \glspl{Isochrone} berechnen zu können, muss auf dem \glspl{Routing-Graph} zuerst ein Startpunkt ermittelt werden, von dem das Routing entlang der Strassen und Wege ausgehen kann.
+Dieser Punkt soll möglichst nahe an der eigentlichen \gls{Haltestelle} liegen.
+Es ist anzumerken, dass unsere Fahrplandaten lediglich ein geographischer Punkt pro \gls{Haltestelle} definiert und so Buskanten oder Gleise nicht genau abbilden.
 
-Ein erster Ansatz dieses "`Snappings"' sucht mithilfe einer "`\gls{Nearest Neighbor Suche}"' den geographisch nächstliegenden Vertex des Routing-Graphen zu den Koordinaten der Haltestelle.
-Dies ist bei regulären Bushaltestellen mit zwei Kanten ein guter Ansatz, da diese Koordinaten meist neben oder direkt auf der Strasse liegen.
+Ein erster Ansatz dieses "`Snappings"' sucht mithilfe einer "`\gls{Nearest Neighbor Suche}"' den geographisch nächstliegenden \gls{Vertex} des \glspl{Routing-Graph} zu den Koordinaten der \gls{Haltestelle}.
+Dies ist bei regulären Bushaltestellen mit zwei \glspl{Kante} ein guter Ansatz, da diese Koordinaten meist neben oder direkt auf der Strasse liegen.
 Problematisch wird dies aber etwa bei grossen Bahnhöfen wie dem Zürcher Hauptbahnhof.
 Die Koordinate des Bahnhofs liegt in der Mitte der Bahnhofshalle, welche als Fussgängerfläche erfasst ist.
-Da solche Flächen nicht im Routing-Graphen abgebildet werden, liegt der nächste Vertex des Routing-Graphen auf einer Rolltreppe, die nicht mit dem restlichen Graphen verbunden ist (siehe Abbildung~\ref{fig:snapping_comparison}).
-Dieses Snapping auf einen isolierten Graphen führt dazu, dass die Routing-Engine nie ausserhalb des Bahnhofs routen kann, dadurch können auch keine \glspl{Isochrone} erzeugt werden.
+Da solche Flächen nicht im \glspl{Routing-Graph} abgebildet werden, liegt der nächste \gls{Vertex} des \glspl{Routing-Graph} auf einer Rolltreppe, die nicht mit dem restlichen Graphen verbunden ist (siehe Abbildung~\ref{fig:snapping_comparison}).
+Dieses Snapping auf einen isolierten Graphen führt dazu, dass die \gls{Routing-Engine} nie ausserhalb des Bahnhofs routen kann, dadurch können auch keine \glspl{Isochrone} erzeugt werden.
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=1\linewidth]{projectdoc/img/snapping_comparison}
-    \caption[Snapping der Haltestelle auf den Routing-Graphen]{Die Haltestelle (blaues Quadrat) wird mit dem einfachen Ansatz zur Rolltreppe "`gesnapped"' (Roter Diamant), während die Optimierung (Grüner Punkt) ein Ergebnis erzeugt, dass mit dem restlichen Routing-Netz verbunden ist.}
+    \caption[Snapping der Haltestelle auf den Routing-Graphen]{Die \gls{Haltestelle} (blaues Quadrat) wird mit dem einfachen Ansatz zur Rolltreppe "`gesnapped"' (Roter Diamant), während die Optimierung (Grüner Punkt) ein Ergebnis erzeugt, dass mit dem restlichen Routing-Netz verbunden ist.}
     \label{fig:snapping_comparison}
 \end{figure}
 
-Ein optimierter Ansatz nimmt nicht direkt den nächstliegenden Punkt auf dem Routing-Graphen, sondern prüft, ob dieser ermittelte Vertex auf einem isolierten Segment des Graphen liegt.
-Dafür werden mit Hilfe der Routing-Engine alle Punkte gesucht, die von diesem Vertex aus in 200 Metern Fussweg erreichbar sind.
+Ein optimierter Ansatz nimmt nicht direkt den nächstliegenden Punkt auf dem \glspl{Routing-Graph}, sondern prüft, ob dieser ermittelte \gls{Vertex} auf einem isolierten Segment des Graphen liegt.
+Dafür werden mit Hilfe der \gls{Routing-Engine} alle Punkte gesucht, die von diesem \gls{Vertex} aus in 200 Metern Fussweg erreichbar sind.
 Wenn es einen Punkt gibt, der mindestens 150 Meter entfernt vom Startpunkt ist, wird dies als genügend bewertet, um den Startpunkt für die Erzeugung von \glspl{Isochrone} zu verwenden.
-Wenn diese Bedingung nicht erfüllt ist, werden iterativ andere Vertices geprüft (sortiert nach der Distanz zur Haltestelle), bis ein passender Vertex gefunden wird.
+Wenn diese Bedingung nicht erfüllt ist, werden iterativ andere \glspl{Vertex} geprüft (sortiert nach der Distanz zur \gls{Haltestelle}), bis ein passender \gls{Vertex} gefunden wird.
 Der Code dazu ist in Listing \ref{listing:snap_routing_graph} ersichtlich.
 
 \begin{listing}[ht]
     \inputminted{sql}{projectdoc/listing/nearest_neighbor.sql}
-    \caption{SQL Stored Procedure für das "`Snapping"' der Haltestelle auf den Routing-Graph}
+    \caption{SQL \gls{Stored Procedure} für das "`Snapping"' der \gls{Haltestelle} auf den \gls{Routing-Graph}}
     \label{listing:snap_routing_graph}
 \end{listing}
 
 Das Ergebnis für den Zürcher Hauptbahnhof ist in Abbildung~\ref{fig:snapping_comparison} zu sehen.
 Dieser Startpunkt ist noch immer nicht optimal, da ein Fussgänger auch ein Ausgang auf der anderen Seite des Bahnhofes wählen könnte.
-Für eine optimale Bestimmung müsste der Routing-Graph mit zusätzlichen Wegen ergänzt werden.
-Fussgängerflächen könnten beispielsweise durch eine Vorverarbeitung durch \emph{PlazaRoute}~\cite{plaza_route} in den Routing-Graph integriert werden. Dabei werden zusätzliche Graph-Kanten eingefügt.
+Für eine optimale Bestimmung müsste der \gls{Routing-Graph} mit zusätzlichen Wegen ergänzt werden.
+Fussgängerflächen könnten beispielsweise durch eine Vorverarbeitung durch \emph{PlazaRoute}~\cite{plaza_route} in den \gls{Routing-Graph} integriert werden. Dabei werden zusätzliche Graph-\glspl{Kante} eingefügt.
 
 \subparagraph{Vorbereitung des Routing-Graphen}
-Zum Zeitpunkt des Imports mit \emph{OSM2PO} besteht ein vollständiger Routing-Graph, auf dem bereits Routen berechnet werden können.
-Für die Berechnung von \glspl{Isochrone} ist dieser Routing-Graph aber nicht geeignet, da jeder Strassenabschnitt von einer Verzweigung zur nächsten als eine einzige Kante abgebildet wird.
-Werden nun \glspl{Isochrone} erstellt, beachtet der Algorithmus nur Vertices, die komplett in der definierten Zeit erreichbar sind.
+Zum Zeitpunkt des Imports mit \emph{OSM2PO} besteht ein vollständiger \gls{Routing-Graph}, auf dem bereits Routen berechnet werden können.
+Für die Berechnung von \glspl{Isochrone} ist dieser \gls{Routing-Graph} aber nicht geeignet, da jeder Strassenabschnitt von einer Verzweigung zur nächsten als eine einzige \gls{Kante} abgebildet wird.
+Werden nun \glspl{Isochrone} erstellt, beachtet der Algorithmus nur \glspl{Vertex}, die komplett in der definierten Zeit erreichbar sind.
 Dadurch werden Strassen ausgeschlossen, die innerhalb der Zeit nur bis zu einem Teil der Strecke erreichbar sind.
 Dies führt zu ungenauen \glspl{Isochrone}, wie in Abbildung \ref{fig:vergleich_segmentierung} ersichtlich ist.
 
-Um diesen Effekt zu vermindern, wird vor der Berechnung der komplette Routing-Graph segmentiert.
-Dazu werden alle Kanten in einzelne Segmente geteilt, die maximal 30 Meter lang sind.
-Anschliessend muss die Topologie erneut berechnet werden, um die Verbindungen von Kanten und Vertices zu aktualisieren.
+Um diesen Effekt zu vermindern, wird vor der Berechnung der komplette \gls{Routing-Graph} segmentiert.
+Dazu werden alle \glspl{Kante} in einzelne Segmente geteilt, die maximal 30 Meter lang sind.
+Anschliessend muss die Topologie erneut berechnet werden, um die Verbindungen von \glspl{Kante} und \glspl{Vertex} zu aktualisieren.
 Die daraus resultiertenden \glspl{Isochrone} sind deutlich genauer und bilden ein realistischeres Einzugsgebiet ab (siehe Abbildung \ref{fig:vergleich_segmentierung}).
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.5\linewidth]{projectdoc/img/vergleich_segmentierung}
-    \caption[Vergleich von Isochronen bei regulärem und segmentiertem Routing-Graph]{Mit der Segmentierung des Routing-Graphen (unten) ergeben sich gegenüber des regulären Graphen (oben) höher aufgelöste Isochronen}
+    \caption[Vergleich von Isochronen bei regulärem und segmentiertem Routing-Graph]{Mit der Segmentierung des \glspl{Routing-Graph} (unten) ergeben sich gegenüber des regulären Graphen (oben) höher aufgelöste \glspl{Isochrone}}
     \label{fig:vergleich_segmentierung}
 \end{figure}
 
-Als weiteren Schritt der Vorbereitung werden die Terrain-Daten in die Kosten der Kanten eingerechnet.
-Dazu wird die Formel aus der Spezifikation für Leistungskilometer (siehe \ref{Berechnungsmethodik OeVGK18:Gehzeit zur Haltestelle}) verwendet.
-Für jede Kante werden die Kosten in beide Richtungen berechnet, da Steigung und Gefälle unterschiedlich gewichtet werden.
+Als weiteren Schritt der Vorbereitung werden die Terrain-Daten in die Kosten der \glspl{Kante} eingerechnet.
+Dazu wird die Formel aus der Spezifikation für \gls{Leistungskilometer} (siehe \ref{Berechnungsmethodik OeVGK18:Gehzeit zur Haltestelle}) verwendet.
+Für jede \gls{Kante} werden die Kosten in beide Richtungen berechnet, da Steigung und Gefälle unterschiedlich gewichtet werden.
 
 \subparagraph{Berechnung der Isochronen}
-In einem ersten Schritt wird ermittelt, welche \glspl{Isochrone} für die gegebene Haltestelle erzeugt werden müssen.
-Dabei wird die Gehzeit mithilfe der konfigurierten Laufgeschwindigkeit in Meter umgerechnet, da die Kosten des Routing-Graphen ebenfalls in Meter abgebildet sind.
+In einem ersten Schritt wird ermittelt, welche \glspl{Isochrone} für die gegebene \gls{Haltestelle} erzeugt werden müssen.
+Dabei wird die Gehzeit mithilfe der konfigurierten Laufgeschwindigkeit in Meter umgerechnet, da die Kosten des \glspl{Routing-Graph} ebenfalls in Meter abgebildet sind.
 
 Anschliessend werden die \glspl{Isochrone} berechnet.
 Dieser Algorithmus besteht aus zwei Teilen.
-Als erstes werden mit dem Dijkstra-Algorithmus~\cite{dijkstra_algorithm} alle Vertices ermittelt, die von der Haltestelle aus in der festgelegten maximalen Laufdistanz im Routing-Graph erreichbar sind (siehe Listing \ref{listing:calc_isochrones_dijkstra}).
-Die Richtung der Kanten wird dabei umgekehrt, da der Dijkstra-Algorithmus die Strecke ausgehend der Haltestelle berechnet.
-Für unsere Zwecke ist es aber realistischer, den Laufweg zu berechnen, wenn man zur Haltestelle hin läuft.
+Als erstes werden mit dem \gls{Dijkstra-Algorithmus}~\cite{dijkstra_algorithm} alle \glspl{Vertex} ermittelt, die von der \gls{Haltestelle} aus in der festgelegten maximalen Laufdistanz im \gls{Routing-Graph} erreichbar sind (siehe Listing \ref{listing:calc_isochrones_dijkstra}).
+Die Richtung der \glspl{Kante} wird dabei umgekehrt, da der \gls{Dijkstra-Algorithmus} die Strecke ausgehend der \gls{Haltestelle} berechnet.
+Für unsere Zwecke ist es aber realistischer, den Laufweg zu berechnen, wenn man zur \gls{Haltestelle} hin läuft.
 
 \begin{listing}[ht]
     \inputminted{sql}{projectdoc/listing/calc_isochrones_dijkstra.sql}
-    \caption[Dijkstra-Algorithmus zur Berechnung von Isochronen]{Mit einem Dijkstra-Algorithmus werden bis zur Maximaldistanz alle erreichbaren Vertices gesucht (Auszug)}
+    \caption[Dijkstra-Algorithmus zur Berechnung von Isochronen]{Mit einem \gls{Dijkstra-Algorithmus} werden bis zur Maximaldistanz alle erreichbaren \glspl{Vertex} gesucht (Auszug)}
     \label{listing:calc_isochrones_dijkstra}
 \end{listing}
 
-Vorgängig werden mit einer Query alle Kanten gesucht, die sich in einem Radius von 1300 Metern der Haltestelle befinden (siehe Listing \ref{listing:calc_isochrones_preselection}).
-Dies, weil keine Isochronen berechnet werden, die einen grösseren Radius als 1300 Meter einschliessen.
-Dadurch verringert sich die Anzahl Kanten enorm, die pgRouting mit dem Dijkstra-Algorithmus abarbeiten muss.
+Vorgängig werden mit einer Query alle \glspl{Kante} gesucht, die sich in einem Radius von 1300 Metern der \gls{Haltestelle} befinden (siehe Listing \ref{listing:calc_isochrones_preselection}).
+Dies, weil keine \glspl{Isochrone} berechnet werden, die einen grösseren Radius als 1300 Meter einschliessen.
+Dadurch verringert sich die Anzahl \glspl{Kante} enorm, die pgRouting mit dem \gls{Dijkstra-Algorithmus} abarbeiten muss.
 
 \begin{listing}[ht]
     \inputminted{sql}{projectdoc/listing/calc_isochrones_preselection.sql}
-    \caption[Vorselektion der Kanten für die Berechnung von Isochronen]{Mit einer effizienten Index-Suche werden alle Kanten in der Nähe der Haltestelle ermittelt (Auszug)}
+    \caption[Vorselektion der Kanten für die Berechnung von Isochronen]{Mit einer effizienten Index-Suche werden alle \glspl{Kante} in der Nähe der \gls{Haltestelle} ermittelt (Auszug)}
     \label{listing:calc_isochrones_preselection}
 \end{listing}
 
-Im zweiten Schritt wird mit diesen Vertices eine Alpha Shape~\cite{alpha_shapes} erzeugt (siehe Listing \ref{listing:calc_isochrones_alpha_shape}). Dieser Algorithmus bildet das kleinst mögliche Polygon, wobei alle gefunden Vertices darin enthalten sein müssen.
+Im zweiten Schritt wird mit diesen \glspl{Vertex} eine Alpha Shape~\cite{alpha_shapes} erzeugt (siehe Listing \ref{listing:calc_isochrones_alpha_shape}). Dieser Algorithmus bildet das kleinst mögliche Polygon, wobei alle gefunden \glspl{Vertex} darin enthalten sein müssen.
 Diese Alpha Shape stellt die \gls{Isochrone} dar.
 
 \begin{listing}[ht]
     \inputminted{sql}{projectdoc/listing/calc_isochrones_alpha_shape.sql}
-    \caption[Berechnung der Alpha Shape]{Mit den erreichbaren Vertices wird eine Alpha Shape erzeugt (Auszug)}
+    \caption[Berechnung der Alpha Shape]{Mit den erreichbaren \glspl{Vertex} wird eine Alpha Shape erzeugt (Auszug)}
     \label{listing:calc_isochrones_alpha_shape}
 \end{listing}
 
-Der erste Schritt muss pro Haltestelle nur ein Mal für die grösste zu berechnende Distanz durchgeführt werden, für die Erzeugung der \glspl{Isochrone} für kürzere Distanzen wird das Ergebnis des Dijkstra-Algorithmus gefiltert und nur die Vertices beachtet, die innerhalb dieser Distanz von der Haltestelle erreichbar sind.
+Der erste Schritt muss pro \gls{Haltestelle} nur ein Mal für die grösste zu berechnende Distanz durchgeführt werden, für die Erzeugung der \glspl{Isochrone} für kürzere Distanzen wird das Ergebnis des \gls{Dijkstra-Algorithmus} gefiltert und nur die \glspl{Vertex} beachtet, die innerhalb dieser Distanz von der \gls{Haltestelle} erreichbar sind.
 Auf die einzelnen \glspl{Isochrone} wird ein zusätzlicher Buffer angewendet, um die scharfen Ecken etwas abzurunden.
 Dadurch wird bewusst etwas Unschärfe hinzugefügt, um nicht die Illusion zu erwecken, dass die \gls{Isochrone} das Einzugsgebiet exakt abbildet, sondern nur eine Approximation dessen darstellt.
 
 \paragraph{Ausgabe des Ergebnisses}~\\
-Nach der Berechnung der \acs{ÖV}-Güteklassen liegt für jede Haltestelle, die mindestens eine Basiserschliessung hat, ein oder mehrere \glspl{Isochrone} vor.
-Diese gilt es nun im GeoJSON Format auszugeben.
+Nach der Berechnung der \gls{ÖV-Güteklassen} liegt für jede \gls{Haltestelle}, die mindestens eine Basiserschliessung hat, ein oder mehrere \glspl{Isochrone} vor.
+Diese gilt es nun im \gls{GeoJSON} Format auszugeben.
 Dabei wird für jeden der unterschiedlichen Stichtage eine separate Datei erstellt.
 
-Für jede \gls{Isochrone} wird ein GeoJSON-Feature erstellt, wobei die \acs{ÖV}-Güteklasse und die \emph{uic\_ref} der Haltestelle als zusätzliche Attribute mitgegeben werden.
-Anschliessend werden alle Features sortiert nach \acs{ÖV}-Güteklassen, wobei die tieferen Klassen zuerst eingefügt werden.
+Für jede \gls{Isochrone} wird ein \gls{GeoJSON-Feature} erstellt, wobei die \acs{ÖV}-Güteklasse und die \emph{uic\_ref} der \gls{Haltestelle} als zusätzliche Attribute mitgegeben werden.
+Anschliessend werden alle \glspl{GeoJSON-Feature} sortiert nach \gls{ÖV-Güteklassen}, wobei die tieferen Klassen zuerst eingefügt werden.
 Dies hat später für die Visualisierung eine Auswirkung.
 Weil die \glspl{Isochrone} der höheren Klassen diejenigen der tieferen überlagern, sollten bei der Visualisierung die tieferen Klassen zuerst gerendert werden.
 Durch die Reihenfolge wird dies bereits in diesem Schritt sichergestellt.
 
-Zusätzlich zu den \acs{ÖV}-Güteklassen wird eine GeoJSON-Datei mit den Punkten aller Haltestellen erstellt, um sie später mit der Web-Applikation auf der Karte anzeigen zu können.
+Zusätzlich zu den \gls{ÖV-Güteklassen} wird eine \gls{GeoJSON}-Datei mit den Punkten aller \glspl{Haltestelle} erstellt, um sie später mit der Web-Applikation auf der Karte anzeigen zu können.
 Ebenfalls wird eine JSON-Datei geschrieben mit Metadaten zu den Parametern der einzelnen Stichtage, die für die Berechnung verwendet wurden.
 Mit dieser JSON-Datei wird dem Backend ebenfalls mitgeteilt, welche Stichtage angeboten werden können.
 
@@ -421,8 +421,8 @@ Es handelt sich dabei um eine schlanke Flask-Applikation~\cite{flask} mit sehr g
 Das Backend wird beim Starten initialisiert.
 Dabei wird eine generierte Metadaten-Datei des Container \nameref{container:generator} eingelesen.
 Genauer Sinn und Zweck dieser Datei ist im Abschnitt \ref{layer:output} beschrieben.
-Diese Datei beinhaltet Informationen, welche \acs{ÖV}-Güteklassen verfügbar sind.
-Dadurch kann die Web-App entscheiden, welche \acs{ÖV}-Güteklassen der Benutzer auswählen kann und wie diese vom Container \nameref{container:Tile-Server} bezogen werden können.
+Diese Datei beinhaltet Informationen, welche \gls{ÖV-Güteklassen} verfügbar sind.
+Dadurch kann die Web-App entscheiden, welche \gls{ÖV-Güteklassen} der Benutzer auswählen kann und wie diese vom Container \nameref{container:Tile-Server} bezogen werden können.
 
 Diese Informationen werden über ein Web-\ac{API} exponiert.
 Diese besteht aus \acl{REST}-Services.
@@ -438,7 +438,7 @@ Das konkrete Web-\ac{API}, welches das Backend exponiert, kann mit ReDoc (OpenAP
 \label{Implementation:Tile-Server}
 
 Als Tile-Server bietet sich TileServer GL~\cite{tile-server-gl} an.
-Wie die GeoJSON in ein vom Tile-Server unterstütztes Format gelangen, ist im Abschnitt \ref{Implementation:Tile-Converter} beschrieben.
+Wie die \gls{GeoJSON} in ein vom Tile-Server unterstütztes Format gelangen, ist im Abschnitt \ref{Implementation:Tile-Converter} beschrieben.
 
 Der Tile-Converter ist als Docker-Container verfügbar.
 Dieser wird im Kapitel \ref{Infrastruktur:Deployment} genauer beschrieben.
@@ -447,16 +447,16 @@ Dieser wird im Kapitel \ref{Infrastruktur:Deployment} genauer beschrieben.
 \subsubsection{Tile-Converter}
 \label{Implementation:Tile-Converter}
 
-Der Container \nameref{container:generator} generiert die \acs{ÖV}-Güteklassen aktuell im GeoJSON-Format.
-Damit der Tile-Server Vector Tiles ausliefern kann, müssen die \acs{ÖV}-Güteklassen in ein entsprechendes Format umgewandelt werden.
+Der Container \nameref{container:generator} generiert die \gls{ÖV-Güteklassen} aktuell im \gls{GeoJSON}-Format.
+Damit der Tile-Server Vector Tiles ausliefern kann, müssen die \gls{ÖV-Güteklassen} in ein entsprechendes Format umgewandelt werden.
 Der oben erwähnte Tile-Server nutzt MBTiles~\cite{mbtiles}.
 Dabei handelt es sich um eine Spezifikation von Mapbox, um beliebige gekachelte Karten-Daten zu speichern.
 Dieses Format ist extrem effizient für Transfers, was in unserer Problemdomain relevant ist.
 Für die Konvertierung bietet sich das Tool \emph{tippecanoe}~\cite{tippecanoe}, ebenfalls von Mapbox, an.
-Dieses erlaubt die Konvertierung von verschiedenen Dateiformaten, so auch GeoJSON in MBTiles und die Konfiguration der zu generierenden Vector Tilesets.
+Dieses erlaubt die Konvertierung von verschiedenen Dateiformaten, so auch \gls{GeoJSON} in MBTiles und die Konfiguration der zu generierenden Vector Tilesets.
 
-Die Indirektion über das GeoJSON-Format ist bewusst.
-Die ÖV-Güteklassen können als GeoJSON breiter verwendet werden, etwa in QGIS.
+Die Indirektion über das \gls{GeoJSON}-Format ist bewusst.
+Die ÖV-Güteklassen können als \gls{GeoJSON} breiter verwendet werden, etwa in \gls{QGIS}.
 Das MBTiles ist speziell auf Vector Tilesets ausgelegt, was bei uns nicht der Hauptfokus ist.
 
 Der Tile-Converter ist als Docker-Container verfügbar.
@@ -501,7 +501,7 @@ Diese Komponente nutzt das Web-\acs{API} vom Backend.
 Der Ablauf ist stark vereinfacht in Abbildung \ref{fig:Web-App_Sequence} sichtbar.
 Beim Mounten dieser Komponente werden vom Backend die verfügbaren Stichtage angefragt (Schritt 1 und 2).
 Anschliessend werden für einen Stichtag die zugehörigen Zeitintervalle geladen (Schritt 3 und 4).
-Mit diesen beiden Informationen werden vom Tile-Server dann die gewünschten \acs{ÖV}-Güteklassen geladen (Schritt 7).
+Mit diesen beiden Informationen werden vom Tile-Server dann die gewünschten \gls{ÖV-Güteklassen} geladen (Schritt 7).
 Wählt der User einen neuen Stichtag oder Zeitintervall, wiederholt sich der Ablauf.
 
 \begin{figure}[ht]
@@ -511,7 +511,7 @@ Wählt der User einen neuen Stichtag oder Zeitintervall, wiederholt sich der Abl
     \label{fig:Web-App_Sequence}
 \end{figure}
 
-Es sei angemerkt, dass auf dem Tile-Server für einen Satz von \acs{ÖV}-Güteklassen nicht nur einmal zugegriffen wird, wie man aufgrund der Sequenz annehmen könnte.
+Es sei angemerkt, dass auf dem Tile-Server für einen Satz von \gls{ÖV-Güteklassen} nicht nur einmal zugegriffen wird, wie man aufgrund der Sequenz annehmen könnte.
 Der Vorteil der Vector Tiles und dem damit verbundenen Tile-Server liegt darin, dass gerade nur die Tiles geladen werden, welche benötigt werden. Verändert man Auszug und Zoomstufe, löst man somit Zugriffe auf den Tile-Server aus.
 
 \paragraph{LeafletMap}
@@ -521,7 +521,7 @@ Mithilfe von Mapbox GL JS (MapboxGLLayer)~\cite{mapbox_gl_leaflet} kann die Basi
 
 \paragraph{VectorgridLayer}
 Die Kartendaten, welche über die Basiskarte gerendert werden, werden mit der Komponente \emph{VectorgridLayer} verwaltet.
-So existiert jeweils ein Layer für die \acs{ÖV}-Güteklassen 2018, für die \acs{ÖV}-Güteklassen des \acl{ARE} und eine für die ÖV-Haltestellen.
+So existiert jeweils ein Layer für die \gls{ÖV-Güteklassen} 2018, für die \gls{ÖV-Güteklassen} des \acl{ARE} und eine für die ÖV-\glspl{Haltestelle}.
 Somit werden alle Kartendaten mit Vector Tiles abgebildet.
 Alle diese Layer sind in Abbildung \ref{fig:Vector-Grid-Layers} ersichtlich.
 
@@ -534,12 +534,12 @@ Alle diese Layer sind in Abbildung \ref{fig:Vector-Grid-Layers} ersichtlich.
 
 Beim Layer, welcher die ÖV-Haltestellen anzeigt, ist der Vorteil der Vector Tiles stark sichtbar.
 So wurden diese Vector Tiles so konfiguriert, dass sie erst ab einer gewissen Zoomstufe angezeigt werden. In der Abbildung \ref{fig:zoom-level-comparison} sieht man den Unterschied zwischen Zoomstufe 13 (links) und 14 (rechts).
-Dadurch müssen auf einer tieferen Zoomstufe weniger grosse Vector Tiles geladen werden und der Fokus bleibt auf den \acs{ÖV}-Güteklassen.
+Dadurch müssen auf einer tieferen Zoomstufe weniger grosse Vector Tiles geladen werden und der Fokus bleibt auf den \gls{ÖV-Güteklassen}.
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=1.0\linewidth]{projectdoc/img/zoom-level-comparison.png}
-    \caption[Vergleich Zoom-Stufe ÖV-Haltestelle Layer]{Vergleich Zoomstufe ÖV-Haltestelle Layer: Zoomstufe 13 (links) und 14 (rechts)}
+    \caption[Vergleich Zoom-Stufe ÖV-Haltestelle Layer]{Vergleich Zoomstufe ÖV-\gls{Haltestelle} Layer: Zoomstufe 13 (links) und 14 (rechts)}
     \label{fig:zoom-level-comparison}
 \end{figure}
 
@@ -552,12 +552,12 @@ Der Grund für den Einsatz von Mapbox GL JS gegenüber Leaflet~\cite{leaflet} wa
 Trotz alldem hat sich während der Entwicklung gezeigt, dass der Wechsel zu Leaflet praktisch unausweichlich ist.
 Im Folgenden ist dieser Schritt begründet.
 
-Der ausschlaggebende Nachteil von Mapbox GL JS zeigte sich bei der Integration der \acs{ÖV}-Güteklassen, um sie auf der Webkarte anzeigen zu können.
-Wenn sich mehrere Haltestellen nah beieinander befinden, überschneiden sich ihre \glspl{Isochrone}.
-Da wir hinter den Geometrien der \acs{ÖV}-Güteklassen auch die Basiskarte im Hintergrund anzeigen möchten, muss die Deckkraft der Geometrien entsprechend verringert werden.
+Der ausschlaggebende Nachteil von Mapbox GL JS zeigte sich bei der Integration der \gls{ÖV-Güteklassen}, um sie auf der Webkarte anzeigen zu können.
+Wenn sich mehrere \glspl{Haltestelle} nah beieinander befinden, überschneiden sich ihre \glspl{Isochrone}.
+Da wir hinter den Geometrien der \gls{ÖV-Güteklassen} auch die Basiskarte im Hintergrund anzeigen möchten, muss die Deckkraft der Geometrien entsprechend verringert werden.
 Mapbox GL JS unterstützt die Einstellung der Deckkraft aber ausschliesslich auf Feature-Ebene, sprich auf einzelnen Geometrien.
-Bei sich überlagernden Features entsteht damit der Effekt, dass die Farben sich mischen und einander verstärken (siehe Abbildung~\ref{fig:problem_overlapping_isochrones}).
-Dies ist irreführend, da ein Gebiet mit zum Beispiel Güteklasse A durchgehend gleich kategorisiert werden soll, egal von wie vielen verschiedenen Haltestellen mit der gleichen Güteklasse das Gebiet erschlossen wird.
+Bei sich überlagernden \glspl{GeoJSON-Feature} entsteht damit der Effekt, dass die Farben sich mischen und einander verstärken (siehe Abbildung~\ref{fig:problem_overlapping_isochrones}).
+Dies ist irreführend, da ein Gebiet mit zum Beispiel Güteklasse A durchgehend gleich kategorisiert werden soll, egal von wie vielen verschiedenen \glspl{Haltestelle} mit der gleichen Güteklasse das Gebiet erschlossen wird.
 
 \begin{figure}[ht]
     \centering

@@ -32,10 +32,10 @@ Ebenfalls existiert ein Cron-Job, welcher die Builds und somit die Tests in rege
 \subsection{Deployment}
 \label{Infrastruktur:Deployment}
 
-Für das Deployment wurde eine Docker-Umgebung eingerichtet, die für die einfache Handhabung der Berechnung der \acs{ÖV}-Güteklassen 2018 dient.
+Für das Deployment wurde eine Docker-Umgebung eingerichtet, die für die einfache Handhabung der Berechnung der \gls{ÖV-Güteklassen} 2018 dient.
 Die Details dazu sind im Kapitel \ref{Implementation:ÖV-Güteklassen 2018 Generator} beschrieben.
 
-Um die berechneten \acs{ÖV}-Güteklassen in der Web-Applikation zu visualisieren, wurde eine zusätzliche Docker-Umgebung vorbereitet.
+Um die berechneten \gls{ÖV-Güteklassen} in der Web-Applikation zu visualisieren, wurde eine zusätzliche Docker-Umgebung vorbereitet.
 Diese kombiniert die Web-App, Backend sowie der Tile-Server, damit man die komplette Applikation ohne zusätzliche Konfiguration lokal oder auf einem Server deployen kann.
 Dies hat den Vorteil, dass das Setup, welches deployed wird, analog lokal gestartet und getestet werden kann.
 Um die Services in einem gemeinsamen Endpoint zu verbinden, wird eine Nginx-Instanz als Reverse-Proxy verwendet, der die \acs{API}-Requests an die entsprechenden Endpoints weiterleitet.
@@ -48,8 +48,8 @@ Die Umgebung ist in Abbildung \ref{fig:deployment_web-app} dargestellt.
     \label{fig:deployment_web-app}
 \end{figure}
 
-Zusätzlich wurde ein Service eingerichtet, um die errechneten \acs{ÖV}-Güteklassen im GeoJSON-Format in Map-Tiles, sprich in MBTiles (siehe Kapitel \ref{Implementation:Tile-Converter}) umzuwandeln, damit der Tile-Server damit umgehen kann.
-Der Benutzer kann die GeoJSON-Dateien in einem Ordner ablegen und die Docker-Umgebung mit Docker Compose starten.
+Zusätzlich wurde ein Service eingerichtet, um die errechneten \gls{ÖV-Güteklassen} im \gls{GeoJSON}-Format in Map-Tiles, sprich in MBTiles (siehe Kapitel \ref{Implementation:Tile-Converter}) umzuwandeln, damit der Tile-Server damit umgehen kann.
+Der Benutzer kann die \gls{GeoJSON}-Dateien in einem Ordner ablegen und die Docker-Umgebung mit Docker Compose starten.
 Die Aufbereitung der Map-Tiles geschieht dann automatisch im Hintergrund.
 
 \subsection{Version Control}
@@ -69,13 +69,13 @@ Diese soll als Übersicht dienen und einen raschen Einstieg in die Version Contr
         thesis~\cite{github:thesis}
                                 & Bachelorarbeit\\
         oevgk18-specification~\cite{github:oevgk18-specification}
-                                & Aus der Bachelorarbeit extrahierte \acs{ÖV}-Güteklassen 2018 Spezifikation\\
+                                & Aus der Bachelorarbeit extrahierte \gls{ÖV-Güteklassen} 2018 Spezifikation\\
         oevgk18-generator~\cite{github:oevgk18-generator}
-                                & \acs{ÖV}-Güteklassen 2018 Generator\\
+                                & \gls{ÖV-Güteklassen} 2018 Generator\\
         web-app~\cite{github:web-app}
-                                & Web-Applikation zur Visualisierung der \acs{ÖV}-Güteklassen 2018\\
+                                & Web-Applikation zur Visualisierung der \gls{ÖV-Güteklassen} 2018\\
         backend~\cite{github:backend}
-                                & Backend der \acs{ÖV}-Güteklassen 2018\\
+                                & Backend der \gls{ÖV-Güteklassen} 2018\\
         backend-api~\cite{github:backend-api}
                                 & Dokumentation des Web-\acs{API} des Backend\\
         admin~\cite{github:admin}

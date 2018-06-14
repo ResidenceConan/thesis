@@ -15,32 +15,32 @@ Nachfolgend werden Grundlagen und Begriffe eingeführt, welche für das grundleg
 
 \paragraph{Definition}~\\
 % same description is used in the corresponding glossary entry
-"`\acs{ÖV}-Güteklassen geben Auskunft darüber, wie gut ein Standort mit dem öffentlichen Verkehr erschlossen ist.
+"`\gls{ÖV-Güteklassen} geben Auskunft darüber, wie gut ein Standort mit dem öffentlichen Verkehr erschlossen ist.
 Dies ist wichtig, wenn es darum geht, den öffentlichen Verkehr zu optimieren, Siedlungsverdichtung nach Innen an geeigneten Lagen voranzutreiben oder Standortentscheide für publikumsintensive Anlagen so zu treffen, dass sie möglichst wenig zusätzlichen Autoverkehr verursachen."'~\cite{oev-guteklasse-gr-defintion}
 
 \paragraph{OeVGK93}~\\
 % same description is used in the corresponding glossary entry
-OeVGK93 steht kurz für \acs{ÖV}-Güteklassen 93 und bezeichnet die Definition der \acs{ÖV}-Güteklassen, welche im Jahre 1993 mit der \acs{SN} 640 290~\cite{sn640290} verabschiedet wurde.
+\gls{OeVGK93} steht kurz für \gls{ÖV-Güteklassen} 93 und bezeichnet die Definition der \gls{ÖV-Güteklassen}, welche im Jahre 1993 mit der \acs{SN} 640 290~\cite{sn640290} verabschiedet wurde.
 
 \paragraph{OeVGKARE}~\\
 % same description is used in the corresponding glossary entry
-OeVGKARE steht kurz für \acs{ÖV}-Güteklassen des \acl{ARE} und bezeichnet die Spezifikation und Umsetzung der \acs{ÖV}-Güteklassen basierend auf OeVGK93 mit Erweiterungen.
+\gls{OeVGKARE} steht kurz für \gls{ÖV-Güteklassen} des \acl{ARE} und bezeichnet die Spezifikation und Umsetzung der \gls{ÖV-Güteklassen} basierend auf OeVGK93 mit Erweiterungen.
 
 \paragraph{OeVGK18}~\\
 % same description is used in the corresponding glossary entry
-OeVGK steht kurz für \acs{ÖV}-Güteklassen 2018 und bezeichnet die neue Spezifikation der \acs{ÖV}-Güteklassen, welche im Zuge dieser Arbeit erarbeitet wird.
+OeVGK steht kurz für \gls{ÖV-Güteklassen} 2018 und bezeichnet die neue Spezifikation der \gls{ÖV-Güteklassen}, welche im Zuge dieser Arbeit erarbeitet wird.
 
 \subsection{Problemstellung}
 \label{Einführung:Problemstellung}
 
-Mit \acs{ÖV}-Güteklassen wird ermittelt, welche Gebiete wie gut mit öffentlichen Verkehrsmitteln erschlossen sind.
+Mit \gls{ÖV-Güteklassen} wird ermittelt, welche Gebiete wie gut mit öffentlichen Verkehrsmitteln erschlossen sind.
 Die Daten werden unter anderem von Raum- und Verkehrsplanern verwendet, um Entscheidungen bezüglich der Standortentwicklung zu treffen.
 Gemäss dem Raumplanungsgesetz ist eine Siedlungsentwicklung nach innen vorgeschrieben~\cite{raumplanungsgesetz}.
 So soll verdichtet werden, bevor neues Bauland erschlossen wird.
 
-Die Methodik zur Erhebung von \acs{ÖV}-Güteklassen wurde 1993 erstmals in der \ac{SN} 640 290~\cite{sn640290} festgelegt.
+Die Methodik zur Erhebung von \gls{ÖV-Güteklassen} wurde 1993 erstmals in der \ac{SN} 640 290~\cite{sn640290} festgelegt.
 Die Norm wurde damals zur Berechnung des Bedarfs an Parkplätzen eingeführt und 2006 durch die neue \acs{SN} 640 281~\cite{sn640281} ersetzt.
-Darin sind \acs{ÖV}-Güteklassen in dieser Form nicht mehr erhalten. Die alte Norm wird aber immer noch als Grundlage verwendet, um die aktuellen \acs{ÖV}-Güteklassen zu berechnen~\cite{berechnung_are}.
+Darin sind \gls{ÖV-Güteklassen} in dieser Form nicht mehr erhalten. Die alte Norm wird aber immer noch als Grundlage verwendet, um die aktuellen \gls{ÖV-Güteklassen} zu berechnen~\cite{berechnung_are}.
 
 Die Berechnungsmethodik, wie sie in der Norm festgehalten wurden, ist für die heutigen technischen Möglichkeiten überholt.
 Im Folgenden werden einige Probleme der Berechnung von Güteklassen im Bezug auf öffentliche Verkehrsmittel basierend auf der \ac{SN} 640 290~\cite{sn640290} aufgezeigt.
@@ -50,43 +50,43 @@ Sie verfolgt primär das Ziel, dem Leser einen Überblick über die zu untersuch
 \subsubsection{Luftlinie bei Einzugsgebieten}
 \label{Problemstellung:Luftlinie bei Einzugsgebieten}
 
-Bei der Berechnung von \acs{ÖV}-Güteklassen nach der \acs{SN} 640 290~\cite{sn640290} werden um jede Haltestelle Kreise mit einem gewissen Radius gezogen.
-Diese bestimmen die Einzugsgebiete der Haltestellen mit unterschiedlicher Qualität.
+Bei der Berechnung von \gls{ÖV-Güteklassen} nach der \acs{SN} 640 290~\cite{sn640290} werden um jede \gls{Haltestelle} Kreise mit einem gewissen Radius gezogen.
+Diese bestimmen die Einzugsgebiete der \glspl{Haltestelle} mit unterschiedlicher Qualität.
 Diese Methode beachtet aber nicht die effektive Erreichbarkeit für Fussgänger.
-Es kann sein, dass die Haltestelle nur durch eine Strasse zugänglich ist und Fussgänger in der Umgebung einen Umweg laufen müssen.
+Es kann sein, dass die \gls{Haltestelle} nur durch eine Strasse zugänglich ist und Fussgänger in der Umgebung einen Umweg laufen müssen.
 Das effektive Einzugsgebiet wird so also nicht akkurat repräsentiert.
 
 \subsubsection{Topographie}
 \label{Problemstellung:Topographie}
 
-In der jetzigen Berechnung der \acs{ÖV}-Güteklassen wird die Topographie der Umgebung von Haltestellen nicht konsequent einberechnet und nur wage definiert, wie weit die Berücksichtigung dieser gehen sollte.
-Je steiler der Zugang zu einer Haltestelle ist, desto kleiner wird das effektive Einzugsgebiet der Haltestelle, da Fussgänger weniger bereit sind, Distanzen zu laufen, die auf ebenem Grund akzeptabel sind.
+In der jetzigen Berechnung der \gls{ÖV-Güteklassen} wird die Topographie der Umgebung von \glspl{Haltestelle} nicht konsequent einberechnet und nur wage definiert, wie weit die Berücksichtigung dieser gehen sollte.
+Je steiler der Zugang zu einer \gls{Haltestelle} ist, desto kleiner wird das effektive Einzugsgebiet der \gls{Haltestelle}, da Fussgänger weniger bereit sind, Distanzen zu laufen, die auf ebenem Grund akzeptabel sind.
 
 \subsubsection{Taktberechnung}
 \label{Problemstellung:Taktberechnung}
 
-Nach der verwendeten \acs{SN} 640 290~\cite{sn640290} werden Haltestellen anhand der Anzahl der Verbindungen in einer bestimmten Zeit in Kategorien eingeteilt.
-Je höher diese Kategorie, desto grösser wird das Einzugsgebiet der Haltestelle bewertet.
+Nach der verwendeten \acs{SN} 640 290~\cite{sn640290} werden \glspl{Haltestelle} anhand der Anzahl der Verbindungen in einer bestimmten Zeit in Kategorien eingeteilt.
+Je höher diese Kategorie, desto grösser wird das Einzugsgebiet der \gls{Haltestelle} bewertet.
 
 Bei der Einteilung in die Kategorie wird aber nicht darauf geachtet, in welchem Takt die Verbindungen eintreffen.
-So kann es sein, dass an einer Haltestelle alle 15 Minuten genau ein Bus ankommt und bei einer anderen alle 30 Minuten gleich zwei Busse in gleicher Richtung hintereinander.
-Die Berechnung zählt aber nur die Anzahl Verbindungen insgesamt, womit beide Haltestellen danach gleichwertig wären, obwohl die Haltestelle mit dem 15 Minuten Takt offensichtlich einen besseren Takt hat.
+So kann es sein, dass an einer \gls{Haltestelle} alle 15 Minuten genau ein Bus ankommt und bei einer anderen alle 30 Minuten gleich zwei Busse in gleicher Richtung hintereinander.
+Die Berechnung zählt aber nur die Anzahl Verbindungen insgesamt, womit beide \glspl{Haltestelle} danach gleichwertig wären, obwohl die \gls{Haltestelle} mit dem 15 Minuten Takt offensichtlich einen besseren Takt hat.
 
 In der Kategorisierung der Norm werden ausserdem Bushaltestellen, die halbstündlich oder stündlich bedient werden, in die gleiche Kategorie eingeteilt.
-Für ein Benutzer der Haltestelle ist dies allerdings ein markanter Unterschied.
+Für ein Benutzer der \gls{Haltestelle} ist dies allerdings ein markanter Unterschied.
 
 \subsubsection{Berechnung an einem Stichtag}
 \label{Problemstellung:Berechnung an einem Stichtag}
 
-Bei der Berechnung von \acs{ÖV}-Güteklassen werden Verbindungen in einem gewissen Zeitraum berücksichtigt.
+Bei der Berechnung von \gls{ÖV-Güteklassen} werden Verbindungen in einem gewissen Zeitraum berücksichtigt.
 Dabei werden nur Verbindungen zwischen 6.00 Uhr und 20.00 Uhr gezählt.
-Die Ansprüche an die \acs{ÖV}-Güteklassen können aber auch andere Zeiten umfassen.
+Die Ansprüche an die \gls{ÖV-Güteklassen} können aber auch andere Zeiten umfassen.
 So kann es interessant sein, die Verbindungen in der Nacht oder am Wochenende einzubeziehen.
 
 \subsubsection{Verschiedene Berechnungsmethodiken}
 \label{Problemstellung:Verschiedene Berechnungsmethodiken}
 
-Das \acl{ARE} hat 2011 die Berechnungsmethodik \acs{ARE}~\cite{berechnung_are} herausgegeben, welche die \acs{ÖV}-Güteklassen in einem automatisierten Prozess aus den Daten des elektronischen Fahrplans HAFAS~\cite{sbb_hafas_spec} berechnet.
+Das \acl{ARE} hat 2011 die Berechnungsmethodik \acs{ARE}~\cite{berechnung_are} herausgegeben, welche die \gls{ÖV-Güteklassen} in einem automatisierten Prozess aus den Daten des elektronischen Fahrplans HAFAS~\cite{sbb_hafas_spec} berechnet.
 Diese Berechnung basiert auf der \acs{SN} 640 290~\cite{sn640290}.
 Anzumerken ist, dass Anpassungen an der Berechnungsmethodik der Norm vorgenommen werden, um eine automatisierte Berechnung mit verfügbaren Datenbeständen durchführen zu können.
 
@@ -97,7 +97,7 @@ Dies ist ein starkes Indiz, dass der Wunsch nach einer einheitlichen Berechnungs
 \subsection{Vision}
 \label{Einführung:Vision}
 
-\acs{ÖV}-Güteklassen 2018 ermöglicht es unterschiedlichen Stakeholdern die Qualität der öffentlichen Erschliessung eines Standortes unter Berücksichtigung des \gls{Terrainmodell}s und der Streckenführung in Kombination mit Verbesserungen und Erfahrungen der bestehenden Berechnungsmethodiken zu analysieren, um so Entscheidungen, welche den öffentlichen Raum betreffen, fundiert treffen zu können, sowie der allgemeinen Standortsfindung beistehen zu können.
+\gls{ÖV-Güteklassen} 2018 ermöglicht es unterschiedlichen Stakeholdern die Qualität der öffentlichen Erschliessung eines Standortes unter Berücksichtigung des \gls{Terrainmodell}s und der Streckenführung in Kombination mit Verbesserungen und Erfahrungen der bestehenden Berechnungsmethodiken zu analysieren, um so Entscheidungen, welche den öffentlichen Raum betreffen, fundiert treffen zu können, sowie der allgemeinen Standortsfindung beistehen zu können.
 
 \subsection{Ziele und Unterziele}
 \label{Einführung:Ziele und Unterziele}
@@ -108,12 +108,12 @@ Dadurch ist ersichtlich, was Inhalt der Arbeit ist und wo Abgrenzungen gezogen w
 \subsubsection{Spezifikation OeVGK18}
 \label{Ziele und Unterziele:Spezifikation OeVGK18}
 
-Es ist eine neue Spezifikation der Berechnungsmethodik von \acs{ÖV}-Güteklassen mit dem Namen \gls{OeVGK18} zu definieren, welche auf den bestehenden Berechnungsmethodiken (siehe Abschnitt \emph{\nameref{Spezifikation OeVGK18:Analyse bestehender Berechnungsmethodiken}}) basiert und bei Bedarf optimiert (siehe Abschnitt \emph{\nameref{Spezifikation OeVGK18:Evaluierung grundlegender Verbesserungen}}).
+Es ist eine neue Spezifikation der Berechnungsmethodik von \gls{ÖV-Güteklassen} mit dem Namen \gls{OeVGK18} zu definieren, welche auf den bestehenden Berechnungsmethodiken (siehe Abschnitt \emph{\nameref{Spezifikation OeVGK18:Analyse bestehender Berechnungsmethodiken}}) basiert und bei Bedarf optimiert (siehe Abschnitt \emph{\nameref{Spezifikation OeVGK18:Evaluierung grundlegender Verbesserungen}}).
 Dabei wir der Fokus darauf gelegt, dass mit einer verfügbaren Datenbasis gearbeitet werden kann (siehe Abschnitt \emph{\nameref{Spezifikation OeVGK18:Abstimmung Spezifikation mit verfügbaren Daten}}).
 
 \paragraph{Analyse bestehender Berechnungsmethodiken}~\\
 \label{Spezifikation OeVGK18:Analyse bestehender Berechnungsmethodiken}
-Es existieren unterschiedliche Berechnungsmethodiken, welche \acs{ÖV}-Güteklassen entweder auf nationaler oder kantonaler Ebene berechnen.
+Es existieren unterschiedliche Berechnungsmethodiken, welche \gls{ÖV-Güteklassen} entweder auf nationaler oder kantonaler Ebene berechnen.
 Diese Methodiken berücksichtigen unterschiedliche Interessen und basieren auf verschiedenen Grundlagen.
 
 In dieser Arbeit gilt es, bestehende Lösungen zu analysieren.
@@ -128,26 +128,26 @@ Diese Liste ist nicht abschliessend, sondern umfasst den zu Beginn der Arbeit id
 
 \subparagraph{Luftlinie bei Einzugsgebieten}~\\
 \label{Evaluierung grundlegender Verbesserungen:Luftlinie bei Einzugsgebieten}
-Statt um jede \acs{ÖV}-Haltestelle Umkreise mit fixem Radius zu ziehen, bietet es sich an, das effektive Einzugsgebiet zu analysieren, das ein Fussgänger durch Benutzung von Strassen und Gehwege von der Haltestelle aus erreichen kann.
+Statt um jede \acs{ÖV}-\gls{Haltestelle} Umkreise mit fixem Radius zu ziehen, bietet es sich an, das effektive Einzugsgebiet zu analysieren, das ein Fussgänger durch Benutzung von Strassen und Gehwege von der \gls{Haltestelle} aus erreichen kann.
 
 \subparagraph{Topographie}~\\
 \label{Evaluierung grundlegender Verbesserungen:Topographie}
-Um die Topographie bei der Berechnung vom Einzugsgebiet einer Haltestelle mit einzubeziehen, müssen die Höhenunterschiede beachtet werden.
+Um die Topographie bei der Berechnung vom Einzugsgebiet einer \gls{Haltestelle} mit einzubeziehen, müssen die Höhenunterschiede beachtet werden.
 Zusätzlich zur Laufdistanz für einen Fussgänger werden die Höhenunterschiede in die Berechnung einbezogen und entsprechend gewichtet.
-Eine Haltestelle in einem steilen Gebiet hat so ein geringeres Einzugsgebiet als eine gleich gut angeschlossene Haltestelle in einem flachen Gebiet.
+Eine \gls{Haltestelle} in einem steilen Gebiet hat so ein geringeres Einzugsgebiet als eine gleich gut angeschlossene \gls{Haltestelle} in einem flachen Gebiet.
 
 Ein digitales \gls{Terrainmodell} der Schweiz für diesen Zweck wird von Swisstopo als swissALTI$^{3D}$ angeboten.~\cite{swissalti3d_swisstopo}
 
 \subparagraph{Taktberechnung}~\\
 \label{Evaluierung grundlegender Verbesserungen:Taktberechnung}
 In der aktuellen Norm werden nur die Anzahl Verbindungen in einer gewissen Zeitspanne gezählt.
-Wie in \ref{Problemstellung:Taktberechnung} beschrieben, ergibt dies kein genaues Bild der Taktfrequenz der Verbindungen einer Haltestelle.
+Wie in \ref{Problemstellung:Taktberechnung} beschrieben, ergibt dies kein genaues Bild der Taktfrequenz der Verbindungen einer \gls{Haltestelle}.
 
 Es ist eine optimierte Methoden der Traktberechnung zu entwickeln, welche diese Problematik behebt.
 
 \subparagraph{Berechnung an einem Stichtag}~\\
 \label{Evaluierung grundlegender Verbesserungen:Berechnung an einem Stichtag}
-Da die Fahrplandaten für das ganze Jahr zur Verfügung stehen und die Berechnung automatisiert erfolgen kann, spricht nichts dagegen, die \acs{ÖV}-Güteklassen für mehrere Stichtage und Zeitintervalle zu ermitteln.
+Da die Fahrplandaten für das ganze Jahr zur Verfügung stehen und die Berechnung automatisiert erfolgen kann, spricht nichts dagegen, die \gls{ÖV-Güteklassen} für mehrere Stichtage und Zeitintervalle zu ermitteln.
 
 \paragraph{Abstimmung der Spezifikation mit verfügbaren Daten}~\\
 \label{Spezifikation OeVGK18:Abstimmung Spezifikation mit verfügbaren Daten}
@@ -163,10 +163,10 @@ Das Resultat der Arbeit besteht aus zwei Teilen.
 Für den ersten Teil wird die Spezifikation \gls{OeVGK18} definiert, die auf der Norm SN 640 290~\cite{sn640290} sowie der aktuellen Berechnungsmethodik des \acs{ARE}~\cite{berechnung_are} aufsetzt und diese unter anderem mit den oben genannten Punkten erweitert.
 
 Im zweiten Teil wird die erarbeitete Spezifikation umgesetzt.
-Mit einem Generator werden die \acs{ÖV}-Güteklassen basierend auf \gls{OeVGK18} für mehrere Parameter berechnet.
+Mit einem Generator werden die \gls{ÖV-Güteklassen} basierend auf \gls{OeVGK18} für mehrere Parameter berechnet.
 % TODO wo werden Parameter definiert?
 In einem weiteren Schritt wird das Ergebnis der Berechnungen in einer Web-Applikation visualisiert.
-Darin können neben unseren Berechnungen auch die bisherigen \acs{ÖV}-Güteklassen (Berechnungsmethodik \acs{ARE}) angezeigt werden.
+Darin können neben unseren Berechnungen auch die bisherigen \gls{ÖV-Güteklassen} (Berechnungsmethodik \acs{ARE}) angezeigt werden.
 
 \subsection{Rahmenbedingungen, Umfeld, Definitionen und Abgrenzungen}
 \label{Einführung:Rahmenbedingungen, Umfeld, Definitionen, Abgrenzungen}
@@ -183,22 +183,22 @@ Für das \gls{Terrainmodell} wird der Datensatz \emph{swissALTI$^{3D}$} von Swis
 
 Die Verwendung von Güteklassen für die Beurteilung der Qualität der \acs{ÖV}-Erschliessung erhält ihre Legitimation nicht von ungefähr.
 Im Grundlagenbericht des \acs{UVEK}~\cite{grundlagenbericht_uvek} über die "`Normierte gesamtverkehrliche Erschliessungsqualitäten"' ist festgehalten, dass sich grundsätzlich drei methodische Ansätze zur Herleitung einer gesamtverkehrlichen Erschliessungsqualität unterscheiden lassen, ein modellbasierter, ein kategorialer und ein indikatorenbasierter Ansatz.
-Es wird das Fazit gezogen, dass mit dem kategorialen Ansatz, zu welchem die \acs{ÖV}-Güteklassen gehören, sich inhaltliche Ansprüche am besten mit den Ansprüchen der Nachvollziehbarkeit in der Planungspraxis und Kommunizierbarkeit kombinieren lassen.
+Es wird das Fazit gezogen, dass mit dem kategorialen Ansatz, zu welchem die \gls{ÖV-Güteklassen} gehören, sich inhaltliche Ansprüche am besten mit den Ansprüchen der Nachvollziehbarkeit in der Planungspraxis und Kommunizierbarkeit kombinieren lassen.
 Der kategorialen Ansatz ist demnach sehr praxisorientiert, transparent, sowie in der Branche etabliert.
 
 \subsection{Vorgehen und Aufbau der Arbeit}
 \label{Einführung:Vorgehen und Aufbau der Arbeit}
 
-Diese Bachelorarbeit befasst sich mit dem Problem, eine den heuten technischen Möglichkeiten entsprechende \acs{ÖV}-Güteklassen-Spezifikation (\gls{OeVGK18}) und deren Berechnung umzusetzen.
+Diese Bachelorarbeit befasst sich mit dem Problem, eine den heuten technischen Möglichkeiten entsprechende \gls{ÖV-Güteklassen}-Spezifikation (\gls{OeVGK18}) und deren Berechnung umzusetzen.
 Die Arbeit wird somit in zwei von einander abhängigen Phasen umgesetzt.
 Die erste Phase ist theoretisch gestaltet.
 Dieser wird grosse Bedeutung beigemessen, da die zweite Phase auf den Ergebnissen dieser aufbaut.
-So verfolgt die erste Phase das Ziel, eine \acs{ÖV}-Güteklassen 2018 Spezifikation zu erstellen, mit dem Fokus, schweizweit Akzeptanz zu erhalten.
+So verfolgt die erste Phase das Ziel, eine \gls{ÖV-Güteklassen} 2018 Spezifikation zu erstellen, mit dem Fokus, schweizweit Akzeptanz zu erhalten.
 Dies hat die Implikation, dass bestehende Lösungen analysiert werden müssen, um so einen Konsens erreichen zu können.
 Bewährtes und Akzeptiertes wird kritisch hinterfragt.
 
-In einem zweiten Teil wird die erarbeitete Spezifikation implementiert und die \acs{ÖV}-Güteklassen für die gesamte Schweiz berechnet.
-Die Visualisierung erfolgt in Form einer Web-Applikation, worin die \acs{ÖV}-Güteklassen auf einer interaktiven Karte dargestellt sind.
+In einem zweiten Teil wird die erarbeitete Spezifikation implementiert und die \gls{ÖV-Güteklassen} für die gesamte Schweiz berechnet.
+Die Visualisierung erfolgt in Form einer Web-Applikation, worin die \gls{ÖV-Güteklassen} auf einer interaktiven Karte dargestellt sind.
 
 Die Erarbeitung sowie das Ergebnis der Spezifikation \gls{OeVGK18} wird im Teil \ref{Technischer Bericht} beschrieben.
 Die Berechnung und Visualisierung der Spezifikation wird im Teil \ref{SW-Projektdokumentation} behandelt.

@@ -7,51 +7,51 @@
 \subsection{Resultate}
 \label{Resultate und Weiterentwicklung:Resultate}
 
-Mit unserer Spezifikation \gls{OeVGK18} sowie deren Implementation ist die Grundlage für eine einheitliche Ermittlung von \acs{ÖV}-Güteklassen für die gesamte Schweiz geschaffen.
-Mithilfe des entwickelten Generators können die \acs{ÖV}-Güteklassen jederzeit und automatisiert mit den aktuellsten Datensätzen für unterschiedliche Stichtage und Zeitintervalle erzeugt werden.
+Mit unserer Spezifikation \gls{OeVGK18} sowie deren Implementation ist die Grundlage für eine einheitliche Ermittlung von \gls{ÖV-Güteklassen} für die gesamte Schweiz geschaffen.
+Mithilfe des entwickelten Generators können die \gls{ÖV-Güteklassen} jederzeit und automatisiert mit den aktuellsten Datensätzen für unterschiedliche Stichtage und Zeitintervalle erzeugt werden.
 Die Web-Applikation erlaubt eine Visualisierung der errechneten Geodaten auf einer interaktiven Webkarte.
-Zusätzlich können die \acs{ÖV}-Güteklassen des \ac{ARE} den \acs{ÖV}-Güteklassen 2018 visuell überlagert werden, um sie zu vergleichen.
+Zusätzlich können die \gls{ÖV-Güteklassen} des \ac{ARE} den \gls{ÖV-Güteklassen} 2018 visuell überlagert werden, um sie zu vergleichen.
 Durch das erstellte Docker-Setup wird ein einfaches Deployment erreicht.
 
 
 \subsubsection{Laufzeit}
 \label{Resultate und Weiterentwicklung:Laufzeit}
 
-Um die Laufzeit für das Berechnen der \acs{ÖV}-Güteklassen 2018 auszuwerten, wird zuerst für die Kernoperation die theoretische Komplexität bestimmt.
+Um die Laufzeit für das Berechnen der \gls{ÖV-Güteklassen} 2018 auszuwerten, wird zuerst für die Kernoperation die theoretische Komplexität bestimmt.
 Mit einer Messung wird dann die reale Laufzeit ermittelt und ausgewertet.
 
 \paragraph{Theoretische Laufzeit}\label{Laufzeit:Theoretische Laufzeit}~\\
-Für die Bestimmung der theoretischen Laufzeit wird lediglich das Berechnen der \glspl{Isochrone} betrachtet, da dies für die eigentliche Berechnung der \acs{ÖV}-Güteklassen die Kernfunktion darstellt, die am meisten Laufzeit benötigt.
+Für die Bestimmung der theoretischen Laufzeit wird lediglich das Berechnen der \glspl{Isochrone} betrachtet, da dies für die eigentliche Berechnung der \gls{ÖV-Güteklassen} die Kernfunktion darstellt, die am meisten Laufzeit benötigt.
 
-Wie in \ref{ÖV-Güteklassen 2018 Generator:Umsetzung Spezifikation} beschrieben wird für jede der $N$ Haltestellen eine oder mehrere \glspl{Isochrone} erzeugt.
+Wie in \ref{ÖV-Güteklassen 2018 Generator:Umsetzung Spezifikation} beschrieben wird für jede der $N$ \glspl{Haltestelle} eine oder mehrere \glspl{Isochrone} erzeugt.
 Dieser Algorithmus besteht aus zwei Teilen.
-Als erstes werden mit dem Dijkstra-Algorithmus~\cite{dijkstra_algorithm} alle Vertices ermittelt, die von der Haltestelle aus in einer festgelegten Zeit im Routing-Graphen erreichbar sind.
-Im zweiten Schritt wird mit diesen Vertices eine Alpha Shape~\cite{alpha_shapes} erzeugt, die alle gefundenen Punkte in einem Polygon einschliesst.
-Der erste Schritt muss pro Haltestelle nur ein Mal für die grösste Distanz durchgeführt werden, für die Erzeugung der \glspl{Isochrone} für kürzere Distanzen wird das Ergebnis des Dijkstra-Algorithmus gefiltert.
+Als erstes werden mit dem \gls{Dijkstra-Algorithmus}~\cite{dijkstra_algorithm} alle \glspl{Vertex} ermittelt, die von der \gls{Haltestelle} aus in einer festgelegten Zeit im \glspl{Routing-Graph} erreichbar sind.
+Im zweiten Schritt wird mit diesen \glspl{Vertex} eine Alpha Shape~\cite{alpha_shapes} erzeugt, die alle gefundenen Punkte in einem Polygon einschliesst.
+Der erste Schritt muss pro \gls{Haltestelle} nur ein Mal für die grösste Distanz durchgeführt werden, für die Erzeugung der \glspl{Isochrone} für kürzere Distanzen wird das Ergebnis des \gls{Dijkstra-Algorithmus} gefiltert.
 
-Der Dijkstra-Algorithmus wird in pgRouting mit der "`Boost Graph"'-Library~\cite{boost_graph} implementiert und hat eine Laufzeit von $\mathcal{O}(V \log V + E)$, wobei $E$ die Anzahl der Kanten und $V$ die Anzahl Vertices im Routing-Graphen bezeichnen.
-Für eine effizientere Berechnung werden in einem vorhergehenden Schritt alle Kanten $E\prime$ ermittelt, die maximal 1300 Meter von der Haltestelle entfernt sind.
-Diese Vorselektion der Kanten ist dank einem R-Tree-Index mit $\mathcal{O}(\log E)$ möglich.
+Der \gls{Dijkstra-Algorithmus} wird in pgRouting mit der "`Boost Graph"'-Library~\cite{boost_graph} implementiert und hat eine Laufzeit von $\mathcal{O}(V \log V + E)$, wobei $E$ die Anzahl der \glspl{Kante} und $V$ die Anzahl \glspl{Vertex} im \glspl{Routing-Graph} bezeichnen.
+Für eine effizientere Berechnung werden in einem vorhergehenden Schritt alle \glspl{Kante} $E\prime$ ermittelt, die maximal 1300 Meter von der \gls{Haltestelle} entfernt sind.
+Diese Vorselektion der \glspl{Kante} ist dank einem R-Tree-Index mit $\mathcal{O}(\log E)$ möglich.
 Insgesamt ergibt dies eine Laufzeit von $\mathcal{O}(\log E) + \mathcal{O}(V \log V + E\prime)$.
-Da die Vorselektion der Kanten $E\prime$ nur sehr klein ist ($E\prime \ll V$) und in konstanter Zeit läuft, kann dies vernachlässigt werden.
+Da die Vorselektion der \glspl{Kante} $E\prime$ nur sehr klein ist ($E\prime \ll V$) und in konstanter Zeit läuft, kann dies vernachlässigt werden.
 
 Der zweite Schritt, das Erstellen der Alpha Shape, wird nur noch mit den vorher ermittelten Punkten $V\prime$ durchgeführt.
 Da dies im Vergleich zum kompletten Graphen nur sehr wenige Punkte sind ($V\prime \ll V$), ist dieser Schritt für die Laufzeit ebenfalls zu vernachlässigen.
 
-Diese Berechnung der \glspl{Isochrone} wird für alle $N$ Haltestellen durchgeführt.
+Diese Berechnung der \glspl{Isochrone} wird für alle $N$ \glspl{Haltestelle} durchgeführt.
 Insgesamt ergibt das folgende Laufzeit:
 \[
     \mathcal{O}(N (\log E + V \log V))
 \]
 
 \begin{conditions}
-    $N$   &   Anzahl Haltestellen\\
-    $V$   &   Anzahl Vertices im Routing-Graph\\
-    $E$   &   Anzahl Knoten im Routing-Graph\\
+    $N$   &   Anzahl \glspl{Haltestelle}\\
+    $V$   &   Anzahl \glspl{Vertex} im \gls{Routing-Graph}\\
+    $E$   &   Anzahl Knoten im \gls{Routing-Graph}\\
 \end{conditions}
 
 \paragraph{Reale Messung der Laufzeit}~\\
-Um einen Richtwert für die effektive Laufzeit der Berechnung zu haben, wird auf einem Test-Computer der komplette Ablauf vom Datenimport bis zur Ausgabe der \acs{ÖV}-Güteklassen 2018 als GeoJSON durchlaufen und die Zeit gemessen.
+Um einen Richtwert für die effektive Laufzeit der Berechnung zu haben, wird auf einem Test-Computer der komplette Ablauf vom Datenimport bis zur Ausgabe der \gls{ÖV-Güteklassen} 2018 als \gls{GeoJSON} durchlaufen und die Zeit gemessen.
 
 \subparagraph{Testumgebung}
 Die Messung wird auf einem Desktop-Computer mit einem Intel Xeon E3-1245 mit 3.4 GHz und 16 GB Arbeitsspeicher durchgeführt.
@@ -64,12 +64,12 @@ Es fällt auf, dass die Vorbereitung zur eigentlichen Berechnung die meiste Zeit
 Dies liegt unter anderem daran, dass diese Vorbereitungsschritte externe Funktionen aufrufen, die nicht spezifisch optimiert werden können.
 So braucht etwa das Berechnen der Topologie nach der Graph-Segmentierung fast zwei Stunden.
 Dabei wird lediglich die eingebaute Funktion von pgRouting aufgerufen.
-Als Optimierung ist vorstellbar, die Topologie direkt während der Routing-Graph-Segmentierung zu aktualisieren, was aber deutlich komplexer als die jetzige Lösung wäre.
+Als Optimierung ist vorstellbar, die Topologie direkt während der \gls{Routing-Graph}-Segmentierung zu aktualisieren, was aber deutlich komplexer als die jetzige Lösung wäre.
 
-Die eigentliche Berechnung der \acs{ÖV}-Güteklassen für 6 Stichtage konnte mit Indizes auf der Datenbank und Optimierung der Algorithmen auf eine Laufzeit von rund 70 Minuten gebracht werden.
+Die eigentliche Berechnung der \gls{ÖV-Güteklassen} für 6 Stichtage konnte mit Indizes auf der Datenbank und Optimierung der Algorithmen auf eine Laufzeit von rund 70 Minuten gebracht werden.
 Dafür wurde während der Entwicklung kontinuierlich optimiert, in früheren Iterationen dauerte die Berechnung noch mehrere Tage.
-Als Beispiel dafür sei die Optimierung zu erwähnen, den Dijkstra-Algorithmus für die Berechnung der \glspl{Isochrone} für jede Haltestelle nur ein Mal für die weiteste Distanz zu verwenden statt für jede \gls{Isochrone} einzeln.
-Allein durch diese Optimierung konnte die Laufzeit zur Berechnung einer Haltestelle von ca. 450 ms auf 30 ms reduziert werden, womit die totale Laufzeit von 18 Stunden auf rund 70 Minuten gekürzt wurde.
+Als Beispiel dafür sei die Optimierung zu erwähnen, den \gls{Dijkstra-Algorithmus} für die Berechnung der \glspl{Isochrone} für jede \gls{Haltestelle} nur ein Mal für die weiteste Distanz zu verwenden statt für jede \gls{Isochrone} einzeln.
+Allein durch diese Optimierung konnte die Laufzeit zur Berechnung einer \gls{Haltestelle} von ca. 450 ms auf 30 ms reduziert werden, womit die totale Laufzeit von 18 Stunden auf rund 70 Minuten gekürzt wurde.
 Die nicht-funktionale Anforderung \nameref{NFA:NFA02} wurde somit klar eingehalten und übertroffen.
 
 \begin{table}[H]
@@ -88,15 +88,15 @@ Die nicht-funktionale Anforderung \nameref{NFA:NFA02} wurde somit klar eingehalt
         \hspace{3mm} Terrain-Modell importieren
                                 & \hspace{3mm} 1 h 25 min \\
         \midrule
-        \textbf{\acs{ÖV}-Güteklassen berechnen}
+        \textbf{\gls{ÖV-Güteklassen} berechnen}
                                 & \textbf{4 h 56 min} \\
-        \hspace{3mm} Routing-Graph segmentieren
+        \hspace{3mm} \gls{Routing-Graph} segmentieren
                                 & \hspace{3mm} 38 min \\
         \hspace{3mm} Topologie neu berechnen
                                 & \hspace{3mm} 1 h 53 min \\
-        \hspace{3mm} Terrain-Daten in Routing-Graph rechnen
+        \hspace{3mm} Terrain-Daten in \gls{Routing-Graph} rechnen
                                 & \hspace{3mm} 1 h 13 min \\
-        \hspace{3mm} \acs{ÖV}-Güteklassen für 6 Stichtage berechnen
+        \hspace{3mm} \gls{ÖV-Güteklassen} für 6 Stichtage berechnen
                                 & \hspace{3mm} 1 h 12 min \\
         \midrule
         \textbf{Gesamt}
@@ -112,38 +112,38 @@ Die nicht-funktionale Anforderung \nameref{NFA:NFA02} wurde somit klar eingehalt
 Im Absatz \nameref{Laufzeit:Theoretische Laufzeit} wurde die theoretische Laufzeit zur Berechnung von \glspl{Isochrone} ermittelt.
 In der Messung hat sich ergeben, dass für einen einzelnen Stichtag die Berechnung dieser \glspl{Isochrone} ca. 12 Minuten benötigt.
 
-Mit der theoretischen Laufzeit von $\mathcal{O}(N (\log E + V \log V))$ gibt es $N = 24'318$ Haltestellen sowie $E = 7'040'965$ Kanten und $V = 6'640'003$ Vertices im Routing-Graphen.
-In der Messung dauerte die Berechnung für jede der $N$ Haltestellen durchschnittlich ca. 30 ms, was einer Gesamtlaufzeit von ca. 12 Minuten entspricht.
+Mit der theoretischen Laufzeit von $\mathcal{O}(N (\log E + V \log V))$ gibt es $N = 24'318$ \glspl{Haltestelle} sowie $E = 7'040'965$ \glspl{Kante} und $V = 6'640'003$ \glspl{Vertex} im \glspl{Routing-Graph}.
+In der Messung dauerte die Berechnung für jede der $N$ \glspl{Haltestelle} durchschnittlich ca. 30 ms, was einer Gesamtlaufzeit von ca. 12 Minuten entspricht.
 Diese Berechnung wurde für 6 verschiedene Stichtage und Zeitintervalle durchgeführt.
 Dabei ist anzumerken, dass in der Messung dieser Operation einige Variablen vernachlässigt wurden, wie etwa die Zeit für die Anfrage und Antwort des Datenbank-Servers.
 
 \subsection{Möglichkeiten der Weiterentwicklung}
 \label{Resultate und Weiterentwicklung:Möglichkeiten der Weiterentwicklung}
 
-Im Teil \ref{Technischer Bericht} Kapitel \ref{Resultate} wurde bereits auf mögliche Weiterentwicklung eingegangen, die alternative Ansätze zur Ermittlung von \acs{ÖV}-Güteklassen beinhalten.
+Im Teil \ref{Technischer Bericht} Kapitel \ref{Resultate} wurde bereits auf mögliche Weiterentwicklung eingegangen, die alternative Ansätze zur Ermittlung von \gls{ÖV-Güteklassen} beinhalten.
 In diesem Abschnitt soll der Fokus auf der Implementation unserer Spezifikation \gls{OeVGK18} liegen.
 
 Während der Arbeit sind folgende Ansätze zur Weiterentwicklung und Optimierung aufgekommen:
 
 \paragraph{Parallelisierung}
-Die Berechnung der \acs{ÖV}-Güteklassen 2018 wurde während der Entwicklung stets optimiert, um eine akzeptable Laufzeit zu erzielen.
+Die Berechnung der \gls{ÖV-Güteklassen} 2018 wurde während der Entwicklung stets optimiert, um eine akzeptable Laufzeit zu erzielen.
 Der Grossteil der Optimierungen involvierte Datenbank-Indizes oder Vorberechnungen, um die Komplexität zu Verringern.
-Da die Berechnung der \acs{ÖV}-Güteklassen für jede Haltestelle unabhängig erfolgt, könnte zusäztlich der ganze Prozess parallelisiert werden, um Multi-Core-Systeme auszunutzen.
-In der jetzigen Implementation wurde dies für die Berechnung der Leistungskilometer bereits umgesetzt.
+Da die Berechnung der \gls{ÖV-Güteklassen} für jede \gls{Haltestelle} unabhängig erfolgt, könnte zusäztlich der ganze Prozess parallelisiert werden, um Multi-Core-Systeme auszunutzen.
+In der jetzigen Implementation wurde dies für die Berechnung der \gls{Leistungskilometer} bereits umgesetzt.
 Mit der Parallelisierung des gesamten Prozesses könnte etwa auf einem 4-Core System eine Laufzeitverbesserung von annähernd Faktor 4 erzielt werden.
 Aufgrund der Natur der Berechnungen eignet sich besonders der Ansatz "`Data parallelism"'~\cite{parallel_comp}.
-Die Berechnungen gehen von Haltestellen aus.
+Die Berechnungen gehen von \glspl{Haltestelle} aus.
 Somit kann man diese problemlos in einzelne Bereiche aufteilen und unabhängig voneinander parallel berechnen.
 
 \paragraph{Effizientere Segmentierung des Routing-Graphen}
-In der jetzigen Implementation wird der Routing-Graph segmentiert und anschliessend mit einer integrierten Funktion von pgRouting die komplette Topographie neu berechnet.
+In der jetzigen Implementation wird der \gls{Routing-Graph} segmentiert und anschliessend mit einer integrierten Funktion von pgRouting die komplette Topographie neu berechnet.
 Diese Funktion dauert knapp 2 Stunden.
 Eine Optimierung könnte sein, die Topographie des Graphen bereits während der Segmentierung neu zu berechnen.
-Da jede Kante in mehrere Kanten zerstückelt wird, müssten dazu jeweils neue Vertices eingefügt und entsprechend verbunden werden.
+Da jede \gls{Kante} in mehrere \glspl{Kante} zerstückelt wird, müssten dazu jeweils neue \glspl{Vertex} eingefügt und entsprechend verbunden werden.
 Dies bedeutet etwas höhere Komplexität bei der Segmentierung, dafür entfällt der Schritt zur Neuberechnung des kompletten Graphen durch pgRouting.
 
 \paragraph{Zusätzliche Ausgabeformate}
-Momentan werden die errechneten \acs{ÖV}-Güteklassen im \gls{GeoJSON}-Format ausgegeben.
+Momentan werden die errechneten \gls{ÖV-Güteklassen} im \gls{GeoJSON}-Format ausgegeben.
 Für eine weitergehende Analyse der Resultate kann es sinnvoll sein, die Resultate zusätzlich in zum Beispiel einer PostGIS-Datenbank auszugeben.
-Dabei könnten auch beliebige Metadaten zu den Haltestellen und Geometrien eingebunden werden, die während der Berechnung entstehen.
+Dabei könnten auch beliebige Metadaten zu den \glspl{Haltestelle} und Geometrien eingebunden werden, die während der Berechnung entstehen.
 Durch unsere Architektur benötigt ein zusätzliches Ausgabeformat lediglich eine weitere Implementation von \emph{OutputWriter} (siehe Kapitel \ref{container:generator}).

@@ -8,7 +8,7 @@ Die technische Beschreibung zur Implementation befindet sich im Teil \ref{SW-Pro
 \subsection{Zielerreichung}
 \label{Resultate:Zielerreichung}
 
-In einer Evaluation (Teil \ref{Stand der Technik}) wurden bestehende Ansätze zur Berechnung von \acs{ÖV}-Güteklassen analysiert und verglichen.
+In einer Evaluation (Teil \ref{Stand der Technik}) wurden bestehende Ansätze zur Berechnung von \gls{ÖV-Güteklassen} analysiert und verglichen.
 Es zeigte sich, dass die Methoden auf einer alten Norm aufbauen, die von einigen Kantonen erweitert wurden.
 Für die Berechnung der ganzen Schweiz gibt es aber keine Spezifikation, die moderne Analysen wie die Berücksichtigung des Strassennetzes vorsehen.
 
@@ -16,7 +16,7 @@ Unter Zuhilfenahme der verschiedenen Berechnungsmethodiken erstellten wir anschl
 Dabei haben wir neben einer genaueren Ermittlung der Erreichbarkeit (Kap. \ref{Verbesserungsmöglichkeiten:Ermittlung der Erreichbarkeit der Haltestelle}) und die Berücksichtigung des Terrains auch Punkte konkretisiert, die in bisherigen Methoden nicht genau spezifiziert sind, wie etwa die Berechnung des Kursintervalls (Kap. \ref{Verbesserungsmöglichkeiten:Kursintervall}) oder die Bestimmung von Bahnknoten (Kap. \ref{Verbesserungsmöglichkeiten:Bestimmung der Bahnknoten}).
 
 In einem nächsten Schritt wurde die Berechnung anhand der \gls{OeVGK18}-Spezifikation umgesetzt und automatisiert.
-So lassen sich die \acs{ÖV}-Güteklassen auch für nachfolgende Jahre neu berechnen.
+So lassen sich die \gls{ÖV-Güteklassen} auch für nachfolgende Jahre neu berechnen.
 Alle Parameter, die in der Spezifikation festgelegt wurden, sind in einer Konfigurationsdatei festgehalten und können beliebig verändert werden.
 Dadurch kann die Implementation auch als Basis für Weiterentwicklungen der Berechnungsmethoden dienen.
 
@@ -29,14 +29,14 @@ Dadurch kann die Implementation auch als Basis für Weiterentwicklungen der Bere
 \end{figure}
 \end{landscape}
 
-Zusätzlich zur automatisierten Berechnung wurde eine Web-Applikation entwickelt, die es ermöglicht, die berechneten \acs{ÖV}-Güteklassen im Browser darzustellen (siehe Abbildung \ref{fig:resultat_webapp_uebersicht}).
-Ebenfalls wurden darin die bisherigen \acs{ÖV}-Güteklassen vom Bundesamt für Raumentwicklung (\acs{ARE}) integriert, was einen visuellen Vergleich der beiden Resultate erleichtert.
+Zusätzlich zur automatisierten Berechnung wurde eine Web-Applikation entwickelt, die es ermöglicht, die berechneten \gls{ÖV-Güteklassen} im Browser darzustellen (siehe Abbildung \ref{fig:resultat_webapp_uebersicht}).
+Ebenfalls wurden darin die bisherigen \gls{ÖV-Güteklassen} vom Bundesamt für Raumentwicklung (\acs{ARE}) integriert, was einen visuellen Vergleich der beiden Resultate erleichtert.
 
 \subsection{Vergleich mit bisherigen ÖV-Güteklassen}
 \label{Resultate:Vergleich mit bisherigen ÖV-Güteklassen}
 
 Im Folgenden wird an einigen Beispielen gezeigt, wie die Resultate unserer Berechnung der \gls{OeVGK18} von bisherigen Methoden abweichen.
-Als Vergleich werden dazu die \acs{ÖV}-Güteklassen von \ac{ARE} aus dem Jahre 2018~\cite{berechnung_are} verwendet.
+Als Vergleich werden dazu die \gls{ÖV-Güteklassen} von \ac{ARE} aus dem Jahre 2018~\cite{berechnung_are} verwendet.
 
 \subsubsection{Einfluss der Wegführung}
 
@@ -47,12 +47,12 @@ Als Vergleich werden dazu die \acs{ÖV}-Güteklassen von \ac{ARE} aus dem Jahre 
     \label{fig:vergleich_wegfuehrung}
 \end{figure}
 
-Wie in \ref{Problemstellung:Luftlinie bei Einzugsgebieten} besprochen wird bei den bisherigen Ansätzen das Einzugsgebiet einer Haltestelle mit einem Kreis, und somit als Luftlinie, beschrieben.
+Wie in \ref{Problemstellung:Luftlinie bei Einzugsgebieten} besprochen wird bei den bisherigen Ansätzen das Einzugsgebiet einer \gls{Haltestelle} mit einem Kreis, und somit als Luftlinie, beschrieben.
 Mit \gls{OeVGK18} wird nun das Einzugsgebiet durch eine \gls{Isochrone} beschrieben.
-Die Fläche zeigt das Einzugsgebiet, das von einem Fussgänger von der Haltestelle aus in der definierten Zeit erreichbar ist.
+Die Fläche zeigt das Einzugsgebiet, das von einem Fussgänger von der \gls{Haltestelle} aus in der definierten Zeit erreichbar ist.
 
 Wie in Abbildung \ref{fig:vergleich_wegfuehrung} zu sehen ist, entstehen dadurch Geometrien, die dem Strassen- und Wegnetz folgen.
-Dies ergibt einen realistischeren Eindruck über die effektiven Gebiete, die von einer Haltestelle erschlossen werden.
+Dies ergibt einen realistischeren Eindruck über die effektiven Gebiete, die von einer \gls{Haltestelle} erschlossen werden.
 
 Die Berücksichtigung der Wegführung ist im Direktvergleich in Abbildung \ref{fig:vergleich_wegfuehrung_are_isochrone} noch deutlicher sichtbar.
 
@@ -66,12 +66,12 @@ Die Berücksichtigung der Wegführung ist im Direktvergleich in Abbildung \ref{f
 \subsubsection{Einfluss der Topographie}
 
 Der Stand der Technik berücksichtigt die Topographie nicht konsequent.
-Somit hat eine anspruchsvolle Topographie keinen Einfluss auf das Einzugsgebiet einer Haltestelle.
+Somit hat eine anspruchsvolle Topographie keinen Einfluss auf das Einzugsgebiet einer \gls{Haltestelle}.
 Das sieht man gut, wenn man die ÖV-Güteklasse des \acl{ARE} in Abbildung \ref{fig:vergleich_wegfuehrung_are_isochrone} betrachtet.
 Auf der gut sichbaren Strecke (Universitätsstrasse) werden im Durchmesser des schwarzen Kreises über eine Distanz von 300 Metern 9 Höhenmetern zurückgelegt.
-Nach der Definition der Berechnung der Leistungskilometern (siehe Kapitel \ref{Berechnungsmethodik OeVGK18:Gehzeit zur Haltestelle}) sind das zu den 300 Metern zusätzliche 90 Leistungsmeter, welche zurückgelegt werden müssen.
+Nach der Definition der Berechnung der \gls{Leistungskilometer}n (siehe Kapitel \ref{Berechnungsmethodik OeVGK18:Gehzeit zur Haltestelle}) sind das zu den 300 Metern zusätzliche 90 Leistungsmeter, welche zurückgelegt werden müssen.
 Der Einfluss der Topographie ist nun im Direktvergleich in Abbildung \ref{fig:vergleich_wegfuehrung_isochrone_mit_ohne_topo} sichtbar.
-Die Haltestelle hat mit Einbezug der Topographie ein kleineres Einzugsgebiet.
+Die \gls{Haltestelle} hat mit Einbezug der Topographie ein kleineres Einzugsgebiet.
 Man sieht, dass sich dies gut im unteren Teil bemerktbar macht.
 Die Strecke han von unten nach oben gesehen einen starken Anstieg, welcher ins Gewicht fällt.
 Beachtet man die Fläche von oben nach unten, sieht man nur geringe Unterschiede, da das Gefälle den Grenzwert von 22\% nicht überschreitet.
@@ -79,26 +79,26 @@ Beachtet man die Fläche von oben nach unten, sieht man nur geringe Unterschiede
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.8\linewidth]{technicalreport/img/vergleich_wegfuehrung_isochrone_mit_ohne_topo.png}
-    \caption[Direktvergleich Einzugsgebiet Isochronen mit und ohne Topographie]{Direktvergleich Einzugsgebiet Isochronen mit (Fläche ausgefüllt) und ohne (rot) Berücksichtigung der Topographie; Haltestelle Zürich, Winkelriedstrasse}
+    \caption[Direktvergleich Einzugsgebiet Isochronen mit und ohne Topographie]{Direktvergleich Einzugsgebiet \glspl{Isochrone} mit (Fläche ausgefüllt) und ohne (rot) Berücksichtigung der Topographie; Haltestelle Zürich, Winkelriedstrasse}
     \label{fig:vergleich_wegfuehrung_isochrone_mit_ohne_topo}
 \end{figure}
 
 
 \subsubsection{Verbesserte Berechnung des Kursintervalls}
 
-Der Unterschied in der Berechnung des Kursintervalls ist gut sichtbar, wenn man die Haltestelle "`Aarau, Buchenhof"' betrachtet.
-Damit wir die Berechnungsmethodiken OeVGK18 und OeVGKARE vergleichen können, nehmen wir für die Auswertung von OeVGK18 den Stichtag 21.03.2018. Die Fahrplandaten des OeVGKARE stammen vom 21.03.2017.
+Der Unterschied in der Berechnung des Kursintervalls ist gut sichtbar, wenn man die \gls{Haltestelle} "`Aarau, Buchenhof"' betrachtet.
+Damit wir die Berechnungsmethodiken \gls{OeVGK18} und \gls{OeVGKARE} vergleichen können, nehmen wir für die Auswertung von \gls{OeVGK18} den Stichtag 21.03.2018. Die Fahrplandaten des \gls{OeVGKARE} stammen vom 21.03.2017.
 Dieser Vergleich ist in diesem Zusammenhang zulässig, da beide einen Werktag repräsentieren und keine Änderung im Fahrplan erkannt wurde.
-Ebenfalls sieht man für diese Haltestelle die Korrektur, welche das \ac{ARE} für Verbindungen vornimmt, welche nur in eine Richtung befahren werden.
+Ebenfalls sieht man für diese \gls{Haltestelle} die Korrektur, welche das \ac{ARE} für Verbindungen vornimmt, welche nur in eine Richtung befahren werden.
 So wird die Anzahl Verbindungen in diesem Fall verdoppelt, um sie anschliessend bei der Berechnung wieder zu halbieren.
 
-An diesem Tag werden im Intervall 06:00 bis 20:00 Uhr 56 Fahrten an dieser Haltestelle registriert.
+An diesem Tag werden im Intervall 06:00 bis 20:00 Uhr 56 Fahrten an dieser \gls{Haltestelle} registriert.
 Folgt man der Berechnungslogik des Bundesamts für Raumentwicklung, erfolgt daraus folgender Intervall:
 $ 840 / ((56 * 2) / 2) = 15 \text{min}$
 
 Betrachtet man nun einen Auszug der Abfahrten in Tabelle \ref{table:Abfahrtszeiten Aarau, Buchenhof}, sieht man, dass beide Buslinien 4 Minuten versetzt alle 30 Minuten verkehren.
-Die Aussage, dass man an dieser Haltestelle einen 15-Minuten-Takt hat, ist somit nicht ganz korrekt.
-Kommt man um 06:10 Uhr an die Haltestelle, wartet man 23 Minuten auf die nächste Verbindung.
+Die Aussage, dass man an dieser \gls{Haltestelle} einen 15-Minuten-Takt hat, ist somit nicht ganz korrekt.
+Kommt man um 06:10 Uhr an die \gls{Haltestelle}, wartet man 23 Minuten auf die nächste Verbindung.
 
 \begin{table}[H]
     \centering
@@ -121,16 +121,16 @@ Kommt man um 06:10 Uhr an die Haltestelle, wartet man 23 Minuten auf die nächst
     \label{table:Abfahrtszeiten Aarau, Buchenhof}
 \end{table}
 
-Die neue Intervall-Berechnung gemäss Kapitel \ref{Berechnungsmethodik OeVGK18:Kursintervall} ergibt nun für die gleiche Haltestelle den Intervall 23.1 Minuten.
+Die neue Intervall-Berechnung gemäss Kapitel \ref{Berechnungsmethodik OeVGK18:Kursintervall} ergibt nun für die gleiche \gls{Haltestelle} den Intervall 23.1 Minuten.
 Der Unterschied macht sich in der Bestimmung der Haltestellenkategorie bemerkbar.
-Da es sich bei dieser Haltestelle um eine Busstation handelt, fällt man nach der OeVGK18-Spezifikation von der Haltestellekategorie IV (OeVGKARE) in die Kategorie V.
+Da es sich bei dieser \gls{Haltestelle} um eine Busstation handelt, fällt man nach der \gls{OeVGK18}-Spezifikation von der Haltestellekategorie IV (\gls{OeVGKARE}) in die Kategorie V.
 
 Abschliessend kann man sagen, dass 23.1 Minuten eine bessere Annäherung an den eigentlichen Kursintervall als die 15 Minuten, die vom \acs{ARE} berechnet wurde, ist.
-Dadurch wird das wahrgenommene Angebot an der Haltestelle besser wiederspiegelt.
+Dadurch wird das wahrgenommene Angebot an der \gls{Haltestelle} besser wiederspiegelt.
 
 \subsubsection{Verbesserte Ermittlung von Bahnknoten}
-Bei der Ermittlung der Bahnknoten werden nur Haltestellen berücksichtigt, welche Verbindungen in 6 verschiedene Richtungen oder Zugang zu einer Fernverkehrsverbindung haben.
-Aufgrund der Daten des \acl{ARE} nehmen wir an, dass bei der Berechnung der \gls{OeVGKARE} nur Haltestellen als Bahnknoten identifiziert werden, welche mindestens drei verschiedene Richtungen bedienen.
+Bei der Ermittlung der Bahnknoten werden nur \glspl{Haltestelle} berücksichtigt, welche Verbindungen in 6 verschiedene Richtungen oder Zugang zu einer Fernverkehrsverbindung haben.
+Aufgrund der Daten des \acl{ARE} nehmen wir an, dass bei der Berechnung der \gls{OeVGKARE} nur \glspl{Haltestelle} als Bahnknoten identifiziert werden, welche mindestens drei verschiedene Richtungen bedienen.
 Diese Annahme kommt zustande, wenn man für die Bahnknoten des \gls{OeVGKARE} die Anzahl verschiedenen Richtungen mit unserer Implementation eruiert.
 Dabei gibt es mit "`Genève-Aéroport"' einen Ausreiser, welcher nur eine Richtung anbietet.
 Die Problematik ist in Kapitel \ref{Verbesserungsmöglichkeiten:Bestimmung der Bahnknoten} beschrieben.
@@ -142,8 +142,8 @@ Ein direkter Vergleich ist in Tabelle \ref{table:Vergleich Anzahl Bahnknoten} er
     \begin{tabular}[c]{l l l}
         \toprule
         \textbf{}
-                                & \textbf{OeVGKARE}
-                                & \textbf{OeVGK18}\\
+                                & \textbf{\gls{OeVGKARE}}
+                                & \textbf{\gls{OeVGK18}}\\
         \midrule
         \textbf{Anzahl Bahnknoten}
                                 & 150
@@ -154,7 +154,7 @@ Ein direkter Vergleich ist in Tabelle \ref{table:Vergleich Anzahl Bahnknoten} er
     \label{table:Vergleich Anzahl Bahnknoten}
 \end{table}
 
-Da wir mindestens doppelt so viele verschiedene Richtungen wie OeVGKARE verlangen, schränken wir so die Identifikation als Bahnknoten ein, was sich in der Anzahl identifizierter Bahnknoten bemerkbar macht.
+Da wir mindestens doppelt so viele verschiedene Richtungen wie \gls{OeVGKARE} verlangen, schränken wir so die Identifikation als Bahnknoten ein, was sich in der Anzahl identifizierter Bahnknoten bemerkbar macht.
 
 \begin{table}[H]
     \centering
@@ -163,21 +163,21 @@ Da wir mindestens doppelt so viele verschiedene Richtungen wie OeVGKARE verlange
         \textbf{}
                                             & \textbf{Anzahl Bahnknoten}\\
         \midrule
-        \textbf{OeVGKARE $\cap$ OeVGK18}       & 92\\
-        \textbf{OeVGKARE $\setminus$ OeVGK18}  & 58\\
-        \textbf{OeVGK18 $\setminus$ OeVGKARE}  & 14\\
+        \textbf{\gls{OeVGKARE} $\cap$ \gls{OeVGK18}}       & 92\\
+        \textbf{\gls{OeVGKARE} $\setminus$ \gls{OeVGK18}}  & 58\\
+        \textbf{\gls{OeVGK18} $\setminus$ \gls{OeVGKARE}}  & 14\\
         \bottomrule
     \end{tabular}
     \caption{Unterschiede in der Identifikation der Bahnknoten}
     \label{table:Unterschiede in der Identifikation der Bahnknoten}
 \end{table}
 
-Dass durch die höhere Anzahl verlangter verschiedener Richtungen eine kleinere Menge als Bahnknoten identifizierte Haltestellen resultiert, scheint logisch.
+Dass durch die höhere Anzahl verlangter verschiedener Richtungen eine kleinere Menge als Bahnknoten identifizierte \glspl{Haltestelle} resultiert, scheint logisch.
 Tabelle \ref{table:Unterschiede in der Identifikation der Bahnknoten} nimmt die Unterschiede in den resultierenden Bahnknoten unter die Lupe.
-Überraschend ist, dass die Bahnknoten, welche durch OeVGK18 identifiziert werden, nicht komplett in OeVGKARE vorkommen.
-Es handelt sich um 14 Haltestellen, welche OeVGK18 im Unterschied zu OeVGKARE als Bahnknoten bestimmt werden.
-Dabei handelt es sich unter diesen um 2 Haltestellen, welche eine Fernverkehrsverbindung haben und so als Bahnknoten gezählt werden.
-Warum die restlichen 12 Haltestellen nicht ebenfalls als Bahnknoten identifiziert sind, entzieht sich unseren Kenntnissen.
+Überraschend ist, dass die Bahnknoten, welche durch \gls{OeVGK18} identifiziert werden, nicht komplett in \gls{OeVGKARE} vorkommen.
+Es handelt sich um 14 \glspl{Haltestelle}, welche \gls{OeVGK18} im Unterschied zu \gls{OeVGKARE} als Bahnknoten bestimmt werden.
+Dabei handelt es sich unter diesen um 2 \glspl{Haltestelle}, welche eine Fernverkehrsverbindung haben und so als Bahnknoten gezählt werden.
+Warum die restlichen 12 \glspl{Haltestelle} nicht ebenfalls als Bahnknoten identifiziert sind, entzieht sich unseren Kenntnissen.
 Darunter fällt beispielsweise die Haltestelle Flüelen mit 9 verschiedenen Richtungen.
 
 \subsection{Vergleich ÖV-Güteklassen mit unterschiedlichen Stichtagen und Zeitintervallen}
@@ -185,7 +185,7 @@ Darunter fällt beispielsweise die Haltestelle Flüelen mit 9 verschiedenen Rich
 
 Bisher hat man sich auf einen Stichtag ausserhalb der touristischen Hochsaison beschränkt, um so ein allgemeingültiges Resultat zu erhalten.
 Dadurch schränkt man die Auswertungsmöglichkeiten stark ein, da die Qualität der \acs{ÖV}-Erschliessung beispielsweise an einem Wochenende oder am Abend/in der Nacht genauso interessant auszuwerten ist wie tagsüber.
-Durch die Konfigurationsmöglichkeit des "`\acs{ÖV}-Güteklassen 2018 Generators"' ist es eine Leichtigkeit, in einem Schritt die \acs{ÖV}-Güteklassen für unterschiedliche Stichtage und Zeitintervalle zu berechnen.
+Durch die Konfigurationsmöglichkeit des "`\gls{ÖV-Güteklassen} 2018 Generators"' ist es eine Leichtigkeit, in einem Schritt die \gls{ÖV-Güteklassen} für unterschiedliche Stichtage und Zeitintervalle zu berechnen.
 
 \begin{figure}[ht]
     \centering
@@ -203,8 +203,8 @@ Dadurch ergeben sich in der Nacht deutlich tiefere Güteklassen als am Tag.
 
 Durch die neue Spezifikation und Web-Applikation ist die Grundlage für weitere und fortgeschrittene Auswertungen geschaffen.
 
-Verknüpft man die neuen \acs{ÖV}-Güteklassen mit der Bevölkerungsdichte, ist es möglich, Verbesserungspotential für den \acs{ÖV} zu eruieren.
-Dadurch wären Auswertungen analog zu "`95\% der wohnhaften Personen in einem bestimmten Gebiet müssen mindestens in der \acs{ÖV}-Güteklassen XYZ sein"' möglich.
+Verknüpft man die neuen \gls{ÖV-Güteklassen} mit der Bevölkerungsdichte, ist es möglich, Verbesserungspotential für den \acs{ÖV} zu eruieren.
+Dadurch wären Auswertungen analog zu "`95\% der wohnhaften Personen in einem bestimmten Gebiet müssen mindestens in der \gls{ÖV-Güteklassen} XYZ sein"' möglich.
 
 Aber auch für den privaten Gebrauch ist eine Weiterentwicklung von Interesse.
 So ist ein Wohnortfinder denkbar, welcher die Qualität des \acs{ÖV}-Anschlusses und anderen Faktoren (Nähe zu einer Schule oder Krankenhaus, etc.) berücksichtigt.
@@ -226,17 +226,17 @@ In Abbildung \ref{fig:grid_based_approach} ist ein Ergebnis einer solchen Berech
     \label{fig:grid_based_approach}
 \end{figure}
 
-Mit dieser Methode ist die Qualität des Routing-Graphen und Problematiken wie bei Fussgängerflächen weniger relevant.
-Für die Berechnung der \acs{ÖV}-Güteklassen ist dies ein spannender Ansatz für einen Vergleich mit der Lösung in dieser Arbeit.
+Mit dieser Methode ist die Qualität des \glspl{Routing-Graph} und Problematiken wie bei Fussgängerflächen weniger relevant.
+Für die Berechnung der \gls{ÖV-Güteklassen} ist dies ein spannender Ansatz für einen Vergleich mit der Lösung in dieser Arbeit.
 
 \paragraph{Multimodaler Verkehr}~\\
-In allen bisherigen Ansätzen zur Ermittlung von \acs{ÖV}-Güteklassen wird das Einzugsgebiet von Haltestellen über die Laufdistanz charakterisiert.
+In allen bisherigen Ansätzen zur Ermittlung von \gls{ÖV-Güteklassen} wird das Einzugsgebiet von \glspl{Haltestelle} über die Laufdistanz charakterisiert.
 Dabei werden die Möglichkeiten des Individualverkehrs (wie etwa Auto, Fahrrad, etc.) nicht mit eingerechnet.
 Die Maximaldistanz eines Erschliessungsgebiets liegt bei Laufdistanzen bei 15 Minuten Gehzeit.
 Mit einem Fahrrad etwa wäre die Distanz deutlich grösser, die in 15 Minuten zurückgelegt werden können.
 Für andere Verkehrsmittel bräuchte es daher jeweils andere Massstäbe.
 
-Die jetzige Einschränkung auf Fussdistanzen führt auch daher, dass die \acs{ÖV}-Güteklassen nicht zu komplex werden sollen, damit eine einfache und schnelle Interpretation möglich bleibt.
+Die jetzige Einschränkung auf Fussdistanzen führt auch daher, dass die \gls{ÖV-Güteklassen} nicht zu komplex werden sollen, damit eine einfache und schnelle Interpretation möglich bleibt.
 Daher ist hier abzuwägen, inwiefern es sinnvoll ist, andere Arten des Individualverkehrs miteinzubeziehen.
 
 \subsection{Dank}

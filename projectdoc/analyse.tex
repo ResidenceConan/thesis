@@ -5,29 +5,29 @@
 \subsection{Routing Engine}
 \label{Analyse:Routing Engine}
 
-In den Rahmenbedingungen (Kapitel \ref{Einführung:Rahmenbedingungen, Umfeld, Definitionen, Abgrenzungen}) wurde festgehalten, für die Implementation der "`\acs{ÖV}-Güteklassen 2018"' PostGIS~\cite{postgis} und die Routing-Engine pgRouting~\cite{pgRouting} zu verwenden, soweit diese die gewünschte Funktionalität unterstützt.
+In den Rahmenbedingungen (Kapitel \ref{Einführung:Rahmenbedingungen, Umfeld, Definitionen, Abgrenzungen}) wurde festgehalten, für die Implementation der "`\gls{ÖV-Güteklassen} 2018"' PostGIS~\cite{postgis} und die \gls{Routing-Engine} pgRouting~\cite{pgRouting} zu verwenden, soweit diese die gewünschte Funktionalität unterstützt.
 Nachfolgend soll kurz aufgezeigt werden, welche alternativen Technologien in Frage kommen und ob die technische Machbarkeit mit PostGIS/pgRouting gegeben ist.
 
-Für die Wahl einer Routing-Engine gibt es drei grosse Open-Source Lösungen, die sich bewährt haben: OSRM~\cite{osrm}, GraphHopper~\cite{graphhopper} und pgRouting.
+Für die Wahl einer \gls{Routing-Engine} gibt es drei grosse Open-Source Lösungen, die sich bewährt haben: OSRM~\cite{osrm}, GraphHopper~\cite{graphhopper} und pgRouting.
 Für unsere Zwecke sind folgende Kriterien massgebend:
 
 \begin{enumerate}
-    \item Das Erstellen von Isochronen
+    \item Das Erstellen von \glspl{Isochrone}
     \item Die Integration von Höhendaten
 \end{enumerate}
 
 Für das Kriterium 1 bringen GraphHopper und pgRouting bereits eingebaute Funktionen mit, für OSRM gibt es ein experimentelles Tool von Mapbox~\cite{mapbox_osrm_isochrone}.
 
-Für das zweite Kriterium, die Integration von Höhendaten, gibt es bei GraphHopper und OSRM eingeschränkte Möglichkeiten. GraphHopper bietet zwar an, das weltweit abdeckende Modell von \ac{SRTM} direkt einzubinden, dessen Genauigkeit ist mit 90 Metern aber deutlich tiefer als bei unserem swissALTI$^{3D}$-Modell mit 2--10 Metern~\cite{swissalti3d_swisstopo}. Die Integration eines eigenen Modells würde bei beiden Routing-Engines eine Anpassung der Implementation benötigen.
+Für das zweite Kriterium, die Integration von Höhendaten, gibt es bei GraphHopper und OSRM eingeschränkte Möglichkeiten. GraphHopper bietet zwar an, das weltweit abdeckende Modell von \ac{SRTM} direkt einzubinden, dessen Genauigkeit ist mit 90 Metern aber deutlich tiefer als bei unserem swissALTI$^{3D}$-Modell mit 2--10 Metern~\cite{swissalti3d_swisstopo}. Die Integration eines eigenen Modells würde bei beiden \glspl{Routing-Engine} eine Anpassung der Implementation benötigen.
 
 Bei pgRouting bringt die Implementation selbst keine direkte Unterstützung von Höhendaten mit.
 Im Unterschied zu den anderen Varianten kann die Kosten-Funktion zur Berechnung von Wegzeiten aber einfach selbst angepasst werden.
 Durch die Benutzung von PostgreSQL mit PostGIS bietet dieser Ansatz deutlich mehr Flexibilität.
-Das Terrainmodell kann in einer separaten Datenbank effizient als Raster persistiert und für die Kostenberechnung der einzelnen Kanten abgerufen werden.
+Das \gls{Terrainmodell} kann in einer separaten Datenbank effizient als Raster persistiert und für die Kostenberechnung der einzelnen \glspl{Kante} abgerufen werden.
 
-Da die Fahrplandaten ebenfalls in relationaler Form in einer PostgreSQL-Datenbank gehalten werden, wird auch die Integration dieser Daten mit dem Routing-Graphen erleichtert.
+Da die Fahrplandaten ebenfalls in relationaler Form in einer PostgreSQL-Datenbank gehalten werden, wird auch die Integration dieser Daten mit dem \glspl{Routing-Graph} erleichtert.
 
-Abschliessend kann man sagen, dass die Kriterien mit pgRouting erfüllt werden und sich von den drei evaluierten Routing-Engines am besten für die Integration mit den restlichen Daten (Fahrplan- und Höhendaten) eignet.
+Abschliessend kann man sagen, dass die Kriterien mit pgRouting erfüllt werden und sich von den drei evaluierten \glspl{Routing-Engine} am besten für die Integration mit den restlichen Daten (Fahrplan- und Höhendaten) eignet.
 
 \subsection{Evaluation Frontend-Framework}
 \label{Analyse:Evaluation Frontend-Framework}
@@ -181,8 +181,8 @@ Für die Kommunikation und Integration mit den Umsystemen sind einige Libraries 
 \subsubsection{Integration mit PostgreSQL}
 \label{analyse_generator:Integration mit PostgreSQL}
 
-Für die Integration der Fahrplandaten und der Routing-Engine für die Berechnung der \glspl{Isochrone} ist eine Integration mit PostgreSQL nötig.
-Die Routing-Engine läuft auf pgRouting, eine Erweiterung von PostGIS, das wiederum eine Erweiterung von PostgreSQL ist.
+Für die Integration der Fahrplandaten und der \gls{Routing-Engine} für die Berechnung der \glspl{Isochrone} ist eine Integration mit PostgreSQL nötig.
+Die \gls{Routing-Engine} läuft auf pgRouting, eine Erweiterung von PostGIS, das wiederum eine Erweiterung von PostgreSQL ist.
 Insofern braucht es für beide Integrationen lediglich eine Möglichkeit, mit PostgreSQL zu kommunizieren.
 
 Dazu bietet sich bei Python die relativ neue Library \emph{records}~\cite{records} an.

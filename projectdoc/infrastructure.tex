@@ -16,7 +16,7 @@ So wird sichergestellt, dass die Dokumentation keine syntaktischen Fehler aufwei
 Das PDF wird in unser internes JIRA hochgeladen und direkt dem Task angehängt, der zum Branch gehört.
 
 Für diese Continuous Integration haben wir uns für Travis CI ~\cite{travis-ci} entschieden, da die Integration mit Github gut funktioniert und das Produkt für Open-Source-Projekte kostenlos ist.
-Allerdings bietet Travis CI keine direkte Unterstützung für eine LaTeX-Umgebung an. Die LaTeX-Pakete aus den Repositories sind ausserdem veraltet.
+Allerdings bietet Travis \acs{CI} keine direkte Unterstützung für eine LaTeX-Umgebung an. Die LaTeX-Pakete aus den Repositories sind ausserdem veraltet.
 So muss bei jedem Build die LaTeX-Umgebung kompiliert werden, damit immer die neueste Version aller Pakete verwendet werden kann.
 
 
@@ -25,7 +25,7 @@ So muss bei jedem Build die LaTeX-Umgebung kompiliert werden, damit immer die ne
 
 Für die Continuous Integration der Web-Applikation braucht es eine Umgebung mit Node JS, um die Applikation zu kompilieren und die Tests auszuführen.
 Für den \nameref{Implementation:ÖV-Güteklassen 2018 Generator} wird eine entsprechende Umgebung für Python benötigt.
-Dazu bietet sich ebenfalls Travis CI~\cite{travis-ci} an.
+Dazu bietet sich ebenfalls Travis \acs{CI}~\cite{travis-ci} an.
 Die entsprechenden Umgebungen sind bereits vorhanden, womit der Konfigurationsaufwand sehr klein bleibt.
 Ebenfalls existiert ein Cron-Job, welcher die Builds und somit die Tests in regelmässigen Abständen ausführt.
 

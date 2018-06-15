@@ -19,7 +19,7 @@ Grundsätzlich kann man sagen, dass zwei Docker-Container existieren, namentlich
 Der Docker-Container \emph{tooling} nimmt Daten entgegen oder bezieht diese von externen Diensten und bereitet sie so vor, dass diese vom Docker-Container \emph{db} in die Datenbank \emph{oevgk18} für eine Weitereverwendung des \gls{ÖV-Güteklassen} 2018 Generators geladen werden können.
 Der Docker-Container \emph{db} sorgt ebenfalls dafür, dass beim Starten die nötigen Extensions (pgrouting, hstore, \dots) aktiviert sind und zuerst die Schemas und danach die \glspl{Stored Procedure} erstellt werden.
 Zusätzlich müssen nach den einzelnen Imports, welche nachfolgend beschrieben werden, zusätzliche Modifaktionen am Schema vorgenommen werden.
-Diese Modifikationen werden in einem Post-Import-Schritt durchgeführt, weil die Terrain- sowie die OSM-Daten durch Tools importiert werden, welche ein Schema vorgeben und somit bereits vorhandene Schemas überschrieben werden.
+Diese Modifikationen werden in einem Post-Import-Schritt durchgeführt, weil die Terrain- sowie die \acs{OSM}-Daten durch Tools importiert werden, welche ein Schema vorgeben und somit bereits vorhandene Schemas überschrieben werden.
 Ebenfalls werden zusätzliche Indizes erstellt.
 
 Im weiteren sind die Services, welche die beiden Docker-Container bereitstellen, anhand eines Datenflussdiagramms aufgeschlüsselt.
